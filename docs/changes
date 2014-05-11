@@ -5,6 +5,7 @@ Move database configuration include from global includes to inside the database 
 Switch all functions out of Planet report ce, and into BadPlanetReportCE class
 Move functions out of log.php, and into BadLog
 Move functions out of planet_report.php, and into BadPlanetReport
+Move functions out of traderoute.php, and into BadTraderoute
 
 TheKabal (7 May 2014)
 --------------------------------------

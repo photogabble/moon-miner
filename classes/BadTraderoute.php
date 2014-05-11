@@ -66,12 +66,12 @@ class BadTraderoute
 
         if (!isset ($traderoute))
         {
-            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_engagenonexist'], $template);
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_engagenonexist'], $template);
         }
 
         if ($traderoute['owner'] != $playerinfo['ship_id'])
         {
-            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notowntdr'], $template);
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notowntdr'], $template);
         }
 
         // Source Check
@@ -83,7 +83,7 @@ class BadTraderoute
 
             if (!$result || $result->EOF)
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidspoint'], $template);
+                BadTraderteou::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidspoint'], $template);
             }
 
             $source = $result->fields;
@@ -91,7 +91,7 @@ class BadTraderoute
             if ($traderoute['source_id'] != $playerinfo['sector'])
             {
                 $langvars['l_tdr_inittdr'] = str_replace ("[tdr_source_id]", $traderoute['source_id'], $langvars['l_tdr_inittdr']);
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_inittdr'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_inittdr'], $template);
             }
         }
         elseif ($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')  // Get data from planet table
@@ -100,7 +100,7 @@ class BadTraderoute
             BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
             if (!$result || $result->EOF)
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
             }
 
             $source = $result->fields;
@@ -109,8 +109,8 @@ class BadTraderoute
             {
                 // Check for valid Owned Source Planet
                 // $langvars['l_tdr_inittdrsector'] = str_replace ("[tdr_source_sector_id]", $source['sector_id'], $langvars['l_tdr_inittdrsector']);
-                // traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_inittdrsector'], $template);
-                traderoute_die ($db, $lang, $langvars, $bntreg, 'You must be in starting sector before you initiate a trade route!', $template);
+                // BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_inittdrsector'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, 'You must be in starting sector before you initiate a trade route!', $template);
             }
 
             if ($traderoute['source_type'] == 'L')
@@ -119,8 +119,8 @@ class BadTraderoute
                 {
                     // $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_name]", $source[name], $langvars['l_tdr_notyourplanet']);
                     // $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_sector_id]", $source[sector_id], $langvars['l_tdr_notyourplanet']);
-                    // traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notyourplanet'], $template);
-                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
+                    // BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notyourplanet'], $template);
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
                 }
             }
             elseif ($traderoute['source_type'] == 'C')   // Check to make sure player and planet are in the same corp.
@@ -130,8 +130,8 @@ class BadTraderoute
                     // $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_name]", $source[name], $langvars['l_tdr_notyourplanet']);
                     // $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_sector_id]", $source[sector_id], $langvars['l_tdr_notyourplanet']);
                     // $not_corp_planet = "$source[name] in $source[sector_id] not a Copporate Planet";
-                    // traderoute_die ($db, $lang, $langvars, $bntreg, $not_corp_planet, $template);
-                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
+                    // BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $not_corp_planet, $template);
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
                 }
             }
 
@@ -141,7 +141,7 @@ class BadTraderoute
 
             if (!$result || $result->EOF)
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidssector'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidssector'], $template);
             }
 
             $sourceport = $result->fields;
@@ -155,7 +155,7 @@ class BadTraderoute
 
             if (!$result || $result->EOF)
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddport'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddport'], $template);
             }
 
             $dest = $result->fields;
@@ -169,7 +169,7 @@ class BadTraderoute
 
             if (!$result || $result->EOF)
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddplanet'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddplanet'], $template);
             }
 
             $dest = $result->fields;
@@ -180,7 +180,7 @@ class BadTraderoute
                 {
                     $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_name]", $dest['name'], $langvars['l_tdr_notyourplanet']);
                     $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_sector_id]", $dest['sector_id'], $langvars['l_tdr_notyourplanet']);
-                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notyourplanet'], $template);
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notyourplanet'], $template);
                 }
             }
             elseif ($traderoute['dest_type'] == 'C')   // Check to make sure player and planet are in the same corp.
@@ -189,7 +189,7 @@ class BadTraderoute
                 {
                     $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_name]", $dest['name'], $langvars['l_tdr_notyourplanet']);
                     $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_sector_id]", $dest['sector_id'], $langvars['l_tdr_notyourplanet']);
-                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notyourplanet'], $template);
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notyourplanet'], $template);
                 }
             }
 
@@ -197,7 +197,7 @@ class BadTraderoute
             BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
             if (!$result || $result->EOF)
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddsector'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddsector'], $template);
             }
 
             $destport = $result->fields;
@@ -222,7 +222,7 @@ class BadTraderoute
             {
                 $langvars['l_tdr_nowlink1'] = str_replace ("[tdr_src_sector_id]", $source['sector_id'], $langvars['l_tdr_nowlink1']);
                 $langvars['l_tdr_nowlink1'] = str_replace ("[tdr_dest_sector_id]", $dest['sector_id'], $langvars['l_tdr_nowlink1']);
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nowlink1'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nowlink1'], $template);
             }
 
             if ($traderoute['circuit'] == '2')
@@ -233,7 +233,7 @@ class BadTraderoute
                 {
                     $langvars['l_tdr_nowlink2'] = str_replace ("[tdr_src_sector_id]", $source['sector_id'], $langvars['l_tdr_nowlink2']);
                     $langvars['l_tdr_nowlink2'] = str_replace ("[tdr_dest_sector_id]", $dest['sector_id'], $langvars['l_tdr_nowlink2']);
-                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nowlink2'], $template);
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nowlink2'], $template);
                 }
                 $dist['triptime'] = 4;
             }
@@ -248,7 +248,7 @@ class BadTraderoute
         }
         else
         {
-            $dist = traderoute_distance($db, 'P', 'P', $sourceport, $destport, $traderoute['circuit']);
+            $dist = BadTraderoute::traderouteDistance($db, 'P', 'P', $sourceport, $destport, $traderoute['circuit']);
         }
 
         // Check if player has enough turns
@@ -256,7 +256,7 @@ class BadTraderoute
         {
             $langvars['l_tdr_moreturnsneeded'] = str_replace ("[tdr_dist_triptime]", $dist['triptime'], $langvars['l_tdr_moreturnsneeded']);
             $langvars['l_tdr_moreturnsneeded'] = str_replace ("[tdr_playerinfo_turns]", $playerinfo['turns'], $langvars['l_tdr_moreturnsneeded']);
-            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_moreturnsneeded'], $template);
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_moreturnsneeded'], $template);
         }
 
         // Sector Defense Check
@@ -294,13 +294,13 @@ class BadTraderoute
 
         if ($hostile > 0 && $playerinfo['hull'] > $mine_hullsize)
         {
-            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_hostdef'], $template);
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_hostdef'], $template);
         }
 
         // Special Port Nothing to do
         if ($traderoute['source_type'] == 'P' && $source['port_type'] == 'special' && $playerinfo['trade_colonists'] == 'N' && $playerinfo['trade_fighters'] == 'N' && $playerinfo['trade_torps'] == 'N')
         {
-            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_globalsetbuynothing'], $template);
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_globalsetbuynothing'], $template);
         }
 
         // Check if zone allows trading  SRC
@@ -311,7 +311,7 @@ class BadTraderoute
             $zoneinfo = $res->fields;
             if ($zoneinfo['allow_trade'] == 'N')
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nosrcporttrade'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nosrcporttrade'], $template);
             }
             elseif ($zoneinfo['allow_trade'] == 'L')
             {
@@ -323,14 +323,14 @@ class BadTraderoute
 
                     if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
                     {
-                        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradesrcportoutsider'], $template);
+                        BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradesrcportoutsider'], $template);
                     }
                 }
                 else
                 {
                     if ($playerinfo['team'] != $zoneinfo['owner'])
                     {
-                        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradesrcportoutsider'], $template);
+                        BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradesrcportoutsider'], $template);
                     }
                 }
             }
@@ -344,7 +344,7 @@ class BadTraderoute
             $zoneinfo = $res->fields;
             if ($zoneinfo['allow_trade'] == 'N')
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nodestporttrade'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nodestporttrade'], $template);
             }
             elseif ($zoneinfo['allow_trade'] == 'L')
             {
@@ -356,20 +356,20 @@ class BadTraderoute
 
                     if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
                     {
-                        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradedestportoutsider'], $template);
+                        BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradedestportoutsider'], $template);
                     }
                 }
                 else
                 {
                     if ($playerinfo['team'] != $zoneinfo['owner'])
                     {
-                        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradedestportoutsider'], $template);
+                        BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradedestportoutsider'], $template);
                     }
                 }
             }
         }
 
-        traderoute_results_table_top ($db, $lang, $langvars);
+        BadTraderoute::traderouteResultsTableTop ($db, $lang, $langvars);
         // Determine if Source is Planet or Port
         if ($traderoute['source_type'] == 'P')
         {
@@ -379,7 +379,7 @@ class BadTraderoute
         {
             echo $langvars['l_tdr_planet'] . " " . $source['name'] . " in " . $sourceport['sector_id'];
         }
-        traderoute_results_source();
+        BadTraderoute::traderouteResultsSource();
 
         // Determine if Destination is Planet or Port
         if ($traderoute['dest_type'] == 'P')
@@ -390,7 +390,7 @@ class BadTraderoute
         {
             echo $langvars['l_tdr_planet'] . " " . $dest['name'] . " in " . $destport['sector_id'];
         }
-        traderoute_results_destination();
+        BadTraderoute::traderouteResultsDestination();
 
         $sourcecost=0;
 
@@ -924,7 +924,7 @@ class BadTraderoute
             echo $langvars['l_tdr_scooped'] . " " . number_format ($dist['scooped1'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_tdr_energy'] . "<br>";
         }
 
-        traderoute_results_close_cell();
+        BadTraderoute::traderouteResultsCloseCell();
 
         if ($traderoute['circuit'] == '2')
         {
@@ -1369,7 +1369,7 @@ class BadTraderoute
             echo $langvars['l_tdr_onlyonewaytdr'];
             $destcost = 0;
         }
-        traderoute_results_show_cost();
+        BadTraderoute::traderouteResultsShowCost();
 
         if ($sourcecost > 0)
         {
@@ -1379,7 +1379,7 @@ class BadTraderoute
         {
             echo $langvars['l_tdr_cost'] . " : " . number_format (abs($sourcecost), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
         }
-        traderoute_results_close_cost();
+        BadTraderoute::traderouteResultsCloseCost();
 
         if ($destcost > 0)
         {
@@ -1390,10 +1390,10 @@ class BadTraderoute
             echo $langvars['l_tdr_cost'] . " : " . number_format (abs($destcost), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
         }
 
-        traderoute_results_close_table();
+        BadTraderoute::traderouteResultsCloseTable();
 
         $total_profit = $sourcecost + $destcost;
-        traderoute_results_display_totals ($db, $lang, $langvars, $total_profit);
+        BadTraderoute::traderouteResultsDisplayTotals ($db, $lang, $langvars, $total_profit);
 
         if ($traderoute['circuit'] == '1')
         {
@@ -1409,7 +1409,7 @@ class BadTraderoute
         $playerinfo['turns']-= $dist['triptime'];
 
         $tdr_display_creds =   number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
-        traderoute_results_display_summary ($db, $lang, $langvars, $tdr_display_creds);
+        BadTraderoute::traderouteResultsDisplaySummary ($db, $lang, $langvars, $tdr_display_creds);
         // echo $j." -- ";
         if ($traderoute['circuit'] == 2)
         {
@@ -1421,12 +1421,12 @@ class BadTraderoute
             if ($j == 1)
             {
                 echo $langvars['l_tdr_engageagain'] . "\n";
-                traderoute_results_show_repeat ($engage);
+                BadTraderoute::traderouteResultsShowRepeat ($engage);
             }
         }
         if ($j == 1)
         {
-            traderoute_die ($db, $lang, $langvars, $bntreg, null, $template);
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, null, $template);
         }
     }
 
@@ -1444,20 +1444,20 @@ class BadTraderoute
 
             if (!$result || $result->EOF)
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_editerr'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_editerr'], $template);
             }
 
             $editroute = $result->fields;
 
             if ($editroute['owner'] != $playerinfo['ship_id'])
             {
-                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notowner'], $template);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notowner'], $template);
             }
         }
 
         if ($num_traderoutes >= $bntreg->max_traderoutes_player && is_null ($editroute))
         {
-            traderoute_die ($db, $lang, $langvars, $bntreg, '<p>' . $langvars['l_tdr_maxtdr'] . '<p>', $template);
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, '<p>' . $langvars['l_tdr_maxtdr'] . '<p>', $template);
         }
 
         echo "<p><font size=3 color=blue><strong>";
@@ -1807,6 +1807,669 @@ class BadTraderoute
 
         include './footer.php';
         die ();
+    }
+
+    public static function traderouteDie($db, $lang, $langvars, $bntreg, $error_msg, $template)
+    {
+        $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+
+        echo "<p>" . $error_msg . "<p>";
+        echo "<div style='text-align:left;'>\n";
+        BntText::gotoMain ($db, $lang, $langvars);
+        echo "</div>\n";
+        include_once './footer.php';
+        die ();
+    }
+
+    public static function traderouteCheckCompatible($db, $lang, $langvars, $type1, $type2, $move, $circuit, $src, $dest)
+    {
+        global $playerinfo, $servertimezone;
+        $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+
+        // Check circuit compatibility (we only use types 1 and 2 so block anything else)
+        if ($circuit != "1" && $circuit != "2")
+        {
+            BntAdminLog::writeLog ($db, LOG_RAW, "{$playerinfo['ship_id']}|Tried to use an invalid circuit_type of '{$circuit}', This is normally a result from using an external page and should be banned.");
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, "Invalid Circuit type!<br>*** Possible Exploit has been reported to the admin. ***", $template);
+        }
+
+        // Check warp links compatibility
+        if ($move == 'warp')
+        {
+            $query = $db->Execute ("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?;", array ($src['sector_id'], $dest['sector_id']));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            if ($query->EOF)
+            {
+                $langvars['l_tdr_nowlink1'] = str_replace ("[tdr_src_sector_id]", $src['sector_id'], $langvars['l_tdr_nowlink1']);
+                $langvars['l_tdr_nowlink1'] = str_replace ("[tdr_dest_sector_id]", $dest['sector_id'], $langvars['l_tdr_nowlink1']);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nowlink1'], $template);
+            }
+
+            if ($circuit == '2')
+            {
+                $query = $db->Execute ("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?;", array ($dest['sector_id'], $src['sector_id']));
+                BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+                if ($query->EOF)
+                {
+                    $langvars['l_tdr_nowlink2'] = str_replace ("[tdr_src_sector_id]", $src['sector_id'], $langvars['l_tdr_nowlink2']);
+                    $langvars['l_tdr_nowlink2'] = str_replace ("[tdr_dest_sector_id]", $dest['sector_id'], $langvars['l_tdr_nowlink2']);
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nowlink2'], $template);
+                }
+            }
+        }
+
+      // Check ports compatibility
+        if ($type1 == 'port')
+        {
+            if ($src['port_type'] == 'special')
+            {
+                if (($type2 != 'planet') && ($type2 != 'corp_planet'))
+                {
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_sportissrc'], $template);
+                }
+
+                if ($dest['owner'] != $playerinfo['ship_id'] && ($dest['corp'] == 0 || ($dest['corp'] != $playerinfo['team'])))
+                {
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notownplanet'], $template);
+                }
+            }
+            else
+            {
+                if ($type2 == 'planet')
+                {
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_planetisdest'], $template);
+                }
+
+                if ($src['port_type'] == $dest['port_type'])
+                {
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_samecom'], $template);
+                }
+            }
+        }
+        else
+        {
+            if (array_key_exists ('port_type', $dest) == true && $dest['port_type'] == 'special')
+            {
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_sportcom'], $template);
+            }
+        }
+    }
+
+    public static function traderouteDistance($db, $langvars, $type1, $type2, $start, $dest, $circuit, $sells = 'N')
+    {
+        global $playerinfo, $servertimezone;
+
+        $retvalue['triptime'] = 0;
+        $retvalue['scooped1'] = 0;
+        $retvalue['scooped2'] = 0;
+        $retvalue['scooped'] = 0;
+
+        if ($type1 == 'L')
+        {
+            $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($start));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            $start = $query->fields;
+        }
+
+        if ($type2 == 'L')
+        {
+            $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($dest));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            $dest = $query->fields;
+        }
+
+        if ($start['sector_id'] == $dest['sector_id'])
+        {
+            if ($circuit == '1')
+            {
+                $retvalue['triptime'] = '1';
+            }
+            else
+            {
+                $retvalue['triptime'] = '2';
+            }
+
+            return $retvalue;
+        }
+
+        $deg = pi() / 180;
+
+        $sa1 = $start['angle1'] * $deg;
+        $sa2 = $start['angle2'] * $deg;
+        $fa1 = $dest['angle1'] * $deg;
+        $fa2 = $dest['angle2'] * $deg;
+        $x = $start['distance'] * sin($sa1) * cos($sa2) - $dest['distance'] * sin($fa1) * cos($fa2);
+        $y = $start['distance'] * sin($sa1) * sin($sa2) - $dest['distance'] * sin($fa1) * sin($fa2);
+        $z = $start['distance'] * cos($sa1) - $dest['distance'] * cos($fa1);
+        $distance = round (sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
+        $shipspeed = pow ($bntreg->level_factor, $playerinfo['engines']);
+        $triptime = round ($distance / $shipspeed);
+
+        if (!$triptime && $dest['sector_id'] != $playerinfo['sector'])
+        {
+            $triptime = 1;
+        }
+
+        if ($playerinfo['dev_fuelscoop'] == "Y")
+        {
+            $energyscooped = $distance * 100;
+        }
+        else
+        {
+            $energyscooped = 0;
+        }
+
+        if ($playerinfo['dev_fuelscoop'] == "Y" && !$energyscooped && $triptime == 1)
+        {
+            $energyscooped = 100;
+        }
+
+        $free_power = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor) - $playerinfo['ship_energy'];
+
+        if ($free_power < $energyscooped)
+        {
+            $energyscooped = $free_power;
+        }
+
+        if ($energyscooped < 1)
+        {
+            $energyscooped = 0;
+        }
+
+        $retvalue['scooped1'] = $energyscooped;
+
+        if ($circuit == '2')
+        {
+            if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
+            {
+                $energyscooped = $distance * 100;
+                $free_power = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor);
+
+                if ($free_power < $energyscooped)
+                {
+                    $energyscooped = $free_power;
+                }
+
+                $retvalue['scooped2'] = $energyscooped;
+            }
+            elseif ($playerinfo['dev_fuelscoop'] == 'Y')
+            {
+                $energyscooped = $distance * 100;
+                $free_power = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
+
+                if ($free_power < $energyscooped)
+                {
+                    $energyscooped = $free_power;
+                }
+
+                $retvalue['scooped2'] = $energyscooped;
+            }
+        }
+
+        if ($circuit == '2')
+        {
+            $triptime*= 2;
+            $triptime+= 2;
+        }
+        else
+        {
+            $triptime+= 1;
+        }
+
+        $retvalue['triptime'] = $triptime;
+        $retvalue['scooped'] = $retvalue['scooped1'] + $retvalue['scooped2'];
+
+        return $retvalue;
+    }
+
+    public static function traderouteCreate($db, $lang, $langvars, $bntreg, $template)
+    {
+        global $playerinfo;
+        global $num_traderoutes, $servertimezone;
+        global $ptype1;
+        global $ptype2;
+        global $port_id1;
+        global $port_id2;
+        global $planet_id1;
+        global $planet_id2;
+        global $corp_planet_id1;
+        global $corp_planet_id2;
+        global $move_type;
+        global $circuit_type;
+        global $editing;
+        $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+
+        if ($num_traderoutes >= $bntreg->max_traderoutes_player && empty ($editing))
+        { // Dont let them exceed max traderoutes
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_maxtdr'], $template);
+        }
+
+        // Database sanity check for source
+        if ($ptype1 == 'port')
+        {
+            // Check for valid Source Port
+            if ($port_id1 >= $bntreg->sector_max)
+            {
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidspoint'], $template);
+            }
+
+            $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($port_id1));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            if (!$query || $query->EOF)
+            {
+                $langvars['l_tdr_errnotvalidport'] = str_replace ("[tdr_port_id]", $port_id1, $langvars['l_tdr_errnotvalidport']);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_errnotvalidport'], $template);
+            }
+
+            // OK we definitely have a port here
+            $source= $query->fields;
+            if ($source['port_type'] == 'none')
+            {
+                $langvars['l_tdr_errnoport'] = str_replace ("[tdr_port_id]", $port_id1, $langvars['l_tdr_errnoport']);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_errnoport'], $template);
+            }
+        }
+        else
+        {
+            $query = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?;", array ($planet_id1));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            $source = $query->fields;
+            if (!$query || $query->EOF)
+            {
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_errnosrc'], $template);
+            }
+
+            // Check for valid Source Planet
+            if ($source['sector_id'] >= $bntreg->sector_max)
+            {
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
+            }
+
+            if ($source['owner'] != $playerinfo['ship_id'])
+            {
+                if (($playerinfo['team'] == 0 || $playerinfo['team'] != $source['corp']) && $source['sells'] == 'N')
+                {
+                    // $langvars['l_tdr_errnotownnotsell'] = str_replace ("[tdr_source_name]", $source[name], $langvars['l_tdr_errnotownnotsell']);
+                    // $langvars['l_tdr_errnotownnotsell'] = str_replace ("[tdr_source_sector_id]", $source[sector_id], $langvars['l_tdr_errnotownnotsell']);
+                    // BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_errnotownnotsell'], $template);
+
+                    // Check for valid Owned Source Planet
+                    BntAdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to find someones planet: {$planet_id1} as source.");
+                    BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
+                }
+            }
+        }
+        // OK we have $source, *probably* now lets see if we have ever been there
+        // Attempting to fix the map the universe via traderoute bug
+
+        $pl1query = $db->Execute ("SELECT * FROM {$db->prefix}movement_log WHERE sector_id=? AND ship_id = ?;", array ($source['sector_id'], $playerinfo['ship_id']));
+        BntDb::logDbErrors ($db, $pl1query, __LINE__, __FILE__);
+        $num_res1 = $pl1query->numRows();
+        if ($num_res1 == 0)
+        {
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, "You cannot create a traderoute from a sector you have not visited!", $template);
+        }
+        // Note: shouldnt we, more realistically, require a ship to be *IN* the source sector to create the traderoute?
+
+        // Database sanity check for dest
+        if ($ptype2 == 'port')
+        {
+            // Check for valid Dest Port
+            if ($port_id2 >= $bntreg->sector_max)
+            {
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddport'], $template);
+            }
+
+            $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($port_id2));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            if (!$query || $query->EOF)
+            {
+                $langvars['l_tdr_errnotvaliddestport'] = str_replace ("[tdr_port_id]", $port_id2, $langvars['l_tdr_errnotvaliddestport']);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_errnotvaliddestport'], $template);
+            }
+
+            $destination = $query->fields;
+
+            if ($destination['port_type'] == 'none')
+            {
+                $langvars['l_tdr_errnoport2'] = str_replace ("[tdr_port_id]", $port_id2, $langvars['l_tdr_errnoport2']);
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_errnoport2'], $template);
+            }
+        }
+        else
+        {
+            $query = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?;", array ($planet_id2));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            $destination = $query->fields;
+            if (!$query || $query->EOF)
+            {
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_errnodestplanet'], $template);
+            }
+
+            // Check for valid Dest Planet
+            if ($destination['sector_id'] >= $bntreg->sector_max)
+            {
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddplanet'], $template);
+            }
+
+            if ($destination['owner'] != $playerinfo['ship_id'] && $destination['sells'] == 'N')
+            {
+                // $langvars['l_tdr_errnotownnotsell2'] = str_replace ("[tdr_dest_name]", $destination['name'], $langvars['l_tdr_errnotownnotsell2']);
+                // $langvars['l_tdr_errnotownnotsell2'] = str_replace ("[tdr_dest_sector_id]", $destination['sector_id'], $langvars['l_tdr_errnotownnotsell2']);
+                // BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_errnotownnotsell2'], $template);
+
+                // Check for valid Owned Source Planet
+                BntAdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to find someones planet: {$planet_id2} as dest.");
+                BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddplanet'], $template);
+            }
+        }
+
+        // OK now we have $destination lets see if we've been there.
+        $pl2query = $db->Execute ("SELECT * FROM {$db->prefix}movement_log WHERE sector_id=? AND ship_id = ?;", array ($destination['sector_id'], $playerinfo['ship_id']));
+        BntDb::logDbErrors ($db, $pl2query, __LINE__, __FILE__);
+        $num_res2 = $pl2query->numRows();
+        if ($num_res2 == 0)
+        {
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, "You cannot create a traderoute into a sector you have not visited!", $template);
+        }
+
+        // Check destination - we cannot trade INTO a special port
+        if (array_key_exists ('port_type', $destination) == true && $destination['port_type'] == 'special')
+        {
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, "You cannot create a traderoute into a special port!", $template);
+        }
+        // Check traderoute for src => dest
+        BadTraderoute::traderouteCheckCompatible ($db, $lang, $langvars, $ptype1, $ptype2, $move_type, $circuit_type, $source , $destination);
+
+        if ($ptype1 == 'port')
+        {
+            $src_id = $port_id1;
+        }
+        elseif ($ptype1 == 'planet')
+        {
+            $src_id = $planet_id1;
+        }
+        elseif ($ptype1 == 'corp_planet')
+        {
+            $src_id = $corp_planet_id1;
+        }
+
+        if ($ptype2 == 'port')
+        {
+            $dest_id = $port_id2;
+        }
+        elseif ($ptype2 == 'planet')
+        {
+            $dest_id = $planet_id2;
+        }
+        elseif ($ptype2 == 'corp_planet')
+        {
+            $dest_id = $corp_planet_id2;
+        }
+
+        if ($ptype1 == 'port')
+        {
+            $src_type = 'P';
+        }
+        elseif ($ptype1 == 'planet')
+        {
+            $src_type = 'L';
+        }
+        elseif ($ptype1 == 'corp_planet')
+        {
+            $src_type = 'C';
+        }
+
+        if ($ptype2 == 'port')
+        {
+            $dest_type = 'P';
+        }
+        elseif ($ptype2 == 'planet')
+        {
+            $dest_type = 'L';
+        }
+        elseif ($ptype2 == 'corp_planet')
+        {
+            $dest_type = 'C';
+        }
+
+        if ($move_type == 'realspace')
+        {
+            $mtype = 'R';
+        }
+        else
+        {
+            $mtype = 'W';
+        }
+
+        if (empty ($editing))
+        {
+            $query = $db->Execute ("INSERT INTO {$db->prefix}traderoutes VALUES(NULL, ?, ?, ?, ?, ?, ?, ?);", array ($src_id, $dest_id, $src_type, $dest_type, $mtype, $playerinfo['ship_id'], $circuit_type));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            echo "<p>" . $langvars['l_tdr_newtdrcreated'];
+        }
+        else
+        {
+            $query = $db->Execute ("UPDATE {$db->prefix}traderoutes SET source_id=?, dest_id=?, source_type=?, dest_type=?, move_type=?, owner=?, circuit=? WHERE traderoute_id=?;", array ($src_id, $dest_id, $src_type, $dest_type, $mtype, $playerinfo['ship_id'], $circuit_type, $editing));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            echo "<p>" . $langvars['l_tdr_modified'];
+        }
+
+        $langvars['l_tdr_returnmenu'] = str_replace ("[here]", "<a href='traderoute.php'>" . $langvars['l_here'] . "</a>", $langvars['l_tdr_returnmenu']);
+        echo " " . $langvars['l_tdr_returnmenu'];
+        BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, null, $template);
+    }
+
+    public static function traderouteDelete($db, $lang, $langvars, $bntreg, $template)
+    {
+        global $playerinfo;
+        global $confirm, $servertimezone;
+        global $num_traderoutes;
+        global $traderoute_id;
+        global $traderoutes;
+
+        $query = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array ($traderoute_id));
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+
+        if (!$query || $query->EOF)
+        {
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_doesntexist'], $template);
+        }
+
+        $delroute = $query->fields;
+
+        if ($delroute['owner'] != $playerinfo['ship_id'])
+        {
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notowntdr'], $template);
+        }
+
+        if (empty ($confirm))
+        {
+            $num_traderoutes = 1;
+            $traderoutes[0] = $delroute;
+            // Here it continues to the main file area to print the route
+        }
+        else
+        {
+            $query = $db->Execute ("DELETE FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array ($traderoute_id));
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+            $langvars['l_tdr_returnmenu'] = str_replace ("[here]", "<a href='traderoute.php'>" . $langvars['l_here'] . "</a>", $langvars['l_tdr_returnmenu']);
+            echo $langvars['l_tdr_deleted'] . " " . $langvars['l_tdr_returnmenu'];
+            BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, null, $template);
+        }
+    }
+
+    public static function traderouteSettings($db, $lang, $langvars, $bntreg, $template)
+    {
+        global $playerinfo, $servertimezone;
+        $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+
+        echo "<p><font size=3 color=blue><strong>" . $langvars['l_tdr_globalset'] . "</strong></font><p>";
+        echo "<font color=white size=2><strong>" . $langvars['l_tdr_sportsrc'] . " :</strong></font><p>".
+             "<form action=traderoute.php?command=setsettings method=post>".
+             "<table border=0><tr>".
+             "<td><font size=2 color=white> - " . $langvars['l_tdr_colonists'] . " :</font></td>".
+             "<td><input type=checkbox name=colonists";
+
+        if ($playerinfo['trade_colonists'] == 'Y')
+        {
+            echo " checked";
+        }
+
+        echo "></tr><tr>".
+            "<td><font size=2 color=white> - " . $langvars['l_tdr_fighters'] . " :</font></td>".
+            "<td><input type=checkbox name=fighters";
+
+        if ($playerinfo['trade_fighters'] == 'Y')
+        {
+            echo " checked";
+        }
+
+        echo "></tr><tr>".
+            "<td><font size=2 color=white> - " . $langvars['l_tdr_torps'] . " :</font></td>".
+            "<td><input type=checkbox name=torps";
+
+        if ($playerinfo['trade_torps'] == 'Y')
+        {
+            echo " checked";
+        }
+
+        echo "></tr>".
+            "</table>".
+            "<p>".
+            "<font color=white size=2><strong>" . $langvars['l_tdr_tdrescooped'] . " :</strong></font><p>".
+            "<table border=0><tr>".
+            "<td><font size=2 color=white>&nbsp;&nbsp;&nbsp;" . $langvars['l_tdr_trade'] . "</font></td>".
+            "<td><input type=radio name=energy value=\"Y\"";
+
+        if ($playerinfo['trade_energy'] == 'Y')
+        {
+            echo " checked";
+        }
+
+        echo "></td></tr><tr>".
+            "<td><font size=2 color=white>&nbsp;&nbsp;&nbsp;" . $langvars['l_tdr_keep'] . "</font></td>".
+            "<td><input type=radio name=energy value=\"N\"";
+
+        if ($playerinfo['trade_energy'] == 'N')
+        {
+            echo " checked";
+        }
+
+        echo "></td></tr><tr><td>&nbsp;</td></tr><tr><td>".
+            "<td><input type=submit value=\"" . $langvars['l_tdr_save'] . "\"></td>".
+            "</tr></table>".
+            "</form>";
+
+        $langvars['l_tdr_returnmenu'] = str_replace ("[here]", "<a href='traderoute.php'>" . $langvars['l_here'] . "</a>", $langvars['l_tdr_returnmenu']);
+        echo $langvars['l_tdr_returnmenu'];
+        BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, null, $template);
+    }
+
+    public static function traderouteSetsettings($db, $lang, $langvars, $bntreg, $template)
+    {
+        global $playerinfo;
+        global $colonists, $servertimezone, $fighters, $torps, $energy;
+        $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+
+        empty ($colonists) ? $colonists = 'N' : $colonists = 'Y';
+        empty ($fighters) ? $fighters = 'N' : $fighters = 'Y';
+        empty ($torps) ? $torps = 'N' : $torps = 'Y';
+
+        $resa = $db->Execute ("UPDATE {$db->prefix}ships SET trade_colonists=?, trade_fighters=?, trade_torps=?, trade_energy=? WHERE ship_id=?;", array ($colonists, $fighters, $torps, $energy, $playerinfo['ship_id']));
+        BntDb::logDbErrors ($db, $resa, __LINE__, __FILE__);
+
+        $langvars['l_tdr_returnmenu'] = str_replace ("[here]", "<a href='traderoute.php'>" . $langvars['l_here'] . "</a>", $langvars['l_tdr_returnmenu']);
+        echo $langvars['l_tdr_globalsetsaved'] . " " . $langvars['l_tdr_returnmenu'];
+        BadTraderoute::traderouteDie ($db, $lang, $langvars, $bntreg, null, $template);
+    }
+
+    public static function traderouteResultsTableTop($db, $lang, $langvars)
+    {
+        $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+
+        echo "<table border='1' cellspacing='1' cellpadding='2' width='65%' align='center'>\n";
+        echo "  <tr bgcolor='".$bntreg->color_line2."'>\n";
+        echo "    <td align='center' colspan='7'><strong><font color='white'>" . $langvars['l_tdr_res'] . "</font></strong></td>\n";
+        echo "  </tr>\n";
+        echo "  <tr align='center' bgcolor='".$bntreg->color_line2."'>\n";
+        echo "    <td width='50%'><font size='2' color='white'><strong>";
+    }
+
+    public static function traderouteResultsSource()
+    {
+        echo "</strong></font></td>\n";
+        echo "    <td width='50%'><font size='2' color='white'><strong>";
+    }
+
+    public static function traderouteResultsDestination()
+    {
+        echo "</strong></font></td>\n";
+        echo "  </tr>\n";
+        echo "  <tr bgcolor='".$bntreg->color_line1."'>\n";
+        echo "    <td align='center'><font size='2' color='white'>";
+    }
+
+    public static function traderouteResultsCloseCell()
+    {
+        echo "</font></td>\n";
+        echo "    <td align='center'><font size='2' color='white'>";
+    }
+
+    public static function traderouteResultsShowCost()
+    {
+        echo "</font></td>\n";
+        echo "  </tr>\n";
+        echo "  <tr bgcolor='".$bntreg->color_line2."'>\n";
+        echo "    <td align='center'><font size='2' color='white'>";
+    }
+
+    public static function traderouteResultsCloseCost()
+    {
+        echo "</font></td>\n";
+        echo "    <td align='center'><font size='2' color='white'>";
+    }
+
+    public static function traderouteResultsCloseTable()
+    {
+        echo "</font></td>\n";
+        echo "  </tr>\n";
+        echo "</table>\n";
+        // echo "<p><center><font size=3 color=white><strong>\n";
+    }
+
+    public static function traderouteResultsDisplayTotals($db, $lang, $langvars, $total_profit)
+    {
+        $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+
+        if ($total_profit > 0)
+        {
+            echo "<p><center><font size=3 color=white><strong>" . $langvars['l_tdr_totalprofit'] . " : <font style='color:#0f0;'><strong>" . number_format (abs($total_profit), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</strong></font><br>\n";
+        }
+        else
+        {
+            echo "<p><center><font size=3 color=white><strong>" . $langvars['l_tdr_totalcost'] . " : <font style='color:#f00;'><strong>" . number_format (abs($total_profit), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</strong></font><br>\n";
+        }
+    }
+
+    public static function traderouteResultsDisplaySummary($db, $lang, $langvars, $tdr_display_creds)
+    {
+        global $dist, $playerinfo;
+        $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+
+        echo "\n<font size='3' color='white'><strong>" . $langvars['l_tdr_turnsused'] . " : <font style='color:#f00;'>$dist[triptime]</font></strong></font><br>";
+        echo "\n<font size='3' color='white'><strong>" . $langvars['l_tdr_turnsleft'] . " : <font style='color:#0f0;'>$playerinfo[turns]</font></strong></font><br>";
+
+        echo "\n<font size='3' color='white'><strong>" . $langvars['l_tdr_credits'] . " : <font style='color:#0f0;'> $tdr_display_creds\n</font></strong></font><br> </strong></font></center>\n";
+        //echo "<font size='2'>\n";
+    }
+
+    public static function traderouteResultsShowRepeat($engage)
+    {
+        echo "<form action='traderoute.php?engage=".$engage."' method='post'>\n";
+        echo "<br>Enter times to repeat <input type='TEXT' name='tr_repeat' value='1' size='5'> <input type='SUBMIT' value='SUBMIT'>\n";
+        echo "</form>\n";
+        // echo "<p>";
     }
 }
 ?>
