@@ -32,8 +32,22 @@ ini_set ('session.entropy_file', '/dev/urandom');  // Use urandom as entropy sou
 ini_set ('session.entropy_length', '512');         // Increase the length of entropy gathered
 ini_set ('session.hash_function', 'sha512');       // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
 ini_set ('url_rewriter.tags', '');                 // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
-ini_set ('error_reporting', 0);                    // Do not report errors (dev mode overrides this, further down in this file..)
-ini_set ('display_errors', 0);                     // Do not display errors (dev mode overrides this, further down in this file..)
+
+// Create/touch a file named dev in the main game directory to activate development mode
+if (file_exists ("dev"))
+{
+    ini_set ('error_reporting', -1); // During development, output all errors, even notices
+    ini_set ('display_errors', 1);   // During development, display all errors
+}
+else
+{
+    ini_set ('error_reporting', 0);                    // Do not report errors
+    ini_set ('display_errors', 0);                     // Do not display errors
+}
+
+$bntreg = new stdClass();                          // Create a registry, for passing the most common variables in game through classes
+$bntreg->bnttimer = new BntTimer;                  // We want benchmarking data for all activities, so create a benchmark timer object
+$bntreg->bnttimer->start();                        // Start benchmarking immediately
 
 date_default_timezone_set ('UTC');                 // Set to your server's local time zone - PHP throws a notice if this is not set.
 if (extension_loaded ('mbstring'))                 // Ensure that we don't trigger an error if the mbstring extension is not loaded
@@ -51,9 +65,6 @@ header ("Connection: Keep-Alive");                 // Tell the browser to keep g
 header ("Vary: Accept-Encoding, Accept-Language");
 header ("Keep-Alive: timeout=15, max=100");
 
-$bntreg = new stdClass();                          // Create a registry, for passing the most common variables in game through classes
-$bntreg->bnttimer = new BntTimer;                  // We want benchmarking data for all activities, so create a benchmark timer object
-$bntreg->bnttimer->start();                        // Start benchmarking immediately
 ob_start (array('BntCompress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" to properly handle detection of compression.
 
 // Connect to db using pdo
@@ -62,16 +73,10 @@ $pdo_db = BntDb::initDb ('pdo');
 // Connect to db using adodb also - for now - to be eliminated!
 $db = BntDb::initDb('adodb');
 
-$no_langs_yet = false;
-
 $bntreg = BntReg::init ($pdo_db, $bntreg);
-
-// Create/touch a file named dev in the main game directory to activate development mode
-if (file_exists ("dev"))
-{
-    ini_set ('error_reporting', -1); // During development, output all errors, even notices
-    ini_set ('display_errors', 1);   // During development, display all errors
-}
+$langvars = null; // We need language variables in every page, set them to a null value first.
+$template = new BntTemplate (); // Template API.
+$template->SetTheme ($bntreg->default_template); // We set the name of the theme, temporary until we have a theme picker
 
 if (!isset ($index_page))
 {
@@ -121,10 +126,4 @@ BntPluginSystem::LoadPlugins ();
 // This is used for ingame stuff and Plug-ins that need to be called on every page load.
 // May need to change array(time()) to have extra info, but the current suits us fine for now.
 BntPluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
-
-// We need language variables in every page, set them to a null value first.
-$langvars = null;
-
-$template = new BntTemplate (); // Template API.
-$template->SetTheme ($bntreg->default_template); // We set the name of the theme, temporary until we have a theme picker
 ?>
