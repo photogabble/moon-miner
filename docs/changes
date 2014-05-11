@@ -4,6 +4,7 @@ Change "HandleFuelScoop" to BntMove::calcFuelScooped, in classes directory
 Move database configuration include from global includes to inside the database class & init method itself. And then there were three (global_includes left)..
 Switch all functions out of Planet report ce, and into BadPlanetReportCE class
 Move functions out of log.php, and into BadLog
+Move functions out of planet_report.php, and into BadPlanetReport
 
 TheKabal (7 May 2014)
 --------------------------------------
