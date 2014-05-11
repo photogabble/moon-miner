@@ -57,10 +57,10 @@ $bntreg->bnttimer->start();                        // Start benchmarking immedia
 ob_start (array('BntCompress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" to properly handle detection of compression.
 
 // Connect to db using pdo
-$pdo_db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'pdo');
+$pdo_db = BntDb::initDb ('pdo');
 
 // Connect to db using adodb also - for now - to be eliminated!
-$db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'adodb');
+$db = BntDb::initDb('adodb');
 
 $no_langs_yet = false;
 
