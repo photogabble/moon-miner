@@ -32,7 +32,7 @@ class BntSchema
 
         $i = 0;
         $schema_files = new DirectoryIterator ("schema/mysql"); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
-        $destroy_table_results = Array ();
+        $destroy_table_results = array ();
 
         foreach ($schema_files as $schema_filename)
         {
@@ -88,7 +88,7 @@ class BntSchema
         $schema_files = new DirectoryIterator ("schema/mysql/"); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
 
         // New SQL Schema table creation
-        $create_table_results = Array ();
+        $create_table_results = array ();
 
         foreach ($schema_files as $schema_filename)
         {
