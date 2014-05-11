@@ -62,7 +62,7 @@ class BntDb
 
     public static function initDb($db_layer)
     {
-        include './config/db_config.php';
+        require './config/db_config.php';
         if ($db_layer == 'adodb')
         {
             // Add MD5 encryption for sessions, and then compress it before storing it in the database
