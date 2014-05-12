@@ -921,7 +921,7 @@ class BadIbank
              "<img width=600 height=21 src=" . $active_template . "/images/div2.png>" .
              "</center>";
 
-        include './footer.php';
+        include_once '../footer.php';
         die ();
     }
 

@@ -32,7 +32,7 @@ class BadPlanet
         {
             echo $langvars['l_cmb_atleastoneturn'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
-            include_once './footer.php';
+            include_once '../footer.php';
             die ();
         }
 
@@ -119,7 +119,7 @@ class BadPlanet
         {
             echo $langvars['l_cmb_atleastoneturn'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
-            include_once './footer.php';
+            include_once '../footer.php';
             die ();
         }
 

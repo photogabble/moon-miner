@@ -172,9 +172,9 @@ class BntLogin
         // forth, but for now, it works.
         if ($flag == 1)
         {
-            include_once './header.php';
+            include_once '../header.php';
             echo $error_status;
-            include_once './footer.php';
+            include_once '../footer.php';
             if ($stop_die)
             {
                 die();
