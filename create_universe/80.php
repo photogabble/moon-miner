@@ -209,16 +209,6 @@ $variables['first_news_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx
 $local_table_timer->stop ();
 $variables['first_news_results']['elapsed'] = $local_table_timer->elapsed ();
 
-if ($bntreg->bnt_ls === true)
-{
-// $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', 60, 'bnt_ls_client.php', ?)", array (time ()));
-// FIX table_row ($db, "The public list updater will occur every 60 minutes", $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
-    $creating = 1;
-// include_once './bnt_ls_client.php';
-}
-// FIX table_footer ($langvars['l_cu_completed']);
-// FIX table_header ($langvars['l_cu_account_info'] ." " . $admin_name, "h1");
-
 $local_table_timer->start (); // Start benchmarking for ibank accounts for admin
 $update = $pdo_db->exec ("INSERT INTO {$pdo_db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (1,0,0)");
 $variables['ibank_results']['result'] = BntDb::logDbErrors ($pdo_db, $update, __LINE__, __FILE__);

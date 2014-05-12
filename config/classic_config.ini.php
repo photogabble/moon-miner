@@ -221,7 +221,6 @@ max_genesis                = 10;                               // The maximum nu
 max_beacons                = 10;                               // The maximum number of beacons a player can have at one time
 max_warpedit               = 10;                               // The maximum number of warpeditors a player can have at one time
 bounty_all_special         = true;                             // Stop access on all Special Ports when you have a federation bounty on you.
-bnt_ls                     = false;                            // True if you'd like to publish your game on the public server list
 link_forums                = 'forums.blacknova.net';           // Address for the forum link
 admin_name                 = 'Game Admin';                     // The title for the administrator
 admin_ship_name            = "Game Admin's ship";              // The title for the administrators ship
