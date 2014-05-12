@@ -591,10 +591,8 @@ else
             $trade_energy = $_POST['trade_energy'];
         }
 
-        function trade($price, $delta, $max, $limit, $factor, $port_type, $origin)
+        function trade($price, $delta, $max, $limit, $factor, $port_type, $origin, $price_array, $sectorinfo)
         {
-            global $price_array, $sectorinfo;
-
             if ($sectorinfo['port_type'] ==  $port_type )
             {
                 $price_array[$port_type] = $price - $delta * $max / $limit * $factor;
@@ -616,10 +614,10 @@ else
         $trade_goods    = round (abs ($trade_goods));
         $trade_energy   = round (abs ($trade_energy));
 
-        $trade_ore       =  trade($ore_price,        $ore_delta,       $sectorinfo['port_ore'],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
-        $trade_organics  =  trade($organics_price,   $organics_delta,  $sectorinfo['port_organics'],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );
-        $trade_goods     =  trade($goods_price,      $goods_delta,     $sectorinfo['port_goods'],      $goods_limit,     $inventory_factor, "goods",      $trade_goods);
-        $trade_energy    =  trade($energy_price,     $energy_delta,    $sectorinfo['port_energy'],     $energy_limit,    $inventory_factor, "energy",     $trade_energy);
+        $trade_ore       =  trade($ore_price,        $ore_delta,       $sectorinfo['port_ore'],        $ore_limit,       $inventory_factor, "ore",        $trade_ore, $price_array, $sectorinfo);
+        $trade_organics  =  trade($organics_price,   $organics_delta,  $sectorinfo['port_organics'],   $organics_limit,  $inventory_factor, "organics",   $trade_organics, $price_array, $sectorinfo);
+        $trade_goods     =  trade($goods_price,      $goods_delta,     $sectorinfo['port_goods'],      $goods_limit,     $inventory_factor, "goods",      $trade_goods, $price_array, $sectorinfo);
+        $trade_energy    =  trade($energy_price,     $energy_delta,    $sectorinfo['port_energy'],     $energy_limit,    $inventory_factor, "energy",     $trade_energy, $price_array, $sectorinfo);
 
         $ore_price       =  $price_array['ore'];
         $organics_price  =  $price_array['organics'];
