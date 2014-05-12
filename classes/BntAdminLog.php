@@ -16,7 +16,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: classes/BntAdminLog.php
-// Todo: Recode adminlog to be smart about whether there is a db, and if not, log to a file that will be slurped into the db when there is.
+// Todo: Recode adminlog to be smart about whether there is a db
+// and if not, log to a file that will be slurped into the db when there is.
 
 class BntAdminLog
 {
@@ -26,11 +27,19 @@ class BntAdminLog
         {
             // Write log_entry to the admin log
             $res = false;
-            $data = addslashes ($data);
-            if (is_int ($log_type))
+            $data = addslashes($data);
+            if (is_int($log_type))
             {
-                $res = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
-                BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+                $res = $db->Execute(
+                    "INSERT INTO {$db->prefix}logs VALUES " .
+                    "(NULL, " .
+                    "0, " .
+                    "?, " .
+                    "NOW(), " .
+                    "?)",
+                    array($log_type, $data)
+                );
+                BntDb::logDbErrors($db, $res, __LINE__, __FILE__);
             }
 
             return $res;
@@ -38,12 +47,12 @@ class BntAdminLog
         else
         {
             $query = "INSERT INTO {$db->prefix}logs VALUES (NULL, 0, :logtype, NOW(), :data)";
-            $result = $db->prepare ($query);
-            if ($result !== false) // If the database is not live, this will return false, so we should not attempt to write (or it will fail silently)
-            {
-                $result->bindParam (':logtype', $log_type, PDO::PARAM_STR);
-                $result->bindParam (':data', $data, PDO::PARAM_STR);
-                $result->execute ();
+            $result = $db->prepare($query);
+            if ($result !== false) // If the database is not live, this will return false
+            {                      // so we should not attempt to write (or it will fail silently)
+                $result->bindParam(':logtype', $log_type, PDO::PARAM_STR);
+                $result->bindParam(':data', $data, PDO::PARAM_STR);
+                $result->execute();
             }
 
             return $result;
