@@ -173,7 +173,6 @@ class BntLogin
         {
             $title = $langvars['l_error'];
             BntHeader::display($db, $lang, $template, $title);
-//            include_once '../header.php';
             echo $error_status;
             BadFooter::display($pdo_db, $lang, $bntreg, $template);
             if ($stop_die)

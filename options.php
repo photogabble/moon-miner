@@ -26,7 +26,7 @@ $body_class = 'options';
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('options', 'common', 'global_includes', 'global_funcs', 'footer'));
 $title = $langvars['l_opt_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class = " . $body_class . ">";

@@ -36,7 +36,7 @@ $setup_info->testcookies();
 $setup_info->initDB();
 
 $title = $setup_info->appinfo['title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'global_includes', 'footer', 'news'));

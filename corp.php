@@ -22,7 +22,7 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_corpm_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('corp', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'));

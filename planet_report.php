@@ -24,10 +24,7 @@ BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report', 'regional'));
 $title = $langvars['l_pr_title'];
-include './header.php';
-
-$body_class = 'bnt';
-echo "<body class=" . $body_class . "><br>";
+BntHeader::display($db, $lang, $template, $title);
 
 $preptype = null;
 if (array_key_exists ('preptype', $_GET) == true) // !isset ($_GET['preptype']))

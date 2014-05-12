@@ -28,7 +28,7 @@ if (isset ($_GET['lang']))
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'main', 'regional'));
 $title = $langvars['l_settings'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 $line_color = $bntreg->color_line1;
 

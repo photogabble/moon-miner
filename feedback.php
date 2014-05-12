@@ -25,7 +25,7 @@ BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 $langvars = BntTranslate::load ($db, $lang, array ('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'));
 
 $title = $langvars['l_feedback_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 

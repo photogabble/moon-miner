@@ -22,7 +22,7 @@ include './global_includes.php';
 include './config/admin_config.php';
 
 $title = $langvars['l_ai_control'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));

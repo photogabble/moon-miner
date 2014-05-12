@@ -21,7 +21,7 @@ include './global_includes.php';
 
 $title = $langvars['l_pwr_title'];
 $body_class = 'options';
-include './header.php';
+BntHeader::display($db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset', 'option2'));

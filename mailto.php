@@ -23,9 +23,8 @@ BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
-$include_ckeditor = true;
 $title = $langvars['l_sendm_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title, $body_class = 'bnt', $include_ckeditor = true);
 
 // Filter to the FILTER_SANITIZE_STRING ruleset, because we need to allow spaces for names & subject (FILTER_SANITIZE_URL doesn't allow spaces)
 // $name, $to, and $subject are all sent both via post and get, so we have to do a filter input for each

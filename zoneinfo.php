@@ -21,12 +21,11 @@ include './global_includes.php';
 
 BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
-$body_class = 'zoneinfo';
-
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
 $title = $langvars['l_zi_title'];
-include './header.php';
+$body_class = 'zoneinfo';
+BntHeader::display($db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class=" . $body_class . ">";

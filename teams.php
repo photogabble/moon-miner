@@ -27,7 +27,7 @@ BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'main', 'footer'));
 $title = $langvars['l_team_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 

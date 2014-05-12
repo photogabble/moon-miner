@@ -22,7 +22,7 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_ze_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));

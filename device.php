@@ -25,7 +25,7 @@ BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 $langvars = BntTranslate::load ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer', 'regional'));
 $title = $langvars['l_device_title'];
 $body_class = 'device';
-include './header.php';
+BntHeader::display($db, $lang, $template, $title, $body_class);
 
 echo "<body class=" . $body_class . "><br>";
 echo "<h1>" . $title . "</h1>\n";

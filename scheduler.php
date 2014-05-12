@@ -66,7 +66,7 @@ include './global_includes.php';
 include './config/admin_config.php';
 
 $title = $langvars['l_sys_update'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));

@@ -54,7 +54,7 @@ if (array_key_exists ('newlang', $_POST) == true)
 }
 
 $title = $langvars['l_opt2_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));

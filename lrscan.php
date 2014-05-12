@@ -24,7 +24,7 @@ BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 $title = $langvars['l_lrs_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 echo "<h1>" . $title . "</h1>\n";
 
 if (isset ($_GET['sector']))

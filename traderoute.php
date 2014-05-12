@@ -23,7 +23,7 @@ BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'bounty', 'regional'));
 $title = $langvars['l_tdr_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 

@@ -22,7 +22,7 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_help'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 echo "<h1>" . $title . "</h1>\n";
 
 echo "Greetings and welcome to Blacknova Traders!";

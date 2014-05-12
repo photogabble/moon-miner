@@ -20,7 +20,7 @@
 include './global_includes.php';
 
 $title = $langvars['l_new_title2'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'));

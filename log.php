@@ -37,7 +37,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('log', 'common', 'global_incl
 
 $title = $langvars['l_log_titlet'];
 $body_class = 'log';
-include './header.php';
+BntHeader::display($db, $lang, $template, $title, $body_class);
 
 $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);

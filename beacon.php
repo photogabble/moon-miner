@@ -24,7 +24,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('beacon', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news'));
 $title = $langvars['l_beacon_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 

@@ -27,7 +27,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('bounty', 'port', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news'));
 $title = $langvars['l_by_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 $response = null;
 if (isset ($_POST['response']))

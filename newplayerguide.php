@@ -33,7 +33,7 @@ else
 
 $title = "Blacknova Traders New player guide";
 $body_class = 'faq';
-include './header.php';
+BntHeader::display($db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('global_funcs'));

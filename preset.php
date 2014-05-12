@@ -21,10 +21,10 @@ include './global_includes.php';
 
 BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
-$body_class = 'bnt';
 $langvars = BntTranslate::load ($db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];
-include './header.php';
+$body_class = 'bnt';
+BntHeader::display($db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));

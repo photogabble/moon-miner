@@ -24,7 +24,7 @@ BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes', 'regional'));
 $title = $langvars['l_main_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 $stylefontsize = "12pt";
 $picsperrow = 7;

@@ -34,7 +34,7 @@ else
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 $title = $langvars['l_news_title'];
-include './header.php';
+BntHeader::display($db, $lang, $template, $title);
 
 $startdate = date ("Y/m/d");
 if (array_key_exists ('startdate', $_GET) && ($_GET['startdate'] != ''))

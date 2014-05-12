@@ -28,7 +28,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_incl
 
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
-include './header.php';
+BntHeader::display($db, $lang, $template, $title, $body_class);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
