@@ -28,7 +28,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 if ($bntreg->account_creation_closed)
 {
-    die ($langvars['l_new_closed_message']); // This should ideally use the error.php handler instead
+    die ($langvars['l_new_closed_message']); // This should ideally use a class based error handler instead
 }
 
 // Get the user supplied post vars.
