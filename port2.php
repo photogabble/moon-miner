@@ -593,7 +593,7 @@ else
 
         function trade($price, $delta, $max, $limit, $factor, $port_type, $origin)
         {
-            global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red, $price_array;
+            global $price_array, $sectorinfo;
 
             if ($sectorinfo['port_type'] ==  $port_type )
             {
