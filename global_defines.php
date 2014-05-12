@@ -17,14 +17,7 @@
 //
 // File: global_defines.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'global_defines.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 // Log constants
-
 define ('LOG_LOGIN', 1);
 define ('LOG_LOGOUT', 2);
 define ('LOG_ATTACK_OUTMAN', 3);             // sent to target when better engines
