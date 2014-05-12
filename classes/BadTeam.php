@@ -185,10 +185,8 @@ class BadTeam
         echo "</table><br>";
     }
 
-    public static function displayInviteInfo($langvars, $playerinfo)
+    public static function displayInviteInfo($langvars, $playerinfo, $invite_info)
     {
-        global $invite_info;
-
         if (!$playerinfo['team_invite'])
         {
             echo "<br><br><font color=blue size=2><strong>" . $langvars['l_team_noinvite'] . "</strong></font><br>";
@@ -230,7 +228,7 @@ class BadTeam
             }
             echo "[<a href=teams.php?teamwhat=7&whichteam=$playerinfo[team]>" . $langvars['l_team_inv'] . "</a>] - [<a href=teams.php?teamwhat=2&whichteam=$playerinfo[team]>" . $langvars['l_team_leave'] . "</a>]</font></font>";
         }
-        BadTeam::displayInviteInfo ($langvars, $playerinfo);
+        BadTeam::displayInviteInfo ($langvars, $playerinfo, $invite_info);
         echo "</div>";
 
         // Main table

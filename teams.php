@@ -568,7 +568,7 @@ switch ($teamwhat)
         if ($playerinfo['team'] == 0)
         {
             echo $langvars['l_team_notmember'];
-            BadTeam::displayInviteInfo ($langvars, $playerinfo);
+            BadTeam::displayInviteInfo ($langvars, $playerinfo, $invite_info);
         }
         else
         {
