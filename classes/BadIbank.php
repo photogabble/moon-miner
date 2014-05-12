@@ -111,10 +111,8 @@ class BadIbank
              "</tr>";
     }
 
-    public static function ibankWithdraw2($db, $langvars, $playerinfo)
+    public static function ibankWithdraw2($db, $langvars, $playerinfo, $amount, $account)
     {
-        global $amount, $account;
-
         $amount = preg_replace("/[^0-9]/", "", $amount);
         if (($amount * 1) != $amount)
         {
@@ -151,10 +149,8 @@ class BadIbank
         BntDb::logDbErrors($db, $resx, __LINE__, __FILE__);
     }
 
-    public static function ibankTransfer($db, $langvars)
+    public static function ibankTransfer($db, $langvars, $playerinfo, $ibank_min_turns)
     {
-        global $playerinfo, $ibank_min_turns;
-
         $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
@@ -772,9 +768,8 @@ class BadIbank
         }
     }
 
-    public static function ibankDeposit2($db, $langvars, $playerinfo)
+    public static function ibankDeposit2($db, $langvars, $playerinfo, $amount, $account)
     {
-        global $amount, $account;
 
         $max_credits_allowed = 18446744073709000000;
 

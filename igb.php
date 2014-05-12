@@ -71,7 +71,7 @@ elseif ($command == 'withdraw') //withdraw menu
 }
 elseif ($command == 'withdraw2') //withdraw operation
 {
-    BadIbank::ibankWithdraw2 ($db, $langvars, $playerinfo);
+    BadIbank::ibankWithdraw2 ($db, $langvars, $playerinfo, $amount, $account);
 }
 elseif ($command == 'deposit') //deposit menu
 {
@@ -79,11 +79,11 @@ elseif ($command == 'deposit') //deposit menu
 }
 elseif ($command == 'deposit2') //deposit operation
 {
-    BadIbank::ibankDeposit2 ($db, $langvars, $playerinfo);
+    BadIbank::ibankDeposit2 ($db, $langvars, $playerinfo, $amount, $account);
 }
 elseif ($command == 'transfer') //main transfer menu
 {
-    BadIbank::ibankTransfer ($db, $langvars);
+    BadIbank::ibankTransfer ($db, $langvars, $playerinfo, $ibank_min_turns);
 }
 elseif ($command == 'transfer2') //specific transfer menu (ship or planet)
 {
