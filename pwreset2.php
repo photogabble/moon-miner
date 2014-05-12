@@ -133,5 +133,5 @@ else
     // Admin log this attempt to use an invalid code
 }
 
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

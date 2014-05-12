@@ -58,7 +58,7 @@ if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include_once './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -82,7 +82,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_trade_turnneed'] . '<br><br>';
     BntText::gotoMain ($db, $lang, $langvars);
-    include_once './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -90,7 +90,7 @@ if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $langvars['l_planet2_sector'] . '<br><br>';
     BntText::gotoMain ($db, $lang, $langvars);
-    include_once './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -98,7 +98,7 @@ if (empty ($planetinfo))
 {
     echo $langvars['l_planet_none'] . "<br>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include_once './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -167,5 +167,5 @@ if ($planetinfo['sells'] == 'Y')
 
 BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
 BntText::gotoMain ($db, $lang, $langvars);
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

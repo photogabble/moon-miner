@@ -387,5 +387,5 @@ echo "<div style='text-align:left;'>\n";
 BntText::gotoMain ($db, $lang, $langvars);
 echo "</div>\n";
 
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

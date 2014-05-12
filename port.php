@@ -106,7 +106,7 @@ if ($zoneinfo['zone_id'] == 4)
     echo "<h1>" . $title . "</h1>\n";
     echo $langvars['l_war_info'] . "<p>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 elseif ($zoneinfo['allow_trade'] == 'N')
@@ -116,7 +116,7 @@ elseif ($zoneinfo['allow_trade'] == 'N')
     echo "<h1>" . $title . "</h1>\n";
     echo $langvars['l_no_trade_info'] . "<p>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 elseif ($zoneinfo['allow_trade'] == 'L')
@@ -134,7 +134,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             echo "<h1>" . $title . "</h1>\n";
             echo "Trading at this port is not allowed for outsiders<p>";
             BntText::gotoMain ($db, $lang, $langvars);
-            include './footer.php';
+            BadFooter::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
     }
@@ -146,7 +146,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             echo "<h1>" . $title . "</h1>\n";
             echo $langvars['l_no_trade_out'] . "<p>";
             BntText::gotoMain ($db, $lang, $langvars);
-            include './footer.php';
+            BadFooter::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
     }
@@ -297,7 +297,7 @@ elseif ($sectorinfo['port_type'] == "special")
         echo $langvars['l_port_loannotrade'] . "<p>";
         echo "<a href=igb.php>" . $langvars['l_ibank_term'] . "</a><p>";
         BntText::gotoMain ($db, $lang, $langvars);
-        include './footer.php';
+        BadFooter::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 
@@ -1014,5 +1014,5 @@ echo "<br><br>\n";
 BntText::gotoMain ($db, $lang, $langvars);
 echo "\n";
 
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

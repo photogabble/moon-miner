@@ -15,15 +15,24 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: footer.php
+// File: classes/BadFooter.php
+//
+// TODO: This file should only be used when we have not converted a file to use templates.
+// Once they use templates, the footer will be loaded correctly by layout.tpl
 
-// Now set a container for the variables and langvars and send them off to the template system
-$variables['container'] = "variable";
-$langvars['container'] = "langvars";
+class BadFooter
+{
+    public static function display ($pdo_db, $lang, $bntreg, $template)
+    {
+        // Now set a container for the variables and langvars and send them off to the template system
+        $variables['container'] = "variable";
+        $langvars['container'] = "langvars";
 
-// Pull in footer variables from footer_t.php
-include './footer_t.php';
-$template->AddVariables ('langvars', $langvars);
-$template->AddVariables ('variables', $variables);
-$template->Display ("footer.tpl");
+        // Pull in footer variables from footer_t.php
+        include './footer_t.php';
+        $template->AddVariables ('langvars', $langvars);
+        $template->AddVariables ('variables', $variables);
+        $template->Display ("footer.tpl");
+    }
+}
 ?>

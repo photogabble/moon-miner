@@ -55,8 +55,7 @@ if ($bntreg->server_closed)
     include './header.php';
     echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>" . $langvars['l_login_closed_message'] . "</div><br>\n";
     echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
-
-    include './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -185,5 +184,5 @@ else
     echo "<strong>" . $langvars['l_login_noone'] . "</strong><br>";
 }
 
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

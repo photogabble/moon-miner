@@ -162,5 +162,6 @@ else
 <?php
 echo '<img src="' . $template->GetVariables('template_dir') . '/images/div2.png" alt="" style="width: 600px; height:21px">';
 echo '</center>';
-include './footer.php';
+
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

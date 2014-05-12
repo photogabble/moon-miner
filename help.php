@@ -183,5 +183,5 @@ echo "be disallowed in some zones.";
 echo "<br><br>";
 
 BntText::gotoMain ($db, $lang, $langvars);
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

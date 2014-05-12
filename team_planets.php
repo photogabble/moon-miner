@@ -36,8 +36,7 @@ if ($playerinfo['team'] == 0)
     echo "<br>" . $langvars['l_teamplanet_notally'];
     echo "<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include './footer.php';
-
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     return;
 }
 
@@ -193,5 +192,5 @@ else
 
 echo "<br><br>";
 BntText::gotoMain ($db, $lang, $langvars);
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

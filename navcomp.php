@@ -32,7 +32,7 @@ if (!$bntreg->allow_navcomp)
 {
     echo $langvars['l_nav_nocomp'] . '<br><br>';
     BntText::gotoMain ($db, $lang, $langvars);
-    include './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -161,5 +161,5 @@ elseif ($state == 1)
 $db->SetFetchMode (ADODB_FETCH_ASSOC);
 
 BntText::gotoMain ($db, $lang, $langvars);
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

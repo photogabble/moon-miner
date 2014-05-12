@@ -174,7 +174,7 @@ class BntLogin
         {
             include_once '../header.php';
             echo $error_status;
-            include_once '../footer.php';
+            BadFooter::display($pdo_db, $lang, $bntreg, $template);
             if ($stop_die)
             {
                 die();

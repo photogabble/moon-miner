@@ -154,7 +154,7 @@ if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -637,5 +637,5 @@ else
 }
 
 BntText::gotoMain ($db, $lang, $langvars);
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

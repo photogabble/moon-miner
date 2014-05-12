@@ -614,5 +614,5 @@ switch ($teamwhat)
 echo "<br><br>";
 BntText::gotoMain ($db, $lang, $langvars);
 
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

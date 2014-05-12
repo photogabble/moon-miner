@@ -179,5 +179,5 @@ else
     echo $langvars['l_new_err'];
 }
 
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

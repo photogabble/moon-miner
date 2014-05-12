@@ -1799,7 +1799,7 @@ class BadTraderoute
         BntText::gotoMain ($db, $lang, $langvars);
         echo "</div>\n";
 
-        include_once '../footer.php';
+        BadFooter::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 
@@ -1811,7 +1811,7 @@ class BadTraderoute
         echo "<div style='text-align:left;'>\n";
         BntText::gotoMain ($db, $lang, $langvars);
         echo "</div>\n";
-        include_once '../footer.php';
+        BadFooter::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 

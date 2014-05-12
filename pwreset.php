@@ -103,5 +103,5 @@ var_dump (BntDb::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__))
 
 // Redirect to game (like login does)
 */
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

@@ -93,5 +93,5 @@ echo "<input type=submit value=" . $langvars['l_opt_save'] . ">";
 echo "</form><br>";
 
 BntText::gotoMain ($db, $lang, $langvars);
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

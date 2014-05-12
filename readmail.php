@@ -212,5 +212,5 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 
 BntText::gotoMain ($db, $lang, $langvars);
 
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

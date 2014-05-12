@@ -386,5 +386,5 @@ if ($mode != 'compat')
 }
 
 echo "</table></center>";
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>

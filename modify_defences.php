@@ -31,7 +31,7 @@ if (!isset ($defence_id))
 {
     echo $langvars['l_md_invalid'] . "<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -53,7 +53,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_md_noturn'] . "<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -73,7 +73,7 @@ if ($defenceinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $langvars['l_md_nothere'] . "<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
-    include './footer.php';
+    BadFooter::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -110,7 +110,7 @@ switch ($response)
         {
             echo $langvars['l_md_yours'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
-            include './footer.php';
+            BadFooter::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
 
@@ -156,7 +156,7 @@ switch ($response)
         {
              echo $langvars['l_md_notyours'] . "<br><br>";
              BntText::gotoMain ($db, $lang, $langvars);
-             include './footer.php';
+             BadFooter::display($pdo_db, $lang, $bntreg, $template);
              die ();
         }
         $quantity = preg_replace ('/[^0-9]/', '', $quantity);
@@ -215,7 +215,7 @@ switch ($response)
         {
             echo $langvars['l_md_notyours'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
-            include './footer.php';
+            BadFooter::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
 
@@ -285,6 +285,7 @@ switch ($response)
     die ();
     break;
 }
+
 BntText::gotoMain ($db, $lang, $langvars);
-include './footer.php';
+BadFooter::display($pdo_db, $lang, $bntreg, $template);
 ?>
