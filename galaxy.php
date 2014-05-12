@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
+BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'port', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'));

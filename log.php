@@ -20,7 +20,7 @@
 include './global_includes.php';
 include './config/admin_config.php';
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
+BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Hack for log bug issue - this really needs to be fixed
 $log_list = array (null,

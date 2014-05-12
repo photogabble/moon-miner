@@ -19,8 +19,7 @@
 
 class BntLogin
 {
-    // TODO: Template variable is not needed
-    public static function checkLogin($db, $lang, $langvars, $bntreg, $template, $stop_die = true)
+    public static function checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template, $stop_die = true)
     {
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('login', 'global_funcs', 'common', 'footer', 'self_destruct'));
@@ -172,7 +171,9 @@ class BntLogin
         // forth, but for now, it works.
         if ($flag == 1)
         {
-            include_once '../header.php';
+            $title = $langvars['l_error'];
+            BntHeader::display($db, $lang, $template, $title);
+//            include_once '../header.php';
             echo $error_status;
             BadFooter::display($pdo_db, $lang, $bntreg, $template);
             if ($stop_die)

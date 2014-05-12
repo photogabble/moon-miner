@@ -21,7 +21,7 @@ include './global_includes.php';
 
 // TODO: This should not be hard-coded, but for now, I need to be able to clear the errors
 $active_template = 'classic';
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
+BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));

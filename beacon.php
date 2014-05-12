@@ -28,7 +28,7 @@ include './header.php';
 
 echo "<h1>" . $title . "</h1>\n";
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
+BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
