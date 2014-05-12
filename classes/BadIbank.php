@@ -27,28 +27,28 @@ class BadIbank
     {
         global $account, $amount, $ibank_loanlimit, $ibank_loanfactor, $ibank_lrate;
 
-        $amount = preg_replace ("/[^0-9]/", "", $amount);
+        $amount = preg_replace("/[^0-9]/", "", $amount);
         if (($amount * 1) != $amount)
         {
-            BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
+            BadIbank::ibankError($active_template, $langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
         }
 
         if ($amount <= 0)
         {
-            BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
+            BadIbank::ibankError($active_template, $langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
         }
 
         if ($account['loan'] != 0)
         {
-            BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_notwoloans'], "igb.php?command=loans");
+            BadIbank::ibankError($active_template, $langvars, $langvars['l_ibank_notwoloans'], "igb.php?command=loans");
         }
 
-        $score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
+        $score = BntScore::updateScore($db, $playerinfo['ship_id'], $bntreg);
         $maxtrans = $score * $score * $ibank_loanlimit;
 
         if ($amount > $maxtrans)
         {
-            BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_loantoobig'], "igb.php?command=loans");
+            BadIbank::ibankError($active_template, $langvars, $langvars['l_ibank_loantoobig'], "igb.php?command=loans");
         }
 
         $amount2 = $amount * $ibank_loanfactor;
@@ -57,28 +57,28 @@ class BadIbank
         $hours = $ibank_lrate / 60;
         $mins = $ibank_lrate % 60;
 
-        $langvars['l_ibank_loanreminder'] = str_replace ("[hours]", $hours, $langvars['l_ibank_loanreminder']);
-        $langvars['l_ibank_loanreminder'] = str_replace ("[mins]", $mins, $langvars['l_ibank_loanreminder']);
+        $langvars['l_ibank_loanreminder'] = str_replace("[hours]", $hours, $langvars['l_ibank_loanreminder']);
+        $langvars['l_ibank_loanreminder'] = str_replace("[mins]", $mins, $langvars['l_ibank_loanreminder']);
 
         echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_takenaloan'] . "<br>---------------------------------</td></tr>" .
              "<tr valign=top><td colspan=2 align=center>" . $langvars['l_ibank_loancongrats'] . "<br><br></tr>" .
              "<tr valign=top>" .
-             "<td>" . $langvars['l_ibank_loantransferred'] . " :</td><td nowrap align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+             "<td>" . $langvars['l_ibank_loantransferred'] . " :</td><td nowrap align=right>" . number_format($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $langvars['l_ibank_loanfee'] . " :</td><td nowrap align=right>" . number_format ($amount2, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+             "<td>" . $langvars['l_ibank_loanfee'] . " :</td><td nowrap align=right>" . number_format($amount2, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $langvars['l_ibank_amountowned'] . " :</td><td nowrap align=right>" . number_format ($amount3, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+             "<td>" . $langvars['l_ibank_amountowned'] . " :</td><td nowrap align=right>" . number_format($amount3, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
              "<td colspan=2 align=center>---------------------------------<br><br>" . $langvars['l_ibank_loanreminder'] . "<br><br>\"" . $langvars['l_ibank_loanreminder2'] ."\"</td>" .
              "<tr valign=top>" .
              "<td nowrap><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
              "</tr>";
 
-        $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET loan = ?, loantime = NOW() WHERE ship_id = ?", array ($amount3, $playerinfo['ship_id']));
-        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan = ?, loantime = NOW() WHERE ship_id = ?", array ($amount3, $playerinfo['ship_id']));
+        BntDb::logDbErrors($db, $resx, __LINE__, __FILE__);
 
-        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
-        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
+        BntDb::logDbErrors($db, $resx, __LINE__, __FILE__);
     }
 
     public static function ibankLogin($langvars, $playerinfo, $account)
@@ -86,7 +86,7 @@ class BadIbank
         echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_welcometoibank'] . "<br>---------------------------------</td></tr>" .
             "<tr valign=top>" .
              "<td width=150 align=right>" . $langvars['l_ibank_accountholder'] . " :<br><br>" . $langvars['l_ibank_shipaccount'] . " :<br>" . $langvars['l_ibank_ibankaccount'] . "&nbsp;&nbsp;:</td>" .
-             "<td style='max-width:550px; padding-right:4px;' align=right>" . $playerinfo['character_name'] . "&nbsp;&nbsp;<br><br>" . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_ibank_credit_symbol'] . "<br>" . number_format ($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_ibank_credit_symbol'] . "<br></td>" .
+             "<td style='max-width:550px; padding-right:4px;' align=right>" . $playerinfo['character_name'] . "&nbsp;&nbsp;<br><br>" . number_format($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_ibank_credit_symbol'] . "<br>" . number_format($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_ibank_credit_symbol'] . "<br></td>" .
              "</tr>" .
              "<tr><td colspan=2 align=center>" . $langvars['l_ibank_operations'] . "<br>---------------------------------<br><br><a href=\"igb.php?command=withdraw\">" . $langvars['l_ibank_withdraw'] . "</a><br><a href=\"igb.php?command=deposit\">" . $langvars['l_ibank_deposit'] . "</a><br><a href=\"igb.php?command=transfer\">" . $langvars['l_ibank_transfer'] . "</a><br><a href=\"igb.php?command=loans\">" . $langvars['l_ibank_loans'] . "</a><br>&nbsp;</td></tr>" .
              "<tr valign=bottom>" .
@@ -99,7 +99,7 @@ class BadIbank
         echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_withdrawfunds'] . "<br>---------------------------------</td></tr>" .
              "<tr valign=top>" .
              "<td>" . $langvars['l_ibank_fundsavailable'] . ":</td>" .
-             "<td align=right>" . number_format ($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." C<br></td>" .
+             "<td align=right>" . number_format($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." C<br></td>" .
              "</tr><tr valign=top>" .
              "<td>" . $langvars['l_ibank_selwithdrawamount'] . ":</td><td align=right>" .
              "<form action='igb.php?command=withdraw2' method=post>" .
@@ -115,20 +115,20 @@ class BadIbank
     {
         global $amount, $account;
 
-        $amount = preg_replace ("/[^0-9]/", "", $amount);
+        $amount = preg_replace("/[^0-9]/", "", $amount);
         if (($amount * 1) != $amount)
         {
-            BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_invalidwithdrawinput'], "igb.php?command=withdraw");
+            BadIbank::ibankError($active_template, $langvars, $langvars['l_ibank_invalidwithdrawinput'], "igb.php?command=withdraw");
         }
 
         if ($amount == 0)
         {
-            BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_nozeroamount3'], "igb.php?command=withdraw");
+            BadIbank::ibankError($active_template, $langvars, $langvars['l_ibank_nozeroamount3'], "igb.php?command=withdraw");
         }
 
         if ($amount > $account['balance'])
         {
-            BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=withdraw");
+            BadIbank::ibankError($active_template, $langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=withdraw");
         }
 
         $account['balance'] -= $amount;
@@ -136,26 +136,26 @@ class BadIbank
 
         echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_operationsuccessful'] . "<br>---------------------------------</td></tr>" .
              "<tr valign=top>" .
-             "<td colspan=2 align=center>" . number_format ($amount, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." " . $langvars['l_ibank_creditstoyourship'] . "</td>" .
+             "<td colspan=2 align=center>" . number_format($amount, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." " . $langvars['l_ibank_creditstoyourship'] . "</td>" .
              "<tr><td colspan=2 align=center>" . $langvars['l_ibank_accounts'] . "<br>---------------------------------</td></tr>" .
              "<tr valign=top>" .
              "<td>Ship Account :<br>" . $langvars['l_ibank_ibankaccount'] . " :</td>" .
-             "<td align=right>" . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C<br>" . number_format ($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</tr>" .
+             "<td align=right>" . number_format($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C<br>" . number_format($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</tr>" .
              "<tr valign=bottom>" .
              "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
              "</tr>";
 
-        $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance=balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
-        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
-        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
-        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
+        BntDb::logDbErrors($db, $resx, __LINE__, __FILE__);
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
+        BntDb::logDbErrors($db, $resx, __LINE__, __FILE__);
     }
 
     public static function ibankTransfer($db, $langvars)
     {
         global $playerinfo, $ibank_min_turns;
 
-        $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
+        $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
         $ships = array();
@@ -165,8 +165,8 @@ class BadIbank
             $res->MoveNext();
         }
 
-        $res = $db->Execute ("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id ASC", array ($playerinfo['ship_id']));
-        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+        $res = $db->Execute("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id ASC", array ($playerinfo['ship_id']));
+        BntDb::logDbErrors($db, $res, __LINE__, __FILE__);
         while (!$res->EOF)
         {
             $planets[] = $res->fields;
@@ -276,7 +276,7 @@ class BadIbank
         if ($account['loan'] != 0)
         {
             $curtime = time();
-            $res = $db->Execute ("SELECT UNIX_TIMESTAMP(loantime) as time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($playerinfo['ship_id']));
+            $res = $db->Execute("SELECT UNIX_TIMESTAMP(loantime) as time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($playerinfo['ship_id']));
             BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
             if (!$res->EOF)
             {
@@ -393,9 +393,9 @@ class BadIbank
              "<td nowrap><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
              "</tr>";
 
-        $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET loan=loan - ?, loantime=? WHERE ship_id = ?", array ($amount, $account['loantime'], $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan=loan - ?, loantime=? WHERE ship_id = ?", array ($amount, $account['loantime'], $playerinfo['ship_id']));
         BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
-        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits - ? WHERE ship_id = ?" , array ($amount, $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits - ? WHERE ship_id = ?" , array ($amount, $playerinfo['ship_id']));
         BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     }
 
@@ -435,7 +435,7 @@ class BadIbank
 
         if (isset ($ship_id)) // Ship transfer
         {
-            $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=? AND ship_destroyed ='N' AND turns_used > ?;", array ($ship_id, $ibank_min_turns));
+            $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=? AND ship_destroyed ='N' AND turns_used > ?;", array ($ship_id, $ibank_min_turns));
             BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
             if ($playerinfo['ship_id'] == $ship_id)
@@ -467,7 +467,7 @@ class BadIbank
             {
                 $curtime = time();
                 $curtime -= $ibank_trate * 60;
-                $res = $db->Execute ("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}ibank_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
+                $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}ibank_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
                 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
                 if (!$res->EOF)
                 {
@@ -520,7 +520,7 @@ class BadIbank
                 BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_errplanetsrcanddest'], "igb.php?command=transfer");
             }
 
-            $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
+            $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
             BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
             if (!$res || $res->EOF)
             {
@@ -534,7 +534,7 @@ class BadIbank
                 $source['name'] = $langvars['l_ibank_unnamed'];
             }
 
-            $res = $db->Execute ("SELECT name, credits, owner, sector_id, base FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
+            $res = $db->Execute("SELECT name, credits, owner, sector_id, base FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
             BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
             if (!$res || $res->EOF)
             {
@@ -599,7 +599,7 @@ class BadIbank
         {
             // Need to check again to prevent cheating by manual posts
 
-            $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ? AND ship_destroyed ='N' AND turns_used > ?", array ($ship_id, $ibank_min_turns));
+            $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ? AND ship_destroyed ='N' AND turns_used > ?", array ($ship_id, $ibank_min_turns));
             BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
             if ($playerinfo['ship_id'] == $ship_id)
@@ -631,7 +631,7 @@ class BadIbank
             {
                 $curtime = time ();
                 $curtime -= $ibank_trate * 60;
-                $res = $db->Execute ("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}ibank_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
+                $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}ibank_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
                 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
                 if (!$res->EOF)
                 {
@@ -689,12 +689,12 @@ class BadIbank
                  "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
                  "</tr>";
 
-            $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance = balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
+            $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
             BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
-            $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance = balance + ? WHERE ship_id = ?", array ($transfer, $target['ship_id']));
+            $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = balance + ? WHERE ship_id = ?", array ($transfer, $target['ship_id']));
             BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 
-            $resx = $db->Execute ("INSERT INTO {$db->prefix}ibank_transfers VALUES (NULL, ?, ?, NOW(), ?)", array ($playerinfo['ship_id'], $target['ship_id'], $transfer));
+            $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_transfers VALUES (NULL, ?, ?, NOW(), ?)", array ($playerinfo['ship_id'], $target['ship_id'], $transfer));
             BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
         }
         else
@@ -704,7 +704,7 @@ class BadIbank
                 BadIbank::ibankError ($active_template, $langvars, $langvars['l_ibank_errplanetsrcanddest'], "igb.php?command=transfer");
             }
 
-            $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
+            $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
             BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
             if (!$res || $res->EOF)
             {
@@ -718,7 +718,7 @@ class BadIbank
                 $source['name'] = $langvars['l_ibank_unnamed'];
             }
 
-            $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
+            $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
             BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
             if (!$res || $res->EOF)
             {
@@ -765,9 +765,9 @@ class BadIbank
                  "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
                  "</tr>";
 
-            $resx = $db->Execute ("UPDATE {$db->prefix}planets SET credits=credits - ? WHERE planet_id = ?", array ($amount, $splanet_id));
+            $resx = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits - ? WHERE planet_id = ?", array ($amount, $splanet_id));
             BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
-            $resx = $db->Execute ("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id = ?", array ($transfer, $dplanet_id));
+            $resx = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id = ?", array ($transfer, $dplanet_id));
             BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
         }
     }
@@ -820,9 +820,9 @@ class BadIbank
              "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
              "</tr>";
 
-        $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance=balance+? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance+? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
         BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
-        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits-? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits-? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
         BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     }
 
@@ -831,7 +831,7 @@ class BadIbank
         global $account;
         global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
 
-        $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
+        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
         if (!$res || $res->EOF)
@@ -865,7 +865,7 @@ class BadIbank
             $query .= " AND credits <= $maximum";
         }
 
-        $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
+        $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         $amount = $res->fields;
 
@@ -927,7 +927,7 @@ class BadIbank
 
     public static function isLoanPending($db, $ship_id, $ibank_lrate)
     {
-        $res = $db->Execute ("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($ship_id));
+        $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($ship_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
@@ -998,7 +998,7 @@ class BadIbank
     {
         global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
 
-        $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
+        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
@@ -1032,7 +1032,7 @@ class BadIbank
             $query .= " AND credits <= $maximum";
         }
 
-        $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
+        $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         $amount = $res->fields;
 
@@ -1070,11 +1070,11 @@ class BadIbank
             $query .= " AND credits <= $maximum";
         }
 
-        $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
+        $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
-        $res = $db->Execute ("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id=?", array ($transfer, $dplanet_id));
+        $res = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id=?", array ($transfer, $dplanet_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
-        $res = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns - ? WHERE ship_id=?", array ($tcost, $playerinfo['ship_id']));
+        $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns - ? WHERE ship_id=?", array ($tcost, $playerinfo['ship_id']));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     }
 }
