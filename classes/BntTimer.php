@@ -25,12 +25,12 @@ class BntTimer
 
     public function start()
     {
-        $this->t_start = microtime (true);
+        $this->t_start = microtime(true);
     }
 
     public function stop()
     {
-        $this->t_stop  = microtime (true);
+        $this->t_stop  = microtime(true);
     }
 
     public function elapsed()
@@ -38,7 +38,7 @@ class BntTimer
 
         $this->t_elapsed = $this->t_stop - $this->t_start;
 
-        return round ($this->t_elapsed, 2); // Round it down to two significant digits
+        return round($this->t_elapsed, 2); // Round it down to two significant digits
     }
 }
 ?>

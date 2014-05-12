@@ -30,36 +30,38 @@ class BntBigBang
         // Setup $filelist as an array.
         $filelist = array();
 
-        $bigbang_dir = new DirectoryIterator ('create_universe/');
-        foreach ($bigbang_dir as $file_info) // Get a list of the files in the bigbang directory
+        $bigbang_dir = new DirectoryIterator('create_universe/');
+        foreach($bigbang_dir as $file_info) // Get a list of the files in the bigbang directory
         {
             // If it is a PHP file, add it to the list of accepted make galaxy files
-            if ($file_info->isFile () && $file_info->getExtension() == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
+            if ($file_info->isFile() && $file_info->getExtension() == 'php')
             {
                 $i++; // Increment a counter, so we know how many files there are to choose from
-                $filelist[$i] = $file_info->getFilename (); // The actual file name
-             }
+                $filelist[$i] = $file_info->getFilename(); // The actual file name
+            }
         }
 
         // Now order the files in the correct order.
-        natsort ($filelist);
+        natsort($filelist);
 
         // Now move files over to the $bigbang_files array creating the correct index key order.
-        foreach ($filelist as $ofile)
+        foreach($filelist as $ofile)
         {
             array_push($bigbang_files, $ofile);
         }
         // Now remove the unwanted array.
-        unset ($filelist);
+        unset($filelist);
 
         $bigbang_info['steps'] = $i;
         if ($current_file === false)
         {
-            $bigbang_info['current_step'] = array_search ( '0.php', $bigbang_files); // If current file is set to false, just return the search from 0.
+            // If current file is set to false, just return the search from 0.
+            $bigbang_info['current_step'] = array_search('0.php', $bigbang_files);
         }
         else
         {
-            $bigbang_info['current_step'] = array_search ( basename ($current_file), $bigbang_files); // Usual search, from the current step
+            // Usual search, from the current step
+            $bigbang_info['current_step'] = array_search(basename($current_file), $bigbang_files);
         }
 
         if (($bigbang_info['current_step'] + 1) > $i)
@@ -71,7 +73,7 @@ class BntBigBang
             $j = $bigbang_info['current_step'] + 1;
         }
 
-        $bigbang_info['next_step'] = array_search ($bigbang_files[$j], $bigbang_files);
+        $bigbang_info['next_step'] = array_search($bigbang_files[$j], $bigbang_files);
         $bigbang_info['files'] = $bigbang_files;
 
         return $bigbang_info;
