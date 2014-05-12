@@ -17,12 +17,6 @@
 //
 // File: classes/BntTemplate.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntTemplate.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 define ("TEMPLATE_USE_SMARTY", 0x00000000, true);
 define ("TEMPLATE_USE_XML", 0x00000001, true);
 

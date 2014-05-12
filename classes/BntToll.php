@@ -17,12 +17,6 @@
 //
 // File: classes/BntToll.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntToll.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntToll
 {
     public static function distribute($db, $sector, $toll, $total_fighters)

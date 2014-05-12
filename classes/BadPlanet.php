@@ -21,12 +21,6 @@
 // behaviors. But in the interest of saying goodbye to the includes directory, and raw functions, this
 // will at least allow us to auto-load and use classes instead. Plenty to do in the future, though!
 
-if (strpos ($_SERVER['PHP_SELF'], 'BadPlanet.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BadPlanet
 {
     public static function planetBombing($db, $langvars)

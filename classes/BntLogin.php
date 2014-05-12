@@ -17,12 +17,6 @@
 //
 // File: classes/BntLogin.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntLogin.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntLogin
 {
     // TODO: Template variable is not needed

@@ -17,12 +17,6 @@
 //
 // File: classes/BntScore.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntScore.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntScore
 {
     public static function updateScore($db, $ship_id, $bntreg)

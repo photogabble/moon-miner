@@ -17,12 +17,6 @@
 //
 // File: classes/BntDefense.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntDefense.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntDefense
 {
     public static function defence_vs_defence($db, $ship_id, $langvars)

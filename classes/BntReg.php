@@ -17,12 +17,6 @@
 //
 // File: classes/BntReg.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntReg.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntReg
 {
     public static function init($db, $bntreg)

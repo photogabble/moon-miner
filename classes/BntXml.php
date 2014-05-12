@@ -17,12 +17,6 @@
 //
 // File: classes/BntXml.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntXml.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntXml
 {
     private $xmldom                         = null;

@@ -17,12 +17,6 @@
 //
 // File: classes/BntTimer.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntTimer.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntTimer
 {
     public $t_start = 0;

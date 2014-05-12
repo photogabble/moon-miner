@@ -17,12 +17,6 @@
 //
 // File: classes/BntFighters.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntFighters.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntFighters
 {
     public static function destroy($db, $sector, $num_fighters)

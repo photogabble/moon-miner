@@ -17,12 +17,6 @@
 //
 // File: classes/BntSmarty.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntSmarty.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntSmarty
 {
     private $smarty                            = null;

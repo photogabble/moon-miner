@@ -17,12 +17,6 @@
 //
 // File: classes/BntPorts.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntPorts.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntPorts
 {
     public static function getType($ptype, $langvars)

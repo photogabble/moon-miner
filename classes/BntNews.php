@@ -18,12 +18,6 @@
 // File: classes/BntNews.php
 
 // Todo: Add validity checking for the format of $day
-if (strpos ($_SERVER['PHP_SELF'], 'BntNews.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntNews
 {
     public static function previousDay($day)

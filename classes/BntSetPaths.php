@@ -21,12 +21,6 @@
 // If it does not work, please comment this out and set it in db_config.php instead.
 // But PLEASE also report that it did not work for you at the main BNT forums (forums.blacknova.net)
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntSetPaths.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntSetPaths
 {
     public static function setGamepath()

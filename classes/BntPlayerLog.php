@@ -17,12 +17,6 @@
 //
 // File: classes/BntPlayerLog.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntPlayerLog.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntPlayerLog
 {
     public static function writeLog($db, $sid, $log_type, $data = "")

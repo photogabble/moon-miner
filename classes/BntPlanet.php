@@ -17,12 +17,6 @@
 //
 // File: classes/BntPlanet.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntPlanet.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntPlanet
 {
     public function getOwner($db = null, $planet_id = null, &$owner_info = null)

@@ -17,12 +17,6 @@
 //
 // File: classes/BntScan.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntScan.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntScan
 {
     public static function success($level_scan, $level_cloak)

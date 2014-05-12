@@ -17,12 +17,6 @@
 //
 // File: classes/BntCalcLevels.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntCalcLevels.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntCalcLevels
 {
     public static function Armor($level_armor, $level_factor)

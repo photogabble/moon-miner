@@ -17,12 +17,6 @@
 //
 // File: classes/BntSchema.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntSchema.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntSchema
 {
     public static function destroy($db, $db_prefix)

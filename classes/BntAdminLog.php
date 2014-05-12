@@ -18,12 +18,6 @@
 // File: classes/BntAdminLog.php
 // Todo: Recode adminlog to be smart about whether there is a db, and if not, log to a file that will be slurped into the db when there is.
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntAdminLog.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntAdminLog
 {
     public static function writeLog($db, $log_type, $data = null)

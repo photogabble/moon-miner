@@ -19,12 +19,6 @@
 //
 // Class for managing the database inside BNT
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntDb.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntDb
 {
     public static function isActive($db)

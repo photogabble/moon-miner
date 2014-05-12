@@ -17,12 +17,6 @@
 //
 // File: classes/BntTestXml.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntTestXml.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntTestXml
 {
     public static function parse($filename)

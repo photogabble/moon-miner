@@ -17,12 +17,6 @@
 //
 // File: classes/BntPlayer.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntPlayer.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntPlayer
 {
     public static function kill($db, $ship_id, $remove_planets = false, $langvars, $bntreg)

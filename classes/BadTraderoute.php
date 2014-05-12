@@ -20,12 +20,6 @@
 // TODO: These are horribly bad. But in the interest of saying goodbye to the includes directory, and raw functions, this
 // will at least allow us to auto-load and use classes instead. Plenty to do in the future, though!
 
-if (strpos ($_SERVER['PHP_SELF'], 'BadTraderoute.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BadTraderoute
 {
     public static function traderouteEngage($db, $lang, $j, $langvars)

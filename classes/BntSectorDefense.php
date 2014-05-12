@@ -17,12 +17,6 @@
 //
 // File: classes/BntSectorDefense.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntSectorDefense.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntSectorDefense
 {
     public static function message_defense_owner($db, $sector, $message)

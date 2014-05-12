@@ -17,12 +17,6 @@
 //
 // File: classes/BadTeam.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BadTeam.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BadTeam
 {
     public static function sameTeam($attacker_team = null, $attackie_team = null)

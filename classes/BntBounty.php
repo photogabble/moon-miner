@@ -17,12 +17,6 @@
 //
 // File: classes/BntBounty.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntBounty.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntBounty
 {
     public static function cancel($db, $bounty_on)

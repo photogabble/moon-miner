@@ -21,12 +21,6 @@
 // This class is a drop-in replacement for mt_rand that uses openssl_random_psuedo_bytes or
 // mcrypt_create_iv if they are available (in that order), or if not, it falls back to mt_rand
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntRand.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntRand
 {
     public static function sslRand($min = 0, $max = 0x7FFFFFFF)

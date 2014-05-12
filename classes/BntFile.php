@@ -20,12 +20,6 @@
 // This class handles direct file functions for BNT. Included is iniToDb, a function
 // for importing values from an INI file into the database.
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntFile.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntFile
 {
     public static function iniToDb($db, $ini_file, $ini_table, $section, $bntreg)

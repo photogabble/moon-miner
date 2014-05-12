@@ -18,12 +18,6 @@
 // File: classes/BntCompress.php
 //
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntCompress.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntCompress
 {
     public function __construct()

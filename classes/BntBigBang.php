@@ -17,12 +17,6 @@
 //
 // File: classes/BntBigBang.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'BntBigBang.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
-
 class BntBigBang
 {
     public static function findStep($current_file)
