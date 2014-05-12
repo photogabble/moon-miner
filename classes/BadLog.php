@@ -27,7 +27,7 @@ class BadLog
     {
         $langvars['l_log_nopod'] = "<font color=yellow><strong>" . $langvars['l_log_nopod'] . "</strong></font>"; // This should be done better, but I needed it moved out of the language file.
 
-        BadLog::getLogInfo ($entry['type'], $titletemp, $texttemp);
+        BadLog::getLogInfo ($log_list, $entry['type'], $titletemp, $texttemp);
 
         switch ($entry['type'])
         {
@@ -374,9 +374,8 @@ class BadLog
         return $retvalue;
     }
 
-    public static function getLogInfo($id = null, &$title = null, &$text = null)
+    public static function getLogInfo($log_list, $id = null, &$title = null, &$text = null)
     {
-        global $log_list;
         $title = null;
         $text = null;
 

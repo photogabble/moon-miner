@@ -63,7 +63,7 @@ class BadPlanetReportCE
             return (boolean) false;
         }  // Build a base
 
-        BadPlanetReportCE::realSpaceMove ($db, $langvars, $sector_id);
+        BadPlanetReportCE::realSpaceMove ($db, $langvars, $sector_id, $level_factor, $mine_hullsize);
         echo "<br>";
         echo str_replace ("[here]", "<a href='planet.php?planet_id=$planet_id'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_planet']);
         echo "<br><br>";
@@ -141,7 +141,7 @@ class BadPlanetReportCE
         for ($i = 0; $i < $temp_count2 && $CS == "GO"; $i++)
         {
             echo "<br>";
-            $CS = BadPlanetReportCE::realSpaceMove ($db, $langvars, $s_p_pair[$i][0]);
+            $CS = BadPlanetReportCE::realSpaceMove ($db, $langvars, $s_p_pair[$i][0], $level_factor, $mine_hullsize);
 
             if ($CS == "HOSTILE")
             {
@@ -443,10 +443,8 @@ class BadPlanetReportCE
         return ($retval);
     }
 
-    public static function realSpaceMove($db, $langvars, $destination)
+    public static function realSpaceMove($db, $langvars, $destination, $level_factor, $mine_hullsize)
     {
-        global $level_factor, $mine_hullsize;
-
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         $playerinfo = $res->fields;
