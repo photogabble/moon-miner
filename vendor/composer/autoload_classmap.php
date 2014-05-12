@@ -22,6 +22,7 @@ return array(
     'BntCompress' => $baseDir . '/classes/BntCompress.php',
     'BntDb' => $baseDir . '/classes/BntDb.php',
     'BntDefense' => $baseDir . '/classes/BntDefense.php',
+    'BntError' => $baseDir . '/classes/BntError.php',
     'BntFighters' => $baseDir . '/classes/BntFighters.php',
     'BntFile' => $baseDir . '/classes/BntFile.php',
     'BntLogMove' => $baseDir . '/classes/BntLogMove.php',
