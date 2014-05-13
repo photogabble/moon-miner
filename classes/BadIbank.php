@@ -339,10 +339,8 @@ class BadIbank
              "</tr>";
     }
 
-    public static function ibankRepay($db, $langvars, $playerinfo)
+    public static function ibankRepay($db, $langvars, $playerinfo, $account, $amount)
     {
-        global $account, $amount;
-
         $amount = preg_replace ("/[^0-9]/", "", $amount);
         if (($amount * 1) != $amount)
         {
