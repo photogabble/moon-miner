@@ -19,7 +19,7 @@
 
 class BntDefense
 {
-    public static function defence_vs_defence($db, $ship_id, $langvars)
+    public static function defenceVsDefence($db, $ship_id, $langvars)
     {
         $secdef_result = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?;", array ($ship_id));
         BntDb::logDbErrors ($db, $secdef_result, __LINE__, __FILE__);

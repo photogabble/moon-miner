@@ -94,7 +94,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_playerinfo_character_name]", $playerinfo['character_name'], $langvars['l_chm_hehitminesinsector']);
         $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_roll]", "$roll", $langvars['l_chm_hehitminesinsector']);
         $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_sector]", $sector, $langvars['l_chm_hehitminesinsector']);
-        BntSectorDefense::message_defense_owner ($db, $sector, $langvars['l_chm_hehitminesinsector']);
+        BntSectorDefense::messageDefenseOwner ($db, $sector, $langvars['l_chm_hehitminesinsector']);
 
         // If the player has enough mine deflectors then subtract the ammount and continue
         if ($playerinfo['dev_minedeflector'] >= $roll)
@@ -117,7 +117,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
 
             // Shields up
             $mines_left = $roll - $playerinfo['dev_minedeflector'];
-            $playershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
+            $playershields = BntCalcLevels::shields ($playerinfo['shields'], $level_factor);
             if ($playershields > $playerinfo['ship_energy'])
             {
                 $playershields = $playerinfo['ship_energy'];
@@ -157,7 +157,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                     BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
                     $langvars['l_chm_hewasdestroyedbyyourmines'] = str_replace ("[chm_playerinfo_character_name]", $playerinfo['character_name'], $langvars['l_chm_hewasdestroyedbyyourmines']);
                     $langvars['l_chm_hewasdestroyedbyyourmines'] = str_replace ("[chm_sector]", $sector, $langvars['l_chm_hewasdestroyedbyyourmines']);
-                    BntSectorDefense::message_defense_owner ($db, $sector, $langvars['l_chm_hewasdestroyedbyyourmines']);
+                    BntSectorDefense::messageDefenseOwner ($db, $sector, $langvars['l_chm_hewasdestroyedbyyourmines']);
                     echo $langvars['l_chm_yourshiphasbeendestroyed'] . "<br><br>";
 
                     // Survival

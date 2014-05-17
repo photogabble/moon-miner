@@ -19,7 +19,7 @@
 
 class BntSectorDefense
 {
-    public static function message_defense_owner($db, $sector, $message)
+    public static function messageDefenseOwner($db, $sector, $message)
     {
         $res = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($sector));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);

@@ -210,7 +210,7 @@ else
             // reporting totals. If we use the variables in calcs below,
             // change the display of stats too
 
-            $targetbeams = BntCalcLevels::Beams ($targetinfo['beams'], $level_factor);
+            $targetbeams = BntCalcLevels::beams ($targetinfo['beams'], $level_factor);
             if ($targetbeams > $targetinfo['ship_energy'])
             {
                 $targetbeams = $targetinfo['ship_energy'];
@@ -218,21 +218,21 @@ else
             $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
             // Why dont we set targetinfo[ship_energy] to a variable instead?
 
-            $playerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
+            $playerbeams = BntCalcLevels::beams ($playerinfo['beams'], $level_factor);
             if ($playerbeams > $playerinfo['ship_energy'])
             {
                 $playerbeams = $playerinfo['ship_energy'];
             }
             $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playerbeams;
 
-            $playershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
+            $playershields = BntCalcLevels::shields ($playerinfo['shields'], $level_factor);
             if ($playershields > $playerinfo['ship_energy'])
             {
                 $playershields = $playerinfo['ship_energy'];
             }
             $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playershields;
 
-            $targetshields = BntCalcLevels::Shields ($targetinfo['shields'], $level_factor);
+            $targetshields = BntCalcLevels::shields ($targetinfo['shields'], $level_factor);
             if ($targetshields > $targetinfo['ship_energy'])
             {
                 $targetshields = $targetinfo['ship_energy'];
@@ -639,7 +639,7 @@ else
                     $free_ore = round ($targetinfo['ship_ore'] / 2 );
                     $free_organics = round ($targetinfo['ship_organics'] / 2 );
                     $free_goods = round ($targetinfo['ship_goods'] / 2 );
-                    $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+                    $free_holds = BntCalcLevels::Hhlds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
                     if ($free_holds > $free_goods)
                     {
                         $salv_goods = $free_goods;
@@ -762,7 +762,7 @@ else
                     $free_ore = round ($playerinfo['ship_ore'] / 2);
                     $free_organics = round ($playerinfo['ship_organics']/2);
                     $free_goods = round ($playerinfo['ship_goods']/2);
-                    $free_holds = BntCalcLevels::Holds ($targetinfo['hull'], $level_factor) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
+                    $free_holds = BntCalcLevels::holds ($targetinfo['hull'], $level_factor) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
                     if ($free_holds > $free_goods)
                     {
                         $salv_goods = $free_goods;

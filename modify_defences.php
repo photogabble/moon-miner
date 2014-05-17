@@ -129,7 +129,7 @@ switch ($response)
             $countres = $db->Execute ("SELECT SUM(quantity) AS totalmines FROM {$db->prefix}sector_defence WHERE sector_id = ? AND defence_type = 'M';", array ($sector));
             $ttl = $countres->fields;
             $total_sector_mines = $ttl['totalmines'];
-            $playerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
+            $playerbeams = BntCalcLevels::beams ($playerinfo['beams'], $level_factor);
             if ($playerbeams > $playerinfo['ship_energy'])
             {
                 $playerbeams = $playerinfo['ship_energy'];
@@ -145,7 +145,7 @@ switch ($response)
             $langvars['l_md_msgdownerb'] = str_replace ("[sector]", $sector, $langvars['l_md_msgdownerb']);
             $langvars['l_md_msgdownerb'] = str_replace ("[mines]", $playerbeams, $langvars['l_md_msgdownerb']);
             $langvars['l_md_msgdownerb'] = str_replace ("[name]", $char_name, $langvars['l_md_msgdownerb']);
-            BntSectorDefense::message_defense_owner ($db, $sector, $langvars['l_md_msgdownerb']);
+            BntSectorDefense::messageDefenseOwner ($db, $sector, $langvars['l_md_msgdownerb']);
             BntText::gotoMain ($db, $lang, $langvars);
             die ();
         }
@@ -170,8 +170,8 @@ switch ($response)
             $quantity = $defenceinfo['quantity'];
         }
 
-        $torpedo_max = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
-        $fighter_max = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+        $torpedo_max = BntCalcLevels::torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+        $fighter_max = BntCalcLevels::fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
         if ($defenceinfo['defence_type'] == 'F')
         {
             if ($quantity > $fighter_max)

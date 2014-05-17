@@ -191,10 +191,10 @@ if ($playerinfo['turns'] < 1)
 }
 else
 {
-    $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
-    $fighter_max = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
-    $torpedo_max = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+    $free_holds = BntCalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+    $free_power = BntCalcLevels::energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $fighter_max = BntCalcLevels::fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+    $torpedo_max = BntCalcLevels::torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
 
     // First setup the tp flags
     if ($tpore != -1)

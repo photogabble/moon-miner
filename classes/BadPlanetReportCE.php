@@ -488,7 +488,7 @@ class BadPlanetReportCE
             $energyscooped = 100;
         }
 
-        $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+        $free_power = BntCalcLevels::energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
 
         // Amount of energy that can be stored is less than the amount scooped. Amount scooped is set to what can be stored.
         if ($free_power < $energyscooped)

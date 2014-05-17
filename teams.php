@@ -188,7 +188,7 @@ switch ($teamwhat)
                         BntOwnership::calc ($db, $sector, $min_bases_to_own, $langvars);
                     }
                 }
-                BntDefense::defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
+                BntDefense::defenceVsDefence ($db, $playerinfo['ship_id'], $langvars);
                 BntShip::leavePlanet ($db, $playerinfo['ship_id']);
 
                 $langvars['l_team_onlymember'] = str_replace ("[team_name]", "<strong>$team[team_name]</strong>", $langvars['l_team_onlymember']);
@@ -248,7 +248,7 @@ switch ($teamwhat)
                     }
 
                     echo $langvars['l_team_youveleft'] . " <strong>" . $team['team_name'] . "</strong>.<br><br>";
-                    BntDefense::defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
+                    BntDefense::defenceVsDefence ($db, $playerinfo['ship_id'], $langvars);
                     BntShip::leavePlanet ($db, $playerinfo['ship_id']);
                     BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_LEAVE, $team['team_name']);
                     BntPlayerLog::writeLog ($db, $team['creator'], LOG_TEAM_NOT_LEAVE, $playerinfo['character_name']);

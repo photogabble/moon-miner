@@ -53,9 +53,9 @@ while (!$result->EOF)
     $result->MoveNext ();
 }
 
-$freeholds = BntCalcLevels::Holds ($playerinfo['hull'], $bntreg->level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-$maxholds = BntCalcLevels::Holds ($playerinfo['hull'], $bntreg->level_factor);
-$maxenergy = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor);
+$freeholds = BntCalcLevels::holds ($playerinfo['hull'], $bntreg->level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+$maxholds = BntCalcLevels::holds ($playerinfo['hull'], $bntreg->level_factor);
+$maxenergy = BntCalcLevels::energy ($playerinfo['power'], $bntreg->level_factor);
 if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playerinfo['ship_organics'] < 0 || $playerinfo['ship_goods'] < 0 || $playerinfo['ship_energy'] < 0 || $freeholds < 0)
 {
     if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_colonists'] > $maxholds)

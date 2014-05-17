@@ -28,7 +28,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('sector_fighters', 'common', 
 
 echo $langvars['l_sf_attacking'] . "<br>";
 $targetfighters = $total_sector_fighters;
-$playerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
+$playerbeams = BntCalcLevels::beams ($playerinfo['beams'], $level_factor);
 if ($calledfrom == 'rsmove.php')
 {
     $playerinfo['ship_energy'] += $energyscooped;
@@ -40,7 +40,7 @@ if ($playerbeams > $playerinfo['ship_energy'])
 }
 
 $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playerbeams;
-$playershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
+$playershields = BntCalcLevels::shields ($playerinfo['shields'], $level_factor);
 
 if ($playershields > $playerinfo['ship_energy'])
 {
@@ -150,7 +150,7 @@ $langvars['l_sf_sendlog'] = str_replace ("[player]", $playerinfo['character_name
 $langvars['l_sf_sendlog'] = str_replace ("[lost]", $fighterslost, $langvars['l_sf_sendlog']);
 $langvars['l_sf_sendlog'] = str_replace ("[sector]", $sector, $langvars['l_sf_sendlog']);
 
-BntSectorDefense::message_defense_owner ($db, $sector, $langvars['l_sf_sendlog']);
+BntSectorDefense::messageDefenseOwner ($db, $sector, $langvars['l_sf_sendlog']);
 BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_DEFS_DESTROYED_F, "$fighterslost|$sector");
 $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
 $fighters_lost = $playerinfo['ship_fighters'] - $playerfighters;
@@ -167,7 +167,7 @@ if ($playerarmor < 1)
     BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_DEFS_KABOOM, "$sector|$playerinfo[dev_escapepod]");
     $langvars['l_sf_sendlog2'] = str_replace ("[player]", $playerinfo['character_name'], $langvars['l_sf_sendlog2']);
     $langvars['l_sf_sendlog2'] = str_replace ("[sector]", $sector, $langvars['l_sf_sendlog2']);
-    BntSectorDefense::message_defense_owner ($db, $sector, $langvars['l_sf_sendlog2']);
+    BntSectorDefense::messageDefenseOwner ($db, $sector, $langvars['l_sf_sendlog2']);
     if ($playerinfo['dev_escapepod'] == 'Y')
     {
         $rating = round ($playerinfo['rating'] / 2);

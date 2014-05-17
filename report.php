@@ -58,11 +58,11 @@ else
 }
 
 $holds_used = $playerinfo['ship_ore'] + $playerinfo['ship_organics'] + $playerinfo['ship_goods'] + $playerinfo['ship_colonists'];
-$holds_max = BntCalcLevels::Holds ($playerinfo['hull'], $bntreg->level_factor);
-$armor_pts_max = BntCalcLevels::Armor ($playerinfo['armor'], $bntreg->level_factor);
-$ship_fighters_max = BntCalcLevels::Fighters ($playerinfo['computer'], $bntreg->level_factor);
-$torps_max = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $bntreg->level_factor);
-$energy_max = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor);
+$holds_max = BntCalcLevels::holds ($playerinfo['hull'], $bntreg->level_factor);
+$armor_pts_max = BntCalcLevels::armor ($playerinfo['armor'], $bntreg->level_factor);
+$ship_fighters_max = BntCalcLevels::fighters ($playerinfo['computer'], $bntreg->level_factor);
+$torps_max = BntCalcLevels::torpedoes ($playerinfo['torp_launchers'], $bntreg->level_factor);
+$energy_max = BntCalcLevels::energy ($playerinfo['power'], $bntreg->level_factor);
 $escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];
 $fuel_scoop = ($playerinfo['dev_fuelscoop'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];
 $lssd = ($playerinfo['dev_lssd'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];

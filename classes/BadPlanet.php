@@ -39,8 +39,8 @@ class BadPlanet
         echo $langvars['l_bombsaway'] . "<br><br>\n";
         $attackerfighterslost = 0;
         $planetfighterslost = 0;
-        $attackerfightercapacity = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor);
-        $ownerfightercapacity = BntCalcLevels::Fighters ($ownerinfo['computer'], $level_factor);
+        $attackerfightercapacity = BntCalcLevels::fighters ($playerinfo['computer'], $level_factor);
+        $ownerfightercapacity = BntCalcLevels::fighters ($ownerinfo['computer'], $level_factor);
         $beamsused = 0;
 
         $res = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");
@@ -131,9 +131,9 @@ class BadPlanet
 
         // Attacking ship calculations
 
-        $attackerbeams      = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
+        $attackerbeams      = BntCalcLevels::beams ($playerinfo['beams'], $level_factor);
         $attackerfighters   = $playerinfo['ship_fighters'];
-        $attackershields    = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
+        $attackershields    = BntCalcLevels::shields ($playerinfo['shields'], $level_factor);
         $attackertorps      = round (pow ($level_factor, $playerinfo['torp_launchers'])) * 2;
         $attackerarmor      = $playerinfo['armor_pts'];
 
@@ -628,13 +628,13 @@ class BadPlanet
         " . $langvars['l_cmb_statattackerarmor'] . ": $attackerarmor<br>
         " . $langvars['l_cmb_statattackertorpdamage'] . ": $attackertorpdamage<br>";
 
-        $targetbeams = BntCalcLevels::Beams ($targetinfo['beams'], $level_factor);
+        $targetbeams = BntCalcLevels::beams ($targetinfo['beams'], $level_factor);
         if ($targetbeams > $targetinfo['ship_energy'])
         {
             $targetbeams = $targetinfo['ship_energy'];
         }
         $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
-        $targetshields = BntCalcLevels::Shields ($targetinfo['shields'], $level_factor);
+        $targetshields = BntCalcLevels::shields ($targetinfo['shields'], $level_factor);
         if ($targetshields > $targetinfo['ship_energy'])
         {
             $targetshields = $targetinfo['ship_energy'];
@@ -996,7 +996,7 @@ class BadPlanet
                 $free_ore = round ($targetinfo['ship_ore'] / 2);
                 $free_organics = round ($targetinfo['ship_organics'] / 2);
                 $free_goods = round ($targetinfo['ship_goods'] / 2);
-                $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+                $free_holds = BntCalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
                 if ($free_holds > $free_goods)
                 {
                     $salv_goods = $free_goods;

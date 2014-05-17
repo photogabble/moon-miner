@@ -19,37 +19,37 @@
 
 class BntCalcLevels
 {
-    public static function Armor($level_armor, $level_factor)
+    public static function armor($level_armor, $level_factor)
     {
         return round (pow ($level_factor, $level_armor) * 100);
     }
 
-    public static function Holds($level_hull, $level_factor)
+    public static function holds($level_hull, $level_factor)
     {
         return round (pow ($level_factor, $level_hull) * 100);
     }
 
-    public static function Shields($level_shields, $level_factor)
+    public static function shields($level_shields, $level_factor)
     {
         return round (pow ($level_factor, $level_shields) * 100);
     }
 
-    public static function Torpedoes($level_torp_launchers, $level_factor)
+    public static function torpedoes($level_torp_launchers, $level_factor)
     {
         return round (pow ($level_factor, $level_torp_launchers) * 100);
     }
 
-    public static function Beams($level_beams, $level_factor)
+    public static function beams($level_beams, $level_factor)
     {
         return round (pow ($level_factor, $level_beams) * 100);
     }
 
-    public static function Fighters($level_computer, $level_factor)
+    public static function fighters($level_computer, $level_factor)
     {
         return round (pow ($level_factor, $level_computer) * 100);
     }
 
-    public static function Energy($level_power, $level_factor)
+    public static function energy($level_power, $level_factor)
     {
         return round (pow ($level_factor, $level_power) * 500);
     }
@@ -58,7 +58,7 @@ class BntCalcLevels
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-        $planetbeams = BntCalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
+        $planetbeams = BntCalcLevels::beams ($ownerinfo['beams'] + $base_factor, $level_factor);
         $energy_available = $planetinfo['energy'];
 
         $res = $db->Execute ("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
@@ -67,7 +67,7 @@ class BntCalcLevels
         {
             while (!$res->EOF)
             {
-                $planetbeams = $planetbeams + BntCalcLevels::Beams ($res->fields['beams'], $level_factor);
+                $planetbeams = $planetbeams + BntCalcLevels::beams ($res->fields['beams'], $level_factor);
                 $res->MoveNext();
             }
         }
@@ -84,7 +84,7 @@ class BntCalcLevels
     public static function planetShields($db, $ownerinfo, $base_defense, $planetinfo)
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
-        $planetshields = BntCalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
+        $planetshields = BntCalcLevels::shields ($ownerinfo['shields'] + $base_factor, $level_factor);
         $energy_available = $planetinfo['energy'];
 
         $res = $db->Execute ("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
@@ -94,7 +94,7 @@ class BntCalcLevels
         {
             while (!$res->EOF)
             {
-                $planetshields += BntCalcLevels::Shields ($res->fields['shields'], $level_factor);
+                $planetshields += BntCalcLevels::shields ($res->fields['shields'], $level_factor);
                 $res->MoveNext ();
             }
         }

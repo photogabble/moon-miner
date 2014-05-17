@@ -1,3 +1,7 @@
+TheKabal (16 May 2014)
+--------------------------------------
+Assorted fixes for variable naming, to be consistently camelCaps styled.
+
 TheKabal (11 May 2014)
 --------------------------------------
 Change "HandleFuelScoop" to BntMove::calcFuelScooped, in classes directory

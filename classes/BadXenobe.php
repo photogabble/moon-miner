@@ -153,7 +153,7 @@ class BadXenobe
             $amount_goods = $playerinfo['ship_goods'];
 
             // Since we sell all other holds we set amount to be our total hold limit
-            $amount_ore = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor);
+            $amount_ore = BntCalcLevels::holds ($playerinfo['hull'], $level_factor);
 
             // We adjust this to make sure it does not exceed what the port has to sell
             $amount_ore = min ($amount_ore, $sectorinfo['port_ore']);
@@ -186,7 +186,7 @@ class BadXenobe
             $amount_goods = $playerinfo['ship_goods'];
 
             // SINCE WE SELL ALL OTHER HOLDS WE SET AMOUNT TO BE OUR TOTAL HOLD LIMIT
-            $amount_organics = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor);
+            $amount_organics = BntCalcLevels::holds ($playerinfo['hull'], $level_factor);
 
             // WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEED WHAT THE PORT HAS TO SELL
             $amount_organics = min ($amount_organics, $sectorinfo['port_organics']);
@@ -219,7 +219,7 @@ class BadXenobe
             $amount_organics = $playerinfo['ship_organics'];
 
             // Since we sell all other holds we set amount to be our total hold limit
-            $amount_goods = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor);
+            $amount_goods = BntCalcLevels::holds ($playerinfo['hull'], $level_factor);
 
             // We adjust this to make sure it does not exceed what the port has to sell
             $amount_goods = min ($amount_goods, $sectorinfo['port_goods']);
@@ -261,7 +261,7 @@ class BadXenobe
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
         // Planet beams
-        $targetbeams = BntCalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
+        $targetbeams = BntCalcLevels::beams ($ownerinfo['beams'] + $base_factor, $level_factor);
         if ($targetbeams > $planetinfo['energy'])
         {
             $targetbeams = $planetinfo['energy'];
@@ -269,7 +269,7 @@ class BadXenobe
         $planetinfo['energy'] -= $targetbeams;
 
         // Planet shields
-        $targetshields = BntCalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
+        $targetshields = BntCalcLevels::shields ($ownerinfo['shields'] + $base_factor, $level_factor);
         if ($targetshields > $planetinfo['energy'])
         {
             $targetshields = $planetinfo['energy'];
@@ -292,7 +292,7 @@ class BadXenobe
         $targetfighters = $planetinfo['fighters'];
 
         // Attacker beams
-        $attackerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
+        $attackerbeams = BntCalcLevels::beams ($playerinfo['beams'], $level_factor);
         if ($attackerbeams > $playerinfo['ship_energy'])
         {
             $attackerbeams = $playerinfo['ship_energy'];
@@ -300,7 +300,7 @@ class BadXenobe
         $playerinfo['ship_energy'] -= $attackerbeams;
 
         // Attacker shields
-        $attackershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
+        $attackershields = BntCalcLevels::shields ($playerinfo['shields'], $level_factor);
         if ($attackershields > $playerinfo['ship_energy'])
         {
             $attackershields = $playerinfo['ship_energy'];
@@ -665,14 +665,14 @@ class BadXenobe
         }
 
         // Setup attacker variables
-        $attackerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
+        $attackerbeams = BntCalcLevels::beams ($playerinfo['beams'], $level_factor);
         if ($attackerbeams > $playerinfo['ship_energy'])
         {
             $attackerbeams = $playerinfo['ship_energy'];
         }
 
         $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $attackerbeams;
-        $attackershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
+        $attackershields = BntCalcLevels::shields ($playerinfo['shields'], $level_factor);
         if ($attackershields > $playerinfo['ship_energy'])
         {
             $attackershields = $playerinfo['ship_energy'];
@@ -692,14 +692,14 @@ class BadXenobe
         $playerdestroyed = 0;
 
         // Setup target variables
-        $targetbeams = BntCalcLevels::Beams ($targetinfo['beams'], $level_factor);
+        $targetbeams = BntCalcLevels::beams ($targetinfo['beams'], $level_factor);
         if ($targetbeams > $targetinfo['ship_energy'])
         {
             $targetbeams = $targetinfo['ship_energy'];
         }
 
         $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
-        $targetshields = BntCalcLevels::Shields ($targetinfo['shields'], $level_factor);
+        $targetshields = BntCalcLevels::shields ($targetinfo['shields'], $level_factor);
         if ($targetshields>$targetinfo['ship_energy'])
         {
             $targetshields = $targetinfo['ship_energy'];
@@ -981,7 +981,7 @@ class BadXenobe
                 $free_ore = round ($targetinfo['ship_ore'] / 2);
                 $free_organics = round ($targetinfo['ship_organics'] / 2);
                 $free_goods = round ($targetinfo['ship_goods'] / 2);
-                $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+                $free_holds = BntCalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
                 if ($free_holds > $free_goods)
                 {                                                        // Figure out what we can carry
                     $salv_goods = $free_goods;
@@ -1073,7 +1073,7 @@ class BadXenobe
                 $free_ore = round ($playerinfo['ship_ore'] / 2);
                 $free_organics = round ($playerinfo['ship_organics'] / 2);
                 $free_goods = round ($playerinfo['ship_goods'] / 2);
-                $free_holds = BntCalcLevels::Holds ($targetinfo['hull'], $level_factor) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
+                $free_holds = BntCalcLevels::holds ($targetinfo['hull'], $level_factor) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
                 if ($free_holds > $free_goods)
                 {                                                        // Figure out what target can carry
                     $salv_goods = $free_goods;
@@ -1180,14 +1180,14 @@ class BadXenobe
             {
                 BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines.");
                 $targetfighters = $total_sector_fighters;
-                $playerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
+                $playerbeams = BntCalcLevels::beams ($playerinfo['beams'], $level_factor);
                 if ($playerbeams > $playerinfo['ship_energy'])
                 {
                     $playerbeams = $playerinfo['ship_energy'];
                 }
 
                 $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playerbeams;
-                $playershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
+                $playershields = BntCalcLevels::shields ($playerinfo['shields'], $level_factor);
                 if ($playershields > $playerinfo['ship_energy'])
                 {
                     $playershields = $playerinfo['ship_energy'];
@@ -1294,7 +1294,7 @@ class BadXenobe
                 $langvars['l_sf_sendlog'] = str_replace ("[player]", "Xenobe $playerinfo[character_name]", $langvars['l_sf_sendlog']);
                 $langvars['l_sf_sendlog'] = str_replace ("[lost]", $fighterslost, $langvars['l_sf_sendlog']);
                 $langvars['l_sf_sendlog'] = str_replace ("[sector]", $targetlink, $langvars['l_sf_sendlog']);
-                BntSectorDefense::message_defense_owner ($db, $targetlink, $langvars['l_sf_sendlog']);
+                BntSectorDefense::messageDefenseOwner ($db, $targetlink, $langvars['l_sf_sendlog']);
 
                 // Update Xenobe after comnbat
                 $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
@@ -1308,7 +1308,7 @@ class BadXenobe
                 {
                     $langvars['l_sf_sendlog2'] = str_replace ("[player]", "Xenobe " . $playerinfo['character_name'], $langvars['l_sf_sendlog2']);
                     $langvars['l_sf_sendlog2'] = str_replace ("[sector]", $targetlink, $langvars['l_sf_sendlog2']);
-                    BntSectorDefense::message_defense_owner ($db, $targetlink, $langvars['l_sf_sendlog2']);
+                    BntSectorDefense::messageDefenseOwner ($db, $targetlink, $langvars['l_sf_sendlog2']);
                     BntBounty::cancel ($db, $playerinfo['ship_id']);
                     BntPlayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
                     $xenobeisdead = 1;
@@ -1320,7 +1320,7 @@ class BadXenobe
                 $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $langvars['l_chm_hehitminesinsector']);
                 $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_roll]", $roll, $langvars['l_chm_hehitminesinsector']);
                 $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_sector]", $targetlink, $langvars['l_chm_hehitminesinsector']);
-                BntSectorDefense::message_defense_owner ($db, $targetlink, $langvars['l_chm_hehitminesinsector']);
+                BntSectorDefense::messageDefenseOwner ($db, $targetlink, $langvars['l_chm_hehitminesinsector']);
 
                 // Deflectors v. mines
                 if ($playerminedeflect >= $roll)
@@ -1352,7 +1352,7 @@ class BadXenobe
                             // Xenobe dies, logs the fact that he died
                             $langvars['l_chm_hewasdestroyedbyyourmines'] = str_replace ("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $langvars['l_chm_hewasdestroyedbyyourmines']);
                             $langvars['l_chm_hewasdestroyedbyyourmines'] = str_replace ("[chm_sector]", $targetlink, $langvars['l_chm_hewasdestroyedbyyourmines']);
-                            BntSectorDefense::message_defense_owner ($db, $targetlink, $langvars['l_chm_hewasdestroyedbyyourmines']);
+                            BntSectorDefense::messageDefenseOwner ($db, $targetlink, $langvars['l_chm_hewasdestroyedbyyourmines']);
 
                             // Actually kill the Xenobe now
                             BntBounty::cancel ($db, $playerinfo['ship_id']);
@@ -1635,14 +1635,14 @@ class BadXenobe
 
         // Xenobe Unempoyment Check
         $playerinfo['credits'] = $playerinfo['credits'] + $xen_unemployment;
-        $maxenergy = BntCalcLevels::Energy ($playerinfo['power'], $level_factor); // Regenerate energy
+        $maxenergy = BntCalcLevels::energy ($playerinfo['power'], $level_factor); // Regenerate energy
         if ($playerinfo['ship_energy'] <= ($maxenergy - 50))  // Stop regen when within 50 of max
         {
             $playerinfo['ship_energy'] = $playerinfo['ship_energy'] + round (($maxenergy - $playerinfo['ship_energy']) / 2); // Regen half of remaining energy
             $gene = "regenerated Energy to $playerinfo[ship_energy] units,";
         }
 
-        $maxarmor = BntCalcLevels::Armor ($playerinfo['armor'], $level_factor); // Regenerate armor
+        $maxarmor = BntCalcLevels::armor ($playerinfo['armor'], $level_factor); // Regenerate armor
         if ($playerinfo['armor_pts'] <= ($maxarmor - 50))  // Stop regen when within 50 of max
         {
             $playerinfo['armor_pts'] = $playerinfo['armor_pts'] + round (($maxarmor - $playerinfo['armor_pts']) / 2); // Regen half of remaining armor
@@ -1650,7 +1650,7 @@ class BadXenobe
         }
 
         // Buy fighters & torpedos at 6 credits per fighter
-        $available_fighters = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+        $available_fighters = BntCalcLevels::fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
         if (($playerinfo['credits'] > 5) && ($available_fighters > 0))
         {
             if (round ($playerinfo['credits'] / 6) > $available_fighters)
@@ -1671,7 +1671,7 @@ class BadXenobe
         }
 
         // Xenobe pay 3 credits per torpedo
-        $available_torpedoes = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+        $available_torpedoes = BntCalcLevels::torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
         if (($playerinfo['credits'] > 2) && ($available_torpedoes > 0))
         {
             if (round ($playerinfo['credits'] / 3) > $available_torpedoes)
