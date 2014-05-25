@@ -19,8 +19,6 @@
 
 namespace Bnt;
 
-define("PLUGIN_PATH", "./plugins", true);
-
 // Load up the list of supported Events.
 require_once 'eventsystem/event_list.php';
 
@@ -34,6 +32,7 @@ class PluginSystem
     private static $events                  = null;
     private static $pluginlist              = null;
 
+    const PLUGIN_PATH = "./plugins";
     public function __construct() {}
     public function __destruct() {}
 
