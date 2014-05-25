@@ -19,19 +19,19 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_md_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 if (!isset ($defence_id))
 {
     echo $langvars['l_md_invalid'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -42,29 +42,29 @@ if (array_key_exists ('response', $_REQUEST) == true)
 }
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
 if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_md_noturn'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE defence_id = ?;", array ($defence_id));
-BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
 // Put the defence information into the array "defenceinfo"
 
 if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on this.
 {
     echo $langvars['l_md_nolonger'] . "<br>";
-    BntText::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
     die ();
 }
 
@@ -72,8 +72,8 @@ $defenceinfo = $result3->fields;
 if ($defenceinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $langvars['l_md_nothere'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -109,8 +109,8 @@ switch ($response)
         if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
         {
             echo $langvars['l_md_yours'] . "<br><br>";
-            BntText::gotoMain ($db, $lang, $langvars);
-            BadFooter::display($pdo_db, $lang, $bntreg, $template);
+            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
 
@@ -129,7 +129,7 @@ switch ($response)
             $countres = $db->Execute ("SELECT SUM(quantity) AS totalmines FROM {$db->prefix}sector_defence WHERE sector_id = ? AND defence_type = 'M';", array ($sector));
             $ttl = $countres->fields;
             $total_sector_mines = $ttl['totalmines'];
-            $playerbeams = BntCalcLevels::beams ($playerinfo['beams'], $level_factor);
+            $playerbeams = Bnt\CalcLevels::beams ($playerinfo['beams'], $level_factor);
             if ($playerbeams > $playerinfo['ship_energy'])
             {
                 $playerbeams = $playerinfo['ship_energy'];
@@ -140,13 +140,13 @@ switch ($response)
             }
             echo $langvars['l_md_bmines'] . " " . $playerbeams . " " . $langvars['l_mines'] . "<br>";
             $update4b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ship_energy - ? WHERE ship_id = ?;", array ($playerbeams, $playerinfo['ship_id']));
-            BntMines::explode ($db, $sector, $playerbeams);
+            Bnt\Mines::explode ($db, $sector, $playerbeams);
             $char_name = $playerinfo['character_name'];
             $langvars['l_md_msgdownerb'] = str_replace ("[sector]", $sector, $langvars['l_md_msgdownerb']);
             $langvars['l_md_msgdownerb'] = str_replace ("[mines]", $playerbeams, $langvars['l_md_msgdownerb']);
             $langvars['l_md_msgdownerb'] = str_replace ("[name]", $char_name, $langvars['l_md_msgdownerb']);
-            BntSectorDefense::messageDefenseOwner ($db, $sector, $langvars['l_md_msgdownerb']);
-            BntText::gotoMain ($db, $lang, $langvars);
+            Bnt\SectorDefense::messageDefenseOwner ($db, $sector, $langvars['l_md_msgdownerb']);
+            Bnt\Text::gotoMain ($db, $lang, $langvars);
             die ();
         }
         break;
@@ -155,8 +155,8 @@ switch ($response)
         if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
         {
              echo $langvars['l_md_notyours'] . "<br><br>";
-             BntText::gotoMain ($db, $lang, $langvars);
-             BadFooter::display($pdo_db, $lang, $bntreg, $template);
+             Bnt\Text::gotoMain ($db, $lang, $langvars);
+             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
              die ();
         }
         $quantity = preg_replace ('/[^0-9]/', '', $quantity);
@@ -170,8 +170,8 @@ switch ($response)
             $quantity = $defenceinfo['quantity'];
         }
 
-        $torpedo_max = BntCalcLevels::torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
-        $fighter_max = BntCalcLevels::fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+        $torpedo_max = Bnt\CalcLevels::torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+        $fighter_max = Bnt\CalcLevels::fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
         if ($defenceinfo['defence_type'] == 'F')
         {
             if ($quantity > $fighter_max)
@@ -205,7 +205,7 @@ switch ($response)
         $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?,turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
         echo "<h1>" . $title . "</h1>\n";
         echo $langvars['l_md_retr'] . " " . $quantity . " " . $defence_type . ".<br>";
-        BntText::gotoMain ($db, $lang, $langvars);
+        Bnt\Text::gotoMain ($db, $lang, $langvars);
         die ();
         break;
 
@@ -214,8 +214,8 @@ switch ($response)
         if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
         {
             echo $langvars['l_md_notyours'] . "<br><br>";
-            BntText::gotoMain ($db, $lang, $langvars);
-            BadFooter::display($pdo_db, $lang, $bntreg, $template);
+            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
 
@@ -233,7 +233,7 @@ switch ($response)
 
         $langvars['l_md_mode'] = str_replace ("[mode]", $mode, $langvars['l_md_mode']);
         echo $langvars['l_md_mode'] . "<br>";
-        BntText::gotoMain ($db, $lang, $langvars);
+        Bnt\Text::gotoMain ($db, $lang, $langvars);
         die ();
         break;
 
@@ -281,11 +281,11 @@ switch ($response)
             }
         }
 
-    BntText::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
     die ();
     break;
 }
 
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

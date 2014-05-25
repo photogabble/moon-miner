@@ -19,13 +19,13 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_warp_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $bothway = null;
@@ -41,22 +41,22 @@ if (array_key_exists ('target_sector', $_POST)== true)
 }
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_warp_turn'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
 if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $langvars['l_warp_none'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -64,50 +64,50 @@ if (is_null ($target_sector))
 {
     // This is the best that I can do without adding a new language variable.
     echo $langvars['l_warp_nosector'] ."<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
     die ();
 }
 
 $res = $db->Execute ("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id;", array ($playerinfo['sector']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $langvars['l_warp_forbid'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
 $target_sector = round ($target_sector);
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $res = $db->Execute ("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id;", array ($target_sector));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N' && $bothway)
 {
     $langvars['l_warp_forbidtwo'] = str_replace ("[target_sector]", $target_sector, $langvars['l_warp_forbidtwo']);
     echo $langvars['l_warp_forbidtwo'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($target_sector));
-BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $row = $result2->fields;
 if (!$row)
 {
     echo $langvars['l_warp_nosector'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
     die ();
 }
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
-BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
 if ($result3 instanceof ADORecordSet)
 {
     $flag = 0;
@@ -128,10 +128,10 @@ if ($result3 instanceof ADORecordSet)
     else
     {
         $delete1 = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = ? AND link_dest = ?;", array ($playerinfo['sector'], $target_sector));
-        BntDb::logDbErrors ($db, $delete1, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $delete1, __LINE__, __FILE__);
 
         $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET dev_warpedit = dev_warpedit - 1, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-        BntDb::logDbErrors ($db, $update1, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $update1, __LINE__, __FILE__);
         if (is_null ($bothway))
         {
             echo $langvars['l_warp_removed'] . " " . $target_sector . ".<br><br>";
@@ -139,12 +139,12 @@ if ($result3 instanceof ADORecordSet)
         else
         {
             $delete2 = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = ? AND link_dest = ?;", array ($target_sector, $playerinfo['sector']));
-            BntDb::logDbErrors ($db, $delete2, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $delete2, __LINE__, __FILE__);
             echo $langvars['l_warp_removedtwo'] . " " . $target_sector . ".<br><br>";
         }
     }
 }
 
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

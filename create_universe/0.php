@@ -24,7 +24,7 @@ if ($pos !== false)
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = BntBigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep (__FILE__);
 
 // Set variables
 $variables['templateset'] = $bntreg->default_template;
@@ -47,13 +47,13 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
         // Select from the database and return the localized name of the language
         $query = "SELECT value FROM {$pdo_db->prefix}languages WHERE category = 'regional' AND section = :section AND name = 'local_lang_name';";
         $result = $pdo_db->prepare ($query);
-        BntDb::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
 
         if ($result !== false)
         {
             $result->bindParam (':section', $lang_file);
             $final_result = $result->execute ();
-            BntDb::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
             $row = $result->fetch();
             if ($row !== false)
             {
@@ -83,11 +83,11 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
 $variables['lang_list']['size'] = $i -1;
 
 // Database driven language entries
-$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'options', 'news'));
-$template->AddVariables ('langvars', $langvars);
+$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'options', 'news'));
+$template->addVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('variables', $variables);
+$template->addVariables ('variables', $variables);
 $template->display ("templates/classic/create_universe/0.tpl");
 ?>

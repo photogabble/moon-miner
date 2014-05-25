@@ -24,7 +24,7 @@ if ($pos !== false)
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = BntBigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep (__FILE__);
 
 // Set variables
 $variables['templateset']  = $bntreg->default_template;
@@ -50,11 +50,11 @@ $variables['newlang']      = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZ
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
-$template->AddVariables ('langvars', $langvars);
+$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$template->addVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('variables', $variables);
+$template->addVariables ('variables', $variables);
 $template->display ("templates/classic/create_universe/20.tpl");
 ?>

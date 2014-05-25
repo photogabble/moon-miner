@@ -19,24 +19,24 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
 $title = $langvars['l_zi_title'];
 $body_class = 'zoneinfo';
-BntHeader::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class=" . $body_class . ">";
 $zone = (int) filter_input (INPUT_GET, 'zone', FILTER_SANITIZE_NUMBER_INT);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($zone));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 if ($res->EOF)
@@ -77,14 +77,14 @@ else
         if ($row['corp_zone'] == 'N')
         {
             $result = $db->Execute ("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($row['owner']));
-            BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['character_name'];
         }
         else
         {
             $result = $db->Execute ("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id = ?;", array ($row['owner']));
-            BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['team_name'];
         }
@@ -193,6 +193,6 @@ else
 }
 echo "<br><br>";
 
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

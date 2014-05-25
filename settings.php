@@ -26,9 +26,9 @@ if (isset ($_GET['lang']))
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'main', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'main', 'regional'));
 $title = $langvars['l_settings'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 $line_color = $bntreg->color_line1;
 
@@ -136,7 +136,7 @@ if ($found_blues === 0)
 }
 echo "<br>\n";
 
-$pluginInfo = BntPluginSystem::GetPluginInfo();
+$pluginInfo = Bnt\PluginSystem::getPluginInfo();
 
 $title="Loaded ". count($pluginInfo) ." Plugin(s)";
 echo "<h1>" . $title . "</h1>\n";
@@ -341,5 +341,5 @@ else
     echo str_replace ("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

@@ -20,10 +20,10 @@
 include './global_includes.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset'));
 $title = $langvars['l_pwr_title'];
 $body_class = 'options';
-BntHeader::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 
@@ -37,7 +37,7 @@ $reset_code  = filter_input (INPUT_GET, 'code', FILTER_SANITIZE_STRING);
 // because 8 characters is 4,294,967,296 combinations, and that should be sufficiently secure
 
 $result = $db->SelectLimit ("SELECT character_name, email, recovery_time FROM {$db->prefix}ships WHERE substr(MD5(password),6,8) = ?", 1, -1, array ('password' => $reset_code));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF && $result != false)
 {
@@ -97,11 +97,11 @@ mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message
 
 // Reset recovery_time to zero
 $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=null WHERE email = ?;", array ($playerinfo['email']));
-var_dump (BntDb::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__));
+var_dump (Bnt\Db::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__));
 
 // Log user in (like login does)
 
 // Redirect to game (like login does)
 */
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

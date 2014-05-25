@@ -36,10 +36,10 @@ $setup_info->testcookies();
 $setup_info->initDB();
 
 $title = $setup_info->appinfo['title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'global_includes', 'footer', 'news'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('common', 'global_includes', 'footer', 'news'));
 
 $setup_info->DisplayFlush("<div align=\"center\">\n");
 $setup_info->DisplayFlush("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
@@ -359,8 +359,8 @@ if (empty ($_SESSION['username']))
 }
 else
 {
-    BntText::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
 }
 
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

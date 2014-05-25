@@ -19,24 +19,24 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_teamplanet_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if ($playerinfo['team'] == 0)
 {
     echo "<br>" . $langvars['l_teamplanet_notally'];
     echo "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     return;
 }
 
@@ -64,7 +64,7 @@ if (!empty ($sort))
 }
 
 $res = $db->Execute ($query);
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
@@ -143,7 +143,7 @@ else
 
         $owner = $planet[$i]['owner'];
         $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
-        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
         $player = $res->fields['character_name'];
 
         echo "<tr bgcolor=\"$color\">";
@@ -191,6 +191,6 @@ else
 }
 
 echo "<br><br>";
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

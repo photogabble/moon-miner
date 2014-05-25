@@ -19,13 +19,13 @@
 
 $online = (integer) 0;
 
-if (BntDb::isActive ($pdo_db))
+if (Bnt\Db::isActive ($pdo_db))
 {
     $stamp = date ("Y-m-d H:i:s", time ()); // Now (as seen by PHP)
     $since_stamp = date ("Y-m-d H:i:s", time () - 5 * 60); // Five minutes ago
     $sql = "SELECT COUNT(*) AS loggedin FROM {$pdo_db->prefix}ships WHERE {$pdo_db->prefix}ships.last_login BETWEEN timestamp '" . $since_stamp . "' AND timestamp '" . $stamp . "' AND email NOT LIKE '%@xenobe'";
     $stmt = $pdo_db->query($sql);
-    BntDb::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
     $row = $stmt->fetchObject();
     $online = $row->loggedin;
 }
@@ -50,12 +50,12 @@ $news_ticker = (!(preg_match ("/index.php/i", $_SERVER['PHP_SELF']) || preg_matc
 // Update counter
 $seconds_left = (integer) 0;
 $display_update_ticker = false;
-if (BntDb::isActive ($pdo_db))
+if (Bnt\Db::isActive ($pdo_db))
 {
     $sql = "SELECT last_run FROM {$pdo_db->prefix}scheduler LIMIT 1";
     $stmt = $pdo_db->query($sql);
     $row = $stmt->fetchObject();
-    BntDb::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
 
     if (is_object($row))
     {
@@ -83,7 +83,7 @@ if ($news_ticker == true)
 {
     // Database driven language entries
 
-    $langvars_temp = BntTranslate::load ($pdo_db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
+    $langvars_temp = Bnt\Translate::load ($pdo_db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
     // Use Array merge so that we do not clobber the langvars array, and only add to it the items needed for footer
     $langvars = array_merge ($langvars, $langvars_temp);
 
@@ -95,20 +95,20 @@ if ($news_ticker == true)
 
     $news_ticker = array ();
 
-    if (BntDb::isActive ($pdo_db))
+    if (Bnt\Db::isActive ($pdo_db))
     {
         // Needs to be put into the language table.
-        array_push ($news_ticker, array ('url'=>null, 'text'=>"News Network Down", 'type'=>"error", 'delay'=>5));
+        array_push ($news_ticker, array ('url' => null, 'text' => "News Network Down", 'type' => "error", 'delay' => 5));
     }
     else
     {
         $rs = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-        BntDb::logDbErrors ($pdo_db, $rs, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($pdo_db, $rs, __LINE__, __FILE__);
         if ($rs instanceof ADORecordSet)
         {
             if ($rs->RecordCount() == 0)
             {
-                array_push ($news_ticker, array ('url'=>null, 'text'=>$langvars['l_news_none'], 'type'=>null, 'delay'=>5));
+                array_push ($news_ticker, array ('url' => null, 'text' => $langvars['l_news_none'], 'type' => null, 'delay' => 5));
             }
             else
             {
@@ -116,15 +116,15 @@ if ($news_ticker == true)
                 {
                     $row = $rs->fields;
                     $headline = addslashes ($row['headline']);
-                    array_push ($news_ticker, array ('url'=>"news.php", 'text'=>$headline, 'type'=>$row['news_type'], 'delay'=>5));
+                    array_push ($news_ticker, array ('url' => "news.php", 'text' => $headline, 'type' => $row['news_type'], 'delay' => 5));
                     $rs->MoveNext();
                 }
-                array_push ($news_ticker, array ('url'=>null, 'text'=>"End of News", 'type'=>null, 'delay'=>5));
+                array_push ($news_ticker, array ('url'=>null, 'text' => "End of News", 'type' => null, 'delay' => 5));
             }
         }
     }
     $news_ticker['container']    = "article";
-    $template->AddVariables("news", $news_ticker);
+    $template->addVariables("news", $news_ticker);
 }
 else
 {
@@ -157,7 +157,7 @@ else
 }
 
 // Set array with all used variables in page
-$variables['update_ticker'] = array ("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$bntreg->sched_ticks);
+$variables['update_ticker'] = array ("display" => $display_update_ticker, "seconds_left" => $seconds_left, "sched_ticks" => $bntreg->sched_ticks);
 $variables['players_online'] = $online;
 $variables['sf_logo_type'] = $sf_logo_type;
 $variables['sf_logo_height'] = $sf_logo_height;

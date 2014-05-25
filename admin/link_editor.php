@@ -33,6 +33,6 @@ $variables['module'] = $module_name;
 $variables['container'] = "variable";
 $langvars['container'] = "langvar";
 
-$template->AddVariables('langvars', $langvars);
-$template->AddVariables('variables', $variables);
+$template->addVariables('langvars', $langvars);
+$template->addVariables('variables', $variables);
 ?>

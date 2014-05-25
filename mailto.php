@@ -19,12 +19,12 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 $title = $langvars['l_sendm_title'];
-BntHeader::display($db, $lang, $template, $title, $body_class = 'bnt', $include_ckeditor = true);
+Bnt\Header::display($db, $lang, $template, $title, $body_class = 'bnt', $include_ckeditor = true);
 
 // Filter to the FILTER_SANITIZE_STRING ruleset, because we need to allow spaces for names & subject (FILTER_SANITIZE_URL doesn't allow spaces)
 // $name, $to, and $subject are all sent both via post and get, so we have to do a filter input for each
@@ -78,7 +78,7 @@ if (!empty ($subject))
 }
 
 $res = $db->Execute ("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 echo "<h1>" . $title . "</h1>\n";
@@ -86,9 +86,9 @@ echo "<h1>" . $title . "</h1>\n";
 if (empty ($content))
 {
     $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE email NOT LIKE '%@Xenobe' AND ship_id <> ? ORDER BY character_name ASC;", array ($playerinfo['ship_id']));
-    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
     $res2 = $db->Execute ("SELECT team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC;");
-    BntDb::logDbErrors ($db, $res2, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $res2, __LINE__, __FILE__);
     echo "<form action=mailto.php method=post>\n";
     echo "  <table>\n";
     echo "    <tr>\n";
@@ -151,10 +151,10 @@ else
     {
         $timestamp = date ("Y\-m\-d H\:i\:s");
         $res = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE character_name = ?;", array ($to));
-        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
         $target_info = $res->fields;
         $resx = $db->Execute ("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $target_info['ship_id'], $timestamp, $subject, $content));
-        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
         if ($db->ErrorNo() != 0)
         {
             echo "Message failed to send: " . $db->ErrorMsg() . "<br>\n";
@@ -171,22 +171,22 @@ else
         $to = trim ($to);
         $to = addslashes($to);
         $res = $db->Execute ("SELECT id FROM {$db->prefix}teams WHERE team_name = ?;", array ($to));
-        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
 
         $res2 = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE team = ?;", array ($row['id']));
-        BntDb::logDbErrors ($db, $res2, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $res2, __LINE__, __FILE__);
 
         while (!$res2->EOF)
         {
             $row2 = $res2->fields;
             $resx = $db->Execute ("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $row2['ship_id'], $timestamp, $subject, $content));
-            BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
             $res2->MoveNext();
         }
    }
 }
 
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

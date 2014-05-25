@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'log_viewer.php')) // Prevent direct access to
 }
 
 $res = $db->Execute ("SELECT ship_id, character_name FROM {$db->prefix}ships ORDER BY character_name ASC");
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
     $players[] = $res->fields;
@@ -42,6 +42,6 @@ $variables['module'] = $module_name;
 $variables['container'] = "variable";
 $langvars['container'] = "langvar";
 
-$template->AddVariables('langvars', $langvars);
-$template->AddVariables('variables', $variables);
+$template->addVariables('langvars', $langvars);
+$template->addVariables('variables', $variables);
 ?>

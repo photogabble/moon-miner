@@ -19,17 +19,17 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'news', 'footer'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'news', 'footer'));
 $title = $langvars['l_die_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (isset ($_GET['sure']))
@@ -57,10 +57,10 @@ elseif ($sure == 2)
     echo $langvars['l_die_vapor'] . "<br><br>";
     $langvars['l_die_please'] = str_replace ("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
     echo $langvars['l_die_please'] . "<br>";
-    BntPlayer::kill ($db, $playerinfo['ship_id'], true, $langvars, $bntreg);
-    BntBounty::cancel ($db, $playerinfo['ship_id']);
-    BntAdminLog::writeLog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|" . $_SERVER['REMOTE_ADDR'] . "");
-    BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, $_SERVER['REMOTE_ADDR']);
+    Bnt\Player::kill ($db, $playerinfo['ship_id'], $langvars, $bntreg, true);
+    Bnt\Bounty::cancel ($db, $playerinfo['ship_id']);
+    Bnt\AdminLog::writeLog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|" . $_SERVER['REMOTE_ADDR'] . "");
+    Bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, $_SERVER['REMOTE_ADDR']);
     echo "Due to nobody looking after your Planets, all your Planets have reduced into dust and ruble. Your Planets are no more.<br>\n";
 }
 else
@@ -68,6 +68,6 @@ else
     echo $langvars['l_die_exploit'] . "<br><br>";
 }
 
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

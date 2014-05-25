@@ -19,24 +19,24 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_title_port'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 if ($zoneinfo['allow_trade'] == 'N')
@@ -44,8 +44,8 @@ if ($zoneinfo['allow_trade'] == 'N')
     $title = $langvars['l_no_trade'];
     echo "<h1>" . $title . "</h1>\n";
     echo $langvars['l_no_trade_info'] . "<p>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 elseif ($zoneinfo['allow_trade'] == 'L')
@@ -53,7 +53,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
     if ($zoneinfo['corp_zone'] == 'N')
     {
         $res = $db->Execute ("SELECT team FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zoneinfo['owner']));
-        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
         $ownerinfo = $res->fields;
 
         if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
@@ -61,8 +61,8 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             $title = $langvars['l_no_trade'];
             echo "<h1>" . $title . "</h1>\n";
             echo $langvars['l_no_trade_out'] . "<p>";
-            BntText::gotoMain ($db, $lang, $langvars);
-            BadFooter::display($pdo_db, $lang, $bntreg, $template);
+            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
     }
@@ -73,8 +73,8 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             $title = $langvars['l_no_trade'];
             echo "<h1>" . $title . "</h1>\n";
             echo $langvars['l_no_trade_out'] . "<p>";
-            BntText::gotoMain ($db, $lang, $langvars);
-            BadFooter::display($pdo_db, $lang, $bntreg, $template);
+            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
     }
@@ -140,25 +140,25 @@ else
         // Kami multi-browser window upgrade fix
         if (array_key_exists ('port_shopping', $_SESSION) == false || $_SESSION['port_shopping'] != true)
         {
-            BntAdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
+            Bnt\AdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
             echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
             echo "<div style='color:#f00; font-size:18px;'>Your last Sales Transaction has already been delivered, Please enter the Special Port and select your order.</div>\n";
             echo "<br>\n";
             echo "<div style='color:#fff; font-size:12px;'>Auto redirecting in 2 seconds.</div>\n";
             echo "<br>\n";
 
-            BntText::gotoMain ($db, $lang, $langvars);
-            BadFooter::display($pdo_db, $lang, $bntreg, $template);
+            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
         unset ($_SESSION['port_shopping']);
 
-        if (BadIbank::isLoanPending ($db, $playerinfo['ship_id'], $ibank_lrate))
+        if (Bad\Ibank::isLoanPending ($db, $playerinfo['ship_id'], $ibank_lrate))
         {
             echo $langvars['l_port_loannotrade'] . "<p>";
             echo "<a href=igb.php>" . $langvars['l_ibank_term'] . "</a><p>";
-            BntText::gotoMain ($db, $lang, $langvars);
-            BadFooter::display($pdo_db, $lang, $bntreg, $template);
+            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
 
@@ -254,7 +254,7 @@ else
         }
 
         $fighter_number = round (abs ($fighter_number));
-        $fighter_max = BntCalcLevels::fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+        $fighter_max = Bnt\CalcLevels::fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
         if ($fighter_max < 0)
         {
             $fighter_max = 0;
@@ -272,7 +272,7 @@ else
         }
 
         $torpedo_number = round (abs ($torpedo_number));
-        $torpedo_max = BntCalcLevels::torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+        $torpedo_max = Bnt\CalcLevels::torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
         if ($torpedo_max < 0)
         {
             $torpedo_max = 0;
@@ -290,7 +290,7 @@ else
         }
 
         $armor_number = round (abs ($armor_number));
-        $armor_max = BntCalcLevels::armor ($playerinfo['armor'], $level_factor) - $playerinfo['armor_pts'];
+        $armor_max = Bnt\CalcLevels::armor ($playerinfo['armor'], $level_factor) - $playerinfo['armor_pts'];
         if ($armor_max < 0)
         {
             $armor_max = 0;
@@ -308,7 +308,7 @@ else
         }
 
         $colonist_number = round (abs ($colonist_number));
-        $colonist_max    = BntCalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $colonist_max    = Bnt\CalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
         if ($colonist_max < 0)
         {
@@ -524,7 +524,7 @@ else
 
             $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
             $purchase = $db->Execute ("$query");
-            BntDb::logDbErrors ($db, $purchase, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $purchase, __LINE__, __FILE__);
 
             $hull_upgrade = 0;
             echo "</table>";
@@ -532,13 +532,13 @@ else
             echo "<div style='font-size:16px; color:#fff;'><br>[<span style='color:#0f0;'>Border Patrol</span>]<br>\n";
             echo "Halt, while we scan your cargo...<br>\n";
 
-            if (( BntCalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0 )
+            if (( Bnt\CalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0 )
             {
                 // build_two_col ("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id = ? LIMIT 1;", array ($playerinfo['ship_id']));
-                BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
-                BntAdminLog::writeLog ($db, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
+                Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+                Bnt\AdminLog::writeLog ($db, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
             }
             else
             {
@@ -626,8 +626,8 @@ else
 
         $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
 
-        $free_holds = BntCalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-        $free_power = BntCalcLevels::energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+        $free_holds = Bnt\CalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $free_power = Bnt\CalcLevels::energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
         $total_cost = $trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + $trade_energy * $energy_price;
 
         // Debug info
@@ -722,7 +722,7 @@ else
 
             // Update ship cargo, credits and turns
             $trade_result     = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, rating = rating + 1, credits = credits - ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ? WHERE ship_id = ?;", array ($total_cost, $trade_ore, $trade_organics, $trade_goods, $trade_energy, $playerinfo['ship_id']));
-            BntDb::logDbErrors ($db, $trade_result, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $trade_result, __LINE__, __FILE__);
 
             // Make all trades positive to change port values
             $trade_ore        = round (abs ($trade_ore));
@@ -732,7 +732,7 @@ else
 
             // Decrease supply and demand on port
             $trade_result2    = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore - ?, port_organics = port_organics - ?, port_goods = port_goods - ?, port_energy = port_energy - ? WHERE sector_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $sectorinfo['sector_id']));
-            BntDb::logDbErrors ($db, $trade_result2, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $trade_result2, __LINE__, __FILE__);
 
             echo $langvars['l_trade_complete'] . ".<br><br>";
         }
@@ -740,12 +740,12 @@ else
 }
 
 echo "<br><br>";
-BntText::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
 
 if ($sectorinfo['port_type'] == "special")
 {
     echo "<br><br>Click <a href=port.php>here</A> to return to the supply depot.";
 }
 
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

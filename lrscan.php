@@ -19,12 +19,12 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 $title = $langvars['l_lrs_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 echo "<h1>" . $title . "</h1>\n";
 
 if (isset ($_GET['sector']))
@@ -38,7 +38,7 @@ else
 
 // Get user info
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if ($sector == "*")
@@ -48,8 +48,8 @@ if ($sector == "*")
     if (!$bntreg->allow_fullscan)
     {
         echo $langvars['l_lrs_nofull'] . "<br><br>";
-        BntText::gotoMain ($db, $lang, $langvars);
-        BadFooter::display($pdo_db, $lang, $bntreg, $template);
+        Bnt\Text::gotoMain ($db, $lang, $langvars);
+        Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 
@@ -57,8 +57,8 @@ if ($sector == "*")
     {
         $langvars['l_lrs_noturns'] = str_replace ("[turns]", $bntreg->fullscan_cost, $langvars['l_lrs_noturns']);
         echo $langvars['l_lrs_noturns'] . "<br><br>";
-        BntText::gotoMain ($db, $lang, $langvars);
-        BadFooter::display($pdo_db, $lang, $bntreg, $template);
+        Bnt\Text::gotoMain ($db, $lang, $langvars);
+        Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 
@@ -66,7 +66,7 @@ if ($sector == "*")
 
     // Deduct the appropriate number of turns
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($bntreg->fullscan_cost, $bntreg->fullscan_cost, $playerinfo['ship_id']));
-    BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
 
     // User requested a full long range scan
     $langvars['l_lrs_reach'] = str_replace ("[sector]", $playerinfo['sector'], $langvars['l_lrs_reach']);
@@ -74,7 +74,7 @@ if ($sector == "*")
 
     // Get sectors which can be reached from the player's current sector
     $result = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ? ORDER BY link_dest;", array ($playerinfo['sector']));
-    BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
     echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
     echo "  <tr bgcolor=\"$bntreg->color_header\">\n";
     echo "    <td><strong>" . $langvars['l_sector'] . "</strong></td>\n";
@@ -98,25 +98,25 @@ if ($sector == "*")
         $row = $result->fields;
         // Get number of sectors which can be reached from scanned sector
         $result2 = $db->Execute ("SELECT COUNT(*) AS count FROM {$db->prefix}links WHERE link_start = ?;", array ($row['link_dest']));
-        BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
         $row2 = $result2->fields;
         $num_links = $row2['count'];
 
         // Get number of ships in scanned sector
         $result2 = $db->Execute ("SELECT COUNT(*) AS count FROM {$db->prefix}ships WHERE sector = ? AND on_planet = 'N' and ship_destroyed = 'N';", array ($row['link_dest']));
-        BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
         $row2 = $result2->fields;
         $num_ships = $row2['count'];
 
         // Get port type and discover the presence of a planet in scanned sector
         $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($row['link_dest']));
-        BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
         $result3 = $db->Execute ("SELECT planet_id FROM {$db->prefix}planets WHERE sector_id = ?;", array ($row['link_dest']));
-        BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
         $resultSDa = $db->Execute ("SELECT SUM(quantity) as mines from {$db->prefix}sector_defence WHERE sector_id = ? and defence_type = 'M';", array ($row['link_dest']));
-        BntDb::logDbErrors ($db, $resultSDa, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $resultSDa, __LINE__, __FILE__);
         $resultSDb = $db->Execute ("SELECT SUM(quantity) as fighters from {$db->prefix}sector_defence WHERE sector_id = ? and defence_type = 'F';", array ($row['link_dest']));
-        BntDb::logDbErrors ($db, $resultSDb, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $resultSDb, __LINE__, __FILE__);
 
         $sectorinfo = $result2->fields;
         $defM = $resultSDa->fields;
@@ -128,7 +128,7 @@ if ($sector == "*")
 
         if ($port_type != "none")
         {
-            $icon_alt_text = ucfirst (BntPorts::getType ($port_type, $langvars));
+            $icon_alt_text = ucfirst (Bnt\Ports::getType ($port_type, $langvars));
             $icon_port_type_name = $port_type . ".png";
             $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">&nbsp;";
         }
@@ -137,11 +137,11 @@ if ($sector == "*")
             $image_string = "&nbsp;";
         }
 
-        echo "<tr bgcolor=\"$bntreg->color\"><td><a href=move.php?sector=$row[link_dest]>$row[link_dest]</a></td><td><a href=lrscan.php?sector=$row[link_dest]>Scan</a></td><td>$num_links</td><td>$num_ships</td><td width=12>$image_string</td><td>" . BntPorts::getType ($port_type, $langvars) . "</td><td>$has_planet</td><td>$has_mines</td><td>$has_fighters</td>";
+        echo "<tr bgcolor=\"$bntreg->color\"><td><a href=move.php?sector=$row[link_dest]>$row[link_dest]</a></td><td><a href=lrscan.php?sector=$row[link_dest]>Scan</a></td><td>$num_links</td><td>$num_ships</td><td width=12>$image_string</td><td>" . Bnt\Ports::getType ($port_type, $langvars) . "</td><td>$has_planet</td><td>$has_mines</td><td>$has_fighters</td>";
         if ($playerinfo['dev_lssd'] == 'Y')
         {
             $resx = $db->SelectLimit ("SELECT * from {$db->prefix}movement_log WHERE ship_id <> ? AND sector_id = ? ORDER BY time DESC", 1, -1, array ('ship_id' => $playerinfo['ship_id'], 'sector_id' => $row['link_dest']));
-            BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
             if (!$resx)
             {
                 echo "<td>None</td>";
@@ -150,7 +150,7 @@ if ($sector == "*")
             {
                 $myrow = $resx->fields;
                 $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($myrow['ship_id']));
-                BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+                Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
                 if ($res)
                 {
                     $row = $res->fields;
@@ -191,12 +191,12 @@ else
     // User requested a single sector (standard) long range scan
     // Get scanned sector information
     $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($sector));
-    BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
     $sectorinfo = $result2->fields;
 
     // Get sectors which can be reached through scanned sector
     $result3 = $db->Execute ("SELECT link_dest FROM {$db->prefix}links WHERE link_start = ? ORDER BY link_dest ASC;", array ($sector));
-    BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
     $i=0;
 
     while (!$result3->EOF)
@@ -209,7 +209,7 @@ else
 
     // Get sectors which can be reached from the player's current sector
     $result3a = $db->Execute ("SELECT link_dest FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
-    BntDb::logDbErrors ($db, $result3a, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $result3a, __LINE__, __FILE__);
     $i = 0;
     $flag = 0;
 
@@ -226,7 +226,7 @@ else
     if ($flag == 0)
     {
         echo $langvars['l_lrs_cantscan'] . "<br><br>";
-        BntText::gotoMain ($db, $lang, $langvars);
+        Bnt\Text::gotoMain ($db, $lang, $langvars);
         die ();
     }
 
@@ -265,7 +265,7 @@ else
     {
         // Get ships located in the scanned sector
         $result4 = $db->Execute ("SELECT ship_id, ship_name, character_name, cloak FROM {$db->prefix}ships WHERE sector = ? AND on_planet = 'N';", array ($sector));
-        BntDb::logDbErrors ($db, $result4, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $result4, __LINE__, __FILE__);
         if ($result4->EOF)
         {
             echo $langvars['l_none'];
@@ -277,7 +277,7 @@ else
             {
                 $row = $result4->fields;
                 // Display other ships in sector - unless they are successfully cloaked
-                $success = BntScan::success ($playerinfo['sensors'], $row['cloak']);
+                $success = Bnt\Scan::success ($playerinfo['sensors'], $row['cloak']);
                 if ($success < 5)
                 {
                     $success = 5;
@@ -288,7 +288,7 @@ else
                     $success = 95;
                 }
 
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $num_detected++;
@@ -320,17 +320,17 @@ else
         if ($sectorinfo['port_type'] != "none")
         {
             $port_type = $sectorinfo['port_type'];
-            $icon_alt_text = ucfirst (BntPorts::getType ($port_type, $langvars));
+            $icon_alt_text = ucfirst (Bnt\Ports::getType ($port_type, $langvars));
             $icon_port_type_name = $port_type . ".png";
             $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">";
         }
-        echo "$image_string " . BntPorts::getType ($sectorinfo['port_type'], $langvars);
+        echo "$image_string " . Bnt\Ports::getType ($sectorinfo['port_type'], $langvars);
     }
     echo "</td></tr>";
     echo "<tr bgcolor=\"$bntreg->color_line2\"><td><strong>" . $langvars['l_planets'] . "</strong></td></tr>";
     echo "<tr><td>";
     $query = $db->Execute ("SELECT name, owner FROM {$db->prefix}planets WHERE sector_id = ?;", array ($sectorinfo['sector_id']));
-    BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $query, __LINE__, __FILE__);
 
     if ($query->EOF)
     {
@@ -356,7 +356,7 @@ else
         else
         {
             $result5 = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planet['owner']));
-            BntDb::logDbErrors ($db, $result5, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $result5, __LINE__, __FILE__);
             $planet_owner_name = $result5->fields;
             echo " ($planet_owner_name[character_name])";
         }
@@ -364,9 +364,9 @@ else
     }
 
     $resultSDa = $db->Execute ("SELECT SUM(quantity) as mines from {$db->prefix}sector_defence WHERE sector_id = ? and defence_type = 'M';", array ($sector));
-    BntDb::logDbErrors ($db, $resultSDa, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $resultSDa, __LINE__, __FILE__);
     $resultSDb = $db->Execute ("SELECT SUM(quantity) as fighters from {$db->prefix}sector_defence WHERE sector_id = ? and defence_type = 'F';", array ($sector));
-    BntDb::logDbErrors ($db, $resultSDb, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $resultSDb, __LINE__, __FILE__);
     $defM = $resultSDa->fields;
     $defF = $resultSDb->fields;
 
@@ -384,7 +384,7 @@ else
         echo "<tr bgcolor=\"$bntreg->color_line2\"><td><strong>" . $langvars['l_lss'] . "</strong></td></tr>";
         echo "<tr><td>";
         $resx = $db->SelectLimit ("SELECT * FROM {$db->prefix}movement_log WHERE ship_id <> ? AND sector_id = ? ORDER BY time DESC", 1, -1, array ('ship_id' => $playerinfo['ship_id'], 'sector_id' => $sector));
-        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
         if (!$resx)
         {
             echo "None";
@@ -393,7 +393,7 @@ else
         {
             $myrow = $resx->fields;
             $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($myrow['ship_id']));
-            BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
             if ($res)
             {
                 $row = $res->fields;
@@ -417,7 +417,7 @@ else
 }
 
 echo "<br><br>";
-BntText::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
 
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

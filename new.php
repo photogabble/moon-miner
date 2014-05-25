@@ -32,7 +32,7 @@ else
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index', 'options'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index', 'options'));
 
 $variables = null;
 $variables['lang'] = $lang;
@@ -56,7 +56,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
 
         // Select from the database and return the localized name of the language
         $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
-        BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
         while ($result && !$result->EOF)
         {
             $row = $result->fields;
@@ -73,7 +73,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('langvars', $langvars);
-$template->AddVariables ('variables', $variables);
-$template->Display ("new.tpl");
+$template->addVariables ('langvars', $langvars);
+$template->addVariables ('variables', $variables);
+$template->display ("new.tpl");
 ?>

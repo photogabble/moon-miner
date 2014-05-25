@@ -19,13 +19,13 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer', 'regional'));
 $title = $langvars['l_device_title'];
 $body_class = 'device';
-BntHeader::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 echo "<body class=" . $body_class . "><br>";
 echo "<h1>" . $title . "</h1>\n";
@@ -69,6 +69,6 @@ echo "</tr>";
 echo "</table>";
 echo "<br>";
 
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

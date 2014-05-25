@@ -19,13 +19,13 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_planet_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('bounty', 'port', 'igb', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('bounty', 'port', 'igb', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat', 'regional'));
 
 $destroy = null;
 if (array_key_exists ('destroy', $_GET) == true)
@@ -49,7 +49,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 // Get the Player Info
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 // Empty out Planet and Ship vars
@@ -59,24 +59,24 @@ $planetinfo = null;
 if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
-BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
 $planetinfo = $result3->fields;
 
 // Check to see if it returned valid planet info.
 if (!$result3 instanceof ADORecordSet || (is_bool ($planetinfo) && $planetinfo == false))
 {
   echo "Invalid Planet<br><br>";
-  BntText::gotoMain ($db, $lang, $langvars);
+  Bnt\Text::gotoMain ($db, $lang, $langvars);
   die ();
 }
 
@@ -88,12 +88,12 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         if ($playerinfo['on_planet'] == 'Y')
         {
             $resx = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-            BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
         }
 
         echo $langvars['l_planet_none'] . " <p>";
-        BntText::gotoMain ($db, $lang, $langvars);
-        BadFooter::display($pdo_db, $lang, $bntreg, $template);
+        Bnt\Text::gotoMain ($db, $lang, $langvars);
+        Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 
@@ -107,15 +107,15 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         $langvars['l_planet_capture2'] = str_replace ("[capture]", $capture_link, $langvars['l_planet_capture2']);
         echo $langvars['l_planet_capture2'] . ".<br><br>";
         echo "<br>";
-        BntText::gotoMain ($db, $lang, $langvars);
-        BadFooter::display($pdo_db, $lang, $bntreg, $template);
+        Bnt\Text::gotoMain ($db, $lang, $langvars);
+        Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 
     if ($planetinfo['owner'] != 0)
     {
         $result3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planetinfo['owner']));
-        BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
         $ownerinfo = $result3->fields;
     }
 
@@ -149,12 +149,12 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 if ($playerinfo['dev_genesis'] > 0)
                 {
                     $update = $db->Execute ("DELETE FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
-                    BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
+                    Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
                     $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id = ?", array ($playerinfo['ship_id']));
-                    BntDb::logDbErrors ($db, $update2, __LINE__, __FILE__);
+                    Bnt\Db::logDbErrors ($db, $update2, __LINE__, __FILE__);
                     $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE planet_id = ?;", array ($planet_id));
-                    BntDb::logDbErrors ($db, $update3, __LINE__, __FILE__);
-                    BntOwnership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
+                    Bnt\Db::logDbErrors ($db, $update3, __LINE__, __FILE__);
+                    Bnt\Ownership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
                     header("Location: main.php");
                 }
                 else
@@ -296,7 +296,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
             $retOwnerInfo = null;
 
-            $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = Bad\Planet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -329,13 +329,13 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 // Set planet to not sell
                 echo $langvars['l_planet_nownosell'] . "<br>";
                 $result4 = $db->Execute ("UPDATE {$db->prefix}planets SET sells='N' WHERE planet_id = ?;", array ($planet_id));
-                BntDb::logDbErrors ($db, $result4, __LINE__, __FILE__);
+                Bnt\Db::logDbErrors ($db, $result4, __LINE__, __FILE__);
             }
             else
             {
                 echo $langvars['l_planet_nowsell'] . "<br>";
                 $result4b = $db->Execute ("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id = ?;", array ($planet_id));
-                BntDb::logDbErrors ($db, $result4b, __LINE__, __FILE__);
+                Bnt\Db::logDbErrors ($db, $result4b, __LINE__, __FILE__);
             }
         }
         elseif ($command == "name")
@@ -352,7 +352,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Name2 menu
             $new_name = trim (htmlentities ($_POST['new_name']) );
             $result5 = $db->Execute ("UPDATE {$db->prefix}planets SET name = ? WHERE planet_id = ?;", array ($new_name, $planet_id));
-            BntDb::logDbErrors ($db, $result5, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $result5, __LINE__, __FILE__);
             echo $langvars['l_planet_cname'] . " " . $new_name . ".";
         }
         elseif ($command == "land")
@@ -360,20 +360,20 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Land menu
             echo $langvars['l_planet_landed'] . "<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='Y', planet_id = ? WHERE ship_id = ?;", array ($planet_id, $playerinfo['ship_id']));
-            BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "leave")
         {
             // Leave menu
             echo $langvars['l_planet_left'] . "<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-            BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "transfer")
         {
             // Transfer menu
-            $free_holds = BntCalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-            $free_power = BntCalcLevels::energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+            $free_holds = Bnt\CalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+            $free_power = Bnt\CalcLevels::energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
             $langvars['l_planet_cinfo'] = str_replace ("[cargo]", number_format ($free_holds, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_planet_cinfo']);
             $langvars['l_planet_cinfo'] = str_replace ("[energy]", number_format ($free_power, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_planet_cinfo']);
             echo $langvars['l_planet_cinfo'] . "<br><br>";
@@ -402,10 +402,10 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Kami Multi Browser Window Attack Fix
             if ($_SESSION['planet_selected'] != $planet_id && $_SESSION['planet_selected'] != '')
             {
-                BntAdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
+                Bnt\AdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
-                BntText::gotoMain ($db, $lang, $langvars);
-                BadFooter::display($pdo_db, $lang, $bntreg, $template);
+                Bnt\Text::gotoMain ($db, $lang, $langvars);
+                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
                 die ();
             }
             unset ($_SESSION['planet_selected']);
@@ -422,22 +422,22 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     // Create The Base
                     $update1 = $db->Execute ("UPDATE {$db->prefix}planets SET base='Y', ore = ? - ?, organics = ? - ?, goods = ? - ?, credits = ? - ? WHERE planet_id = ?;", array ($planetinfo['ore'], $base_ore, $planetinfo['organics'], $base_organics, $planetinfo['goods'], $base_goods, $planetinfo['credits'], $base_credits, $planet_id));
-                    BntDb::logDbErrors ($db, $update1, __LINE__, __FILE__);
+                    Bnt\Db::logDbErrors ($db, $update1, __LINE__, __FILE__);
 
                     // Update User Turns
                     $update1b = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                    BntDb::logDbErrors ($db, $update1b, __LINE__, __FILE__);
+                    Bnt\Db::logDbErrors ($db, $update1b, __LINE__, __FILE__);
 
                     // Refresh Plant Info
                     $result3 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array ($planet_id));
-                    BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
+                    Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
                     $planetinfo = $result3->fields;
 
                     // Notify User Of Base Results
                     echo $langvars['l_planet_bbuild'] . "<br><br>";
 
                     // Calc Ownership and Notify User Of Results
-                    $ownership = BntOwnership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
+                    $ownership = Bnt\Ownership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
                     if (!empty ($ownership))
                     {
                         echo "$ownership<p>";
@@ -474,7 +474,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             else
             {
                 $resx = $db->Execute ("UPDATE {$db->prefix}planets SET prod_ore= ? , prod_organics = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?;", array ($pore, $porganics, $pgoods, $penergy, $pfighters, $ptorp, $planet_id));
-                BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+                Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
                 echo $langvars['l_planet_p_changed'] . "<br><br>";
             }
         }
@@ -490,7 +490,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Leave menu
             echo $langvars['l_planet_left'] . "<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet = 'N', planet_id = 0 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-            BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
             $langvars['l_global_mmenu'] = str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
             echo $langvars['l_global_mmenu'] . "<br>\n";
             header("Location: main.php");
@@ -527,10 +527,10 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Kami Multi Browser Window Attack Fix
             if (array_key_exists ('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
-                BntAdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
+                Bnt\AdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
-                BntText::gotoMain ($db, $lang, $langvars);
-                BadFooter::display($pdo_db, $lang, $bntreg, $template);
+                Bnt\Text::gotoMain ($db, $lang, $langvars);
+                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
                 die ();
             }
 
@@ -547,7 +547,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             }
 
             $retOwnerInfo = null;
-            $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = Bad\Planet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -574,16 +574,16 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Kami Multi Browser Window Attack Fix
             if (array_key_exists ('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
-                BntAdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
+                Bnt\AdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
-                BntText::gotoMain ($db, $lang, $langvars);
-                BadFooter::display($pdo_db, $lang, $bntreg, $template);
+                Bnt\Text::gotoMain ($db, $lang, $langvars);
+                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
                 die ();
             }
             unset ($_SESSION['planet_selected']);
 
             $retOwnerInfo = null;
-            $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = Bad\Planet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -627,10 +627,10 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Kami Multi Browser Window Attack Fix
             if (array_key_exists ('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
-                BntAdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
+                Bnt\AdminLog::writeLog ($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
-                BntText::gotoMain ($db, $lang, $langvars);
-                BadFooter::display($pdo_db, $lang, $bntreg, $template);
+                Bnt\Text::gotoMain ($db, $lang, $langvars);
+                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
                 die ();
             }
             unset ($_SESSION['planet_selected']);
@@ -639,8 +639,8 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             if ($playerinfo['turns'] < 1)
             {
                 echo $langvars['l_plant_scn_turn'] . "<br><br>";
-                BntText::gotoMain ($db, $lang, $langvars);
-                BadFooter::display($pdo_db, $lang, $bntreg, $template);
+                Bnt\Text::gotoMain ($db, $lang, $langvars);
+                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
                 die ();
             }
 
@@ -655,21 +655,21 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $success = 95;
             }
 
-            $roll = BntRand::betterRand (1, 100);
+            $roll = Bnt\Rand::betterRand (1, 100);
             if ($roll > $success)
             {
                 // If scan fails - inform both player and target.
                 echo $langvars['l_planet_noscan'] . "<br><br>";
-                BntText::gotoMain ($db, $lang, $langvars);
-                BntPlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-                BadFooter::display($pdo_db, $lang, $bntreg, $template);
+                Bnt\Text::gotoMain ($db, $lang, $langvars);
+                Bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
                 die ();
             }
             else
             {
-                BntPlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                Bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 // Scramble results by scan error factor.
-                $sc_error = BntScan::error ($playerinfo['sensors'], $ownerinfo['cloak'], $scan_error_factor);
+                $sc_error = Bnt\Scan::error ($playerinfo['sensors'], $ownerinfo['cloak'], $scan_error_factor);
                 if (empty ($planetinfo['name']))
                 {
                     $planetinfo['name'] = $langvars['l_unnamed'];
@@ -681,7 +681,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 echo "<table>";
                 echo "<tr><td>" . $langvars['l_commodities'] . ":</td><td></td>";
                 echo "<tr><td>" . $langvars['l_organics'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_organics = number_format (round ($planetinfo['organics'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -693,7 +693,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
 
                 echo "<tr><td>" . $langvars['l_ore'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_ore = number_format (round ($planetinfo['ore'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -705,7 +705,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
 
                 echo "<tr><td>" . $langvars['l_goods'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_goods = number_format (round ($planetinfo['goods'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -716,7 +716,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_energy'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_energy = number_format (round ($planetinfo['energy'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -727,7 +727,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_colonists'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_colonists = number_format (round ($planetinfo['colonists'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -738,7 +738,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>". $langvars['l_credits'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_credits = number_format (round ($planetinfo['credits'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -751,7 +751,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
                 echo "<tr><td>" . $langvars['l_defense'] . ":</td><td></td>";
                 echo "<tr><td>" . $langvars['l_base'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     echo "<td>$planetinfo[base]</td></tr>";
@@ -762,7 +762,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
 
                 echo "<tr><td>" . $langvars['l_base'] . " " .  $langvars['l_torps'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_base_torp = number_format (round ($planetinfo['torps'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -773,7 +773,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_fighters'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_fighters = number_format (round ($planetinfo['fighters'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -784,7 +784,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_beams'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_beams = number_format (round ($ownerinfo['beams'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -795,7 +795,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_torp_launch'] . ":</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_torp_launchers = number_format (round ($ownerinfo['torp_launchers'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -806,7 +806,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_shields'] . "</td>";
-                $roll = BntRand::betterRand (1, 100);
+                $roll = Bnt\Rand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_shields = number_format (round ($ownerinfo['shields'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -817,19 +817,19 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "</table><br>";
-//            $roll=BntRand::betterRand (1, 100);
+//            $roll=Bnt\Rand::betterRand (1, 100);
 //            if ($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
 //            {
 //               echo "<strong>" . $ownerinfo['character_name'] . " " . $langvars['l_planet_ison'] . "</strong><br>";
 //            }
 
                 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' and planet_id = ?;", array ($planet_id));
-                BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+                Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 
                 while (!$res->EOF)
                 {
                     $row = $res->fields;
-                    $success = BntScan::success ($playerinfo['sensors'], $row['cloak']);
+                    $success = Bnt\Scan::success ($playerinfo['sensors'], $row['cloak']);
                     if ($success < 5)
                     {
                         $success = 5;
@@ -839,7 +839,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                         $success = 95;
                     }
 
-                    $roll = BntRand::betterRand (1, 100);
+                    $roll = Bnt\Rand::betterRand (1, 100);
 
                     if ($roll < $success)
                     {
@@ -849,14 +849,14 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
             }
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-            BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "capture" &&  $planetinfo['owner'] == 0)
         {
             echo $langvars['l_planet_captured'] . "<br>";
             $update = $db->Execute ("UPDATE {$db->prefix}planets SET corp = 0, owner = ?, base = 'N', defeated = 'N' WHERE planet_id = ?;", array ($playerinfo['ship_id'], $planet_id));
-            BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
-            $ownership = BntOwnership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
+            Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
+            $ownership = Bnt\Ownership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
 
             if (!empty ($ownership))
             {
@@ -865,13 +865,13 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
             if ($planetinfo['owner'] != 0)
             {
-                BntScore::updateScore ($db, $planetinfo['owner'], $bntreg);
+                Bnt\Score::updateScore ($db, $planetinfo['owner'], $bntreg);
             }
 
             if ($planetinfo['owner'] != 0)
             {
                 $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planetinfo['owner']));
-                BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+                Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
                 $query = $res->fields;
                 $planetowner = $query['character_name'];
             }
@@ -880,13 +880,13 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $planetowner = $langvars['l_planet_noone'];
             }
 
-            BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
+            Bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
         }
         elseif ($command == "capture" &&  ($planetinfo['owner'] == 0 || $planetinfo['defeated'] == 'Y'))
         {
             echo $langvars['l_planet_notdef'] . "<br>";
             $resx = $db->Execute ("UPDATE {$db->prefix}planets SET defeated='N' WHERE planet_id = ?;", array ($planetinfo['planet_id']));
-            BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
         }
         else
         {
@@ -910,6 +910,6 @@ if ($bntreg->allow_ibank)
 }
 echo "<a href =\"bounty.php\">" . $langvars['l_by_placebounty'] . "</a><p>";
 
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

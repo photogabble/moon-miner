@@ -46,7 +46,7 @@ else
 }
 
 $bntreg = new stdClass();                          // Create a registry, for passing the most common variables in game through classes
-$bntreg->bnttimer = new BntTimer;                  // We want benchmarking data for all activities, so create a benchmark timer object
+$bntreg->bnttimer = new Bnt\Timer;                  // We want benchmarking data for all activities, so create a benchmark timer object
 $bntreg->bnttimer->start();                        // Start benchmarking immediately
 
 date_default_timezone_set ('UTC');                 // Set to your server's local time zone - PHP throws a notice if this is not set.
@@ -65,18 +65,18 @@ header ("Connection: Keep-Alive");                 // Tell the browser to keep g
 header ("Vary: Accept-Encoding, Accept-Language");
 header ("Keep-Alive: timeout=15, max=100");
 
-ob_start (array('BntCompress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" to properly handle detection of compression.
+ob_start (array('Bnt\Compress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bnt\Compress" to properly handle detection of compression.
 
 // Connect to db using pdo
-$pdo_db = BntDb::initDb ('pdo');
+$pdo_db = Bnt\Db::initDb ('pdo');
 
 // Connect to db using adodb also - for now - to be eliminated!
-$db = BntDb::initDb('adodb');
+$db = Bnt\Db::initDb('adodb');
 
-$bntreg = BntReg::init ($pdo_db, $bntreg);
+$bntreg = Bnt\Reg::init ($pdo_db, $bntreg);
 $langvars = null; // We need language variables in every page, set them to a null value first.
-$template = new BntTemplate (); // Template API.
-$template->SetTheme ($bntreg->default_template); // We set the name of the theme, temporary until we have a theme picker
+$template = new \Bnt\Template (); // Template API.
+$template->setTheme ($bntreg->default_template); // We set the name of the theme, temporary until we have a theme picker
 
 if (!isset ($index_page))
 {
@@ -94,7 +94,7 @@ if (isset ($bntreg->default_lang))
     $lang = $bntreg->default_lang;
 }
 
-if (BntDb::isActive ($pdo_db))
+if (Bnt\Db::isActive ($pdo_db))
 {
     if (empty ($_SESSION['username']))  // If the user has not logged in
     {
@@ -109,7 +109,7 @@ if (BntDb::isActive ($pdo_db))
         $stmt = $pdo_db->prepare ($sql);
         $stmt->bindParam (':email', $_SESSION['username']);
         $res = $stmt->execute();
-        BntDb::logDbErrors ($pdo_db, $res, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($pdo_db, $res, __LINE__, __FILE__);
         $res = $stmt->fetch();
         $playerinfo['lang'] = $res['lang'];
         $lang = $playerinfo['lang'];
@@ -117,13 +117,13 @@ if (BntDb::isActive ($pdo_db))
 }
 
 // Initialize the Plugin System.
-BntPluginSystem::Initialize ($pdo_db);
+Bnt\PluginSystem::initialize ($pdo_db);
 
 // Load all Plugins.
-BntPluginSystem::LoadPlugins ();
+Bnt\PluginSystem::loadPlugins ();
 
 // Ok, here we raise EVENT_TICK which is called every page load, this saves us from having to add new lines to support new features.
 // This is used for ingame stuff and Plug-ins that need to be called on every page load.
 // May need to change array(time()) to have extra info, but the current suits us fine for now.
-BntPluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
+Bnt\PluginSystem::raiseEvent (EVENT_TICK, array (time ()));
 ?>

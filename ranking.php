@@ -33,7 +33,7 @@ $variables['color_line1'] = $bntreg->color_line1;
 $variables['color_line2'] = $bntreg->color_line2;
 
 // Load required language variables for the ranking page.
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
 
 // Get requested ranking order.
 $sort = '';
@@ -84,7 +84,7 @@ switch ($sort)
 $variables['num_players'] = (integer) 0;
 
 $rs = $db->SelectLimit ("SELECT {$db->prefix}ships.ship_id, {$db->prefix}ships.email, {$db->prefix}ships.ip_address, {$db->prefix}ships.score, {$db->prefix}ships.character_name, {$db->prefix}ships.turns_used, {$db->prefix}ships.last_login,UNIX_TIMESTAMP({$db->prefix}ships.last_login) as online, {$db->prefix}ships.rating, {$db->prefix}teams.team_name, {$db->prefix}teams.admin AS team_admin, if ({$db->prefix}ships.turns_used<150,0,ROUND({$db->prefix}ships.score/{$db->prefix}ships.turns_used)) AS efficiency FROM {$db->prefix}ships LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id  WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' AND turns_used >0 ORDER BY $by", $bntreg->max_ranks);
-BntDb::logDbErrors ($db, $rs, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $rs, __LINE__, __FILE__);
 if ($rs instanceof ADORecordSet)
 {
     $variables['num_players'] = (integer) $rs->RecordCount();
@@ -126,7 +126,7 @@ if ($rs instanceof ADORecordSet)
             }
 
             // Set the players Insignia.
-            $row['insignia'] = BntPlayer::getInsignia ($db, $row['email'], $langvars);
+            $row['insignia'] = Bnt\Player::getInsignia ($db, $row['email'], $langvars);
 
             // This is just to show that we can set the type of player.
             // like: banned, admin, player, npc etc.
@@ -140,7 +140,7 @@ if ($rs instanceof ADORecordSet)
             }
 
             // Check for banned players.
-            $ban_result = BntCheckBan::isBanned ($db, $lang, null, $row);
+            $ban_result = Bnt\CheckBan::isBanned ($db, $lang, null, $row);
 
             if ($ban_result === false || (array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
             {
@@ -150,7 +150,7 @@ if ($rs instanceof ADORecordSet)
             else
             {
                 $row['banned'] = (boolean) true;
-                $row['ban_info'] = array('type'=>$ban_result['ban_type'], 'public_info'=>"Player banned/locked for the following:\n{$ban_result['public_info']}");
+                $row['ban_info'] = array('type' => $ban_result['ban_type'], 'public_info' => "Player banned/locked for the following:\n{$ban_result['public_info']}");
             }
 
             array_push ($player_list, $row);
@@ -158,37 +158,37 @@ if ($rs instanceof ADORecordSet)
             $rs->MoveNext ();
         }
         $player_list['container']    = "player";
-        $template->AddVariables ("players", $player_list);
+        $template->addVariables ("players", $player_list);
     }
 }
 
 if (empty ($_SESSION['username']))
 {
     $variables['loggedin'] = (boolean) true;
-    $variables['linkback'] = array ("caption"=>$langvars['l_global_mlogin'], "link"=>"index.php");
+    $variables['linkback'] = array ("caption" => $langvars['l_global_mlogin'], "link" => "index.php");
 }
 else
 {
     $variables['loggedin'] = (boolean) false;
-    $variables['linkback'] = array ("caption"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+    $variables['linkback'] = array ("caption" => $langvars['l_global_mmenu'], "link" => "main.php");
 }
 
 // Now we include the Footer Logic.
 include_once './footer_t.php';
 
 $variables['container'] = "variable";
-$template->AddVariables ('variables', $variables);
+$template->addVariables ('variables', $variables);
 
 // Load required language variables for the ranking page.
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams', 'news'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams', 'news'));
 
 // Modify the requires language variables here.
 $langvars['l_ranks_title'] = str_replace ("[max_ranks]", $bntreg->max_ranks, $langvars['l_ranks_title']);
 
 // Now add the loaded language variables into the Template API.
 $langvars['container'] = "langvar";
-$template->AddVariables ('langvars', $langvars);
+$template->addVariables ('langvars', $langvars);
 
 // Now we tell the Template API to output the page
-$template->Display("ranking.tpl");
+$template->display("ranking.tpl");
 ?>

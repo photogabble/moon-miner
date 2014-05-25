@@ -19,31 +19,31 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Always make sure we are using empty vars before use.
 $variables = null;
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if ($playerinfo['dev_emerwarp'] > 0)
 {
-    $dest_sector = BntRand::betterRand (0, $sector_max - 1);
+    $dest_sector = Bnt\Rand::betterRand (0, $sector_max - 1);
     $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array ($dest_sector, $playerinfo['ship_id']));
-    BntDb::logDbErrors ($db, $result_warp, __LINE__, __FILE__);
-    BntLogMove::writeLog ($db, $playerinfo['ship_id'], $dest_sector);
+    Bnt\Db::logDbErrors ($db, $result_warp, __LINE__, __FILE__);
+    Bnt\LogMove::writeLog ($db, $playerinfo['ship_id'], $dest_sector);
     $langvars['l_ewd_used'] = str_replace ("[sector]", $dest_sector, $langvars['l_ewd_used']);
     $variables['dest_sector'] = $dest_sector;
 }
 
 $variables['body_class'] = 'bnt'; // No special css used for this page yet
 $variables['playerinfo_dev_emerwarp'] = $playerinfo['dev_emerwarp'];
-$variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+$variables['linkback'] = array ("fulltext" => $langvars['l_global_mmenu'], "link" => "main.php");
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
@@ -52,7 +52,7 @@ $langvars['container'] = "langvar";
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
 
-$template->AddVariables ('langvars', $langvars);
-$template->AddVariables ('variables', $variables);
-$template->Display ("emerwarp.tpl");
+$template->addVariables ('langvars', $langvars);
+$template->addVariables ('variables', $variables);
+$template->display ("emerwarp.tpl");
 ?>

@@ -19,13 +19,13 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $shiptypes[0] = "tinyship.png";
@@ -34,7 +34,7 @@ $shiptypes[2] = "mediumship.png";
 $shiptypes[3] = "largeship.png";
 $shiptypes[4] = "hugeship.png";
 
-$shipavg = BntCalcLevels::avgTech ($playerinfo, "ship");
+$shipavg = Bnt\CalcLevels::avgTech ($playerinfo, "ship");
 
 if ($shipavg < 8)
 {
@@ -58,11 +58,11 @@ else
 }
 
 $holds_used = $playerinfo['ship_ore'] + $playerinfo['ship_organics'] + $playerinfo['ship_goods'] + $playerinfo['ship_colonists'];
-$holds_max = BntCalcLevels::holds ($playerinfo['hull'], $bntreg->level_factor);
-$armor_pts_max = BntCalcLevels::armor ($playerinfo['armor'], $bntreg->level_factor);
-$ship_fighters_max = BntCalcLevels::fighters ($playerinfo['computer'], $bntreg->level_factor);
-$torps_max = BntCalcLevels::torpedoes ($playerinfo['torp_launchers'], $bntreg->level_factor);
-$energy_max = BntCalcLevels::energy ($playerinfo['power'], $bntreg->level_factor);
+$holds_max = Bnt\CalcLevels::holds ($playerinfo['hull'], $bntreg->level_factor);
+$armor_pts_max = Bnt\CalcLevels::armor ($playerinfo['armor'], $bntreg->level_factor);
+$ship_fighters_max = Bnt\CalcLevels::fighters ($playerinfo['computer'], $bntreg->level_factor);
+$torps_max = Bnt\CalcLevels::torpedoes ($playerinfo['torp_launchers'], $bntreg->level_factor);
+$energy_max = Bnt\CalcLevels::energy ($playerinfo['power'], $bntreg->level_factor);
 $escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];
 $fuel_scoop = ($playerinfo['dev_fuelscoop'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];
 $lssd = ($playerinfo['dev_lssd'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];
@@ -110,7 +110,7 @@ $variables['playerinfo_dev_emerwarp'] = $playerinfo['dev_emerwarp'];
 $variables['escape_pod'] = $escape_pod;
 $variables['fuel_scoop'] = $fuel_scoop;
 $variables['lssd'] = $lssd;
-$variables['ship_img'] = $template->GetVariables('template_dir') . "/images/" . $shiptypes[$shiplevel];
+$variables['ship_img'] = $template->getVariables('template_dir') . "/images/" . $shiptypes[$shiplevel];
 $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 
 // Now set a container for the variables and langvars and send them off to the template system
@@ -119,8 +119,8 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional', 'news'));
-$template->AddVariables('langvars', $langvars);
-$template->AddVariables('variables', $variables);
-$template->Display("report.tpl");
+$langvars = Bnt\Translate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional', 'news'));
+$template->addVariables('langvars', $langvars);
+$template->addVariables('variables', $variables);
+$template->display("report.tpl");
 ?>

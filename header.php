@@ -18,7 +18,7 @@
 // File: header.php
 
 // Database driven language entries
-$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'mailto'));
+$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'mailto'));
 
 $variables = null;
 $variables['lang'] = $lang;
@@ -50,7 +50,7 @@ else
 $variables['container'] = "variable";
 $langvars['container'] = "langvars";
 
-$template->AddVariables ('langvars', $langvars);
-$template->AddVariables ('variables', $variables);
-$template->Display ("header.tpl");
+$template->addVariables ('langvars', $langvars);
+$template->addVariables ('variables', $variables);
+$template->display ("header.tpl");
 ?>

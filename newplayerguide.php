@@ -33,10 +33,10 @@ else
 
 $title = "Blacknova Traders New player guide";
 $body_class = 'faq';
-BntHeader::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('global_funcs'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('global_funcs'));
 echo "<body class='" . $body_class . "'";
 
 ?>
@@ -198,5 +198,5 @@ else
     echo str_replace ("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

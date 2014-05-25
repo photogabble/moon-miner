@@ -32,9 +32,9 @@ else
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 $title = $langvars['l_news_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 $startdate = date ("Y/m/d");
 if (array_key_exists ('startdate', $_GET) && ($_GET['startdate'] != ''))
@@ -51,12 +51,12 @@ if ($validformat !=1 || checkdate ($regs[2], $regs[3], $regs[1]) == false)
     $startdate = date ("Y/m/d");
 }
 
-$previousday = BntNews::previousDay ($startdate);
-$nextday = BntNews::nextDay ($startdate);
+$previousday = Bnt\News::previousDay ($startdate);
+$nextday = Bnt\News::nextDay ($startdate);
 
 echo "<table width=\"73%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">\n";
 echo "  <tr>\n";
-echo "    <td height=\"73\" width=\"27%\"><img src=\"" . $template->GetVariables('template_dir') . "/images/bnnhead.png\" width=\"312\" height=\"123\" alt=\"The Blacknova Network\"></td>\n";
+echo "    <td height=\"73\" width=\"27%\"><img src=\"" . $template->getVariables('template_dir') . "/images/bnnhead.png\" width=\"312\" height=\"123\" alt=\"The Blacknova Network\"></td>\n";
 echo "    <td height=\"73\" width=\"73%\" bgcolor=\"#000\" valign=\"bottom\" align=\"right\">\n";
 echo "      <p><font size=\"-1\">" . $langvars['l_news_info_1'] . "<br>" . $langvars['l_news_info_2'] . "<br>" . $langvars['l_news_info_3'] . "<br>" . $langvars['l_news_info_4'] . "<br>" . $langvars['l_news_info_5'] . "<br></font></p>\n";
 echo "      <p>" . $langvars['l_news_for'] . " " . $startdate . "</p>\n";
@@ -69,7 +69,7 @@ echo "  </tr>\n";
 
 //Select news for date range
 $res = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 
 //Check to see if there was any news to be shown
 if ($res->RecordCount() > 0 )
@@ -105,5 +105,5 @@ else
     echo str_replace ("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

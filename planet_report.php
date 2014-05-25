@@ -19,12 +19,12 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report', 'regional'));
 $title = $langvars['l_pr_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 $preptype = null;
 if (array_key_exists ('preptype', $_GET) == true) // !isset ($_GET['preptype']))
@@ -34,7 +34,7 @@ if (array_key_exists ('preptype', $_GET) == true) // !isset ($_GET['preptype']))
 
 // Get data about planets
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 // Determine what type of report is displayed and display it's title
@@ -42,28 +42,28 @@ if ($preptype == 1 || !isset ($preptype)) // Display the commodities on the plan
 {
     $title = $title .": Status";
     echo "<h1>" . $title . "</h1>\n";
-    BadPlanetReport::standardReport ($db, $langvars, $playerinfo);
+    Bad\PlanetReport::standardReport ($db, $langvars, $playerinfo);
 }
 elseif ($preptype == 2)                  // Display the production values of your planets and allow changing
 {
     $title = $title .": Production";
     echo "<h1>" . $title . "</h1>\n";
-    BadPlanetReport::planetProductionChange ($db, $langvars, $playerinfo);
+    Bad\PlanetReport::planetProductionChange ($db, $langvars, $playerinfo);
 }
 elseif ($preptype == 0)                  // For typing in manually to get a report menu
 {
     $title = $title . ": Menu";
     echo "<h1>" . $title . "</h1>\n";
-    BadPlanetReport::planetReportMenu ($playerinfo);
+    Bad\PlanetReport::planetReportMenu ($playerinfo);
 }
 else                                  // Display the menu if no valid options are passed in
 {
     $title = $title . ": Status";
     echo "<h1>" . $title . "</h1>\n";
-    BadPlanetReport::planetReport ();
+    Bad\PlanetReport::planetReport ();
 }
 
 echo "<br><br>";
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

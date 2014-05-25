@@ -19,13 +19,13 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_pr_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
@@ -34,18 +34,18 @@ echo "<br>";
 
 if (isset ($_POST["TPCreds"]))
 {
-    BadPlanetReportCE::collectCredits ($db, $langvars, $_POST["TPCreds"], $sector_max);
+    Bad\PlanetReportCE::collectCredits ($db, $langvars, $_POST["TPCreds"], $sector_max);
 }
 elseif (isset ($buildp) && isset ($builds))
 {
-    BadPlanetReportCE::buildBase ($db, $langvars, $buildp, $builds);
+    Bad\PlanetReportCE::buildBase ($db, $langvars, $buildp, $builds);
 }
 else
 {
-    BadPlanetReportCE::changePlanetProduction ($db, $langvars, $_POST);
+    Bad\PlanetReportCE::changePlanetProduction ($db, $langvars, $_POST);
 }
 
 echo "<br><br>";
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

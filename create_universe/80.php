@@ -24,7 +24,7 @@ if ($pos !== false)
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = BntBigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep (__FILE__);
 
 // Set variables
 $variables['templateset']            = $bntreg->default_template;
@@ -50,9 +50,9 @@ $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILT
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 $variables['update_ticks_results']['sched'] = $bntreg->sched_ticks;
-$local_table_timer = new BntTimer;
+$local_table_timer = new Bnt\Timer;
 
 $now = time();
 $local_table_timer->start (); // Start benchmarking for turns scheduler
@@ -63,7 +63,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_turns);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_turns_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_turns_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_turns_results']['sched'] = $bntreg->sched_turns;
 $local_table_timer->stop ();
 $variables['update_turns_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -71,7 +71,7 @@ $variables['update_turns_results']['elapsed'] = $local_table_timer->elapsed ();
 // This is causing errors at the moment, disabling until we get clean solutions for it.
 //$local_table_timer->start (); // Start benchmarking
 //$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_turns, 'sched_xenobe.php', ?)", array (time ()));
-//$variables['update_xenobe_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
+//$variables['update_xenobe_results']['result'] = Bnt\Db::logDbErrors ($db, $resxx, __LINE__, __FILE__);
 $variables['update_xenobe_results']['result'] = "DISABLED!";
 $variables['update_xenobe_results']['sched'] = $bntreg->sched_turns;
 //$local_table_timer->stop ();
@@ -85,7 +85,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_igb);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_igb_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_igb_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_igb_results']['sched'] = $bntreg->sched_igb;
 $local_table_timer->stop ();
 $variables['update_igb_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -98,7 +98,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_news);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_news_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_news_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_news_results']['sched'] = $bntreg->sched_news;
 $local_table_timer->stop ();
 $variables['update_news_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -111,7 +111,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_planets);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_planets_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_planets_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_planets_results']['sched'] = $bntreg->sched_planets;
 $local_table_timer->stop ();
 $variables['update_planets_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -124,7 +124,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_ports);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_ports_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_ports_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_ports_results']['sched'] = $bntreg->sched_ports;
 $local_table_timer->stop ();
 $variables['update_ports_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -137,7 +137,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_turns);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_tow_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_tow_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_tow_results']['sched'] = $bntreg->sched_turns; // Towing occurs at the same time as turns
 $local_table_timer->stop ();
 $variables['update_tow_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -150,7 +150,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_ranking);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_ranking_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_ranking_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_ranking_results']['sched'] = $bntreg->sched_ranking;
 $local_table_timer->stop ();
 $variables['update_ranking_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -163,7 +163,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_degrade);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_degrade_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_degrade_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_degrade_results']['sched'] = $bntreg->sched_degrade;
 $local_table_timer->stop ();
 $variables['update_degrade_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -176,7 +176,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_apocalypse);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_apoc_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_apoc_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_apoc_results']['sched'] = $bntreg->sched_apocalypse;
 $local_table_timer->stop ();
 $variables['update_apoc_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -189,7 +189,7 @@ $stmt->bindParam (':ticks_full', $bntreg->sched_thegovernor);
 $stmt->bindParam (':sched_file', $sched_file);
 $stmt->bindParam (':last_run', $now);
 $resxx = $stmt->execute ();
-$variables['update_gov_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['update_gov_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_gov_results']['sched'] = $bntreg->sched_thegovernor;
 $local_table_timer->stop ();
 $variables['update_gov_results']['elapsed'] = $local_table_timer->elapsed ();
@@ -205,13 +205,13 @@ $stmt->bindParam (':headline', $headline);
 $stmt->bindParam (':newstext', $newstext);
 $stmt->bindParam (':news_type', $news_type);
 $resxx = $stmt->execute ();
-$variables['first_news_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['first_news_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $local_table_timer->stop ();
 $variables['first_news_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking for ibank accounts for admin
 $update = $pdo_db->exec ("INSERT INTO {$pdo_db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (1,0,0)");
-$variables['ibank_results']['result'] = BntDb::logDbErrors ($pdo_db, $update, __LINE__, __FILE__);
+$variables['ibank_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $update, __LINE__, __FILE__);
 $local_table_timer->stop ();
 $variables['ibank_results']['elapsed'] = $local_table_timer->elapsed ();
 
@@ -253,7 +253,7 @@ $stmt->bindParam (':last_login', $admin_last_login);
 $stmt->bindParam (':ip_address', $admin_ip);
 $stmt->bindParam (':lang', $bntreg->default_lang);
 $resxx = $stmt->execute ();
-$variables['admin_account_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['admin_account_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['admin_mail'] = $bntreg->admin_mail;
 $variables['admin_name'] = $bntreg->admin_name;
 $variables['admin_pass'] = ADMIN_PW;
@@ -285,13 +285,13 @@ $stmt->bindParam (':allow_trade', $allow_trade);
 $stmt->bindParam (':allow_defenses', $allow_defenses);
 $stmt->bindParam (':max_hull', $max_hull);
 $resxx = $stmt->execute ();
-$variables['admin_zone_results']['result'] = BntDb::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
+$variables['admin_zone_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resxx, __LINE__, __FILE__);
 $local_table_timer->stop ();
 $variables['admin_zone_results']['elapsed'] = $local_table_timer->elapsed ();
 
-$template->AddVariables ('langvars', $langvars);
+$template->addVariables ('langvars', $langvars);
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('variables', $variables);
+$template->addVariables ('variables', $variables);
 $template->display ("templates/classic/create_universe/80.tpl");
 ?>

@@ -19,17 +19,17 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 $title = $langvars['l_readm_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if (!isset ($_GET['action']))
@@ -40,19 +40,19 @@ if (!isset ($_GET['action']))
 if ($_GET['action'] == "delete")
 {
     $resx = $db->Execute ("DELETE FROM {$db->prefix}messages WHERE ID=? AND recp_id = ?;", array ($ID, $playerinfo['ship_id']));
-    BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
 }
 else if ($_GET['action'] == "delete_all")
 {
     $resx = $db->Execute ("DELETE FROM {$db->prefix}messages WHERE recp_id = ?;", array ($playerinfo['ship_id']));
-    BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
 }
 
 $cur_D = date ("Y-m-d");
 $cur_T = date ("H:i:s");
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? ORDER BY sent DESC;", array ($playerinfo['ship_id']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 ?>
 <div align="center">
   <table border="0" cellspacing="0" width="70%" bgcolor="silver" cellpadding="0">
@@ -68,7 +68,7 @@ BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
                     <tr>
                       <td width="75%" align="left"><font color="white" size="2"><strong><?php echo $langvars['l_readm_center']; ?> (<span style='color:#00C0C0;'>Subspace</span>)</strong></font></td>
                       <td width="21%" align="center" nowrap><font color="white" size="2"><?php echo "$cur_D"; ?>&nbsp;<?php echo "$cur_T"; ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a href="main.php"><img alt="Click here to return to the main menu" src="<?php echo $template->GetVariables('template_dir'); ?>/images/close.png" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a href="main.php"><img alt="Click here to return to the main menu" src="<?php echo $template->getVariables('template_dir'); ?>/images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
@@ -101,7 +101,7 @@ BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
    $msg = $res->fields;
 
    $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($msg['sender_id']));
-   BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+   Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
    $sender = $result->fields;
 
 //   $isAdmin = isAdmin($sender);
@@ -120,12 +120,12 @@ BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 //if ($isAdmin === true)
 //{
-//    echo "&nbsp;<img style='width:64px; height:16px; border:none; padding:0px; vertical-align:text-bottom;' src='<?php echo $template->GetVariables('template_dir'); ?>/images/validated_administrator2.gif' alt='Validated as Admin' />";
+//    echo "&nbsp;<img style='width:64px; height:16px; border:none; padding:0px; vertical-align:text-bottom;' src='<?php echo $template->getVariables('template_dir'); ?>/images/validated_administrator2.gif' alt='Validated as Admin' />";
 //}
 ?>
 </font></td>
                       <td width="21%" align="center"><font color="white" size="2"><?php echo $msg['sent']; ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><img src="<?php echo $template->GetVariables('template_dir'); ?>/images/close.png" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><img src="<?php echo $template->getVariables('template_dir'); ?>/images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
@@ -210,7 +210,7 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 <?php
  //}
 
-BntText::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
 
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

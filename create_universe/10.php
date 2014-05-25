@@ -24,7 +24,7 @@ if ($pos !== false)
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = BntBigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep (__FILE__);
 
 // Pull in the set config variables so we can get the correct sector max
 $ini_keys = parse_ini_file ("config/classic_config.ini.php", true);
@@ -69,11 +69,11 @@ if (array_key_exists ('newlang', $_POST) == true)
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
-$template->AddVariables ('langvars', $langvars);
+$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$template->addVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('variables', $variables);
+$template->addVariables ('variables', $variables);
 $template->display ("templates/classic/create_universe/10.tpl");
 ?>

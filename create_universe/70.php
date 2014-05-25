@@ -24,7 +24,7 @@ if ($pos !== false)
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = BntBigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep (__FILE__);
 
 // Set variables
 $variables['templateset']            = $bntreg->default_template;
@@ -50,12 +50,12 @@ $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILT
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $p_skip = 0;
 $z = 0;
 
-$local_table_timer = new BntTimer;
+$local_table_timer = new Bnt\Timer;
 $local_table_timer->start (); // Start benchmarking
 
 // Get the sector id for any sector that allows planets
@@ -64,7 +64,7 @@ $sth->execute();
 
 // Place those id's into an array.
 $open_sectors_result = $sth->fetchAll();
-$catch_results[$z] = BntDb::logDbErrors ($pdo_db, $open_sectors_result, __LINE__, __FILE__);
+$catch_results[$z] = Bnt\Db::logDbErrors ($pdo_db, $open_sectors_result, __LINE__, __FILE__);
 $z++;
 
 $i = 0;
@@ -85,7 +85,7 @@ do
 {
     if (($p_add > 1) && ($p_add < $variables['nump'])) // Skip the first one as we already did it during the prep of the insert call.
     {
-        $add_more = BntRand::betterRand (1, $bntreg->max_planets_sector); // Add one to a random number of planets in each sector
+        $add_more = Bnt\Rand::betterRand (1, $bntreg->max_planets_sector); // Add one to a random number of planets in each sector
         if (($add_more + $p_add) > $variables['nump']) // Ensure that we don't add more than the total amount needed
         {
             $add_more = $variables['nump'] - $p_add; // Lower the number to add to the amount that is left
@@ -112,7 +112,7 @@ while ($p_add < $variables['nump']); // Only add as many planets as requested
 
 // Insert all of the planets in one mega sql shot
 $insert = $pdo_db->exec ($planet_insert_sql);
-$variables['setup_unowned_results']['result'] = BntDb::logDbErrors ($pdo_db, $insert, __LINE__, __FILE__);
+$variables['setup_unowned_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $insert, __LINE__, __FILE__);
 $catch_results[$z] = $variables['setup_unowned_results']['result'];
 $z++;
 
@@ -144,7 +144,7 @@ for ($i = 1; $i <= $loops; $i++)
     }
 
     $resx = $pdo_db->exec ($update);
-    $variables['insert_loop_sectors_results'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
+    $variables['insert_loop_sectors_results'][$i]['result'] = Bnt\Db::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_loop_sectors_results'][$i]['result'];
     $z++;
 
@@ -178,14 +178,14 @@ for ($i = 1; $i <= $loops; $i++)
     $insert = "INSERT INTO {$pdo_db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
-        $link1 = intval (BntRand::betterRand (1, $bntreg->sector_max - 1));
-        $link2 = intval (BntRand::betterRand (1, $bntreg->sector_max - 1));
+        $link1 = intval (Bnt\Rand::betterRand (1, $bntreg->sector_max - 1));
+        $link2 = intval (Bnt\Rand::betterRand (1, $bntreg->sector_max - 1));
         $insert .= "($link1, $link2)";
         if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
 
     $resx = $pdo_db->exec ($insert);
-    $variables['insert_random_oneway_results'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
+    $variables['insert_random_oneway_results'][$i]['result'] = Bnt\Db::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_random_oneway_results'][$i]['result'];
     $z++;
 
@@ -220,14 +220,14 @@ for ($i = 1; $i <= $loops; $i++)
     $insert = "INSERT INTO {$pdo_db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
-        $link1 = intval (BntRand::betterRand (1, $bntreg->sector_max - 1));
-        $link2 = intval (BntRand::betterRand (1, $bntreg->sector_max - 1));
+        $link1 = intval (Bnt\Rand::betterRand (1, $bntreg->sector_max - 1));
+        $link2 = intval (Bnt\Rand::betterRand (1, $bntreg->sector_max - 1));
         $insert .= "($link1, $link2), ($link2, $link1)";
         if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
 
     $resx = $pdo_db->exec ($insert);
-    $variables['insert_random_twoway_results'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
+    $variables['insert_random_twoway_results'][$i]['result'] = Bnt\Db::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_random_twoway_results'][$i]['result'];
     $z++;
 
@@ -250,7 +250,7 @@ $stmt->bindParam(':linkstart', $bntreg->sector_max);
 $stmt->bindParam(':linkdest', $bntreg->sector_max);
 $resx = $stmt->execute();
 
-$variables['remove_links_results']['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
+$variables['remove_links_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
 $catch_results[$z] = $variables['remove_links_results']['result'];
 $z++;
 
@@ -265,10 +265,10 @@ for ($t = 0; $t < $z; $t++)
     }
 }
 
-$template->AddVariables ('langvars', $langvars);
+$template->addVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('variables', $variables);
+$template->addVariables ('variables', $variables);
 $template->display ("templates/classic/create_universe/70.tpl");
 ?>

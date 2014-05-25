@@ -19,58 +19,58 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_warp_title'];
-BntHeader::display($db, $lang, $template, $title);
+Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result4 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-BntDb::logDbErrors ($db, $result4, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result4, __LINE__, __FILE__);
 $sectorinfo = $result4->fields;
 
 if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_warp_turn'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
 if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $langvars['l_warp_none'] . ".<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
 $res = $db->Execute ("SELECT allow_warpedit FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $langvars['l_warp_forbid'] . "<br><br>";
-    BntText::gotoMain ($db, $lang, $langvars);
-    BadFooter::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
 if ($zoneinfo['allow_warpedit'] == 'L')
 {
     $result3 = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
-    BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
     $zoneowner_info = $result3->fields;
 
     $result5 = $db->Execute ("SELECT team FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zoneowner_info['owner']));
-    BntDb::logDbErrors ($db, $result5, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $result5, __LINE__, __FILE__);
     $zoneteam = $result5->fields;
 
     if ($zoneowner_info['owner'] != $playerinfo['ship_id'])
@@ -78,15 +78,15 @@ if ($zoneinfo['allow_warpedit'] == 'L')
         if (($zoneteam['team'] != $playerinfo['team']) || ($playerinfo['team'] == 0))
         {
             echo $langvars['l_warp_forbid'] . "<br><br>";
-            BntText::gotoMain ($db, $lang, $langvars);
-            BadFooter::display($pdo_db, $lang, $bntreg, $template);
+            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
     }
 }
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ? ORDER BY link_dest ASC;", array ($playerinfo['sector']));
-BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
 if (!$result2 instanceof ADORecordSet)
 {
     echo $langvars['l_warp_nolink'] . "<br><br>";
@@ -118,6 +118,6 @@ echo "</table>";
 echo "<input type=\"submit\" value=\"" . $langvars['l_submit'] . "\"><input type=\"reset\" value=\"" . $langvars['l_reset'] . "\">";
 echo "</form>";
 
-BntText::gotoMain ($db, $lang, $langvars);
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

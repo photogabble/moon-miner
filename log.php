@@ -20,7 +20,7 @@
 include './global_includes.php';
 include './config/admin_config.php';
 
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Hack for log bug issue - this really needs to be fixed
 $log_list = array (null,
@@ -33,14 +33,14 @@ $log_list = array (null,
                 );
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $title = $langvars['l_log_titlet'];
 $body_class = 'log';
-BntHeader::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if (!isset ($_REQUEST['swordfish']))
@@ -60,7 +60,7 @@ if ($swordfish == ADMIN_PW) // Check if called by admin script
     else
     {
         $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($player));
-        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
         $targetname = $res->fields;
         $playerinfo['character_name'] = $targetname['character_name'];
     }
@@ -84,7 +84,7 @@ echo "<table width=80% border=0 cellspacing=0 cellpadding=0>";
 $logline = str_replace ("[player]", "$playerinfo[character_name]", $langvars['l_log_log']);
 
 echo "<tr><td><td width=100%><td></tr>";
-echo "<tr><td><td align='left' height=20 style='background-image: url(" . $template->GetVariables('template_dir') . "/images/top_panel.png); background-repeat:no-repeat'>";
+echo "<tr><td><td align='left' height=20 style='background-image: url(" . $template->getVariables('template_dir') . "/images/top_panel.png); background-repeat:no-repeat'>";
 ?>
 <font size=2 color=#040658><strong>&nbsp;&nbsp;&nbsp;<?php echo $logline; ?></strong></font>
 </td><td><td></tr>
@@ -110,7 +110,7 @@ if (empty ($startdate))
 }
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$startdate%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
-BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
 
 if ($res instanceof ADORecordSet)
 {
@@ -192,7 +192,7 @@ if ($mode != 'compat')
 
     unset ($logs);
     $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
-    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $logs[] = $res->fields;
@@ -237,7 +237,7 @@ if ($mode != 'compat')
 
     unset ($logs);
     $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$tomorrow%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
-    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $logs[] = $res->fields;
@@ -329,7 +329,7 @@ if ($mode != 'compat')
 {
     echo "<td valign=bottom>" .
          "<tr><td><td align=right>" .
-         "<img alt=\"\" style=\"height:296px; width:20px\" src=\"" . $template->GetVariables('template_dir') . "/images/bottom_panel.png\">" .
+         "<img alt=\"\" style=\"height:296px; width:20px\" src=\"" . $template->getVariables('template_dir') . "/images/bottom_panel.png\">" .
          "<br>" .
          "<div style=\"position:relative; top:-23px;\">" .
          "<font size=2><strong>" .
@@ -386,5 +386,5 @@ if ($mode != 'compat')
 }
 
 echo "</table></center>";
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

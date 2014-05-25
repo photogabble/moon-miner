@@ -22,7 +22,7 @@ include './global_includes.php';
 include './config/admin_config.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common',
+$langvars = Bnt\Translate::load ($db, $lang, array ('admin', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news', 'report', 'main', 'zoneedit',
                                 'planet'));
@@ -91,7 +91,7 @@ if ($swordfish == ADMIN_PW)
 $variables['body_class'] = 'admin';
 $variables['lang'] = $lang;
 $variables['swordfish'] = $swordfish;
-$variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+$variables['linkback'] = array ("fulltext" => $langvars['l_global_mmenu'], "link"=>"main.php");
 $variables['menu'] = $menu;
 $variables['filename'] = $filename;
 $variables['menu_location'] = $menu_location;
@@ -103,11 +103,11 @@ $variables['button_main'] = $button_main;
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common',
+$langvars = Bnt\Translate::load ($db, $lang, array ('admin', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news', 'report', 'main', 'zoneedit',
                                 'planet'));
-$template->AddVariables('langvars', $langvars);
-$template->AddVariables('variables', $variables);
-$template->Display("admin.tpl");
+$template->addVariables('langvars', $langvars);
+$template->addVariables('variables', $variables);
+$template->display("admin.tpl");
 ?>

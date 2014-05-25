@@ -47,7 +47,7 @@ if (result == true)
 
 <?php
     // Database driven language entries
-    $langvars = BntTranslate::load ($db, $lang, array ('news'));
+    $langvars = Bnt\Translate::load ($db, $lang, array ('news'));
 
     $startdate = date ("Y/m/d");
     if ($db->inactive)
@@ -61,7 +61,7 @@ if (result == true)
     else
     {
         $res = $db->Execute ("SELECT headline, news_type FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
         if (!$res instanceof ADORecordSet || $res->RecordCount() == 0)
         {
             echo "    url = null;\n";

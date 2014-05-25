@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'plugin_loader.php')) // Prevent direct access
 
 if (isset ($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'] == true)
 {
-    class PluginTest extends Plugin
+    class PluginTest extends Bnt\Plugin
     {
         static $AppName                         = "Plugin Test";
         static $Version                         = "0.0.0 (0000) Alpha";
@@ -55,7 +55,7 @@ if (isset ($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'
         public function Initialize($db = null)
         {
             // Need to put all Initialization stuff here along with all the Event Hooks.
-            BntPluginSystem::AddEventHook(EVENT_TICK, $this);
+            Bnt\PluginSystem::addEventHook(EVENT_TICK, $this);
         }
 
         function getPluginInfo($needModuleList = false)

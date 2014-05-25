@@ -21,34 +21,34 @@ include './global_includes.php';
 
 // TODO: This should not be hard-coded, but for now, I need to be able to clear the errors
 $active_template = 'classic';
-BntLogin::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
-BntHeader::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 
 echo "<body class='" . $body_class . "'>";
 echo "<center>";
-echo '<img src="' . $template->GetVariables('template_dir') . '/images/div1.png" alt="" style="width: 600px; height:21px">';
+echo '<img src="' . $template->getVariables('template_dir') . '/images/div1.png" alt="" style="width: 600px; height:21px">';
 echo '<div style="width:600px; max-width:600px;" class="igb">';
 echo '<table style="width:600px; height:350px;" border="0px">';
-echo '<tr><td style="background-image:URL(' . $template->GetVariables('template_dir') . '/images/igbscreen.png); background-repeat:no-repeat;" align="center">';
+echo '<tr><td style="background-image:URL(' . $template->getVariables('template_dir') . '/images/igbscreen.png); background-repeat:no-repeat;" align="center">';
 echo '<table style="width:550px; height:300px;" border="0px">';
 
 if (!$bntreg->allow_ibank)
 {
-    BadIbank::ibankError ($template->GetVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
+    Bad\Ibank::ibankError ($template->getVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
 }
 
 if (!isset ($_REQUEST['command']))
@@ -63,59 +63,59 @@ else
 
 if ($command == 'login') //main menu
 {
-    BadIbank::ibankLogin ($langvars, $playerinfo, $account);
+    Bad\Ibank::ibankLogin ($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw') //withdraw menu
 {
-    BadIbank::ibankWithdraw ($langvars, $playerinfo, $account);
+    Bad\Ibank::ibankWithdraw ($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw2') //withdraw operation
 {
-    BadIbank::ibankWithdraw2 ($db, $langvars, $playerinfo, $amount, $account);
+    Bad\Ibank::ibankWithdraw2 ($db, $langvars, $playerinfo, $amount, $account);
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    BadIbank::deposit ($db, $lang, $account, $playerinfo, $langvars);
+    Bad\Ibank::deposit ($db, $lang, $account, $playerinfo, $langvars);
 }
 elseif ($command == 'deposit2') //deposit operation
 {
-    BadIbank::ibankDeposit2 ($db, $langvars, $playerinfo, $amount, $account);
+    Bad\Ibank::ibankDeposit2 ($db, $langvars, $playerinfo, $amount, $account);
 }
 elseif ($command == 'transfer') //main transfer menu
 {
-    BadIbank::ibankTransfer ($db, $langvars, $playerinfo, $ibank_min_turns);
+    Bad\Ibank::ibankTransfer ($db, $langvars, $playerinfo, $ibank_min_turns);
 }
 elseif ($command == 'transfer2') //specific transfer menu (ship or planet)
 {
-    BadIbank::ibankTransfer2 ($db);
+    Bad\Ibank::ibankTransfer2 ($db);
 }
 elseif ($command == 'transfer3') //transfer operation
 {
-    BadIbank::ibankTransfer3 ($db);
+    Bad\Ibank::ibankTransfer3 ($db);
 }
 elseif ($command == 'loans') //loans menu
 {
-    BadIbank::ibankLoans ($db, $langvars, $bntreg, $playerinfo);
+    Bad\Ibank::ibankLoans ($db, $langvars, $bntreg, $playerinfo);
 }
 elseif ($command == 'borrow') //borrow operation
 {
-    BadIbank::ibankBorrow ($db, $langvars, $playerinfo, $active_template);
+    Bad\Ibank::ibankBorrow ($db, $langvars, $playerinfo, $active_template);
 }
 elseif ($command == 'repay') //repay operation
 {
-    BadIbank::ibankRepay ($db, $langvars, $playerinfo, $account, $amount);
+    Bad\Ibank::ibankRepay ($db, $langvars, $playerinfo, $account, $amount);
 }
 elseif ($command == 'consolidate') //consolidate menu
 {
-    BadIbank::ibankConsolidate ($langvars);
+    Bad\Ibank::ibankConsolidate ($langvars);
 }
 elseif ($command == 'consolidate2') //consolidate compute
 {
-    BadIbank::ibankConsolidate2 ($db, $langvars, $playerinfo);
+    Bad\Ibank::ibankConsolidate2 ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'consolidate3') //consolidate operation
 {
-    BadIbank::ibankConsolidate3 ($db, $langvars, $playerinfo);
+    Bad\Ibank::ibankConsolidate3 ($db, $langvars, $playerinfo);
 }
 else
 {
@@ -160,8 +160,8 @@ else
 </table>
 </div>
 <?php
-echo '<img src="' . $template->GetVariables('template_dir') . '/images/div2.png" alt="" style="width: 600px; height:21px">';
+echo '<img src="' . $template->getVariables('template_dir') . '/images/div2.png" alt="" style="width: 600px; height:21px">';
 echo '</center>';
 
-BadFooter::display($pdo_db, $lang, $bntreg, $template);
+Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

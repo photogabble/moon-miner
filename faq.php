@@ -32,7 +32,7 @@ else
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'faq', 'global_funcs'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('common', 'faq', 'global_funcs'));
 
 $variables = null;
 $variables['lang'] = $lang;
@@ -41,11 +41,11 @@ $variables['body_class'] = 'faq';
 
 if (empty ($_SESSION['username']))
 {
-    $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mlogin'], "link"=>"index.php");
+    $variables['linkback'] = array ("fulltext" => $langvars['l_global_mlogin'], "link" => "index.php");
 }
 else
 {
-    $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"index.php");
+    $variables['linkback'] = array ("fulltext" => $langvars['l_global_mmenu'], "link" => "index.php");
 }
 
 // Now set a container for the variables and langvars and send them off to the template system
@@ -54,7 +54,7 @@ $langvars['container'] = "langvars";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('langvars', $langvars);
-$template->AddVariables ('variables', $variables);
-$template->Display ("faq.tpl");
+$template->addVariables ('langvars', $langvars);
+$template->addVariables ('variables', $variables);
+$template->display ("faq.tpl");
 ?>

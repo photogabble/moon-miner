@@ -18,17 +18,17 @@
 // File: classes/eventsystem/event_list.php
 
 // Used to hook into the ranking page, Event is called for every account.
-define("EVENT_RANKING_PLAYERINFO",  0x00000001,         true);
+define("EVENT_RANKING_PLAYERINFO", 0x00000001, true);
 
 // Used to hook into when the player joins the game.
-define("EVENT_PLAYER_JOIN",         0x00000002,         true);
+define("EVENT_PLAYER_JOIN", 0x00000002, true);
 
 // Triggered on every page load.
-define("EVENT_TICK",                0x00000003,         true);
+define("EVENT_TICK", 0x00000003, true);
 
 // Triggered on every time the Scheduler is run.
-define("SCHEDULER_RUN",             0x00000004,         true);
+define("SCHEDULER_RUN", 0x00000004, true);
 
 // Triggered on every create_universe.php page load.
-define("EVENT_CREATE_UNIVERSE",     0x00000005,         true);
+define("EVENT_CREATE_UNIVERSE", 0x00000005, true);
 ?>

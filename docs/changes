@@ -1,3 +1,9 @@
+TheKabal (25 May 2014)
+--------------------------------------
+Add namespaces to class files, move class files to correct names, correct space before functions formatting
+Fix variable order for Player::Kill
+Update composer itself, and Smarty to latest version
+
 TheKabal (16 May 2014)
 --------------------------------------
 Assorted fixes for variable naming, to be consistently camelCaps styled.

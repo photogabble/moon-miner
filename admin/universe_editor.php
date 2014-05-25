@@ -31,20 +31,20 @@ $radius  = filter_input (INPUT_POST, 'radius', FILTER_SANITIZE_NUMBER_INT);
 if ($action == "doexpand")
 {
     $result = $db->Execute ("SELECT sector_id FROM {$db->prefix}universe ORDER BY sector_id ASC");
-    BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 
     if (!$result->EOF)
     {
         $resa = $db->StartTrans (); // We enclose the updates in a transaction as it is faster
-        BntDb::logDbErrors ($db, $resa, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $resa, __LINE__, __FILE__);
 
         // Begin transaction
         while (!$result->EOF)
         {
             $row = $result->fields;
-            $distance = BntRand::betterRand (1, $radius);
+            $distance = Bnt\Rand::betterRand (1, $radius);
             $resx = $db->Execute ("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
-            BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+            Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
 
             $changed_sectors[$i] = str_replace ("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
             $changed_sectors[$i] = str_replace ("[distance]", $distance, $changed_sectors[$i]);
@@ -54,7 +54,7 @@ if ($action == "doexpand")
 
         // End transaction
         $trans_status = $db->CompleteTrans(); // Complete the transaction
-        BntDb::logDbErrors ($db, $trans_status, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors ($db, $trans_status, __LINE__, __FILE__);
     }
 }
 
@@ -75,6 +75,6 @@ $variables['module'] = $module_name;
 $variables['container'] = "variable";
 $langvars['container'] = "langvar";
 
-$template->AddVariables('langvars', $langvars);
-$template->AddVariables('variables', $variables);
+$template->addVariables('langvars', $langvars);
+$template->addVariables('variables', $variables);
 ?>

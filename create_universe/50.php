@@ -24,7 +24,7 @@ if ($pos !== false)
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = BntBigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep (__FILE__);
 
 // Set variables
 $variables['templateset']            = $bntreg->default_template;
@@ -50,9 +50,9 @@ $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILT
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
-$local_table_timer = new BntTimer;
+$local_table_timer = new Bnt\Timer;
 $z = 0;
 $i = 0;
 $language_files = new DirectoryIterator ("languages/");
@@ -66,7 +66,7 @@ foreach ($language_files as $language_filename)
 
         // Import Languages
         $local_table_timer->start (); // Start benchmarking
-        $lang_result = BntFile::iniToDb ($pdo_db, "languages/" . $language_filename->getFilename(), "languages", $lang_name, $bntreg);
+        $lang_result = Bnt\File::iniToDb ($pdo_db, "languages/" . $language_filename->getFilename(), "languages", $lang_name, $bntreg);
         $local_table_timer->stop ();
         $variables['import_lang_results'][$i]['time'] = $local_table_timer->elapsed ();
         $variables['import_lang_results'][$i]['name'] = ucwords ($lang_name);
@@ -79,7 +79,7 @@ foreach ($language_files as $language_filename)
 $variables['language_count'] = ($i - 1);
 
 $local_table_timer->start (); // Start benchmarking
-$gameconfig_result = BntFile::iniToDb ($pdo_db, "config/classic_config.ini.php", "gameconfig", "game", $bntreg);
+$gameconfig_result = Bnt\File::iniToDb ($pdo_db, "config/classic_config.ini.php", "gameconfig", "game", $bntreg);
 $local_table_timer->stop ();
 if ($gameconfig_result === true)
 {
@@ -108,14 +108,14 @@ $local_table_timer->start (); // Start benchmarking
 $stmt = $pdo_db->prepare ("UPDATE {$pdo_db->prefix}gameconfig SET value = ? WHERE name='sector_max'");
 $result = $stmt->execute (array($variables['sector_max']));
 $local_table_timer->stop ();
-$variables['update_config_results']['result'] = BntDb::logDbErrors ($pdo_db, $result, __LINE__, __FILE__);
+$variables['update_config_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $result, __LINE__, __FILE__);
 $variables['update_config_results']['time'] = $local_table_timer->elapsed ();
 
 $lang = $bntreg->default_lang;
-$template->AddVariables ('langvars', $langvars);
+$template->addVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('variables', $variables);
+$template->addVariables ('variables', $variables);
 $template->display ("templates/classic/create_universe/50.tpl");
 ?>

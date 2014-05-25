@@ -20,7 +20,7 @@
 include_once './global_includes.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('footer', 'common', 'error', 'main'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('footer', 'common', 'error', 'main'));
 // Always make sure we are using empty vars before use.
 $variables = null;
 
@@ -86,8 +86,8 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include_once './footer_t.php';
-$template->AddVariables('langvars', $langvars);
-$template->AddVariables('variables', $variables);
-$template->Display("error.tpl");
+$template->addVariables('langvars', $langvars);
+$template->addVariables('variables', $variables);
+$template->display("error.tpl");
 die ();
 ?>

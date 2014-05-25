@@ -46,7 +46,7 @@ else
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'login', 'logout', 'index', 'common','regional', 'footer','global_includes'));
+$langvars = Bnt\Translate::load ($db, $lang, array ('main', 'login', 'logout', 'index', 'common','regional', 'footer','global_includes'));
 
 $variables = null;
 $variables['lang'] = $lang;
@@ -61,7 +61,7 @@ $list_of_langs = array();
 
 if (is_array ($lang_rs) === true && count ($lang_rs) >= 2)
 {
-    foreach ($lang_rs as $id=>$langinfo)
+    foreach ($lang_rs as $id => $langinfo)
     {
         if (array_key_exists ($langinfo['section'], $list_of_langs) === false)
         {
@@ -72,13 +72,13 @@ if (is_array ($lang_rs) === true && count ($lang_rs) >= 2)
         {
             case 'local_lang_flag':
             {
-                $list_of_langs[$langinfo['section']] = array_merge ($list_of_langs[$langinfo['section']], array('flag'=>$langinfo['value']));
+                $list_of_langs[$langinfo['section']] = array_merge ($list_of_langs[$langinfo['section']], array('flag' => $langinfo['value']));
                 break;
             }
 
             case 'local_lang_name':
             {
-                $list_of_langs[$langinfo['section']] = array_merge ($list_of_langs[$langinfo['section']], array('lang_name'=>$langinfo['value']));
+                $list_of_langs[$langinfo['section']] = array_merge ($list_of_langs[$langinfo['section']], array('lang_name' => $langinfo['value']));
                 break;
             }
         }
@@ -104,7 +104,9 @@ $langvars['container'] = "langvars";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables ('langvars', $langvars);
-$template->AddVariables ('variables', $variables);
-$template->Display ("index.tpl");
+$template->addVariables ('langvars', $langvars);
+$template->addVariables ('variables', $variables);
+$template->display ("index.tpl");
+// Bnt\Class::method($blah);
+// BntNew\BntError::test("testing test");
 ?>

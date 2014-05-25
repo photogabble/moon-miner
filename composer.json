@@ -26,16 +26,16 @@
     "license": "AGPL-3.0",
     "minimum-stability": "alpha",
     "require": {
-        "smarty/smarty": "v3.1.17",
+        "smarty/smarty": "v3.1.18",
         "ezyang/htmlpurifier": "v4.6.0",
         "ircmaxell/password-compat": "1.0.3",
         "adodb/adodb-php": "v5.19"
     },
 
     "autoload": {
+        "psr-4": { "Bnt\\": "classes/", "Bad\\": "classes/" },
         "classmap": [
-            "vendor/adodb/adodb-php/adodb-perf.inc.php",
-            "classes/"
+            "vendor/adodb/adodb-php/adodb-perf.inc.php"
         ]
     },
     "scripts": {
