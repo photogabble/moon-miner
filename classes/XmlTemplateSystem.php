@@ -28,11 +28,11 @@
 // XML Format by using a DTD file, we also use a style sheet that uses
 // the XML Data and then outputs as XHTML using a XSLT style sheet file.
 
+namespace Bnt;
+
 define("XMLDOM_PROCESSED", 0x0001, true);
 define("XMLDOM_UNPROCESSED", 0x0002, true);
 define("XMLDOM_XML", 0x0003, true);
-
-namespace Bnt;
 
 class XmlTemplateSystem
 {
