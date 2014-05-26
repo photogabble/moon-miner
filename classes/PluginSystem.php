@@ -32,7 +32,6 @@ class PluginSystem
     private static $events                  = null;
     private static $pluginlist              = null;
 
-    const PLUGIN_PATH = "./plugins";
     public function __construct()
     {
     }
@@ -50,7 +49,7 @@ class PluginSystem
     public static function loadPlugins()
     {
         global $plugin_config;
-        $d = dir(PLUGIN_PATH);
+        $d = dir('./plugins');
 
         while (false !== ($entry = $d->read()))
         {
