@@ -33,10 +33,7 @@
     },
 
     "autoload": {
-        "psr-4": { "Bnt\\": "classes/", "Bad\\": "classes/" },
-        "classmap": [
-            "vendor/adodb/adodb-php/adodb-perf.inc.php"
-        ]
+        "psr-4": { "Bnt\\": "classes/", "Bad\\": "classes/" }
     },
     "scripts": {
         "post-update-cmd": [
