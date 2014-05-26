@@ -46,47 +46,47 @@ if (result == true)
     // 2: Supply the information from a Database and convert it into XML (for formatting) and have the XSLT Stylesheet extract the information and insert it.
 
 <?php
-    // Database driven language entries
-    $langvars = Bnt\Translate::load ($db, $lang, array ('news'));
+// Database driven language entries
+$langvars = Bnt\Translate::load($db, $lang, array ('news'));
 
-    $startdate = date ("Y/m/d");
-    if ($db->inactive)
+$startdate = date("Y/m/d");
+if ($db->inactive)
+{
+    echo "    url = null;\n";
+    echo "    text = \"{$langvars['l_news_down']}\";\n";
+    echo "    type = null;      // Not used as yet.\n";
+    echo "    delay = 5;        // in seconds.\n";
+    echo "    news.addArticle(url, text, type, delay);\n";
+}
+else
+{
+    $res = $db->Execute("SELECT headline, news_type FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
+    Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
+    if (!$res instanceof ADORecordSet || $res->RecordCount() == 0)
     {
         echo "    url = null;\n";
-        echo "    text = \"{$langvars['l_news_down']}\";\n";
+        echo "    text = \"{$langvars['l_news_none']}\";\n";
         echo "    type = null;      // Not used as yet.\n";
         echo "    delay = 5;        // in seconds.\n";
         echo "    news.addArticle(url, text, type, delay);\n";
     }
     else
     {
-        $res = $db->Execute ("SELECT headline, news_type FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
-        if (!$res instanceof ADORecordSet || $res->RecordCount() == 0)
+        while (!$res->EOF)
         {
-            echo "    url = null;\n";
-            echo "    text = \"{$langvars['l_news_none']}\";\n";
-            echo "    type = null;      // Not used as yet.\n";
-            echo "    delay = 5;        // in seconds.\n";
+            $row = $res->fields;
+            $headline = addslashes($row['headline']);
+            echo "    url = 'news.php';\n";
+            echo "    text = '{$headline}';\n";
+            echo "    type = '{$row['news_type']}';    // Not used as yet.\n";
+            echo "    delay = 5;                       // in seconds.\n";
             echo "    news.addArticle(url, text, type, delay);\n";
+            echo "\n";
+            $res->MoveNext();
         }
-        else
-        {
-            while (!$res->EOF)
-            {
-                $row = $res->fields;
-                $headline = addslashes($row['headline']);
-                echo "    url = 'news.php';\n";
-                echo "    text = '{$headline}';\n";
-                echo "    type = '{$row['news_type']}';    // Not used as yet.\n";
-                echo "    delay = 5;                       // in seconds.\n";
-                echo "    news.addArticle(url, text, type, delay);\n";
-                echo "\n";
-                $res->MoveNext();
-            }
-            echo "    news.addArticle(null, '{$langvars['l_news_end']}', null, 5);\n";
-        }
+        echo "    news.addArticle(null, '{$langvars['l_news_end']}', null, 5);\n";
     }
+}
 ?>
     // Starts the Ticker.
     news.startTicker();
