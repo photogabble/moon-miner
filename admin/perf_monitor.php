@@ -23,7 +23,7 @@ if (strpos($_SERVER['PHP_SELF'], 'user_editor.php')) // Prevent direct access to
     include_once './error.php';
 }
 
-define('ADODB_PERF_NO_RUN_SQL',1);
+define('ADODB_PERF_NO_RUN_SQL', 1);
 adodb_perf::table("{$db->prefix}adodb_logsql");
 $perf = NewPerfMonitor($db);
 
