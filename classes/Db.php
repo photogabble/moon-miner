@@ -118,7 +118,7 @@ class Db
                 // Include the charset when connecting - only honored on php > 5.3.6
                 $pdo_db = new PDO("mysql:host=$db_host; port=$db_port; dbname=$db_name; charset=utf8mb4", $db_user, $db_pwd);
             }
-            catch (\Exception $e)
+            catch (\PDOException $e)
             {
                 $err_msg = "Unable to connect to the " . $db_type .
                            " Database.<br>\n Database Error: ".
