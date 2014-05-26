@@ -19,18 +19,18 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $body_class = 'options';
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('options', 'common', 'global_includes', 'global_funcs', 'footer'));
+$langvars = Bnt\Translate::load($db, $lang, array ('options', 'common', 'global_includes', 'global_funcs', 'footer'));
 $title = $langvars['l_opt_title'];
 Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class = " . $body_class . ">";
-$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 $playerinfo = $res->fields;
 
 echo "<form action=option2.php method=post>";
@@ -56,17 +56,17 @@ echo "</tr>";
 echo "<tr>";
 echo "<td>" . $langvars['l_opt_select'] . "</td><td><select name=newlang>";
 
-$lang_dir = new DirectoryIterator ('languages/');
+$lang_dir = new DirectoryIterator('languages/');
 foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
 {
     // If it is a PHP file, add it to the list of accepted language files
-    if ($file_info->isFile () && $file_info->getExtension() == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
+    if ($file_info->isFile() && $file_info->getExtension() == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
     {
-        $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
+        $lang_file = substr($file_info->getFilename(), 0, -8); // The actual file name
 
         // Select from the database and return the localized name of the language
-        $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
-        Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+        $result = $db->Execute("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
+        Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
         while ($result && !$result->EOF)
         {
             $row = $result->fields;
@@ -92,6 +92,6 @@ echo "<br>";
 echo "<input type=submit value=" . $langvars['l_opt_save'] . ">";
 echo "</form><br>";
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>
