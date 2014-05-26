@@ -17,9 +17,9 @@
 //
 // File: db_config.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'db_config.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'db_config.php')) // Prevent direct access to this file
 {
-    die ('Please do not access this file directly');
+    die('Please do not access this file directly');
 }
 
 // The ADOdb db module is currently required to run BNT. You can find it at http://php.weblogs.com/ADODB.

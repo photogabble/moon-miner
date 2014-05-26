@@ -16,15 +16,15 @@
 //
 // File: create_universe/50.php
 
-$pos = strpos ($_SERVER['PHP_SELF'], "/50.php");
+$pos = strpos($_SERVER['PHP_SELF'], "/50.php");
 if ($pos !== false)
 {
     echo "You can not access this file directly!";
-    die ();
+    die();
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = Bnt\BigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep(__FILE__);
 
 // Set variables
 $variables['templateset']            = $bntreg->default_template;
@@ -32,44 +32,44 @@ $variables['body_class']             = 'create_universe';
 $variables['steps']                  = $create_universe_info['steps'];
 $variables['current_step']           = $create_universe_info['current_step'];
 $variables['next_step']              = $create_universe_info['next_step'];
-$variables['sector_max']             = filter_input (INPUT_POST, 'sector_max', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
-$variables['spp']                    = filter_input (INPUT_POST, 'spp', FILTER_SANITIZE_NUMBER_INT);
-$variables['oep']                    = filter_input (INPUT_POST, 'oep', FILTER_SANITIZE_NUMBER_INT);
-$variables['ogp']                    = filter_input (INPUT_POST, 'ogp', FILTER_SANITIZE_NUMBER_INT);
-$variables['gop']                    = filter_input (INPUT_POST, 'gop', FILTER_SANITIZE_NUMBER_INT);
-$variables['enp']                    = filter_input (INPUT_POST, 'enp', FILTER_SANITIZE_NUMBER_INT);
-$variables['nump']                   = filter_input (INPUT_POST, 'nump', FILTER_SANITIZE_NUMBER_INT);
+$variables['sector_max']             = filter_input(INPUT_POST, 'sector_max', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
+$variables['spp']                    = filter_input(INPUT_POST, 'spp', FILTER_SANITIZE_NUMBER_INT);
+$variables['oep']                    = filter_input(INPUT_POST, 'oep', FILTER_SANITIZE_NUMBER_INT);
+$variables['ogp']                    = filter_input(INPUT_POST, 'ogp', FILTER_SANITIZE_NUMBER_INT);
+$variables['gop']                    = filter_input(INPUT_POST, 'gop', FILTER_SANITIZE_NUMBER_INT);
+$variables['enp']                    = filter_input(INPUT_POST, 'enp', FILTER_SANITIZE_NUMBER_INT);
+$variables['nump']                   = filter_input(INPUT_POST, 'nump', FILTER_SANITIZE_NUMBER_INT);
 $variables['empty']                  = $variables['sector_max'] - $variables['spp'] - $variables['oep'] - $variables['ogp'] - $variables['gop'] - $variables['enp'];
-$variables['initscommod']            = filter_input (INPUT_POST, 'initscommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$variables['initbcommod']            = filter_input (INPUT_POST, 'initbcommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$variables['fedsecs']                = filter_input (INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
-$variables['loops']                  = filter_input (INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
-$variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
-$variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-$variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
+$variables['initscommod']            = filter_input(INPUT_POST, 'initscommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+$variables['initbcommod']            = filter_input(INPUT_POST, 'initbcommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+$variables['fedsecs']                = filter_input(INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
+$variables['loops']                  = filter_input(INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
+$variables['swordfish']              = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+$variables['autorun']                = filter_input(INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+$variables['newlang']                = filter_input(INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $local_table_timer = new Bnt\Timer;
 $z = 0;
 $i = 0;
-$language_files = new DirectoryIterator ("languages/");
-$lang_file_import_results = array ();
+$language_files = new DirectoryIterator("languages/");
+$lang_file_import_results = array();
 
 foreach ($language_files as $language_filename)
 {
-    if ($language_filename->isFile () && $language_filename->getExtension() == 'php')
+    if ($language_filename->isFile() && $language_filename->getExtension() == 'php')
     {
-        $lang_name = substr ($language_filename->getFilename(), 0, -8);
+        $lang_name = substr($language_filename->getFilename(), 0, -8);
 
         // Import Languages
-        $local_table_timer->start (); // Start benchmarking
-        $lang_result = Bnt\File::iniToDb ($pdo_db, "languages/" . $language_filename->getFilename(), "languages", $lang_name, $bntreg);
-        $local_table_timer->stop ();
-        $variables['import_lang_results'][$i]['time'] = $local_table_timer->elapsed ();
-        $variables['import_lang_results'][$i]['name'] = ucwords ($lang_name);
+        $local_table_timer->start(); // Start benchmarking
+        $lang_result = Bnt\File::iniToDb($pdo_db, "languages/" . $language_filename->getFilename(), "languages", $lang_name, $bntreg);
+        $local_table_timer->stop();
+        $variables['import_lang_results'][$i]['time'] = $local_table_timer->elapsed();
+        $variables['import_lang_results'][$i]['name'] = ucwords($lang_name);
         $variables['import_lang_results'][$i]['result'] = $lang_result;
         $catch_results[$z] = $lang_result;
         $z++;
@@ -78,19 +78,19 @@ foreach ($language_files as $language_filename)
 }
 $variables['language_count'] = ($i - 1);
 
-$local_table_timer->start (); // Start benchmarking
-$gameconfig_result = Bnt\File::iniToDb ($pdo_db, "config/classic_config.ini.php", "gameconfig", "game", $bntreg);
-$local_table_timer->stop ();
+$local_table_timer->start(); // Start benchmarking
+$gameconfig_result = Bnt\File::iniToDb($pdo_db, "config/classic_config.ini.php", "gameconfig", "game", $bntreg);
+$local_table_timer->stop();
 if ($gameconfig_result === true)
 {
     $variables['import_config_results']['result'] = true;
-    $variables['import_config_results']['time'] = $local_table_timer->elapsed ();
+    $variables['import_config_results']['time'] = $local_table_timer->elapsed();
     $pdo_db->inactive = false;
 }
 else
 {
     $variables['import_config_results']['result'] = $gameconfig_result;
-    $variables['import_config_results']['time'] = $local_table_timer->elapsed ();
+    $variables['import_config_results']['time'] = $local_table_timer->elapsed();
 }
 $catch_results[$z] = $gameconfig_result;
 $z++;
@@ -104,18 +104,18 @@ for ($t = 0; $t < $z; $t++)
 }
 
 // Write the number of sectors chosen during CU to the database
-$local_table_timer->start (); // Start benchmarking
-$stmt = $pdo_db->prepare ("UPDATE {$pdo_db->prefix}gameconfig SET value = ? WHERE name='sector_max'");
-$result = $stmt->execute (array($variables['sector_max']));
-$local_table_timer->stop ();
-$variables['update_config_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $result, __LINE__, __FILE__);
-$variables['update_config_results']['time'] = $local_table_timer->elapsed ();
+$local_table_timer->start(); // Start benchmarking
+$stmt = $pdo_db->prepare("UPDATE {$pdo_db->prefix}gameconfig SET value = ? WHERE name='sector_max'");
+$result = $stmt->execute(array($variables['sector_max']));
+$local_table_timer->stop();
+$variables['update_config_results']['result'] = Bnt\Db::logDbErrors($pdo_db, $result, __LINE__, __FILE__);
+$variables['update_config_results']['time'] = $local_table_timer->elapsed();
 
 $lang = $bntreg->default_lang;
-$template->addVariables ('langvars', $langvars);
+$template->addVariables('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->addVariables ('variables', $variables);
-$template->display ("templates/classic/create_universe/50.tpl");
+$template->addVariables('variables', $variables);
+$template->display('templates/classic/create_universe/50.tpl');
 ?>

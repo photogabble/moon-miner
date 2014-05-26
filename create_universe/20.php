@@ -16,15 +16,15 @@
 //
 // File: create_universe/20.php
 
-$pos = strpos ($_SERVER['PHP_SELF'], "/20.php");
+$pos = strpos($_SERVER['PHP_SELF'], "/20.php");
 if ($pos !== false)
 {
     echo "You can not access this file directly!";
-    die ();
+    die();
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = Bnt\BigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep(__FILE__);
 
 // Set variables
 $variables['templateset']  = $bntreg->default_template;
@@ -32,29 +32,29 @@ $variables['body_class']   = 'create_universe';
 $variables['steps']        = $create_universe_info['steps'];
 $variables['current_step'] = $create_universe_info['current_step'];
 $variables['next_step']    = $create_universe_info['next_step'];
-$variables['sector_max']   = (int) filter_input (INPUT_POST, 'sektors', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
-$variables['spp']          = round ($variables['sector_max'] * filter_input (INPUT_POST, 'special', FILTER_SANITIZE_NUMBER_INT) / 100);
-$variables['oep']          = round ($variables['sector_max'] * filter_input (INPUT_POST, 'ore', FILTER_SANITIZE_NUMBER_INT) / 100);
-$variables['ogp']          = round ($variables['sector_max'] * filter_input (INPUT_POST, 'organics', FILTER_SANITIZE_NUMBER_INT) / 100);
-$variables['gop']          = round ($variables['sector_max'] * filter_input (INPUT_POST, 'goods', FILTER_SANITIZE_NUMBER_INT) / 100);
-$variables['enp']          = round ($variables['sector_max'] * filter_input (INPUT_POST, 'energy', FILTER_SANITIZE_NUMBER_INT) / 100);
-$variables['nump']         = round ($variables['sector_max'] * filter_input (INPUT_POST, 'planets', FILTER_SANITIZE_NUMBER_INT) / 100);
+$variables['sector_max']   = (int) filter_input(INPUT_POST, 'sektors', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
+$variables['spp']          = round($variables['sector_max'] * filter_input(INPUT_POST, 'special', FILTER_SANITIZE_NUMBER_INT) / 100);
+$variables['oep']          = round($variables['sector_max'] * filter_input(INPUT_POST, 'ore', FILTER_SANITIZE_NUMBER_INT) / 100);
+$variables['ogp']          = round($variables['sector_max'] * filter_input(INPUT_POST, 'organics', FILTER_SANITIZE_NUMBER_INT) / 100);
+$variables['gop']          = round($variables['sector_max'] * filter_input(INPUT_POST, 'goods', FILTER_SANITIZE_NUMBER_INT) / 100);
+$variables['enp']          = round($variables['sector_max'] * filter_input(INPUT_POST, 'energy', FILTER_SANITIZE_NUMBER_INT) / 100);
+$variables['nump']         = round($variables['sector_max'] * filter_input(INPUT_POST, 'planets', FILTER_SANITIZE_NUMBER_INT) / 100);
 $variables['empty']        = $variables['sector_max'] - $variables['spp'] - $variables['oep'] - $variables['ogp'] - $variables['gop'] - $variables['enp'];
-$variables['initscommod']  = filter_input (INPUT_POST, 'initscommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$variables['initbcommod']  = filter_input (INPUT_POST, 'initbcommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$variables['fedsecs']      = filter_input (INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
-$variables['loops']        = filter_input (INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
-$variables['swordfish']    = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
-$variables['autorun']      = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-$variables['newlang']      = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
+$variables['initscommod']  = filter_input(INPUT_POST, 'initscommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+$variables['initbcommod']  = filter_input(INPUT_POST, 'initbcommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+$variables['fedsecs']      = filter_input(INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
+$variables['loops']        = filter_input(INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
+$variables['swordfish']    = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+$variables['autorun']      = filter_input(INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+$variables['newlang']      = filter_input(INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
-$template->addVariables ('langvars', $langvars);
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$template->addVariables('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->addVariables ('variables', $variables);
-$template->display ("templates/classic/create_universe/20.tpl");
+$template->addVariables('variables', $variables);
+$template->display('templates/classic/create_universe/20.tpl');
 ?>

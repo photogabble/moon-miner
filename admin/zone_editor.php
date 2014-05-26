@@ -17,7 +17,7 @@
 //
 // File: admin/zone_editor.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'zone_editor.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'zone_editor.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
@@ -26,15 +26,15 @@ if (strpos ($_SERVER['PHP_SELF'], 'zone_editor.php')) // Prevent direct access t
 // Set array with all used variables in page
 $variables['operation'] = '';
 
-if (!isset ($_POST['zone']))
+if (!isset($_POST['zone']))
 {
     $_POST['zone'] = '';
 }
 
 if ($_POST['zone'] == '')
 {
-    $res = $db->Execute ("SELECT zone_id, zone_name FROM {$db->prefix}zones ORDER BY zone_name");
-    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+    $res = $db->Execute("SELECT zone_id, zone_name FROM {$db->prefix}zones ORDER BY zone_name");
+    Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $zones[] = $res->fields;
@@ -48,8 +48,8 @@ else
     $variables['zone'] = '';
     if ($_POST['operation'] == "edit")
     {
-        $res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($_POST['zone']));
-        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+        $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($_POST['zone']));
+        Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
         $variables['operation'] = "edit";
         $variables['zone_id'] = $row['zone_id'];
@@ -89,12 +89,12 @@ else
         $variables['operation'] = "save";
         $variables['zone'] = $_POST['zone'];
         // Update database
-        $_zone_beacon = empty ($zone_beacon) ? "N" : "Y";
-        $_zone_attack = empty ($zone_attack) ? "N" : "Y";
-        $_zone_warpedit = empty ($zone_warpedit) ? "N" : "Y";
-        $_zone_planet = empty ($zone_planet) ? "N" : "Y";
-        $resx = $db->Execute ("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ? , allow_attack= ?  , allow_warpedit = ? , allow_planet = ?, max_hull = ? WHERE zone_id = ?;", array($zone_name, $_zone_beacon , $_zone_attack, $_zone_warpedit, $_zone_planet, $zone_hull, $_POST['zone']));
-        Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+        $_zone_beacon = empty($zone_beacon) ? "N" : "Y";
+        $_zone_attack = empty($zone_attack) ? "N" : "Y";
+        $_zone_warpedit = empty($zone_warpedit) ? "N" : "Y";
+        $_zone_planet = empty($zone_planet) ? "N" : "Y";
+        $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ? , allow_attack= ?  , allow_warpedit = ? , allow_planet = ?, max_hull = ? WHERE zone_id = ?;", array($zone_name, $_zone_beacon , $_zone_attack, $_zone_warpedit, $_zone_planet, $zone_hull, $_POST['zone']));
+        Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
         $button_main = false;
     }
 }

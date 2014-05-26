@@ -17,7 +17,7 @@
 //
 // File: admin/universe_editor.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'universe_editor.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'universe_editor.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
@@ -25,36 +25,36 @@ if (strpos ($_SERVER['PHP_SELF'], 'universe_editor.php')) // Prevent direct acce
 
 $i = 0;
 $changed_sectors = '';
-$action  = filter_input (INPUT_POST, 'action', FILTER_SANITIZE_STRING);
-$radius  = filter_input (INPUT_POST, 'radius', FILTER_SANITIZE_NUMBER_INT);
+$action  = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+$radius  = filter_input(INPUT_POST, 'radius', FILTER_SANITIZE_NUMBER_INT);
 
 if ($action == "doexpand")
 {
-    $result = $db->Execute ("SELECT sector_id FROM {$db->prefix}universe ORDER BY sector_id ASC");
-    Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+    $result = $db->Execute("SELECT sector_id FROM {$db->prefix}universe ORDER BY sector_id ASC");
+    Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 
     if (!$result->EOF)
     {
-        $resa = $db->StartTrans (); // We enclose the updates in a transaction as it is faster
-        Bnt\Db::logDbErrors ($db, $resa, __LINE__, __FILE__);
+        $resa = $db->StartTrans(); // We enclose the updates in a transaction as it is faster
+        Bnt\Db::logDbErrors($db, $resa, __LINE__, __FILE__);
 
         // Begin transaction
         while (!$result->EOF)
         {
             $row = $result->fields;
-            $distance = Bnt\Rand::betterRand (1, $radius);
-            $resx = $db->Execute ("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
-            Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+            $distance = Bnt\Rand::betterRand(1, $radius);
+            $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
+            Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 
-            $changed_sectors[$i] = str_replace ("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
-            $changed_sectors[$i] = str_replace ("[distance]", $distance, $changed_sectors[$i]);
+            $changed_sectors[$i] = str_replace("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
+            $changed_sectors[$i] = str_replace("[distance]", $distance, $changed_sectors[$i]);
             $i++;
             $result->MoveNext();
         }
 
         // End transaction
         $trans_status = $db->CompleteTrans(); // Complete the transaction
-        Bnt\Db::logDbErrors ($db, $trans_status, __LINE__, __FILE__);
+        Bnt\Db::logDbErrors($db, $trans_status, __LINE__, __FILE__);
     }
 }
 

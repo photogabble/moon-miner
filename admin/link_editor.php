@@ -17,7 +17,7 @@
 //
 // File: admin/link_editor.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'link_editor.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'link_editor.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';

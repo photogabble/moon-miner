@@ -16,15 +16,15 @@
 //
 // File: create_universe/70.php
 
-$pos = strpos ($_SERVER['PHP_SELF'], "/70.php");
+$pos = strpos($_SERVER['PHP_SELF'], "/70.php");
 if ($pos !== false)
 {
     echo "You can not access this file directly!";
-    die ();
+    die();
 }
 
 // Determine current step, next step, and number of steps
-$create_universe_info = Bnt\BigBang::findStep (__FILE__);
+$create_universe_info = Bnt\BigBang::findStep(__FILE__);
 
 // Set variables
 $variables['templateset']            = $bntreg->default_template;
@@ -32,39 +32,39 @@ $variables['body_class']             = 'create_universe';
 $variables['steps']                  = $create_universe_info['steps'];
 $variables['current_step']           = $create_universe_info['current_step'];
 $variables['next_step']              = $create_universe_info['next_step'];
-$variables['sector_max']             = (int) filter_input (INPUT_POST, 'sektors', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
-$variables['spp']                    = filter_input (INPUT_POST, 'spp', FILTER_SANITIZE_NUMBER_INT);
-$variables['oep']                    = filter_input (INPUT_POST, 'oep', FILTER_SANITIZE_NUMBER_INT);
-$variables['ogp']                    = filter_input (INPUT_POST, 'ogp', FILTER_SANITIZE_NUMBER_INT);
-$variables['gop']                    = filter_input (INPUT_POST, 'gop', FILTER_SANITIZE_NUMBER_INT);
-$variables['enp']                    = filter_input (INPUT_POST, 'enp', FILTER_SANITIZE_NUMBER_INT);
-$variables['nump']                   = filter_input (INPUT_POST, 'nump', FILTER_SANITIZE_NUMBER_INT);
+$variables['sector_max']             = (int) filter_input(INPUT_POST, 'sektors', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
+$variables['spp']                    = filter_input(INPUT_POST, 'spp', FILTER_SANITIZE_NUMBER_INT);
+$variables['oep']                    = filter_input(INPUT_POST, 'oep', FILTER_SANITIZE_NUMBER_INT);
+$variables['ogp']                    = filter_input(INPUT_POST, 'ogp', FILTER_SANITIZE_NUMBER_INT);
+$variables['gop']                    = filter_input(INPUT_POST, 'gop', FILTER_SANITIZE_NUMBER_INT);
+$variables['enp']                    = filter_input(INPUT_POST, 'enp', FILTER_SANITIZE_NUMBER_INT);
+$variables['nump']                   = filter_input(INPUT_POST, 'nump', FILTER_SANITIZE_NUMBER_INT);
 $variables['empty']                  = $variables['sector_max'] - $variables['spp'] - $variables['oep'] - $variables['ogp'] - $variables['gop'] - $variables['enp'];
-$variables['initscommod']            = filter_input (INPUT_POST, 'initscommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$variables['initbcommod']            = filter_input (INPUT_POST, 'initbcommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$variables['fedsecs']                = filter_input (INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
-$variables['loops']                  = filter_input (INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
-$variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
-$variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-$variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
+$variables['initscommod']            = filter_input(INPUT_POST, 'initscommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+$variables['initbcommod']            = filter_input(INPUT_POST, 'initbcommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+$variables['fedsecs']                = filter_input(INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
+$variables['loops']                  = filter_input(INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
+$variables['swordfish']              = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+$variables['autorun']                = filter_input(INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+$variables['newlang']                = filter_input(INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $p_skip = 0;
 $z = 0;
 
 $local_table_timer = new Bnt\Timer;
-$local_table_timer->start (); // Start benchmarking
+$local_table_timer->start(); // Start benchmarking
 
 // Get the sector id for any sector that allows planets
-$sth = $pdo_db->prepare ("SELECT {$pdo_db->prefix}universe.sector_id FROM {$pdo_db->prefix}universe, {$pdo_db->prefix}zones WHERE {$pdo_db->prefix}zones.zone_id={$pdo_db->prefix}universe.zone_id AND {$pdo_db->prefix}zones.allow_planet='Y'");
+$sth = $pdo_db->prepare("SELECT {$pdo_db->prefix}universe.sector_id FROM {$pdo_db->prefix}universe, {$pdo_db->prefix}zones WHERE {$pdo_db->prefix}zones.zone_id={$pdo_db->prefix}universe.zone_id AND {$pdo_db->prefix}zones.allow_planet='Y'");
 $sth->execute();
 
 // Place those id's into an array.
 $open_sectors_result = $sth->fetchAll();
-$catch_results[$z] = Bnt\Db::logDbErrors ($pdo_db, $open_sectors_result, __LINE__, __FILE__);
+$catch_results[$z] = Bnt\Db::logDbErrors($pdo_db, $open_sectors_result, __LINE__, __FILE__);
 $z++;
 
 $i = 0;
@@ -73,9 +73,9 @@ foreach ($open_sectors_result as $element)
     $open_sectors_array[$i] = $element['sector_id']; // Lets trim that 2d array down to a single array
     $i++;
 }
-unset ($open_sectors_result); // Clear that 2d array
+unset($open_sectors_result); // Clear that 2d array
 
-shuffle ($open_sectors_array); // Internally, shuffle uses rand() so it isn't ideally random, but good enough for now
+shuffle($open_sectors_array); // Internally, shuffle uses rand() so it isn't ideally random, but good enough for now
 
 // Prep the beginning of the insert SQL call
 $p_add = 0;
@@ -85,7 +85,7 @@ do
 {
     if (($p_add > 1) && ($p_add < $variables['nump'])) // Skip the first one as we already did it during the prep of the insert call.
     {
-        $add_more = Bnt\Rand::betterRand (1, $bntreg->max_planets_sector); // Add one to a random number of planets in each sector
+        $add_more = Bnt\Rand::betterRand(1, $bntreg->max_planets_sector); // Add one to a random number of planets in each sector
         if (($add_more + $p_add) > $variables['nump']) // Ensure that we don't add more than the total amount needed
         {
             $add_more = $variables['nump'] - $p_add; // Lower the number to add to the amount that is left
@@ -111,45 +111,60 @@ do
 while ($p_add < $variables['nump']); // Only add as many planets as requested
 
 // Insert all of the planets in one mega sql shot
-$insert = $pdo_db->exec ($planet_insert_sql);
-$variables['setup_unowned_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $insert, __LINE__, __FILE__);
+$insert = $pdo_db->exec($planet_insert_sql);
+$variables['setup_unowned_results']['result'] = Bnt\Db::logDbErrors($pdo_db, $insert, __LINE__, __FILE__);
 $catch_results[$z] = $variables['setup_unowned_results']['result'];
 $z++;
 
-$local_table_timer->stop ();
-$variables['setup_unowned_results']['elapsed'] = $local_table_timer->elapsed ();
+$local_table_timer->stop();
+$variables['setup_unowned_results']['elapsed'] = $local_table_timer->elapsed();
 $variables['setup_unowned_results']['nump'] = $variables['nump'];
 
 // Adds Sector Size * 2 amount of links to the links table
 // Warning: Do no alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($bntreg->sector_max / $loopsize);
-if ($loops <= 0) $loops = 1;
+$loops = round($bntreg->sector_max / $loopsize);
+if ($loops <= 0)
+{
+    $loops = 1;
+}
+
 $variables['insert_link_loops'] = $loops;
 
 $finish = $loopsize;
-if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
+if ($finish > $bntreg->sector_max)
+{
+    $finish = ($bntreg->sector_max);
+}
+
 $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $local_table_timer->start (); // Start benchmarking
+    $local_table_timer->start(); // Start benchmarking
     $update = "INSERT INTO {$pdo_db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
         $k = $j + 1;
         $update .= "($j,$k), ($k,$j)";
-        if ($j <= ($finish - 1)) $update .= ", "; else $update .= ";";
+        if ($j <= ($finish - 1))
+        {
+            $update .= ", ";
+        }
+        else
+        {
+            $update .= ";";
+        }
     }
 
-    $resx = $pdo_db->exec ($update);
-    $variables['insert_loop_sectors_results'][$i]['result'] = Bnt\Db::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
+    $resx = $pdo_db->exec($update);
+    $variables['insert_loop_sectors_results'][$i]['result'] = Bnt\Db::logDbErrors($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_loop_sectors_results'][$i]['result'];
     $z++;
 
-    $local_table_timer->stop ();
-    $variables['insert_loop_sectors_result'][$i]['elapsed'] = $local_table_timer->elapsed ();
+    $local_table_timer->stop();
+    $variables['insert_loop_sectors_result'][$i]['elapsed'] = $local_table_timer->elapsed();
     $variables['insert_loop_sectors_result'][$i]['loop'] = $i;
     $variables['insert_loop_sectors_result'][$i]['loops'] = $loops;
     $variables['insert_loop_sectors_result'][$i]['start'] = $start;
@@ -157,41 +172,58 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish + 1;
     $finish += $loopsize;
-    if ($finish > $bntreg->sector_max) $finish = $bntreg->sector_max;
+    if ($finish > $bntreg->sector_max)
+    {
+        $finish = $bntreg->sector_max;
+    }
 }
 
 // Adds Sector Size amount of links to the links table
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($bntreg->sector_max / $loopsize);
-if ($loops <= 0) $loops = 1;
+$loops = round($bntreg->sector_max / $loopsize);
+if ($loops <= 0)
+{
+    $loops = 1;
+}
 
 $variables['insert_oneway_loops'] = $loops;
 $finish = $loopsize;
-if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
+if ($finish > $bntreg->sector_max)
+{
+    $finish = ($bntreg->sector_max);
+}
+
 $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $local_table_timer->start (); // Start benchmarking
+    $local_table_timer->start(); // Start benchmarking
     $insert = "INSERT INTO {$pdo_db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
-        $link1 = intval (Bnt\Rand::betterRand (1, $bntreg->sector_max - 1));
-        $link2 = intval (Bnt\Rand::betterRand (1, $bntreg->sector_max - 1));
+        $link1 = intval(Bnt\Rand::betterRand(1, $bntreg->sector_max - 1));
+        $link2 = intval(Bnt\Rand::betterRand(1, $bntreg->sector_max - 1));
         $insert .= "($link1, $link2)";
-        if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
+        if ($j <= ($finish - 1))
+        {
+            $insert .= ", ";
+        }
+        else
+        {
+            $insert .= ";";
+        }
     }
 
-    $resx = $pdo_db->exec ($insert);
-    $variables['insert_random_oneway_results'][$i]['result'] = Bnt\Db::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
+    $resx = $pdo_db->exec($insert);
+    $variables['insert_random_oneway_results'][$i]['result'] = Bnt\Db::logDbErrors($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_random_oneway_results'][$i]['result'];
     $z++;
 
-    $local_table_timer->stop ();
+    $local_table_timer->stop();
 
-    $variables['insert_random_oneway_result'][$i]['elapsed'] = $local_table_timer->elapsed ();
+    $variables['insert_random_oneway_result'][$i]['elapsed'] = $local_table_timer->elapsed();
     $variables['insert_random_oneway_result'][$i]['loop'] = $i;
     $variables['insert_random_oneway_result'][$i]['loops'] = $loops;
     $variables['insert_random_oneway_result'][$i]['start'] = $start;
@@ -199,40 +231,57 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish + 1;
     $finish += $loopsize;
-    if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
+    if ($finish > $bntreg->sector_max)
+    {
+        $finish = ($bntreg->sector_max);
+    }
 }
 
 // Adds (sector size * 2) amount of links to the links table ##
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($bntreg->sector_max / $loopsize);
-if ($loops <= 0) $loops = 1;
+$loops = round($bntreg->sector_max / $loopsize);
+if ($loops <= 0)
+{
+    $loops = 1;
+}
 
 $variables['insert_twoway_loops'] = $loops;
 $finish = $loopsize;
-if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
+if ($finish > $bntreg->sector_max)
+{
+    $finish = ($bntreg->sector_max);
+}
+
 $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $local_table_timer->start (); // Start benchmarking
+    $local_table_timer->start(); // Start benchmarking
     $insert = "INSERT INTO {$pdo_db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
-        $link1 = intval (Bnt\Rand::betterRand (1, $bntreg->sector_max - 1));
-        $link2 = intval (Bnt\Rand::betterRand (1, $bntreg->sector_max - 1));
+        $link1 = intval(Bnt\Rand::betterRand(1, $bntreg->sector_max - 1));
+        $link2 = intval(Bnt\Rand::betterRand(1, $bntreg->sector_max - 1));
         $insert .= "($link1, $link2), ($link2, $link1)";
-        if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
+        if ($j <= ($finish - 1))
+        {
+            $insert .= ", ";
+        }
+        else
+        {
+            $insert .= ";";
+        }
     }
 
-    $resx = $pdo_db->exec ($insert);
-    $variables['insert_random_twoway_results'][$i]['result'] = Bnt\Db::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
+    $resx = $pdo_db->exec($insert);
+    $variables['insert_random_twoway_results'][$i]['result'] = Bnt\Db::logDbErrors($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_random_twoway_results'][$i]['result'];
     $z++;
 
-    $local_table_timer->stop ();
-    $variables['insert_random_twoway_result'][$i]['elapsed'] = $local_table_timer->elapsed ();
+    $local_table_timer->stop();
+    $variables['insert_random_twoway_result'][$i]['elapsed'] = $local_table_timer->elapsed();
     $variables['insert_random_twoway_result'][$i]['loop'] = $i;
     $variables['insert_random_twoway_result'][$i]['loops'] = $loops;
     $variables['insert_random_twoway_result'][$i]['start'] = $start;
@@ -240,22 +289,25 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish + 1;
     $finish += $loopsize;
-    if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
+    if ($finish > $bntreg->sector_max)
+    {
+        $finish = ($bntreg->sector_max);
+    }
 }
 
-$local_table_timer->start (); // Start benchmarking
+$local_table_timer->start(); // Start benchmarking
 $sql = "DELETE FROM {$pdo_db->prefix}links WHERE link_start = :linkstart OR link_dest = :linkdest";
-$stmt = $pdo_db->prepare ($sql);
+$stmt = $pdo_db->prepare($sql);
 $stmt->bindParam(':linkstart', $bntreg->sector_max);
 $stmt->bindParam(':linkdest', $bntreg->sector_max);
 $resx = $stmt->execute();
 
-$variables['remove_links_results']['result'] = Bnt\Db::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
+$variables['remove_links_results']['result'] = Bnt\Db::logDbErrors($pdo_db, $resx, __LINE__, __FILE__);
 $catch_results[$z] = $variables['remove_links_results']['result'];
 $z++;
 
-$local_table_timer->stop ();
-$variables['remove_links_results']['elapsed'] = $local_table_timer->elapsed ();
+$local_table_timer->stop();
+$variables['remove_links_results']['elapsed'] = $local_table_timer->elapsed();
 
 for ($t = 0; $t < $z; $t++)
 {
@@ -265,10 +317,10 @@ for ($t = 0; $t < $z; $t++)
     }
 }
 
-$template->addVariables ('langvars', $langvars);
+$template->addVariables('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->addVariables ('variables', $variables);
-$template->display ("templates/classic/create_universe/70.tpl");
+$template->addVariables('variables', $variables);
+$template->display('templates/classic/create_universe/70.tpl');
 ?>
