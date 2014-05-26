@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-if (!isset ($_GET['lang']))
+if (!isset($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $bntreg->default_lang;
@@ -32,7 +32,7 @@ else
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('common', 'faq', 'global_funcs'));
+$langvars = Bnt\Translate::load($db, $lang, array ('common', 'faq', 'global_funcs'));
 
 $variables = null;
 $variables['lang'] = $lang;
@@ -54,7 +54,7 @@ $langvars['container'] = "langvars";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->addVariables ('langvars', $langvars);
-$template->addVariables ('variables', $variables);
-$template->display ("faq.tpl");
+$template->addVariables('langvars', $langvars);
+$template->addVariables('variables', $variables);
+$template->display('faq.tpl');
 ?>

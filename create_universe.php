@@ -21,13 +21,13 @@ include './global_includes.php';
 include './config/admin_config.php';
 
 // Set timelimit to infinite
-set_time_limit (0);
+set_time_limit(0);
 
 // Get POST Variable "swordfish" and URL Sanitize it. (returns null if not found)
-$swordfish  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+$swordfish  = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 
 // Get POST Variable "step" and INT Sanitize it. (returns null if not found)
-$step = (int) filter_input (INPUT_POST, 'step', FILTER_SANITIZE_NUMBER_INT);
+$step = (int) filter_input(INPUT_POST, 'step', FILTER_SANITIZE_NUMBER_INT);
 
 if ($swordfish === null) // If no swordfish password has been entered, we are on the first step
 {
@@ -42,16 +42,16 @@ if (($swordfish !== null) && (ADMIN_PW != $swordfish)) // If a swordfish passwor
 else // If swordfish is set and matches (good pass)
 {
     $variables['goodpass'] = true;
-    if (isset ($step) && $step != '') // We've got a good pass, and its not step 1
+    if (isset($step) && $step != '') // We've got a good pass, and its not step 1
     {
-            $create_universe_info = Bnt\BigBang::findStep (false);
-            natsort ($create_universe_info['files']);
-            $loader_file = $create_universe_info['files'][$step];
-            $filename = 'create_universe/' . $loader_file;
-            if (file_exists ($filename))
-            {
-                include_once ($filename);
-            }
+        $create_universe_info = Bnt\BigBang::findStep(false);
+        natsort($create_universe_info['files']);
+        $loader_file = $create_universe_info['files'][$step];
+        $filename = 'create_universe/' . $loader_file;
+        if (file_exists($filename))
+        {
+            include_once($filename);
+        }
     }
 }
 ?>

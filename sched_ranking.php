@@ -17,18 +17,18 @@
 //
 // File: sched_ranking.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'sched_ranking.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'sched_ranking.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
 echo "<strong>Ranking</strong><br><br>";
-$res = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE ship_destroyed='N'");
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE ship_destroyed='N'");
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
-    Bnt\Score::updateScore ($db, $res->fields['ship_id'], $bntreg);
+    Bnt\Score::updateScore($db, $res->fields['ship_id'], $bntreg);
     $res->MoveNext();
 }
 echo "<br>";

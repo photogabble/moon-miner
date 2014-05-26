@@ -17,7 +17,7 @@
 //
 // File: sched_turns.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'sched_turns.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'sched_turns.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
@@ -25,10 +25,10 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_turns.php')) // Prevent direct access t
 
 echo "<strong>TURNS</strong><br><br>";
 echo "Adding turns...";
-$resa = $db->Execute ("UPDATE {$db->prefix}ships SET turns = LEAST (turns + ($bntreg->turns_per_tick * $multiplier), $bntreg->max_turns) WHERE turns < $bntreg->max_turns");
-//$resa = $db->Execute ("UPDATE {$db->prefix}ships SET turns = LEAST (turns + (? * ?), ?) WHERE turns < ?", array ($bntreg->turns_per_tick, $multiplier, $bntreg->max_turns, $bntreg->max_turns));
-$debug = Bnt\Db::logDbErrors ($db, $resa, __LINE__, __FILE__);
-is_query_ok ($db, $debug);
+$resa = $db->Execute("UPDATE {$db->prefix}ships SET turns = LEAST (turns + ($bntreg->turns_per_tick * $multiplier), $bntreg->max_turns) WHERE turns < $bntreg->max_turns");
+//$resa = $db->Execute("UPDATE {$db->prefix}ships SET turns = LEAST (turns + (? * ?), ?) WHERE turns < ?", array ($bntreg->turns_per_tick, $multiplier, $bntreg->max_turns, $bntreg->max_turns));
+$debug = Bnt\Db::logDbErrors($db, $resa, __LINE__, __FILE__);
+is_query_ok($db, $debug);
 echo "<br>";
 $multiplier = 0;
 ?>

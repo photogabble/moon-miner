@@ -17,19 +17,19 @@
 //
 // File: sched_igb.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'sched_igb.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'sched_igb.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-$exponinter = pow ($bntreg->ibank_interest + 1, $multiplier);
-$expoloan = pow ($bntreg->ibank_loaninterest + 1, $multiplier);
+$exponinter = pow($bntreg->ibank_interest + 1, $multiplier);
+$expoloan = pow($bntreg->ibank_loaninterest + 1, $multiplier);
 
 echo "<strong>IBANK</strong><p>";
 
-$ibank_result = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance = balance * ?, loan = loan * ?", array ($exponinter, $expoloan));
-Bnt\Db::logDbErrors ($db, $ibank_result, __LINE__, __FILE__);
+$ibank_result = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = balance * ?, loan = loan * ?", array ($exponinter, $expoloan));
+Bnt\Db::logDbErrors($db, $ibank_result, __LINE__, __FILE__);
 echo "All IGB accounts updated ($multiplier times).<p>";
 
 $multiplier = 0;
