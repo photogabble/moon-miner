@@ -110,6 +110,10 @@ if ($playerinfo['team_invite'] != 0)
     Bnt\Db::logDbErrors ($db, $invite, __LINE__, __FILE__);
     $invite_info  = $invite->fields;
 }
+else
+{
+    $invite_info = null;
+}
 
 // Get Team Info
 if (!is_null ($whichteam))
@@ -568,7 +572,7 @@ switch ($teamwhat)
         if ($playerinfo['team'] == 0)
         {
             echo $langvars['l_team_notmember'];
-            Bad\Team::displayInviteInfo ($langvars, $playerinfo, $invite_info);
+            Bad\Team::displayInviteInfo($langvars, $playerinfo, $invite_info);
         }
         else
         {

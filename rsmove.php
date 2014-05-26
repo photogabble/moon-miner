@@ -68,7 +68,7 @@ else
 
         echo "<form action='rsmove.php' method='post'>\n";
         $langvars['l_rs_insector'] = str_replace ("[sector]", $playerinfo['sector'], $langvars['l_rs_insector']);
-        $langvars['l_rs_insector'] = str_replace ("[$bntreg->sector_max]", $bntreg->sector_max - 1, $langvars['l_rs_insector']);
+        $langvars['l_rs_insector'] = str_replace ("[sector_max]", $bntreg->sector_max - 1, $langvars['l_rs_insector']);
         echo $langvars['l_rs_insector'] . "<br><br>\n";
         echo $langvars['l_rs_whichsector'] . ":  <input type='text' name='destination' size='10' maxlength='10'><br><br>\n";
         echo "<input type='submit' value='" . $langvars['l_rs_submit'] . "'><br><br>\n";
