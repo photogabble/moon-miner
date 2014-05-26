@@ -22,7 +22,7 @@ include './global_includes.php';
 include './config/admin_config.php';
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('admin', 'common',
+$langvars = Bnt\Translate::load($db, $lang, array ('admin', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news', 'report', 'main', 'zoneedit',
                                 'planet'));
@@ -34,8 +34,8 @@ function checked($yesno)
 }
 
 // We only want menu values that come from $_POST, and only want string values.
-$menu = filter_input (INPUT_POST, 'menu', FILTER_SANITIZE_STRING);
-$swordfish  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+$menu = filter_input(INPUT_POST, 'menu', FILTER_SANITIZE_STRING);
+$swordfish  = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $filename = null;
 $menu_location = null;
 $button_main = false;
@@ -49,22 +49,22 @@ if ($swordfish == ADMIN_PW)
 {
     $i = 0;
     $variables['is_admin'] = true;
-    $option_title = array ();
-    $admin_dir = new DirectoryIterator ('admin/');
+    $option_title = array();
+    $admin_dir = new DirectoryIterator('admin/');
     // Get a list of the files in the admin directory
     foreach ($admin_dir as $file_info)
     {
         // If it is a PHP file, add it to the list of accepted admin files
-        if ($file_info->isFile () && $file_info->getExtension() == 'php')
+        if ($file_info->isFile() && $file_info->getExtension() == 'php')
         {
             $i++; // Increment counter so we know how many files there are
             // Actual file name
-            $filename[$i]['file'] = $file_info->getFilename ();
+            $filename[$i]['file'] = $file_info->getFilename();
 
             // Set option title to lang string of the form l_admin + file name
-            $option_title = "l_admin_" . substr ($filename[$i]['file'], 0, -4);
+            $option_title = "l_admin_" . substr($filename[$i]['file'], 0, -4);
 
-            if (isset ($langvars[$option_title]))
+            if (isset($langvars[$option_title]))
             {
                 // The language translated title for option
                 $filename[$i]['option_title'] = $langvars[$option_title];
@@ -80,7 +80,7 @@ if ($swordfish == ADMIN_PW)
                 if ($menu == $filename[$i]['file'])
                 {
                     $button_main = true;
-                    $module_name = substr ($filename[$i]['file'], 0, -4);
+                    $module_name = substr($filename[$i]['file'], 0, -4);
                     include_once './admin/'. $filename[$i]['file'];
                 }
             }
@@ -103,7 +103,7 @@ $variables['button_main'] = $button_main;
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$langvars = Bnt\Translate::load ($db, $lang, array ('admin', 'common',
+$langvars = Bnt\Translate::load($db, $lang, array ('admin', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news', 'report', 'main', 'zoneedit',
                                 'planet'));

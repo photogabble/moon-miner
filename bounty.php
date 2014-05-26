@@ -20,28 +20,28 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('bounty', 'port', 'common',
+$langvars = Bnt\Translate::load($db, $lang, array ('bounty', 'port', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news'));
 $title = $langvars['l_by_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 $response = null;
-if (isset ($_POST['response']))
+if (isset($_POST['response']))
 {
-    $response  = filter_input (INPUT_POST, 'response', FILTER_SANITIZE_STRING);
+    $response  = filter_input(INPUT_POST, 'response', FILTER_SANITIZE_STRING);
 }
 
-if (isset ($_GET['response']))
+if (isset($_GET['response']))
 {
-    $response  = filter_input (INPUT_GET, 'response', FILTER_SANITIZE_STRING);
+    $response  = filter_input(INPUT_GET, 'response', FILTER_SANITIZE_STRING);
 }
 
 $bounty_on = null;
-if (isset ($_POST['bounty_on']))
+if (isset($_POST['bounty_on']))
 {
     $bounty_on  = filter_input (INPUT_POST, 'bounty_on', FILTER_SANITIZE_NUMBER_INT);
 }
