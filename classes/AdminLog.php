@@ -21,6 +21,8 @@
 
 namespace Bnt;
 
+use PDO;
+
 class AdminLog
 {
     public static function writeLog($db, $log_type, $data = null)

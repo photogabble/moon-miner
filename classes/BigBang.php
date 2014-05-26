@@ -32,7 +32,7 @@ class BigBang
         // Setup $filelist as an array.
         $filelist = array();
 
-        $bigbang_dir = new DirectoryIterator('create_universe/');
+        $bigbang_dir = new \DirectoryIterator('create_universe/');
         foreach($bigbang_dir as $file_info) // Get a list of the files in the bigbang directory
         {
             // If it is a PHP file, add it to the list of accepted make galaxy files
