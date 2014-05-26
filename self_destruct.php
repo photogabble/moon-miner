@@ -19,25 +19,25 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'news', 'footer'));
+$langvars = Bnt\Translate::load($db, $lang, array ('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'news', 'footer'));
 $title = $langvars['l_die_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 
-$result = $db->Execute ("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-if (isset ($_GET['sure']))
+if (isset($_GET['sure']))
 {
     $sure = $_GET['sure'];
 }
 
-if (!isset ($sure))
+if (!isset($sure))
 {
     echo "<font color=red><strong>" . $langvars['l_die_rusure'] . "</strong></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
@@ -55,12 +55,12 @@ elseif ($sure == 2)
 {
     echo $langvars['l_die_count'] . "<br>";
     echo $langvars['l_die_vapor'] . "<br><br>";
-    $langvars['l_die_please'] = str_replace ("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
+    $langvars['l_die_please'] = str_replace("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
     echo $langvars['l_die_please'] . "<br>";
-    Bnt\Player::kill ($db, $playerinfo['ship_id'], $langvars, $bntreg, true);
-    Bnt\Bounty::cancel ($db, $playerinfo['ship_id']);
-    Bnt\AdminLog::writeLog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|" . $_SERVER['REMOTE_ADDR'] . "");
-    Bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, $_SERVER['REMOTE_ADDR']);
+    Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, true);
+    Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
+    Bnt\AdminLog::writeLog($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|" . $_SERVER['REMOTE_ADDR'] . "");
+    Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_HARAKIRI, $_SERVER['REMOTE_ADDR']);
     echo "Due to nobody looking after your Planets, all your Planets have reduced into dust and ruble. Your Planets are no more.<br>\n";
 }
 else
@@ -68,6 +68,6 @@ else
     echo $langvars['l_die_exploit'] . "<br><br>";
 }
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

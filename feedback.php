@@ -19,21 +19,21 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'));
+$langvars = Bnt\Translate::load($db, $lang, array ('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'));
 
 $title = $langvars['l_feedback_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-if (array_key_exists ('content', $_POST) === false)
+if (array_key_exists('content', $_POST) === false)
 {
     echo "<form action=feedback.php method=post>\n";
     echo "<table>\n";
@@ -49,21 +49,21 @@ if (array_key_exists ('content', $_POST) === false)
 else
 {
     $link_to_game = "http://";
-    $gamedomain = Bnt\SetPaths::setGamedomain ();
-    $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
-    $link_to_game .= Bnt\SetPaths::setGamepath ();
-    mail ("$bntreg->admin_mail", $langvars['l_feedback_subj'], "IP address - " . $_SERVER['REMOTE_ADDR'] . "\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}", "From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
+    $gamedomain = Bnt\SetPaths::setGamedomain();
+    $link_to_game .= ltrim($gamedomain, ".");// Trim off the leading . if any
+    $link_to_game .= Bnt\SetPaths::setGamepath();
+    mail("$bntreg->admin_mail", $langvars['l_feedback_subj'], "IP address - " . $_SERVER['REMOTE_ADDR'] . "\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}", "From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
     echo $langvars['l_feedback_messent'] . "<br><br>";
 }
 
 echo "<br>\n";
 if (empty ($_SESSION['username']))
 {
-    echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
 }
 
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
