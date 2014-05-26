@@ -99,13 +99,13 @@ else
         $y = ($start['distance'] * sin ($sa1) * sin ($sa2)) - ($finish['distance'] * sin ($fa1) * sin ($fa2));
         $z = ($start['distance'] * cos ($sa1)) - ($finish['distance'] * cos ($fa1));
 
-        $distance = round (sqrt (pow ($x, 2) + pow ($y, 2) + pow ($z, 2)));
+        $distance = round(sqrt(pow($x, 2) + pow($y, 2)+pow($z, 2)));
 
         // Calculate the speed of the ship.
-        $shipspeed = pow ($bntreg->level_factor, $playerinfo['engines']);
+        $shipspeed = pow($bntreg->level_factor, $playerinfo['engines']);
 
         // Calculate the trip time.
-        $triptime = round ($distance / $shipspeed);
+        $triptime = round($distance / $shipspeed);
 
         if ($destination == $playerinfo['sector'])
         {

@@ -44,7 +44,7 @@ while (!$res->EOF)
     }
     else
     {
-        $energy_required = ROUND($row['quantity'] * $energy_per_fighter);
+        $energy_required = round($row['quantity'] * $energy_per_fighter);
         $res4 = $db->Execute ("SELECT IFNULL(SUM(energy),0) AS energy_available FROM {$db->prefix}planets WHERE (owner = ? OR (corp = ? AND ? <> 0)) AND sector_id = ?", array ($row['ship_id'], $sched_playerinfo['team'], $sched_playerinfo['team'], $row['sector_id']));
         Bnt\Db::logDbErrors ($db, $res4, __LINE__, __FILE__);
         $planet_energy = $res4->fields;

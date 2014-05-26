@@ -46,7 +46,7 @@ if ($playershields > $playerinfo['ship_energy'])
 {
     $playershields = $playerinfo['ship_energy'];
 }
-$playertorpnum = round (pow ($level_factor, $playerinfo['torp_launchers'])) * 2;
+$playertorpnum = round(pow($level_factor, $playerinfo['torp_launchers'])) * 2;
 
 if ($playertorpnum > $playerinfo['torps'])
 {
@@ -58,9 +58,9 @@ $playerarmor = $playerinfo['armor_pts'];
 $playerfighters = $playerinfo['ship_fighters'];
 if ($targetfighters > 0 && $playerbeams > 0)
 {
-    if ($playerbeams > round ($targetfighters / 2))
+    if ($playerbeams > round($targetfighters / 2))
     {
-        $temp = round ($targetfighters / 2);
+        $temp = round($targetfighters / 2);
         $lost = $targetfighters - $temp;
         $langvars['l_sf_destfight'] = str_replace ("[lost]", $lost, $langvars['l_sf_destfight']);
         echo $langvars['l_sf_destfight'] . "<br>";
@@ -79,9 +79,9 @@ if ($targetfighters > 0 && $playerbeams > 0)
 echo "<br>" . $langvars['l_sf_torphit'] . "<br>";
 if ($targetfighters > 0 && $playertorpdmg > 0)
 {
-    if ($playertorpdmg > round ($targetfighters / 2))
+    if ($playertorpdmg > round($targetfighters / 2))
     {
-        $temp = round ($targetfighters / 2);
+        $temp = round($targetfighters / 2);
         $lost = $targetfighters - $temp;
         $langvars['l_sf_destfightt'] = str_replace ("[lost]", $lost, $langvars['l_sf_destfightt']);
         echo $langvars['l_sf_destfightt'] . "<br>";
@@ -170,7 +170,7 @@ if ($playerarmor < 1)
     Bnt\SectorDefense::messageDefenseOwner ($db, $sector, $langvars['l_sf_sendlog2']);
     if ($playerinfo['dev_escapepod'] == 'Y')
     {
-        $rating = round ($playerinfo['rating'] / 2);
+        $rating = round($playerinfo['rating'] / 2);
         echo $langvars['l_sf_escape'] . "<br><br>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, ship_energy = ?, ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, cleared_defences=' ', dev_lssd = 'N' WHERE ship_id = ?;", array ($bntreg->start_energy, $rating, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);

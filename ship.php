@@ -19,25 +19,25 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_ship_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
-if (!isset ($ship_id))
+if (!isset($ship_id))
 {
     $ship_id = null;
 }
 
-$res = $db->Execute ("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
-$res2 = $db->Execute ("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
-Bnt\Db::logDbErrors ($db, $res2, __LINE__, __FILE__);
+$res2 = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
+Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
 $othership = $res2->fields;
 
 if ($othership['sector'] != $playerinfo['sector'])
@@ -51,7 +51,7 @@ else
     echo $langvars['l_ship_perform'] . "<br><br>";
     echo "<a href=scan.php?ship_id=$ship_id>" . $langvars['l_planet_scn_link'] . "</a><br>";
 
-    if ( !Bad\Team::sameTeam ($playerinfo['team'], $othership['team']) )
+    if (!Bad\Team::sameTeam($playerinfo['team'], $othership['team']))
     {
         echo "<a href=attack.php?ship_id=$ship_id>" . $langvars['l_planet_att_link'] . "</a><br>";
     }
@@ -60,6 +60,6 @@ else
 }
 
 echo "<br>";
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>
