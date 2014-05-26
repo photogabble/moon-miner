@@ -19,7 +19,7 @@
 
 namespace Bnt;
 
-class BntMove
+class Move
 {
     public static function calcFuelScooped($playerinfo, $distance, $triptime, $bntreg)
     {
