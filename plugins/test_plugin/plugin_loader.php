@@ -17,7 +17,9 @@
 //
 // File: plugins/test_plugin/plugin_loader.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'plugin_loader.php')) // Prevent direct access to this file
+//namespace Bnt;
+
+if (strpos($_SERVER['PHP_SELF'], 'plugin_loader.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
@@ -27,18 +29,17 @@ if (isset ($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'
 {
     class PluginTest extends Bnt\Plugin
     {
-        static $AppName                         = "Plugin Test";
-        static $Version                         = "0.0.0 (0000) Alpha";
-        static $Author                          = "TheMightyDude";
-        static $isDisabled                      = true;
-        static $usesEvents                      = true;
-        static $moduleSupport                   = true;
-        static $pluginVer                       = "3a";
-        static $description                     = "displays hello world after every 5 seconds.";
+        public static $AppName                         = "Plugin Test";
+        public static $Version                         = "0.0.0 (0000) Alpha";
+        public static $Author                          = "TheMightyDude";
+        public static $isDisabled                      = true;
+        public static $usesEvents                      = true;
+        public static $moduleSupport                   = true;
+        public static $pluginVer                       = "3a";
+        public static $description                     = "displays hello world after every 5 seconds.";
+        private $switches                              = null;
 
-        private $switches                       = NULL;
-
-        function __construct()
+        public function __construct()
         {
             global $plugin_config;
 
@@ -47,48 +48,50 @@ if (isset ($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'
             $this->modules                      = array();
         }
 
-        function __destruct()
+        public function __destruct()
         {
             // Need to put all unloading here.
         }
 
-        public function Initialize($db = null)
+        public function initialize($db = null)
         {
             // Need to put all Initialization stuff here along with all the Event Hooks.
             Bnt\PluginSystem::addEventHook(EVENT_TICK, $this);
         }
 
-        function getPluginInfo($needModuleList = false)
+        public function getPluginInfo($needModuleList = false)
         {
-            $info = NULL;
+            $info = null;
             $info = get_class_vars("PluginTest");
-
             $info['switches'] = $this->switches;
 
-            if (isset (self::$isDisabled)) $info['isDisabled'] = self::$isDisabled;
-            $info['modules'] = NULL;
+            if (isset (self::$isDisabled))
+            {
+                $info['isDisabled'] = self::$isDisabled;
+            }
+
+            $info['modules'] = null;
 
             return $info;
         }
 
-        function OnEvent()
+        public function OnEvent()
         {
             // This is called along with arguments only on the settings page.
             if (substr(strrchr($_SERVER['PHP_SELF'], DIRECTORY_SEPARATOR), 1) === "settings.php")
             {
-                if (!isset ($_SESSION['plugin_data']['PluginTest']['last_run']))
+                if (!isset($_SESSION['plugin_data']['PluginTest']['last_run']))
                 {
                     $_SESSION['plugin_data']['PluginTest']['last_run'] = time();
                 }
 
-                if (isset ($_SESSION['plugin_data']['PluginTest']['last_run']) && time() >= ($_SESSION['plugin_data']['PluginTest']['last_run'] + 5) )
+                if (isset($_SESSION['plugin_data']['PluginTest']['last_run']) && time() >= ($_SESSION['plugin_data']['PluginTest']['last_run'] + 5))
                 {
-                    echo "Hello World ('". date (DATE_RFC822, implode("', '", func_get_args())) ."')<br />\n";
+                    echo "Hello World ('". date(DATE_RFC822, implode("', '", func_get_args())) ."')<br />\n";
                     $_SESSION['plugin_data']['PluginTest']['last_run'] = time();
                 }
             }
         }
     }
 }
-
 ?>

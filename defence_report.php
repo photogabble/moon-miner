@@ -19,21 +19,21 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load($db, $lang, array ('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 $title = $langvars['l_sdf_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $query = "SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?";
-if (!empty ($sort))
+if (!empty($sort))
 {
     $query .= " ORDER BY";
     if ($sort == "quantity")
@@ -54,8 +54,8 @@ if (!empty ($sort))
     }
 }
 
-$res = $db->Execute ($query, array ($playerinfo['ship_id']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute($query, array ($playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 $i = 0;
 if ($res)
@@ -88,7 +88,7 @@ else
     {
         echo "<tr bgcolor=\"$color\">";
         echo "<td><a href=rsmove.php?engage=1&destination=". $sector[$i]['sector_id'] . ">". $sector[$i]['sector_id'] ."</a></td>";
-        echo "<td>" . number_format ($sector[$i]['quantity'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td>" . number_format($sector[$i]['quantity'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
         $defence_type = $sector[$i]['defence_type'] == 'F' ? $langvars['l_fighters'] : $langvars['l_mines'];
         echo "<td> $defence_type </td>";
         $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $langvars['l_n_a'];
@@ -117,6 +117,6 @@ else
 }
 
 echo "<br><br>";
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>
