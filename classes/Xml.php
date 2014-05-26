@@ -58,7 +58,7 @@ class Xml
         }
 
         $container = null;
-        if (isset($attributes['container'] )=== true && empty($attributes['container'] ) === false )
+        if (isset($attributes['container'] )=== true && empty($attributes['container'] ) === false)
         {
             $container = (string) $attributes['container'];
             unset($attributes['container']);

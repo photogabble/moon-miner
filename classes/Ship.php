@@ -35,7 +35,7 @@ class Ship
                 Db::logDbErrors($db, $on_pl_result, __LINE__, __FILE__);
                 if ($on_pl_result instanceof ADORecordSet)
                 {
-                    while (!$on_pl_result->EOF )
+                    while (!$on_pl_result->EOF)
                     {
                         $cur = $on_pl_result->fields;
                         $uppl_res = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id = ?", array ($cur['ship_id']));

@@ -33,8 +33,12 @@ class PluginSystem
     private static $pluginlist              = null;
 
     const PLUGIN_PATH = "./plugins";
-    public function __construct() {}
-    public function __destruct() {}
+    public function __construct()
+    {
+    }
+    public function __destruct()
+    {
+    }
 
     public static function initialize($db = null)
     {
@@ -60,12 +64,12 @@ class PluginSystem
                     {
                         if (isset($plugin_config[$pluginname]['has_loader']) && $plugin_config[$pluginname]['has_loader'] == true)
                         {
-                            if (file_exists("{$d->path}/{$plugin_name}/plugin_loader.php") )
+                            if (file_exists("{$d->path}/{$plugin_name}/plugin_loader.php"))
                             {
                                 global $$pluginname;
                                 require_once("{$d->path}/{$plugin_name}/plugin_loader.php");
 
-                                self::$pluginlist[$pluginname] = new $pluginname ();
+                                self::$pluginlist[$pluginname] = new $pluginname();
                                 self::$pluginlist[$pluginname]->initialize(self::$db);
                             }
                         }

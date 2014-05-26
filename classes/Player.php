@@ -97,7 +97,7 @@ class Player
 
         for ($i = 0; $i < 20; $i++)
         {
-            $value = pow(2, $i*2 );
+            $value = pow(2, $i*2);
             if (!$value)
             {
                 // Pow returned false so we need to return an error.

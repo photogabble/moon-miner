@@ -23,7 +23,7 @@ class Team
 {
     public static function sameTeam($attacker_team = null, $attackie_team = null)
     {
-        if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0) )
+        if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0))
         {
             return (boolean) false;
         }
@@ -78,7 +78,7 @@ class Team
         $desc = trim($desc);
         $creator = (int) $creator;
 
-        if ( (is_null($name) || empty ($name)) || (is_null($desc) || empty ($desc)) || (is_null($creator) || empty ($creator)) )
+        if ( (is_null($name) || empty ($name)) || (is_null($desc) || empty ($desc)) || (is_null($creator) || empty ($creator)))
         {
             return false;
         }

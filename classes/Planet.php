@@ -35,7 +35,7 @@ class Planet
             $sql .= "WHERE {$db->prefix}planets.planet_id=?;";
             $res = $db->Execute($sql, array ($planet_id));
             \Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
-            if ($res->RecordCount() > 0 )
+            if ($res->RecordCount() > 0)
             {
                 $owner_info = (array) $res->fields;
                 return true;
@@ -136,7 +136,7 @@ class Planet
         global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;
         global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $min_value_capture;
 
-        if ($playerinfo['turns'] < 1 )
+        if ($playerinfo['turns'] < 1)
         {
             echo $langvars['l_cmb_atleastoneturn'] . "<br><br>";
             \Bnt\Text::gotoMain($db, $lang, $langvars);
@@ -492,9 +492,9 @@ class Planet
 
         if ($attackerarmor < 1)
         {
-            $free_ore = round($playerinfo['ship_ore'] / 2 );
-            $free_organics = round($playerinfo['ship_organics'] / 2 );
-            $free_goods = round($playerinfo['ship_goods'] / 2 );
+            $free_ore = round($playerinfo['ship_ore'] / 2);
+            $free_organics = round($playerinfo['ship_organics'] / 2);
+            $free_goods = round($playerinfo['ship_goods'] / 2);
             $ship_value = $upgrade_cost * (round(pow($upgrade_factor, $playerinfo['hull'])) + round(pow($upgrade_factor, $playerinfo['engines'])) + round(pow($upgrade_factor, $playerinfo['power'])) + round(pow($upgrade_factor, $playerinfo['computer'])) + round(pow($upgrade_factor, $playerinfo['sensors'])) + round(pow($upgrade_factor, $playerinfo['beams'])) + round(pow($upgrade_factor, $playerinfo['torp_launchers'])) + round(pow($upgrade_factor, $playerinfo['shields'])) + round(pow($upgrade_factor, $playerinfo['armor'])) + round(pow($upgrade_factor, $playerinfo['cloak'])));
             $ship_salvage_rate = \Bnt\Rand::betterRand(0, 10);
             $ship_salvage = $ship_value * $ship_salvage_rate / 100;
@@ -520,7 +520,7 @@ class Planet
             $ship_salvage_rate = 0;
             $ship_salvage = 0;
             $planetrating = $ownerinfo['hull'] + $ownerinfo['engines'] + $ownerinfo['computer'] + $ownerinfo['beams'] + $ownerinfo['torp_launchers'] + $ownerinfo['shields'] + $ownerinfo['armor'];
-            if ($ownerinfo['rating'] != 0 )
+            if ($ownerinfo['rating'] != 0)
             {
                 $rating_change = ($ownerinfo['rating'] / abs($ownerinfo['rating'])) * $planetrating * 10;
             }
@@ -1076,7 +1076,7 @@ class Planet
 
             if ($targetinfo['dev_escapepod'] == "Y")
             {
-                $rating = round($targetinfo['rating'] / 2 );
+                $rating = round($targetinfo['rating'] / 2);
                 echo $langvars['l_cmb_escapepodlaunched'] . "<br><br>";
                 echo "<br><br>ship_id = $targetinfo[ship_id]<br><br>";
                 $test = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating=?,dev_lssd='N' WHERE ship_id=?", array ($bntreg->start_energy, $rating, $targetinfo['ship_id']));

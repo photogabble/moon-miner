@@ -51,7 +51,7 @@ class XmlTemplateSystem
         $this->chkLibraries(array("xsl", "dom"));
 
         $imp = new \DOMImplementation;
-        if ( !is_null($publicId) && !is_null($systemId) )
+        if ( !is_null($publicId) && !is_null($systemId))
         {
             $this->validation = (boolean) true;
             $dtd = $imp->createDocumentType($this->qualifiedName, $publicId, $systemId);
