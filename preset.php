@@ -19,37 +19,37 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
-$langvars = Bnt\Translate::load ($db, $lang, array ('presets'));
+$langvars = Bnt\Translate::load($db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];
 $body_class = 'bnt';
 Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class ='" . $body_class . "'>";
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $preset_list = array();
 
 // Returns null if it doesn't have it set, boolean false if its set but fails to validate and the actual value if it all passes.
-$preset_list[1]  = filter_input (INPUT_POST, 'preset1', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
-$preset_list[2]  = filter_input (INPUT_POST, 'preset2', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
-$preset_list[3]  = filter_input (INPUT_POST, 'preset3', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
+$preset_list[1]  = filter_input(INPUT_POST, 'preset1', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
+$preset_list[2]  = filter_input(INPUT_POST, 'preset2', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
+$preset_list[3]  = filter_input(INPUT_POST, 'preset3', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
 
-$change = filter_input (INPUT_POST, 'change', FILTER_VALIDATE_INT, array('options' => array('min_range' => 0, 'max_range' => 1)));
+$change = filter_input(INPUT_POST, 'change', FILTER_VALIDATE_INT, array('options' => array('min_range' => 0, 'max_range' => 1)));
 
 foreach ($preset_list as $index => $preset)
 {
     if ($preset === false)
     {
         $change = 0;
-        $_langvars['l_pre_invalid'] = str_replace ("[preset]", $index, $langvars['l_pre_invalid']);
-        $_langvars['l_pre_invalid'] = str_replace ("[sector_max]", $bntreg->sector_max, $_langvars['l_pre_invalid']);
+        $_langvars['l_pre_invalid'] = str_replace("[preset]", $index, $langvars['l_pre_invalid']);
+        $_langvars['l_pre_invalid'] = str_replace("[sector_max]", $bntreg->sector_max, $_langvars['l_pre_invalid']);
         echo $_langvars['l_pre_invalid'] . "<br>\n";
     }
 }
@@ -68,14 +68,14 @@ if ($change !== 1)
 }
 else
 {
-    $update = $db->Execute ("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset_list[1], $preset_list[2], $preset_list[3], $playerinfo['ship_id']));
-    Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
-    $langvars['l_pre_set'] = str_replace ("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset_list[1]>$preset_list[1]</a>", $langvars['l_pre_set']);
-    $langvars['l_pre_set'] = str_replace ("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset_list[2]>$preset_list[2]</a>", $langvars['l_pre_set']);
-    $langvars['l_pre_set'] = str_replace ("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset_list[3]>$preset_list[3]</a>", $langvars['l_pre_set']);
+    $update = $db->Execute("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset_list[1], $preset_list[2], $preset_list[3], $playerinfo['ship_id']));
+    Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
+    $langvars['l_pre_set'] = str_replace("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset_list[1]>$preset_list[1]</a>", $langvars['l_pre_set']);
+    $langvars['l_pre_set'] = str_replace("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset_list[2]>$preset_list[2]</a>", $langvars['l_pre_set']);
+    $langvars['l_pre_set'] = str_replace("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset_list[3]>$preset_list[3]</a>", $langvars['l_pre_set']);
     echo $langvars['l_pre_set'] . "<br><br>";
 }
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

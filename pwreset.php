@@ -20,14 +20,14 @@
 include './global_includes.php';
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset'));
+$langvars = Bnt\Translate::load($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset'));
 $title = $langvars['l_pwr_title'];
 $body_class = 'options';
 Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 
-$reset_code  = filter_input (INPUT_GET, 'code', FILTER_SANITIZE_STRING);
+$reset_code  = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
 
 // It is important to note that SQL (both MySQL and PostgreSQL) index differently (one longer)
 // than php does, which is why the substr (6/8 instead of 5/8) has a start index one "larger" here than in the php calls
@@ -36,8 +36,8 @@ $reset_code  = filter_input (INPUT_GET, 'code', FILTER_SANITIZE_STRING);
 // We chose 8 characters of uniqueness because its reasonable if you have to type it in, and
 // because 8 characters is 4,294,967,296 combinations, and that should be sufficiently secure
 
-$result = $db->SelectLimit ("SELECT character_name, email, recovery_time FROM {$db->prefix}ships WHERE substr(MD5(password),6,8) = ?", 1, -1, array ('password' => $reset_code));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->SelectLimit("SELECT character_name, email, recovery_time FROM {$db->prefix}ships WHERE substr(MD5(password),6,8) = ?", 1, -1, array ('password' => $reset_code));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF && $result != false)
 {

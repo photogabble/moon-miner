@@ -19,10 +19,10 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer', 'regional'));
+$langvars = Bnt\Translate::load($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer', 'regional'));
 $title = $langvars['l_device_title'];
 $body_class = 'device';
 Bnt\Header::display($db, $lang, $template, $title, $body_class);
@@ -30,32 +30,32 @@ Bnt\Header::display($db, $lang, $template, $title, $body_class);
 echo "<body class=" . $body_class . "><br>";
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 $playerinfo = $res->fields;
 
 echo $langvars['l_device_expl'] . "<br><br>";
 echo "<table style=\"width:33%\">";
 echo "<tr><th style=\"text-align:left;\">" . $langvars['l_device'] . "</th><th>" . $langvars['l_qty'] . "</th><th>" . $langvars['l_usage'] . "</th></tr>";
 echo "<tr>";
-echo "<td><a href='beacon.php'>" . $langvars['l_beacons'] . "</a></td><td>" . number_format ($playerinfo['dev_beacon'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
+echo "<td><a href='beacon.php'>" . $langvars['l_beacons'] . "</a></td><td>" . number_format($playerinfo['dev_beacon'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='warpedit.php'>" . $langvars['l_warpedit'] . "</a></td><td>" . number_format ($playerinfo['dev_warpedit'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
+echo "<td><a href='warpedit.php'>" . $langvars['l_warpedit'] . "</a></td><td>" . number_format($playerinfo['dev_warpedit'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='genesis.php'>" . $langvars['l_genesis'] . "</a></td><td>" . number_format ($playerinfo['dev_genesis'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
+echo "<td><a href='genesis.php'>" . $langvars['l_genesis'] . "</a></td><td>" . number_format($playerinfo['dev_genesis'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>" . $langvars['l_deflect'] . "</td><td>" . number_format ($playerinfo['dev_minedeflector'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_automatic'] . "</td>";
+echo "<td>" . $langvars['l_deflect'] . "</td><td>" . number_format($playerinfo['dev_minedeflector'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_automatic'] . "</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='mines.php?op=1'>" . $langvars['l_mines'] . "</a></td><td>" . number_format ($playerinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
+echo "<td><a href='mines.php?op=1'>" . $langvars['l_mines'] . "</a></td><td>" . number_format($playerinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='mines.php?op=2'>" . $langvars['l_fighters'] . "</a></td><td>" . number_format ($playerinfo['ship_fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
+echo "<td><a href='mines.php?op=2'>" . $langvars['l_fighters'] . "</a></td><td>" . number_format($playerinfo['ship_fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='emerwarp.php'>" . $langvars['l_ewd'] . "</a></td><td>" . number_format ($playerinfo['dev_emerwarp'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "/" . $langvars['l_automatic'] . "</td>";
+echo "<td><a href='emerwarp.php'>" . $langvars['l_ewd'] . "</a></td><td>" . number_format($playerinfo['dev_emerwarp'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_manual'] . "/" . $langvars['l_automatic'] . "</td>";
 echo "</tr>";
 echo "<tr>";
 echo "<td>" . $langvars['l_escape_pod'] . "</td><td>" . (($playerinfo['dev_escapepod'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no']) . "</td><td>" . $langvars['l_automatic'] . "</td>";
@@ -69,6 +69,6 @@ echo "</tr>";
 echo "</table>";
 echo "<br>";
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

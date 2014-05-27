@@ -19,60 +19,60 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes', 'regional'));
+$langvars = Bnt\Translate::load($db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes', 'regional'));
 $title = $langvars['l_main_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 $stylefontsize = "12pt";
 $picsperrow = 7;
 
-$res = $db->SelectLimit ("SELECT * FROM {$db->prefix}ships WHERE email = ?", 1, -1, array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->SelectLimit("SELECT * FROM {$db->prefix}ships WHERE email = ?", 1, -1, array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-if (!isset ($_GET['command']))
+if (!isset($_GET['command']))
 {
     $_GET['command'] = null;
 }
 
 if ($_GET['command'] == "score")
 {
-    $playerinfo['score'] = Bnt\Score::updateScore ($db, $playerinfo['ship_id'], $bntreg);
+    $playerinfo['score'] = Bnt\Score::updateScore($db, $playerinfo['ship_id'], $bntreg);
 }
 
 if ($playerinfo['cleared_defences'] > ' ')
 {
     echo $langvars['l_incompletemove'] . " <br>";
     echo "<a href=$playerinfo[cleared_defences]>" . $langvars['l_clicktocontinue'] . "</a>";
-    die ();
+    die();
 }
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
 if ($playerinfo['on_planet'] == "Y")
 {
-    $res2 = $db->Execute ("SELECT planet_id, owner FROM {$db->prefix}planets WHERE planet_id = ?;", array ($playerinfo['planet_id']));
-    Bnt\Db::logDbErrors ($db, $res2, __LINE__, __FILE__);
+    $res2 = $db->Execute("SELECT planet_id, owner FROM {$db->prefix}planets WHERE planet_id = ?;", array ($playerinfo['planet_id']));
+    Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
     if ($res2->RecordCount() != 0)
     {
         echo "<a href=planet.php?planet_id=$playerinfo[planet_id]>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "    <br>";
         header("Location: planet.php?planet_id=" . $playerinfo['planet_id'] . "&id=" . $playerinfo['ship_id']);
-        die ();
+        die();
     }
     else
     {
-        $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+        $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
         echo "<br>" . $langvars['l_nonexistant_pl'] . "<br><br>";
     }
 }
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start=? ORDER BY link_dest ASC;", array ($playerinfo['sector']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start=? ORDER BY link_dest ASC;", array ($playerinfo['sector']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 $i = 0;
 if ($res != false)
@@ -86,8 +86,8 @@ if ($res != false)
 }
 $num_links = $i;
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE sector_id = ?;", array ($playerinfo['sector']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE sector_id = ?;", array ($playerinfo['sector']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 $i = 0;
 if ($res != false)
@@ -101,8 +101,8 @@ if ($res != false)
 }
 $num_planets = $i;
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence, {$db->prefix}ships WHERE {$db->prefix}sector_defence.sector_id = ? AND {$db->prefix}ships.ship_id = {$db->prefix}sector_defence.ship_id;", array ($playerinfo['sector']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}sector_defence, {$db->prefix}ships WHERE {$db->prefix}sector_defence.sector_id = ? AND {$db->prefix}ships.ship_id = {$db->prefix}sector_defence.ship_id;", array ($playerinfo['sector']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 $i = 0;
 if ($res != false)
@@ -116,8 +116,8 @@ if ($res != false)
 }
 $num_defences = $i;
 
-$res = $db->Execute ("SELECT zone_id,zone_name FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT zone_id,zone_name FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 $shiptypes[0]= "tinyship.png";
@@ -132,13 +132,13 @@ $planettypes[2]= "mediumplanet.png";
 $planettypes[3]= "largeplanet.png";
 $planettypes[4]= "hugeplanet.png";
 
-$signame = Bnt\Player::getInsignia ($db, $_SESSION['username'], $langvars);
+$signame = Bnt\Player::getInsignia($db, $_SESSION['username'], $langvars);
 echo "<div style='width:90%; margin:auto; background-color:#400040; color:#C0C0C0; text-align:center; border:#fff 1px solid; padding:4px;'>\n";
 echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['character_name']}</span>{$langvars['l_aboard']} <span style='color:#fff; font-weight:bold;'><a class='new_link' style='font-size:14px;' href='report.php'>{$playerinfo['ship_name']}</a></span>\n";
 echo "</div>\n";
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? AND notified = ?;", array ($playerinfo['ship_id'], "N"));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? AND notified = ?;", array ($playerinfo['ship_id'], "N"));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 
 if ($result->RecordCount() > 0)
 {
@@ -147,14 +147,14 @@ if ($result->RecordCount() > 0)
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
 
-    $res = $db->Execute ("UPDATE {$db->prefix}messages SET notified='Y' WHERE recp_id = ?;", array ($playerinfo['ship_id']));
-    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+    $res = $db->Execute("UPDATE {$db->prefix}messages SET notified='Y' WHERE recp_id = ?;", array ($playerinfo['ship_id']));
+    Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 }
 
-$ply_turns     = number_format ($playerinfo['turns'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
-$ply_turnsused = number_format ($playerinfo['turns_used'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
-$ply_score     = number_format ($playerinfo['score'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
-$ply_credits   = number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+$ply_turns     = number_format($playerinfo['turns'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+$ply_turnsused = number_format($playerinfo['turns_used'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+$ply_score     = number_format($playerinfo['score'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+$ply_credits   = number_format($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 
 echo "<table style='width:90%; margin:auto; text-align:center; border:0px;'>\n";
 echo "  <tr>\n";
@@ -168,7 +168,7 @@ echo "  </tr>\n";
 
 echo "  <tr>\n";
 echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$langvars['l_sector']} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
-if (empty ($sectorinfo['beacon']) || strlen (trim ($sectorinfo['beacon'])) <=0)
+if (empty ($sectorinfo['beacon']) || strlen(trim($sectorinfo['beacon'])) <=0)
 {
     $sectorinfo['beacon'] = null;
 }
@@ -181,7 +181,7 @@ if ($zoneinfo['zone_id'] < 5)
 }
 
 // Sanitize ZoneName.
-$zoneinfo['zone_name'] = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $zoneinfo['zone_name']);
+$zoneinfo['zone_name'] = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', '', $zoneinfo['zone_name']);
 
 echo "    <td style='text-align:right; color:#ccc; font-size:12px; font-weight:bold;'><a class='new_link' href='zoneinfo.php?zone={$zoneinfo['zone_id']}'>{$zoneinfo['zone_name']}</a>&nbsp;</td>\n";
 echo "  </tr>\n";
@@ -295,8 +295,8 @@ $i = 0;
 $num_traderoutes = 0;
 
 // Traderoute querry
-$tr_result = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE source_type = ? AND source_id = ? AND owner = ? ORDER BY dest_id ASC;", array ("P", $playerinfo['sector'], $playerinfo['ship_id']) );
-Bnt\Db::logDbErrors ($db, $tr_result, __LINE__, __FILE__);
+$tr_result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE source_type = ? AND source_id = ? AND owner = ? ORDER BY dest_id ASC;", array ("P", $playerinfo['sector'], $playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $tr_result, __LINE__, __FILE__);
 while (!$tr_result->EOF)
 {
     $traderoutes[$i] = $tr_result->fields;
@@ -306,8 +306,8 @@ while (!$tr_result->EOF)
 }
 
 // Sector Defense Trade route query - this is still under developement
-$sd_tr_result = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE source_type='D' AND source_id = ? AND owner = ? ORDER BY dest_id ASC;", array ($playerinfo['sector'], $playerinfo['ship_id']));
-Bnt\Db::logDbErrors ($db, $sd_tr_result, __LINE__, __FILE__);
+$sd_tr_result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE source_type='D' AND source_id = ? AND owner = ? ORDER BY dest_id ASC;", array ($playerinfo['sector'], $playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $sd_tr_result, __LINE__, __FILE__);
 while (!$sd_tr_result->EOF)
 {
     $traderoutes[$i] = $sd_tr_result->fields;
@@ -317,8 +317,8 @@ while (!$sd_tr_result->EOF)
 }
 
 // Personal planet traderoute type query
-$ppl_tr_result = $db->Execute ("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type = 'L' AND source_id = {$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id = ? AND {$db->prefix}traderoutes.owner = ?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
-Bnt\Db::logDbErrors ($db, $ppl_tr_result, __LINE__, __FILE__);
+$ppl_tr_result = $db->Execute("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type = 'L' AND source_id = {$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id = ? AND {$db->prefix}traderoutes.owner = ?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $ppl_tr_result, __LINE__, __FILE__);
 while (!$ppl_tr_result->EOF)
 {
     $traderoutes[$i] = $ppl_tr_result->fields;
@@ -328,8 +328,8 @@ while (!$ppl_tr_result->EOF)
 }
 
 // Team planet traderoute type query
-$tmpl_tr_result = $db->Execute ("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type = 'C' AND source_id = {$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id = ? AND {$db->prefix}traderoutes.owner = ?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
-Bnt\Db::logDbErrors ($db, $tmpl_tr_result, __LINE__, __FILE__);
+$tmpl_tr_result = $db->Execute("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type = 'C' AND source_id = {$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id = ? AND {$db->prefix}traderoutes.owner = ?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $tmpl_tr_result, __LINE__, __FILE__);
 while (!$tmpl_tr_result->EOF)
 {
     $traderoutes[$i] = $tmpl_tr_result->fields;
@@ -361,8 +361,8 @@ else
         }
         else
         {
-            $pl_result = $db->Execute ("SELECT name FROM {$db->prefix}planets WHERE planet_id = ?;", array ($traderoutes[$i]['source_id']));
-            Bnt\Db::logDbErrors ($db, $pl_result, __LINE__, __FILE__);
+            $pl_result = $db->Execute("SELECT name FROM {$db->prefix}planets WHERE planet_id = ?;", array ($traderoutes[$i]['source_id']));
+            Bnt\Db::logDbErrors($db, $pl_result, __LINE__, __FILE__);
             if (!$pl_result || $pl_result->RecordCount() == 0)
             {
                 echo $langvars['l_unknown'];
@@ -400,8 +400,8 @@ else
         }
         else
         {
-            $pl_dest_result = $db->Execute ("SELECT name FROM {$db->prefix}planets WHERE planet_id = ?;", array ($traderoutes[$i]['dest_id']));
-            Bnt\Db::logDbErrors ($db, $pl_dest_result, __LINE__, __FILE__);
+            $pl_dest_result = $db->Execute("SELECT name FROM {$db->prefix}planets WHERE planet_id = ?;", array ($traderoutes[$i]['dest_id']));
+            Bnt\Db::logDbErrors($db, $pl_dest_result, __LINE__, __FILE__);
 
             if (!$pl_dest_result || $pl_dest_result->RecordCount() == 0)
             {
@@ -444,7 +444,7 @@ echo "<td style='vertical-align:top;'>\n";
 if ($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
     echo "<div style='color:#fff; text-align:center; font-size:14px;'>\n";
-    echo "{$langvars['l_tradingport']}:&nbsp;<span style='color:#0f0;'>". ucfirst (Bnt\Ports::getType ($sectorinfo['port_type'], $langvars)) ."</span>\n";
+    echo "{$langvars['l_tradingport']}:&nbsp;<span style='color:#0f0;'>". ucfirst(Bnt\Ports::getType($sectorinfo['port_type'], $langvars)) ."</span>\n";
     echo "<br><br>\n";
     echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='" . $template->getVariables('template_dir') . "/images/space_station_port.png' alt='Space Station Port'></a>\n";
     echo "</div>\n";
@@ -472,8 +472,8 @@ if ($num_planets > 0)
     {
         if ($planets[$i]['owner'] != 0)
         {
-            $result5 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planets[$i]['owner']));
-            Bnt\Db::logDbErrors ($db, $result5, __LINE__, __FILE__);
+            $result5 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planets[$i]['owner']));
+            Bnt\Db::logDbErrors($db, $result5, __LINE__, __FILE__);
             $planet_owner = $result5->fields;
             $planetavg = Bnt\CalcLevels::avgTech($planet_owner, "planet");
 
@@ -481,15 +481,15 @@ if ($num_planets > 0)
             {
                 $planetlevel = 0;
             }
-            else if ($planetavg < 12)
+            elseif ($planetavg < 12)
             {
                 $planetlevel = 1;
             }
-            else if ($planetavg < 16)
+            elseif ($planetavg < 16)
             {
                 $planetlevel = 2;
             }
-            else if ($planetavg < 20)
+            elseif ($planetavg < 20)
             {
                 $planetlevel = 3;
             }
@@ -560,17 +560,17 @@ if ($playerinfo['sector'] != 0)
     $sql .= "FROM {$db->prefix}ships LEFT OUTER JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id ";
     $sql .= "WHERE {$db->prefix}ships.ship_id <> ? AND {$db->prefix}ships.sector = ? AND {$db->prefix}ships.on_planet='N' ";
     $sql .= "ORDER BY " . $db->random;
-    $result4 = $db->Execute ($sql, array ($playerinfo['ship_id'], $playerinfo['sector']));
-    Bnt\Db::logDbErrors ($db, $result4, __LINE__, __FILE__);
+    $result4 = $db->Execute($sql, array ($playerinfo['ship_id'], $playerinfo['sector']));
+    Bnt\Db::logDbErrors($db, $result4, __LINE__, __FILE__);
 
-    if ($result4 != false )
+    if ($result4 != false)
     {
         $ships_detected = 0;
         $ship_detected = null;
         while (!$result4->EOF)
         {
             $row=$result4->fields;
-            $success = Bnt\Scan::success ($playerinfo['sensors'], $row['cloak']);
+            $success = Bnt\Scan::success($playerinfo['sensors'], $row['cloak']);
             if ($success < 5)
             {
                 $success = 5;
@@ -579,7 +579,7 @@ if ($playerinfo['sector'] != 0)
             {
                 $success = 95;
             }
-            $roll = Bnt\Rand::betterRand (1, 100);
+            $roll = Bnt\Rand::betterRand(1, 100);
 
             if ($roll < $success)
             {
@@ -589,15 +589,15 @@ if ($playerinfo['sector'] != 0)
                 {
                     $shiplevel = 0;
                 }
-                else if ($shipavg < 12)
+                elseif ($shipavg < 12)
                 {
                     $shiplevel = 1;
                 }
-                else if ($shipavg < 16)
+                elseif ($shipavg < 16)
                 {
                     $shiplevel = 2;
                 }
-                else if ($shipavg < 20)
+                elseif ($shipavg < 20)
                 {
                     $shiplevel = 3;
                 }
@@ -623,7 +623,7 @@ if ($playerinfo['sector'] != 0)
             echo "<table style='padding:0px; border-spacing:1px;'>\n";
             echo "  <tr>\n";
 
-            $temp_count = count ($ship_detected);
+            $temp_count = count($ship_detected);
             for ($iPlayer = 0; $iPlayer < $temp_count; $iPlayer++)
             {
                 echo "<td style='text-align:center; vertical-align:top; padding:1px;'>\n";
@@ -715,7 +715,7 @@ if ($num_defences > 0)
         $i++;
     }
     echo "</tr></table>";
-echo "</div>\n";
+    echo "</div>\n";
 }
 else
 {
@@ -750,25 +750,25 @@ echo "</table>\n";
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_organics']; ?>" src="<?php echo $template->getVariables('template_dir'); ?>/images/organics.png">&nbsp;<?php echo $langvars['l_organics']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format($playerinfo['ship_organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_goods']; ?>" src="<?php echo $template->getVariables('template_dir'); ?>/images/goods.png">&nbsp;<?php echo $langvars['l_goods']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format($playerinfo['ship_goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_energy']; ?>" src="<?php echo $template->getVariables('template_dir'); ?>/images/energy.png">&nbsp;<?php echo $langvars['l_energy']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format($playerinfo['ship_energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left;'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_colonists']; ?>" src="<?php echo $template->getVariables('template_dir'); ?>/images/colonists.png">&nbsp;<?php echo $langvars['l_colonists']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format($playerinfo['ship_colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
       </table>
     </td>

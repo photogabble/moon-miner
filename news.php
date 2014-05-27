@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-if (!isset ($_GET['lang']))
+if(!isset ($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $bntreg->default_lang;
@@ -32,27 +32,27 @@ else
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 $title = $langvars['l_news_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
-$startdate = date ("Y/m/d");
-if (array_key_exists ('startdate', $_GET) && ($_GET['startdate'] != ''))
+$startdate = date("Y/m/d");
+if (array_key_exists('startdate', $_GET) && ($_GET['startdate'] != ''))
 {
     // The date wasn't supplied so use today's date
     $startdate = $_GET['startdate'];
 }
 
 // Check and validate the date.
-$validformat = preg_match ("/([0-9]{4})\/([0-9]{2})\/([0-9]{2})$/", $startdate, $regs);
-if ($validformat !=1 || checkdate ($regs[2], $regs[3], $regs[1]) == false)
+$validformat = preg_match("/([0-9]{4})\/([0-9]{2})\/([0-9]{2})$/", $startdate, $regs);
+if ($validformat !=1 || checkdate($regs[2], $regs[3], $regs[1]) == false)
 {
     // The date wasn't supplied so use today's date
-    $startdate = date ("Y/m/d");
+    $startdate = date("Y/m/d");
 }
 
-$previousday = Bnt\News::previousDay ($startdate);
-$nextday = Bnt\News::nextDay ($startdate);
+$previousday = Bnt\News::previousDay($startdate);
+$nextday = Bnt\News::nextDay($startdate);
 
 echo "<table width=\"73%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">\n";
 echo "  <tr>\n";
@@ -68,11 +68,11 @@ echo "    <td height=\"22\" width=\"73%\" bgcolor=\"#00001A\" align=\"right\"><a
 echo "  </tr>\n";
 
 //Select news for date range
-$res = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 //Check to see if there was any news to be shown
-if ($res->RecordCount() > 0 )
+if ($res->RecordCount() > 0)
 {
     // Yes we do, now cycle through them.
     while (!$res->EOF)
@@ -98,11 +98,11 @@ echo "<div style=\"height:16px;\"></div>\n";
 
 if (empty ($_SESSION['username']))
 {
-    echo str_replace ("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {
-    echo str_replace ("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
