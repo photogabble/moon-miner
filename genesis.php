@@ -71,7 +71,7 @@ elseif ($num_planets >= $bntreg->max_planets_sector)
 {
     echo $langvars['l_gns_full'];
 }
-elseif ($sectorinfo['sector_id'] >= $bntreg->sector_max )
+elseif ($sectorinfo['sector_id'] >= $bntreg->sector_max)
 {
     echo "Invalid sector<br>\n";
 }

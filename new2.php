@@ -74,7 +74,7 @@ $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->pref
 Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
 $flag = 0;
 
-if ($username === null || $character === null || $shipname === null )
+if ($username === null || $character === null || $shipname === null)
 {
     echo $langvars['l_new_blank'] . '<br>';
     $flag = 1;

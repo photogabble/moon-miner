@@ -118,7 +118,7 @@ function php_change_delta($desired_value, $current_value, $upgrade_cost)
     $delta_cost = 0;
     $delta = $desired_value - $current_value;
 
-    while ($delta > 0 )
+    while ($delta > 0)
     {
         $delta_cost = $delta_cost + pow(2, $desired_value - $delta);
         $delta = $delta - 1;
@@ -129,7 +129,7 @@ function php_change_delta($desired_value, $current_value, $upgrade_cost)
     return $delta_cost;
 }
 
-if ($playerinfo['turns'] < 1 )
+if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_trade_turnneed'] . "<br><br>";
 }
@@ -453,55 +453,55 @@ else
             if ($fighter_number)
             {
                 $query = $query . ", ship_fighters = ship_fighters + $fighter_number";
-                build_two_col ($langvars['l_fighters'] . " " .  $langvars['l_trade_added'] . ":", $fighter_number, "left", "right" );
+                build_two_col ($langvars['l_fighters'] . " " .  $langvars['l_trade_added'] . ":", $fighter_number, "left", "right");
             }
 
             if ($torpedo_number)
             {
                 $query = $query . ", torps=torps + $torpedo_number";
-                build_two_col ($langvars['l_torps'] . " " . $langvars['l_trade_added'] . ":", $torpedo_number, "left", "right" );
+                build_two_col ($langvars['l_torps'] . " " . $langvars['l_trade_added'] . ":", $torpedo_number, "left", "right");
             }
 
             if ($armor_number)
             {
                 $query = $query . ", armor_pts=armor_pts + $armor_number";
-                build_two_col ($langvars['l_armorpts'] . " " . $langvars['l_trade_added'] . ":", $armor_number, "left", "right" );
+                build_two_col ($langvars['l_armorpts'] . " " . $langvars['l_trade_added'] . ":", $armor_number, "left", "right");
             }
 
             if ($colonist_number)
             {
                 $query = $query . ", ship_colonists = ship_colonists + $colonist_number";
-                build_two_col ($langvars['l_colonists'] . " " .  $langvars['l_trade_added'] . ":", $colonist_number, "left", "right" );
+                build_two_col ($langvars['l_colonists'] . " " .  $langvars['l_trade_added'] . ":", $colonist_number, "left", "right");
             }
 
             if ($dev_genesis_number)
             {
                 $query = $query . ", dev_genesis = dev_genesis + $dev_genesis_number";
-                build_two_col ($langvars['l_genesis'] . " " . $langvars['l_trade_added'] . ":", $dev_genesis_number, "left", "right" );
+                build_two_col ($langvars['l_genesis'] . " " . $langvars['l_trade_added'] . ":", $dev_genesis_number, "left", "right");
             }
 
             if ($dev_beacon_number)
             {
                 $query = $query . ", dev_beacon = dev_beacon + $dev_beacon_number";
-                build_two_col ($langvars['l_beacons'] . " " . $langvars['l_trade_added'] . ":", $dev_beacon_number , "left", "right" );
+                build_two_col ($langvars['l_beacons'] . " " . $langvars['l_trade_added'] . ":", $dev_beacon_number , "left", "right");
             }
 
             if ($dev_emerwarp_number)
             {
                 $query = $query . ", dev_emerwarp = dev_emerwarp + $dev_emerwarp_number";
-                build_two_col ($langvars['l_ewd'] . " " .  $langvars['l_trade_added'] . ":", $dev_emerwarp_number , "left", "right" );
+                build_two_col ($langvars['l_ewd'] . " " .  $langvars['l_trade_added'] . ":", $dev_emerwarp_number , "left", "right");
             }
 
             if ($dev_warpedit_number)
             {
                 $query = $query . ", dev_warpedit = dev_warpedit + $dev_warpedit_number";
-                build_two_col ($langvars['l_warpedit'] . " " . $langvars['l_trade_added'] . ":", $dev_warpedit_number , "left", "right" );
+                build_two_col ($langvars['l_warpedit'] . " " . $langvars['l_trade_added'] . ":", $dev_warpedit_number , "left", "right");
             }
 
             if ($dev_minedeflector_number)
             {
                 $query = $query . ", dev_minedeflector = dev_minedeflector + $dev_minedeflector_number";
-                build_two_col ($langvars['l_deflect'] . " " . $langvars['l_trade_added'] . ":", $dev_minedeflector_number , "left", "right" );
+                build_two_col ($langvars['l_deflect'] . " " . $langvars['l_trade_added'] . ":", $dev_minedeflector_number , "left", "right");
             }
 
             if (($escapepod_purchase) && ($playerinfo['dev_escapepod'] != 'Y'))
@@ -532,7 +532,7 @@ else
             echo "<div style='font-size:16px; color:#fff;'><br>[<span style='color:#0f0;'>Border Patrol</span>]<br>\n";
             echo "Halt, while we scan your cargo...<br>\n";
 
-            if (( Bnt\CalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0 )
+            if (( Bnt\CalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0)
             {
                 // build_two_col ("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
@@ -593,7 +593,7 @@ else
 
         function trade($price, $delta, $max, $limit, $factor, $port_type, $origin, $price_array, $sectorinfo)
         {
-            if ($sectorinfo['port_type'] ==  $port_type )
+            if ($sectorinfo['port_type'] ==  $port_type)
             {
                 $price_array[$port_type] = $price - $delta * $max / $limit * $factor;
             }
@@ -683,12 +683,12 @@ else
         }
         else
         {
-            if ($total_cost == 0 )
+            if ($total_cost == 0)
             {
                 $trade_color   = "#fff";
                 $trade_result  = $langvars['l_cost'] . " : ";
             }
-            elseif ($total_cost < 0 )
+            elseif ($total_cost < 0)
             {
                 $trade_color   = $color_green;
                 $trade_result  = $trade_benefit;

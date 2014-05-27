@@ -137,7 +137,7 @@ elseif ($command == 'setsettings')
     // Enters settings in db
     Bad\Traderoute::traderouteSetsettings ($db, $lang, $langvars, $bntreg, $template);
 }
-elseif (isset ($engage) )
+elseif (isset ($engage))
 {
     // Perform trade route
     $i = $tr_repeat;

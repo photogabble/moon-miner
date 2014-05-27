@@ -26,11 +26,11 @@ include './setup_info_class.php';
 $setup_info = new SETUPINFO_CLASS();
 
 // Class Test Switches.
-$setup_info->switches['Show_Env_Var']['enabled']    = false;
-$setup_info->switches['Test_Cookie']['enabled']     = false;
+$setup_info->switches['Show_Env_Var']['enabled']    = true;
+$setup_info->switches['Test_Cookie']['enabled']     = true;
 $setup_info->switches['Enable_Database']['enabled'] = false;
-$setup_info->switches['Display_Patches']['enabled'] = false;
-$setup_info->switches['Display_Errors']['enabled']  = false;
+$setup_info->switches['Display_Patches']['enabled'] = true;
+$setup_info->switches['Display_Errors']['enabled']  = true;
 
 $setup_info->testcookies();
 $setup_info->initDB();
@@ -218,16 +218,25 @@ $setup_info->DisplayFlush("<p><font size=\"2\">// This displays Installed Patch 
 $Cols = 3;
 $setup_info->do_Table_Title("Testing for installed patches", $Cols);
 
-foreach ($patch_info as $n => $s)
+if ($patch_info != null)
 {
-    $setup_info->do_Table_Row($patch_info[$n][0]['name'], $patch_info[$n][0]['info'], $patch_info[$n][0]['patched']);
-    if ($patch_info[$n][0]['patched']!="Not Found")
+    foreach ($patch_info as $n => $s)
     {
-        $setup_info->do_Table_Row("Patch Information", "<font color=\"maroon\">Author: </font><font color=\"purple\">".$patch_info[$n][1]['author']."</font><br>\n<font color=\"maroon\">Created: </font><font color=\"purple\">".$patch_info[$n][1]['created']."</font>");
+        $setup_info->do_Table_Row($patch_info[$n][0]['name'], $patch_info[$n][0]['info'], $patch_info[$n][0]['patched']);
+        if ($patch_info[$n][0]['patched']!="Not Found")
+        {
+            $setup_info->do_Table_Row("Patch Information", "<font color=\"maroon\">Author: </font><font color=\"purple\">".$patch_info[$n][1]['author']."</font><br>\n<font color=\"maroon\">Created: </font><font color=\"purple\">".$patch_info[$n][1]['created']."</font>");
+        }
+        $setup_info->do_Table_Blank_Row();
     }
-    $setup_info->do_Table_Blank_Row();
+    $setup_info->do_Table_Footer("<br>");
 }
-$setup_info->do_Table_Footer("<br>");
+else
+{
+    $setup_info->do_Table_Row("Patch Information", "<font color=\"maroon\">Author: </font><font color=\"purple\">".$patch_info[$n][1]['author']."</font><br>\n<font color=\"maroon\">Created: </font><font color=\"purple\">".$patch_info[$n][1]['created']."</font>");
+    $setup_info->do_Table_Blank_Row();
+    $setup_info->do_Table_Footer("<br>");
+}
 
 // This gets the Environment Variables
 #$setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
@@ -359,6 +368,7 @@ if (empty ($_SESSION['username']))
 }
 else
 {
+    global $db;
     Bnt\Text::gotoMain ($db, $lang, $langvars);
 }
 

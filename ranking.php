@@ -101,7 +101,7 @@ if ($rs instanceof ADORecordSet)
             $row['rank'] = count ($player_list) + 1;
 
             // Calculate the players rating.
-            $rating = round (sqrt (abs ($row['rating']) ));
+            $rating = round (sqrt (abs ($row['rating'])));
             if (abs ($row['rating']) != $row['rating'])
             {
                 $rating = -1 * $rating;

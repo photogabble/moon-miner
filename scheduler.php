@@ -164,7 +164,7 @@ else
 
     // Calculate the difference in time when the last good update happened.
     $schedDiff = ($lastRun - (time () - ($bntreg->sched_ticks * 60)));
-    if (abs ($schedDiff) > ($bntreg->sched_ticks * 60) )
+    if (abs ($schedDiff) > ($bntreg->sched_ticks * 60))
     {
         // Hmmm, seems that we have missed at least 1 update, so log it to the admin.
         Bnt\AdminLog::writeLog ($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time () ."|". (time () - ($bntreg->sched_ticks * 60)) ."|{$schedDiff}|". serialize ($lastrunList));

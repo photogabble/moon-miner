@@ -71,7 +71,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
     Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
 
     $mine_owner = $result2->fields;
-    if ($mine_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0 )
+    if ($mine_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
     {
         // You hit mines
         echo "<h1>" . $title . "</h1>\n";
@@ -106,7 +106,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         }
         else
         {
-            if ($playerinfo['dev_minedeflector'] > 0 )
+            if ($playerinfo['dev_minedeflector'] > 0)
             {
                 echo $langvars['l_chm_youlostallminedeflectors'] . "<br>";
             }

@@ -127,7 +127,7 @@ if ($planetinfo['sells'] == 'Y')
     {
         echo $langvars['l_notenough_power'] . " <a href=planet.php?planet_id=$planet_id>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "<br><br>";
     }
-    elseif ($playerinfo['turns'] < 1 )
+    elseif ($playerinfo['turns'] < 1)
     {
         echo $langvars['l_notenough_turns'] . "<br><br>";
     }

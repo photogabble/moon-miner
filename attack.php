@@ -186,7 +186,7 @@ else
         else
         {
             // Bounty-free Xenobe attacking allowed.
-            if (($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/", $targetinfo['email']) === 0 ))
+            if (($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/", $targetinfo['email']) === 0))
             {
                 // Changed xenobe check to a regexp cause a player could put
                 // @xen or whatever in his email address
@@ -285,14 +285,14 @@ else
             echo $langvars['l_att_att'] . " " . $targetinfo['character_name'] . " " . $langvars['l_aboard'] . " " . $targetinfo['ship_name'] . ":<br><br>";
 
             $bcs_info = null;
-            $bcs_info[] = array ("Beams(lvl)", "{$playerbeams}({$playerinfo['beams']})", "{$targetbeams}({$targetinfo['beams']})" );
-            $bcs_info[] = array ("Shields(lvl)", "{$playershields}({$playerinfo['shields']})", "{$targetshields}({$targetinfo['shields']})" );
-            $bcs_info[] = array ("Energy(Start)", "{$playerinfo['ship_energy']}({$playerenergy})", "{$targetinfo['ship_energy']}({$targetenergy})" );
-            $bcs_info[] = array ("Torps(lvl)", "{$playertorpnum}({$playerinfo['torp_launchers']})", "{$targettorpnum}({$targetinfo['torp_launchers']})" );
-            $bcs_info[] = array ("TorpDmg", "{$playertorpdmg}", "{$targettorpdmg}" );
-            $bcs_info[] = array ("Fighters", "{$playerfighters}", "{$targetfighters}" );
-            $bcs_info[] = array ("Armor(lvl)", "{$playerarmor}({$playerinfo['armor']})", "{$targetarmor}({$targetinfo['beams']})" );
-            $bcs_info[] = array ("Escape Pod", "{$playerinfo['dev_escapepod']}", "{$targetinfo['dev_escapepod']}" );
+            $bcs_info[] = array ("Beams(lvl)", "{$playerbeams}({$playerinfo['beams']})", "{$targetbeams}({$targetinfo['beams']})");
+            $bcs_info[] = array ("Shields(lvl)", "{$playershields}({$playerinfo['shields']})", "{$targetshields}({$targetinfo['shields']})");
+            $bcs_info[] = array ("Energy(Start)", "{$playerinfo['ship_energy']}({$playerenergy})", "{$targetinfo['ship_energy']}({$targetenergy})");
+            $bcs_info[] = array ("Torps(lvl)", "{$playertorpnum}({$playerinfo['torp_launchers']})", "{$targettorpnum}({$targetinfo['torp_launchers']})");
+            $bcs_info[] = array ("TorpDmg", "{$playertorpdmg}", "{$targettorpdmg}");
+            $bcs_info[] = array ("Fighters", "{$playerfighters}", "{$targetfighters}");
+            $bcs_info[] = array ("Armor(lvl)", "{$playerarmor}({$playerinfo['armor']})", "{$targetarmor}({$targetinfo['beams']})");
+            $bcs_info[] = array ("Escape Pod", "{$playerinfo['dev_escapepod']}", "{$targetinfo['dev_escapepod']}");
 
             echo "<div style='width:800px; margin:auto; text-align:center; color:#fff;'>\n";
 
@@ -642,7 +642,7 @@ else
                     // Double Death Attack Bug Fix - Returns 0 for real
                     // players, 1 for Xenobe players
                     // He is a Xenobe
-                    if ( preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0 )
+                    if (preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0)
                     {
                         $resx = $db->Execute("UPDATE {$db->prefix}xenobe SET active= N WHERE xenobe_id = ?;", array ($targetinfo['email']));
                         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
@@ -662,9 +662,9 @@ else
                         $salv_credits = $targetinfo['credits'];
                     }
 
-                    $free_ore = round($targetinfo['ship_ore'] / 2 );
-                    $free_organics = round($targetinfo['ship_organics'] / 2 );
-                    $free_goods = round($targetinfo['ship_goods'] / 2 );
+                    $free_ore = round($targetinfo['ship_ore'] / 2);
+                    $free_organics = round($targetinfo['ship_organics'] / 2);
+                    $free_goods = round($targetinfo['ship_goods'] / 2);
                     $free_holds = Bnt\CalcLevels::holds($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
                     if ($free_holds > $free_goods)
                     {

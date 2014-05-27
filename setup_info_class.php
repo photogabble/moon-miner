@@ -235,7 +235,7 @@ class SETUPINFO_CLASS
 
 #echo "<pre>[dump]\n". print_r($db, true) ."</pre>\n";
 
-            if ( ($db instanceof ADOConnection) && $db->IsConnected() )
+            if ( ($db instanceof ADOConnection) && $db->IsConnected())
             {
                 $server_version = $db->ServerInfo();
                 $this->database_server_version = "{$server_version['version']}";
@@ -394,11 +394,12 @@ class SETUPINFO_CLASS
         global $db_name;
         global $db_prefix;
         global $gamepath, $gamedomain, $ADOdbpath;
+        global $bntreg;
 
         $current_info['status'][]="// This is what you already have set in db_config.php.";
         $current_info['status'][]="// This will also tell you if what you have set in config_local.php is the same as what Setup Info has Auto Detected.";
 
-        $current_info[] = array("caption" => 'Release Version', "value" => (strlen($release_version)>0) ? $release_version : "NOT SET or NOT Available in this Version");
+        $current_info[] = array("caption" => 'Release Version', "value" => (strlen($bntreg->release_version)>0) ? $bntreg->release_version : "NOT SET or NOT Available in this Version");
         $current_info[] = array("caption" => 'Game Name', "value" => (strlen($bntreg->game_name)>0) ? $bntreg->game_name : "NOT SET or NOT Available in this Version");
 
         $current_info[] = array("caption" => 'Database Type', "value" => $db_type);
@@ -406,33 +407,33 @@ class SETUPINFO_CLASS
         $current_info[] = array("caption" => 'Database Server Address', "value" => ($db_port=="") ? "$db_host:3306":"$db_host");
         $current_info[] = array("caption" => 'Database Name', "value" => $db_name);
         $current_info[] = array("caption" => 'Table Prefix', "value" => $db_prefix);
-        $current_info[] = array("caption" => 'Admin Name', "value" => (strlen($bntreg->adminname)>0) ? $bntreg->adminname : "NOT SET or NOT Available in this Version");
-        $current_info[] = array("caption" => 'Admin Email', "value" => str_replace("@"," AT ",$admin_mail));
+        $current_info[] = array("caption" => 'Admin Name', "value" => (strlen($bntreg->admin_name)>0) ? $bntreg->admin_name : "NOT SET or NOT Available in this Version");
+        $current_info[] = array("caption" => 'Admin Email', "value" => str_replace("@"," AT ", $bntreg->admin_mail));
 
         $current_info[] = "%SEPERATOR%";
 
         $game_path = $this->get_gamepath(true);
         if ($game_path['status'] != false)
         {
-            $current_info[] = array("caption" => '$gamepath', "value" => $gamepath, "status" => (trim($gamepath) == trim($game_path['result']) ? "Correct" : "Incorrect") );
+            $current_info[] = array("caption" => '$gamepath', "value" => $gamepath, "status" => (trim($gamepath) == trim($game_path['result']) ? "Correct" : "Incorrect"));
         }
         else
         {
-            $current_info[] = array("caption" => '$gamepath', "value" => $game_path['info'], "status" => "Unknown" );
+            $current_info[] = array("caption" => '$gamepath', "value" => $game_path['info'], "status" => "Unknown");
         }
 
         $game_domain = $this->get_gamedomain(true);
         if ($game_domain['status'] != false)
         {
-            $current_info[] = array("caption" => '$gamedomain', "value" => $gamedomain, "status" => (trim($gamedomain) == trim($game_domain['result']) ? "Correct" : "Incorrect") );
+            $current_info[] = array("caption" => '$gamedomain', "value" => $gamedomain, "status" => (trim($gamedomain) == trim($game_domain['result']) ? "Correct" : "Incorrect"));
         }
         else
         {
-            $current_info[] = array("caption" => '$gamedomain', "value" => $game_domain['info'], "status" => "Unknown" );
+            $current_info[] = array("caption" => '$gamedomain', "value" => $game_domain['info'], "status" => "Unknown");
         }
         $current_info[] = "%SEPERATOR%";
 
-        $current_info[] = array("caption" => '$ADOdbpath', "value" => $ADOdbpath,"status" => ($this->validate_ADOdb_path()) ? "Correct":"Incorrect" );
+        $current_info[] = array("caption" => '$ADOdbpath', "value" => $ADOdbpath,"status" => ($this->validate_ADOdb_path()) ? "Correct":"Incorrect");
 
         return $current_info;
     }
@@ -717,7 +718,7 @@ class SETUPINFO_CLASS
                     $_SESSION['count'] = 0;
                     SetCookie ("TestCookie", "",0);
                     SetCookie ("TestCookie", "Shuzbutt",time()+3600,$gamepath, $gamedomain);
-                    $header_location = ( @preg_match('/Microsoft|WebSTAR|Xitami/', $_SERVER["SERVER_SOFTWARE"]) ) ? 'Refresh: 0; URL=' : 'Location: ';
+                    $header_location = ( @preg_match('/Microsoft|WebSTAR|Xitami/', $_SERVER["SERVER_SOFTWARE"])) ? 'Refresh: 0; URL=' : 'Location: ';
                     header($header_location . $this->append_sid($_SERVER["PHP_SELF"], false));
                     exit;
                 }
@@ -757,7 +758,7 @@ class SETUPINFO_CLASS
 
         if ( !empty($SID) && !strpos($url, 'sid='))
         {
-            $url .= ( ( strpos($url, '?') != false ) ?  ( ( $non_html_amp ) ? '&' : '&amp;' ) : '?' ) . $SID;
+            $url .= ( ( strpos($url, '?') != false) ?  ( ( $non_html_amp) ? '&' : '&amp;') : '?') . $SID;
         }
 
         return($url);

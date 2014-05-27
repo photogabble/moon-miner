@@ -56,7 +56,7 @@ $playerinfo = $result->fields;
 $planetinfo = null;
 
 // Check if planet_id is valid.
-if ($planet_id <= 0 )
+if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
     Bnt\Text::gotoMain ($db, $lang, $langvars);
@@ -80,7 +80,7 @@ if (!$result3 instanceof ADORecordSet || (is_bool ($planetinfo) && $planetinfo =
   die ();
 }
 
-if (!is_bool ($planetinfo) && $planetinfo != false )
+if (!is_bool ($planetinfo) && $planetinfo != false)
 // If there is a planet in the sector show appropriate menu
 {
     if ($playerinfo['sector'] != $planetinfo['sector_id'])
@@ -125,7 +125,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         $_SESSION['planet_selected'] = $planet_id;
 
         // If there is no planet command already
-        if (empty ($planetinfo['name']) )
+        if (empty ($planetinfo['name']))
         {
             $langvars['l_planet_unnamed'] = str_replace ("[name]", $ownerinfo['character_name'], $langvars['l_planet_unnamed']);
             echo $langvars['l_planet_unnamed'] . "<br><br>";
@@ -350,7 +350,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         elseif ($command == "cname")
         {
             // Name2 menu
-            $new_name = trim (htmlentities ($_POST['new_name']) );
+            $new_name = trim (htmlentities ($_POST['new_name']));
             $result5 = $db->Execute ("UPDATE {$db->prefix}planets SET name = ? WHERE planet_id = ?;", array ($new_name, $planet_id));
             Bnt\Db::logDbErrors ($db, $result5, __LINE__, __FILE__);
             echo $langvars['l_planet_cname'] . " " . $new_name . ".";
@@ -394,7 +394,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         }
         elseif ($command == "base")
         {
-            if (array_key_exists ('planet_selected', $_SESSION) == false )
+            if (array_key_exists ('planet_selected', $_SESSION) == false)
             {
                 $_SESSION['planet_selected'] = '';
             }

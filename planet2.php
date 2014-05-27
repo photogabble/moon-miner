@@ -150,7 +150,7 @@ $planetinfo         = null;
 $playerinfo         = null;
 
 // Check if planet_id is valid.
-if ($planet_id <= 0 )
+if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
     Bnt\Text::gotoMain ($db, $lang, $langvars);

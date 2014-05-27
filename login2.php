@@ -148,7 +148,7 @@ if ($playerfound)
         else
         {
             echo "<div style='font-size:18px; color:#FF0000;'>\n";
-            if ( array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] == ID_LOCKED )
+            if ( array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] == ID_LOCKED)
             {
                 echo "Your account has been Locked";
             }
@@ -157,7 +157,7 @@ if ($playerfound)
                 echo "Your account has been Banned";
             }
 
-            if ( array_key_exists ('public_info', $ban_result) && strlen(trim ($ban_result['public_info'])) >0 )
+            if ( array_key_exists ('public_info', $ban_result) && strlen(trim ($ban_result['public_info'])) >0)
             {
                 echo " for the following:<br>\n";
                 echo "<br>\n";

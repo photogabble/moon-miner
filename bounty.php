@@ -132,7 +132,7 @@ switch ($response) {
         if ($playerinfo['turns'] < 1)
         {
             echo $langvars['l_by_noturn'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
@@ -142,7 +142,7 @@ switch ($response) {
         if (!$res || $res->RowCount() ==0)
         {
             echo $langvars['l_by_nobounty'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
@@ -151,7 +151,7 @@ switch ($response) {
         if ($bty['placed_by'] != $playerinfo['ship_id'])
         {
             echo $langvars['l_by_notyours'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
@@ -163,7 +163,7 @@ switch ($response) {
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns-1, turns_used = turns_used + 1, credits = credits + ? WHERE ship_id = ?;", array ($stamp, $refund, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
         echo $langvars['l_by_canceled'] . "<br>";
-        Bnt\Text::gotoMain ($db, $lang, $langvars);
+        Bnt\Text::gotoMain($db, $lang, $langvars);
         die ();
         break;
     case "place":
@@ -173,7 +173,7 @@ switch ($response) {
         if (!$ex)
         {
             echo $langvars['l_by_notexists'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
@@ -182,15 +182,15 @@ switch ($response) {
         if ($bty['ship_destroyed'] == "Y")
         {
             echo $langvars['l_by_destroyed'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
 
-        if ($playerinfo['turns'] < 1 )
+        if ($playerinfo['turns'] < 1)
         {
             echo $langvars['l_by_noturn'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
@@ -198,7 +198,7 @@ switch ($response) {
         if ($amount <= 0)
         {
             echo $langvars['l_by_zeroamount'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
@@ -206,7 +206,7 @@ switch ($response) {
         if ($bounty_on == $playerinfo['ship_id'])
         {
             echo $langvars['l_by_yourself'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
@@ -214,7 +214,7 @@ switch ($response) {
         if ($amount > $playerinfo['credits'])
         {
             echo $langvars['l_by_notenough'] . "<br><br>";
-            Bnt\Text::gotoMain ($db, $lang, $langvars);
+            Bnt\Text::gotoMain($db, $lang, $langvars);
             Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
             die ();
         }
@@ -238,7 +238,7 @@ switch ($response) {
             {
                 $langvars['l_by_toomuch'] = str_replace ("[percent]", $percent, $langvars['l_by_toomuch']);
                 echo $langvars['l_by_toomuch'] . "<br><br>";
-                Bnt\Text::gotoMain ($db, $lang, $langvars);
+                Bnt\Text::gotoMain($db, $lang, $langvars);
                 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
                 die ();
             }
@@ -250,7 +250,7 @@ switch ($response) {
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, credits = credits - ? WHERE ship_id = ?;", array ($stamp, $amount, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
         echo $langvars['l_by_placed'] . "<br>";
-        Bnt\Text::gotoMain ($db, $lang, $langvars);
+        Bnt\Text::gotoMain($db, $lang, $langvars);
         die ();
         break;
     default:
@@ -337,6 +337,6 @@ switch ($response) {
         break;
 }
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

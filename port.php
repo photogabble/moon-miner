@@ -35,28 +35,28 @@ $playerinfo = $res->fields;
 
 // Fix negative quantities. How do the quantities acutally get negative?
 
-if ($playerinfo['ship_ore'] < 0 )
+if ($playerinfo['ship_ore'] < 0)
 {
     $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore = 0 WHERE email = ?;", array ($_SESSION['username']));
     Bnt\Db::logDbErrors($db, $fixres, __LINE__, __FILE__);
     $playerinfo['ship_ore'] = 0;
 }
 
-if ($playerinfo['ship_organics'] < 0 )
+if ($playerinfo['ship_organics'] < 0)
 {
     $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_organics = 0 WHERE email = ?;", array ($_SESSION['username']));
     Bnt\Db::logDbErrors($db, $fixres, __LINE__, __FILE__);
     $playerinfo['ship_organics'] = 0;
 }
 
-if ($playerinfo['ship_energy'] < 0 )
+if ($playerinfo['ship_energy'] < 0)
 {
     $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy = 0 WHERE email = ?;", array ($_SESSION['username']));
     Bnt\Db::logDbErrors($db, $fixres, __LINE__, __FILE__);
     $playerinfo['ship_energy'] = 0;
 }
 
-if ($playerinfo['ship_goods'] < 0 )
+if ($playerinfo['ship_goods'] < 0)
 {
     $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_goods = 0 WHERE email = ?;", array ($_SESSION['username']));
     Bnt\Db::logDbErrors($db, $fixres, __LINE__, __FILE__);
@@ -67,28 +67,28 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", 
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
-if ($sectorinfo['port_ore'] < 0 )
+if ($sectorinfo['port_ore'] < 0)
 {
     $fixres = $db->Execute("UPDATE {$db->prefix}universe SET port_ore = 0 WHERE sector_id = ?;", array ($playerinfo['sector']));
     Bnt\Db::logDbErrors($db, $fixres, __LINE__, __FILE__);
     $sectorinfo['port_ore'] = 0;
 }
 
-if ($sectorinfo['port_goods'] < 0 )
+if ($sectorinfo['port_goods'] < 0)
 {
     $fixres = $db->Execute("UPDATE {$db->prefix}universe SET port_goods = 0 WHERE sector_id = ?;", array ($playerinfo['sector']));
     Bnt\Db::logDbErrors($db, $fixres, __LINE__, __FILE__);
     $sectorinfo['port_goods'] = 0;
 }
 
-if ($sectorinfo['port_organics'] < 0 )
+if ($sectorinfo['port_organics'] < 0)
 {
     $fixres = $db->Execute("UPDATE {$db->prefix}universe SET port_organics = 0 WHERE sector_id = ?;", array ($playerinfo['sector']));
     Bnt\Db::logDbErrors($db, $fixres, __LINE__, __FILE__);
     $sectorinfo['port_organics'] = 0;
 }
 
-if ($sectorinfo['port_energy'] < 0 )
+if ($sectorinfo['port_energy'] < 0)
 {
     $fixres = $db->Execute("UPDATE {$db->prefix}universe SET port_energy = 0 WHERE sector_id = ?;", array ($playerinfo['sector']));
     Bnt\Db::logDbErrors($db, $fixres, __LINE__, __FILE__);
@@ -441,7 +441,7 @@ elseif ($sectorinfo['port_type'] == "special")
     $armor_free = $armor_max - $playerinfo['armor_pts'];
     $colonist_max = Bnt\CalcLevels::holds ($playerinfo['hull'], $bntreg->level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'];
 
-    if ($colonist_max < 0 )
+    if ($colonist_max < 0)
     {
         $colonist_max = 0;
     }
@@ -535,7 +535,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "  form.armor_number.value=0\n";
     echo "  }\n";
 
-    echo "if (($colonist_free < form.colonist_number.value) && (form.colonist_number.value != 'Full' ))\n";
+    echo "if (($colonist_free < form.colonist_number.value) && (form.colonist_number.value != 'Full'))\n";
     echo "  {\n";
     echo "  form.colonist_number.value=0\n";
     echo "  }\n";

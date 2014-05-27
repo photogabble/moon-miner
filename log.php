@@ -121,7 +121,7 @@ if ($res instanceof ADORecordSet)
     }
 }
 
-$langvars['l_log_months_temp'] = "l_log_months_" . (int) (substr ($startdate, 5, 2) );
+$langvars['l_log_months_temp'] = "l_log_months_" . (int) (substr ($startdate, 5, 2));
 $entry = $langvars[$langvars['l_log_months_temp']] . " " . substr ($startdate, 8, 2) . " " . substr ($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
@@ -133,12 +133,12 @@ echo "<div id=\"divScroller1\">" .
      "<hr width=80% size=1 NOSHADE style=\"color: #040658\">" .
      "</center>\n";
 
-if (!empty ($logs) )
+if (!empty ($logs))
 {
     foreach ($logs as $log)
     {
         $event = BadLog::logParse ($langvars, $log);
-        $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
+        $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2));
         $time = $langvars[$log_months_temp] . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
         echo "<table border=0 cellspacing=5 width=100%>\n" .
@@ -207,12 +207,12 @@ if ($mode != 'compat')
          "</center>" .
          "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
 
-    if (!empty ($logs) )
+    if (!empty ($logs))
     {
         foreach ($logs as $log)
         {
             $event = BadLog::logParse ($log);
-            $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
+            $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2));
             $time = $$log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
             echo "<table border=0 cellspacing=5 width=100%>\n" .
@@ -257,7 +257,7 @@ if ($mode != 'compat')
         foreach ($logs as $log)
         {
             $event = BadLog::logParse ($log);
-            $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
+            $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2));
             $time = $$log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
             echo "<table border=0 cellspacing=5 width=100%>\n" .
@@ -285,7 +285,7 @@ if ($mode != 'compat')
 
 echo "</div>";
 
-$log_months_short_temp = "l_log_months_short_" . date ("n", $yd1);// (int) (substr ($startdate, 5, 2) );
+$log_months_short_temp = "l_log_months_short_" . date ("n", $yd1);// (int) (substr ($startdate, 5, 2));
 $date1 = $langvars[$log_months_short_temp] . " " . date ("d", $yd1);//substr ($yesterday1, 8, 2);
 
 $log_months_short_temp = "l_log_months_short_" . date ("n", $start_time);//(int) (substr ($startdate, 5, 2));
