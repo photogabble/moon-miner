@@ -553,11 +553,11 @@ class SETUPINFO_CLASS
             {
                 $software_info[]['php_interface'] = "CGI PHP";
             }
-            else if (preg_match ("/apache/", $sapi_type))
+            elseif (preg_match ("/apache/", $sapi_type))
             {
                 $software_info[]['php_interface'] = "mod_PHP";
             }
-            else if (preg_match ("/isapi/", $sapi_type))
+            elseif (preg_match ("/isapi/", $sapi_type))
             {
                 $software_info[]['php_interface'] = "ISAPI";
             }

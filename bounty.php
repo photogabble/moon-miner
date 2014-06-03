@@ -318,7 +318,7 @@ switch ($response) {
                 Bnt\Db::logDbErrors($db, $someres, __LINE__, __FILE__);
                 $details = $someres->fields;
                 echo "<tr bgcolor=\"$color\">";
-                echo "<td><a href=bounty.php?bounty_on=" . $bounties[$i]['bounty_on'] . "&response=display>". $details['character_name'] ."</A></td>";
+                echo "<td><a href=bounty.php?bounty_on=" . $bounties[$i]['bounty_on'] . "&response=display>". $details['character_name'] ."</a></td>";
                 echo "<td>" . $bounties[$i]['total_bounty'] . "</td>";
                 echo "</tr>";
 

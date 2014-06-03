@@ -141,8 +141,8 @@ if (!is_bool($planetinfo) && $planetinfo != false)
         {
             if ($destroy == 1 && $bntreg->allow_genesis_destroy)
             {
-                echo "<font color=red>" . $langvars['l_planet_confirm'] . "</font><br><a href=planet.php?planet_id=$planet_id&destroy=2>yes</A><br>";
-                echo "<a href=planet.php?planet_id=$planet_id>no!</A><br><br>";
+                echo "<font color=red>" . $langvars['l_planet_confirm'] . "</font><br><a href=planet.php?planet_id=$planet_id&destroy=2>yes</a><br>";
+                echo "<a href=planet.php?planet_id=$planet_id>no!</a><br><br>";
             }
             elseif ($destroy == 2 && $bntreg->allow_genesis_destroy)
             {

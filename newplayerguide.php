@@ -52,7 +52,7 @@ echo "<body class='" . $body_class . "'";
   <tr>
     <td>
       <P>Welcome to the New Players Guide. You can always go back to the <A
-      href="faq.php">FAQ</A> if you came here by accident. Good luck in the game.
+      href="faq.php">FAQ</a> if you came here by accident. Good luck in the game.
 </P></td></tr></tbody></table><br>
 <table>
   <tbody>
@@ -66,7 +66,7 @@ echo "<body class='" . $body_class . "'";
       so you can trade more in each turn (hence more money per turn), better weaponry, engines
       and sensors. You can also colonise planets, which will produce goods and money for you.
       <P>After the first fews days of trading, you need to decide on a strategy. Some general strategies are
-      listed on the <A href="faq.php">FAQ</A> page. Its reccommended that you use the Trader up until about hull level 17 or so and then
+      listed on the <A href="faq.php">FAQ</a> page. Its reccommended that you use the Trader up until about hull level 17 or so and then
       switching over to the Builder. </P>
 
       <P> Tradewars is a turn based game. Each action you take generally takes 1 turns. You start with an initial number of turns
@@ -119,7 +119,7 @@ echo "<body class='" . $body_class . "'";
         device to try and sneak in to the sector. Sector fighters require energy from a friendly planet in the same sector, otherwise they begin to degrade. The default amount of energy required is 1 unit of energy per 10 ships. Energy can be taken from any of your planets or from a corporate planet from your team in that sector.
         <LI> Planets can created using a genesis torpedoe. Planets can produce commodoties and credits to fund your ship. The more colonists you have, the more they produce. You can use traderoutes to populate your planets from special ports.
         <LI>Now go to the regular <A
-        href="faq.php">FAQ</A> and pick
+        href="faq.php">FAQ</a> and pick
         a strategy to follow. Or make up your own. </LI></OL>
       <P> Here's a list of things for new players NOT to do:
       <OL>

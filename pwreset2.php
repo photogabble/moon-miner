@@ -24,12 +24,12 @@ $body_class = 'options';
 Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset', 'option2'));
+$langvars = Bnt\Translate::load($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset', 'option2'));
 echo "<h1>" . $title . "</h1>\n";
 
-$reset_code  = filter_input (INPUT_POST, 'code', FILTER_SANITIZE_STRING);
-$newpass1  = filter_input (INPUT_POST, 'newpass1', FILTER_SANITIZE_STRING);
-$newpass2  = filter_input (INPUT_POST, 'newpass2', FILTER_SANITIZE_STRING);
+$reset_code  = filter_input(INPUT_POST, 'code', FILTER_SANITIZE_STRING);
+$newpass1  = filter_input(INPUT_POST, 'newpass1', FILTER_SANITIZE_STRING);
+$newpass2  = filter_input(INPUT_POST, 'newpass2', FILTER_SANITIZE_STRING);
 
 // It is important to note that SQL (both MySQL and PostgreSQL) index differently (one longer)
 // than php does, which is why the substr (6/8 instead of 5/8) has a start index one "larger" here than in the php calls
@@ -38,8 +38,8 @@ $newpass2  = filter_input (INPUT_POST, 'newpass2', FILTER_SANITIZE_STRING);
 // We chose 8 characters of uniqueness because its reasonable if you have to type it in, and
 // because 8 characters is 4,294,967,296 combinations, and that should be sufficiently secure
 
-$result = $db->SelectLimit ("SELECT ship_id, email, recovery_time FROM {$db->prefix}ships WHERE substr(MD5(password),6,8) = ?", 1, -1, array ('password' => $reset_code));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->SelectLimit("SELECT ship_id, email, recovery_time FROM {$db->prefix}ships WHERE substr(MD5(password),6,8) = ?", 1, -1, array ('password' => $reset_code));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF && $result != false)
 {
@@ -57,7 +57,7 @@ if (!$result->EOF && $result != false)
         // Do it all here
 
         // Check to see if newpass1 and newpass2 is empty.
-        if (empty ($newpass1) && empty ($newpass2))
+        if (empty($newpass1) && empty($newpass2))
         {
             // Yes both newpass1 and newpass2 are empty.
             echo $langvars['l_opt2_passunchanged'] . "<br><br>";
@@ -78,17 +78,17 @@ if (!$result->EOF && $result != false)
         else
         {
             // Hash the password.  $hashedPassword will be a 60-character string.
-            $hashed_pass = password_hash ($newpass1, PASSWORD_DEFAULT);
+            $hashed_pass = password_hash($newpass1, PASSWORD_DEFAULT);
 
             // They have changed their password successfully, so update their session ID as well
             session_regenerate_id();
 
             // Now update the players password.
-            $rs = $db->Execute ("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
-            Bnt\Db::logDbErrors ($db, $rs, __LINE__, __FILE__);
+            $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
+            Bnt\Db::logDbErrors($db, $rs, __LINE__, __FILE__);
 
             // Now check to see if we have a valid update and have ONLY 1 changed record.
-            if ((is_bool ($rs) && $rs == false) || $db->Affected_Rows() != 1)
+            if ((is_bool($rs) && $rs == false) || $db->Affected_Rows() != 1)
             {
                 // Either we got an error in the SQL Query or <> 1 records was changed.
                 echo $langvars['l_opt2_passchangeerr'] . "<br><br>";
@@ -102,26 +102,26 @@ if (!$result->EOF && $result != false)
             }
 
             // Send email to user & admin notifying of password change
-            $langvars['l_mail_message'] = str_replace ("[ip]", $_SERVER['REMOTE_ADDR'], $langvars['l_mail_message']);
-            $langvars['l_mail_message'] = str_replace ("[game_name]", $bntreg->game_name, $langvars['l_mail_message']);
+            $langvars['l_mail_message'] = str_replace("[ip]", $_SERVER['REMOTE_ADDR'], $langvars['l_mail_message']);
+            $langvars['l_mail_message'] = str_replace("[game_name]", $bntreg->game_name, $langvars['l_mail_message']);
 
             // Some reason \r\n is broken, so replace them now.
-            $langvars['l_mail_message'] = str_replace ('\r\n', "\r\n", $langvars['l_mail_message']);
+            $langvars['l_mail_message'] = str_replace('\r\n', "\r\n", $langvars['l_mail_message']);
 
             // Need to set the topic with the game name.
-            $langvars['l_mail_topic'] = str_replace ("[game_name]", $bntreg->game_name, $langvars['l_mail_topic']);
+            $langvars['l_mail_topic'] = str_replace("[game_name]", $bntreg->game_name, $langvars['l_mail_topic']);
 
-            mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'], "From: {$bntreg->admin_mail}\r\nReply-To: {$bntreg->admin_mail}\r\nX-Mailer: PHP/" . phpversion());
+            mail($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'], "From: {$bntreg->admin_mail}\r\nReply-To: {$bntreg->admin_mail}\r\nX-Mailer: PHP/" . phpversion());
 
             // Reset recovery_time to zero
-            $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=null WHERE email = ?;", array ($playerinfo['email']));
-            Bnt\Db::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__);
+            $recovery_update_result = $db->Execute("UPDATE {$db->prefix}ships SET recovery_time=null WHERE email = ?;", array ($playerinfo['email']));
+            Bnt\Db::logDbErrors($db, $recovery_update_result, __LINE__, __FILE__);
 
             echo $langvars['l_pwr_success'] . "<br><br>";
-            echo str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+            echo str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 
             // Redirect to game
-            header ('Refresh: 5;url=main.php');
+            header('Refresh: 5;url=main.php');
         }
     }
 }

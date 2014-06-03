@@ -19,17 +19,17 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = Bnt\Translate::load($db, $lang, array ('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 $title = $langvars['l_readm_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if (!isset ($_GET['action']))
@@ -39,20 +39,20 @@ if (!isset ($_GET['action']))
 
 if ($_GET['action'] == "delete")
 {
-    $resx = $db->Execute ("DELETE FROM {$db->prefix}messages WHERE ID=? AND recp_id = ?;", array ($ID, $playerinfo['ship_id']));
-    Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE ID=? AND recp_id = ?;", array ($ID, $playerinfo['ship_id']));
+    Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 }
-else if ($_GET['action'] == "delete_all")
+elseif ($_GET['action'] == "delete_all")
 {
-    $resx = $db->Execute ("DELETE FROM {$db->prefix}messages WHERE recp_id = ?;", array ($playerinfo['ship_id']));
-    Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE recp_id = ?;", array ($playerinfo['ship_id']));
+    Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 }
 
-$cur_D = date ("Y-m-d");
-$cur_T = date ("H:i:s");
+$cur_D = date("Y-m-d");
+$cur_T = date("H:i:s");
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? ORDER BY sent DESC;", array ($playerinfo['ship_id']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? ORDER BY sent DESC;", array ($playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 ?>
 <div align="center">
   <table border="0" cellspacing="0" width="70%" bgcolor="silver" cellpadding="0">
@@ -76,10 +76,10 @@ Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
             </tr>
 
 <?php
- if ($res->EOF)
- {
+if ($res->EOF)
+{
 //  echo $langvars['l_readm_nomessage'];
-?>
+    ?>
             <tr>
               <td width="100%" bgcolor="black" bordercolorlight="black" bordercolordark="silver">
                 <div align="center">
@@ -91,21 +91,19 @@ Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
                 </div>
               </td>
             </tr>
-<?php
- }
- else
- {
-  $line_counter = true;
-  while (!$res->EOF)
-  {
-   $msg = $res->fields;
-
-   $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($msg['sender_id']));
-   Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
-   $sender = $result->fields;
-
-//   $isAdmin = isAdmin($sender);
-?>
+    <?php
+}
+else
+{
+    $line_counter = true;
+    while (!$res->EOF)
+    {
+        $msg = $res->fields;
+        $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($msg['sender_id']));
+        Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
+        $sender = $result->fields;
+//      $isAdmin = isAdmin($sender);
+        ?>
             <tr>
               <td width="100%" align="center" bgcolor="black" height="4"></td>
             </tr>
@@ -116,14 +114,14 @@ Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
                     <tr>
                       <td width="20%" style="text-align:left;"><font color="white" size="2"><strong><?php echo $langvars['l_readm_sender']; ?></strong></td>
                       <td width="55%" style="text-align:left;"><font color="yellow" size="2">
-<?php
-echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
-//if ($isAdmin === true)
-//{
-//    echo "&nbsp;<img style='width:64px; height:16px; border:none; padding:0px; vertical-align:text-bottom;' src='<?php echo $template->getVariables('template_dir'); ?>/images/validated_administrator2.gif' alt='Validated as Admin' />";
-//}
-?>
-</font></td>
+        <?php
+        echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
+        //if ($isAdmin === true)
+        //{
+        //    echo "&nbsp;<img style='width:64px; height:16px; border:none; padding:0px; vertical-align:text-bottom;' src='<?php echo $template->getVariables('template_dir'); ?>/images/validated_administrator2.gif' alt='Validated as Admin' />";
+        //}
+        ?>
+        </font></td>
                       <td width="21%" align="center"><font color="white" size="2"><?php echo $msg['sent']; ?></font></td>
                       <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><img src="<?php echo $template->getVariables('template_dir'); ?>/images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
@@ -171,17 +169,17 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="gray" bordercolorlight="black" bordercolordark="silver" cellpadding="0">
                     <tr>
-                      <td width="100%" align="center" valign="middle"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><?php echo $langvars['l_readm_del']; ?></A> |
-        <a class="but" href="mailto.php?to=<?php echo $sender['character_name']; ?>&subject=<?php echo $msg['subject']; ?>"><?php echo $langvars['l_readm_repl']; ?></A>
+                      <td width="100%" align="center" valign="middle"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><?php echo $langvars['l_readm_del']; ?></a> |
+        <a class="but" href="mailto.php?to=<?php echo $sender['character_name']; ?>&subject=<?php echo $msg['subject']; ?>"><?php echo $langvars['l_readm_repl']; ?></a>
                       </td>
                     </tr>
                   </table>
                 </div>
               </td>
             </tr>
-<?php
-    $res->MoveNext();
-  }
+        <?php
+        $res->MoveNext();
+    }
 }
 ?>
             <tr>
@@ -208,9 +206,6 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 </div>
 <br>
 <?php
- //}
-
-Bnt\Text::gotoMain ($db, $lang, $langvars);
-
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

@@ -21,28 +21,28 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news', 'regional'));
 $title = $langvars['l_rs_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 // Get the players information.
-$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 echo "<h1>" . $title . "</h1>\n";
 
 // Returns null if it doesn't have it set, boolean false if its set but fails to validate and the actual value if it all passes.
-$destination  = filter_input (INPUT_GET, 'destination', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
+$destination  = filter_input(INPUT_GET, 'destination', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
 if ( is_null($destination))
 {
-    $destination  = filter_input (INPUT_POST, 'destination', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
+    $destination  = filter_input(INPUT_POST, 'destination', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => $bntreg->sector_max)));
 }
 
-$engage  = filter_input (INPUT_GET, 'engage', FILTER_VALIDATE_INT, array('options' => array('min_range' => 0, 'max_range' => 2)));
+$engage  = filter_input(INPUT_GET, 'engage', FILTER_VALIDATE_INT, array('options' => array('min_range' => 0, 'max_range' => 2)));
 
 if ($destination === false || $engage === false)
 {
@@ -50,8 +50,8 @@ if ($destination === false || $engage === false)
     // Invalid destination
 
     echo $langvars['l_rs_invalid'] . ".<br><br>";
-    $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-    Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+    Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 }
 else
 {
@@ -67,8 +67,8 @@ else
         // </form>
 
         echo "<form action='rsmove.php' method='post'>\n";
-        $langvars['l_rs_insector'] = str_replace ("[sector]", $playerinfo['sector'], $langvars['l_rs_insector']);
-        $langvars['l_rs_insector'] = str_replace ("[sector_max]", $bntreg->sector_max - 1, $langvars['l_rs_insector']);
+        $langvars['l_rs_insector'] = str_replace("[sector]", $playerinfo['sector'], $langvars['l_rs_insector']);
+        $langvars['l_rs_insector'] = str_replace("[sector_max]", $bntreg->sector_max - 1, $langvars['l_rs_insector']);
         echo $langvars['l_rs_insector'] . "<br><br>\n";
         echo $langvars['l_rs_whichsector'] . ":  <input type='text' name='destination' size='10' maxlength='10'><br><br>\n";
         echo "<input type='submit' value='" . $langvars['l_rs_submit'] . "'><br><br>\n";
@@ -78,26 +78,25 @@ else
     {
         // Ok, we have been given the destination value.
         // Get the players current sector information.
-        $result2 = $db->Execute ("SELECT angle1, angle2, distance FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-        Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
+        $result2 = $db->Execute("SELECT angle1, angle2, distance FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
+        Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
         $start = $result2->fields;
 
         // Get the destination sector information.
-        $result3 = $db->Execute ("SELECT angle1, angle2, distance FROM {$db->prefix}universe WHERE sector_id = ?;", array ($destination));
-        Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
+        $result3 = $db->Execute("SELECT angle1, angle2, distance FROM {$db->prefix}universe WHERE sector_id = ?;", array ($destination));
+        Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
         $finish = $result3->fields;
 
         // Calculate the distance.
-        $deg = pi () / 180;
-
+        $deg = pi() / 180;
         $sa1 = $start['angle1'] * $deg;
         $sa2 = $start['angle2'] * $deg;
         $fa1 = $finish['angle1'] * $deg;
         $fa2 = $finish['angle2'] * $deg;
 
-        $x = ($start['distance'] * sin ($sa1) * cos ($sa2)) - ($finish['distance'] * sin ($fa1) * cos ($fa2));
-        $y = ($start['distance'] * sin ($sa1) * sin ($sa2)) - ($finish['distance'] * sin ($fa1) * sin ($fa2));
-        $z = ($start['distance'] * cos ($sa1)) - ($finish['distance'] * cos ($fa1));
+        $x = ($start['distance'] * sin($sa1) * cos($sa2)) - ($finish['distance'] * sin($fa1) * cos($fa2));
+        $y = ($start['distance'] * sin($sa1) * sin($sa2)) - ($finish['distance'] * sin($fa1) * sin($fa2));
+        $z = ($start['distance'] * cos($sa1)) - ($finish['distance'] * cos($fa1));
 
         $distance = round(sqrt(pow($x, 2) + pow($y, 2)+pow($z, 2)));
 
@@ -112,13 +111,13 @@ else
             $triptime = 0;
             $energyscooped = 0;
         }
-        else if ($triptime == 0 && $destination != $playerinfo['sector'])
+        elseif ($triptime == 0 && $destination != $playerinfo['sector'])
         {
             $triptime = 1;
         }
 
         // Check to see if engage isn't set or if triptime is larger than 100 and engage is set to 1
-        if ( is_null ($engage) || ($triptime > 100 && $engage == 1))
+        if (is_null($engage) || ($triptime > 100 && $engage == 1))
         {
             // Calculate the amount of fuel that was scooped during transit
             $energyscooped = Bnt\Move::calcFuelScooped($playerinfo, $distance, $triptime, $bntreg);
@@ -127,8 +126,8 @@ else
             // With your engines, it will take X turns to complete the journey.
             // You would gather Y units of energy.
 
-            $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_movetime']);
-            $langvars['l_rs_energy'] = str_replace ("[energy]", number_format ($energyscooped, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_energy']);
+            $langvars['l_rs_movetime'] = str_replace("[triptime]", number_format($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_movetime']);
+            $langvars['l_rs_energy'] = str_replace("[energy]", number_format($energyscooped, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_energy']);
             echo $langvars['l_rs_movetime'] . "<br>" . $langvars['l_rs_energy'] . "<br><br>";
 
             if ($triptime > $playerinfo['turns'])
@@ -144,8 +143,8 @@ else
                 // You have X turns. <a href=rsmove.php?engage=2&destination=$destination>Engage</a> engines?
 
                 $langvars['l_rs_engage_link'] = "<a href=rsmove.php?engage=2&destination=$destination>" . $langvars['l_rs_engage_link'] . "</a>";
-                $langvars['l_rs_engage'] = str_replace ("[turns]", number_format ($playerinfo['turns'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_engage']);
-                $langvars['l_rs_engage'] = str_replace ("[engage]", $langvars['l_rs_engage_link'], $langvars['l_rs_engage']);
+                $langvars['l_rs_engage'] = str_replace("[turns]", number_format($playerinfo['turns'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_engage']);
+                $langvars['l_rs_engage'] = str_replace("[engage]", $langvars['l_rs_engage_link'], $langvars['l_rs_engage']);
                 echo $langvars['l_rs_engage'] . "<br><br>";
             }
 
@@ -161,11 +160,11 @@ else
                 // With your engines, it will take X turns to complete the journey.
                 // You do not have enough turns left, and cannot embark on this journey.
 
-                $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_movetime']);
+                $langvars['l_rs_movetime'] = str_replace("[triptime]", number_format($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_movetime']);
                 echo $langvars['l_rs_movetime'] . "<br><br>";
                 echo $langvars['l_rs_noturns'] . "<br><br>";
-                $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+                $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+                Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
             }
             else
             {
@@ -178,14 +177,14 @@ else
                     // Output:
                     // You are now in sector X. You used Y turns, and gained Z energy units.
 
-                    $langvars = Bnt\Translate::load ($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'));
-                    $stamp = date ("Y-m-d H:i:s");
-                    $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, sector = ?, ship_energy = ship_energy + ?, turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($stamp, $destination, $energyscooped, $triptime, $triptime, $playerinfo['ship_id']));
-                    Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
-                    Bnt\LogMove::writeLog ($db, $playerinfo['ship_id'], $destination);
-                    $langvars['l_rs_ready'] = str_replace ("[sector]", $destination, $langvars['l_rs_ready']);
-                    $langvars['l_rs_ready'] = str_replace ("[triptime]", number_format ($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_ready']);
-                    $langvars['l_rs_ready'] = str_replace ("[energy]", number_format ($energyscooped, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_ready']);
+                    $langvars = Bnt\Translate::load($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'));
+                    $stamp = date("Y-m-d H:i:s");
+                    $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, sector = ?, ship_energy = ship_energy + ?, turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($stamp, $destination, $energyscooped, $triptime, $triptime, $playerinfo['ship_id']));
+                    Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
+                    Bnt\LogMove::writeLog($db, $playerinfo['ship_id'], $destination);
+                    $langvars['l_rs_ready'] = str_replace("[sector]", $destination, $langvars['l_rs_ready']);
+                    $langvars['l_rs_ready'] = str_replace("[triptime]", number_format($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_ready']);
+                    $langvars['l_rs_ready'] = str_replace("[energy]", number_format($energyscooped, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_ready']);
                     echo $langvars['l_rs_ready'] . "<br><br>";
                     include_once './check_mines.php';
                 }
@@ -194,6 +193,6 @@ else
     }
 }
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>
