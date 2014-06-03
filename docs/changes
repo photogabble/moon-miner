@@ -1,3 +1,7 @@
+TheKabal (2 June 2014)
+--------------------------------------
+Continued cleanup based on PSR standards, correct space before functions formatting, indention, php statement on its own line, etc.
+
 TheKabal (25 May 2014)
 --------------------------------------
 Add namespaces to class files, move class files to correct names, correct space before functions formatting
