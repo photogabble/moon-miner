@@ -19,20 +19,20 @@
 
 $online = (integer) 0;
 
-if (Bnt\Db::isActive ($pdo_db))
+if (Bnt\Db::isActive($pdo_db))
 {
-    $stamp = date ("Y-m-d H:i:s", time ()); // Now (as seen by PHP)
-    $since_stamp = date ("Y-m-d H:i:s", time () - 5 * 60); // Five minutes ago
+    $stamp = date("Y-m-d H:i:s", time()); // Now (as seen by PHP)
+    $since_stamp = date("Y-m-d H:i:s", time() - 5 * 60); // Five minutes ago
     $sql = "SELECT COUNT(*) AS loggedin FROM {$pdo_db->prefix}ships WHERE {$pdo_db->prefix}ships.last_login BETWEEN timestamp '" . $since_stamp . "' AND timestamp '" . $stamp . "' AND email NOT LIKE '%@xenobe'";
     $stmt = $pdo_db->query($sql);
-    Bnt\Db::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors($pdo_db, $sql, __LINE__, __FILE__);
     $row = $stmt->fetchObject();
     $online = $row->loggedin;
 }
 
 if (isset ($bntreg))
 {
-    if (property_exists ($bntreg, 'bnttimer'))
+    if (property_exists($bntreg, 'bnttimer'))
     {
         $bnttimer = $bntreg->bnttimer;
         $bnttimer->stop();
@@ -45,17 +45,17 @@ else
 }
 
 // Suppress the news ticker on the IGB and index pages
-$news_ticker = (!(preg_match ("/index.php/i", $_SERVER['PHP_SELF']) || preg_match ("/igb.php/i", $_SERVER['PHP_SELF']) || preg_match ("/new.php/i", $_SERVER['PHP_SELF'])));
+$news_ticker = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF']) || preg_match("/new.php/i", $_SERVER['PHP_SELF'])));
 
 // Update counter
 $seconds_left = (integer) 0;
 $display_update_ticker = false;
-if (Bnt\Db::isActive ($pdo_db))
+if (Bnt\Db::isActive($pdo_db))
 {
     $sql = "SELECT last_run FROM {$pdo_db->prefix}scheduler LIMIT 1";
     $stmt = $pdo_db->query($sql);
     $row = $stmt->fetchObject();
-    Bnt\Db::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
+    Bnt\Db::logDbErrors($pdo_db, $sql, __LINE__, __FILE__);
 
     if (is_object($row))
     {
@@ -83,43 +83,43 @@ if ($news_ticker == true)
 {
     // Database driven language entries
 
-    $langvars_temp = Bnt\Translate::load ($pdo_db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
+    $langvars_temp = Bnt\Translate::load($pdo_db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
     // Use Array merge so that we do not clobber the langvars array, and only add to it the items needed for footer
-    $langvars = array_merge ($langvars, $langvars_temp);
+    $langvars = array_merge($langvars, $langvars_temp);
 
     // Use Array unique so that we don't end up with duplicate lang array entries
     // This is resulting in an array with blank values for specific keys, so array_unique isn't entirely what we want
 //    $langvars = array_unique ($langvars);
 
-    $startdate = date ("Y/m/d");
+    $startdate = date("Y/m/d");
 
     $news_ticker = array ();
 
-    if (Bnt\Db::isActive ($pdo_db))
+    if (Bnt\Db::isActive($pdo_db))
     {
         // Needs to be put into the language table.
-        array_push ($news_ticker, array ('url' => null, 'text' => "News Network Down", 'type' => "error", 'delay' => 5));
+        array_push($news_ticker, array ('url' => null, 'text' => "News Network Down", 'type' => "error", 'delay' => 5));
     }
     else
     {
-        $rs = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-        Bnt\Db::logDbErrors ($pdo_db, $rs, __LINE__, __FILE__);
+        $rs = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
+        Bnt\Db::logDbErrors($pdo_db, $rs, __LINE__, __FILE__);
         if ($rs instanceof ADORecordSet)
         {
             if ($rs->RecordCount() == 0)
             {
-                array_push ($news_ticker, array ('url' => null, 'text' => $langvars['l_news_none'], 'type' => null, 'delay' => 5));
+                array_push($news_ticker, array ('url' => null, 'text' => $langvars['l_news_none'], 'type' => null, 'delay' => 5));
             }
             else
             {
                 while (!$rs->EOF)
                 {
                     $row = $rs->fields;
-                    $headline = addslashes ($row['headline']);
-                    array_push ($news_ticker, array ('url' => "news.php", 'text' => $headline, 'type' => $row['news_type'], 'delay' => 5));
+                    $headline = addslashes($row['headline']);
+                    array_push($news_ticker, array ('url' => "news.php", 'text' => $headline, 'type' => $row['news_type'], 'delay' => 5));
                     $rs->MoveNext();
                 }
-                array_push ($news_ticker, array ('url'=>null, 'text' => "End of News", 'type' => null, 'delay' => 5));
+                array_push($news_ticker, array ('url'=>null, 'text' => "End of News", 'type' => null, 'delay' => 5));
             }
         }
     }
@@ -140,12 +140,12 @@ else
     $sf_logo_link = "?lang=" . $_GET['lang'];
 }
 
-$mem_peak_usage = floor (memory_get_peak_usage() / 1024);
+$mem_peak_usage = floor(memory_get_peak_usage() / 1024);
 
 $public_pages = array ( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');
-$slash_position = strrpos ($_SERVER['PHP_SELF'], '/') + 1;
-$current_page = substr ($_SERVER['PHP_SELF'], $slash_position);
-if (in_array ($current_page, $public_pages))
+$slash_position = strrpos($_SERVER['PHP_SELF'], '/') + 1;
+$current_page = substr($_SERVER['PHP_SELF'], $slash_position);
+if (in_array($current_page, $public_pages))
 {
     // If it is a non-login required page, such as ranking, new, faq, settings, news, and index use the public SF logo, which increases project stats.
     $variables['suppress_logo'] = false;
@@ -166,5 +166,5 @@ $variables['sf_logo_link'] = $sf_logo_link;
 $variables['elapsed'] = $elapsed;
 $variables['mem_peak_usage'] = $mem_peak_usage;
 $variables['footer_show_debug'] = $bntreg->footer_show_debug;
-$variables['cur_year'] = date ('Y');
+$variables['cur_year'] = date('Y');
 ?>

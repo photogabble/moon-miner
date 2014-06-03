@@ -36,7 +36,7 @@ $body_class = 'faq';
 Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('global_funcs'));
+$langvars = Bnt\Translate::load($db, $lang, array ('global_funcs'));
 echo "<body class='" . $body_class . "'";
 
 ?>
@@ -191,11 +191,11 @@ echo "<body class='" . $body_class . "'";
 <?php
 if (empty ($_SESSION['username']))
 {
-    echo str_replace ("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {
-    echo str_replace ("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);

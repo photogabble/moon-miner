@@ -19,13 +19,13 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_planet3_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 // Fixed The Phantom Planet Transfer Bug
 // Needs to be validated and type cast into their correct types.
@@ -57,55 +57,55 @@ echo "<h1>" . $title . "</h1>\n";
 if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
-Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
+Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
 $planetinfo = $result2->fields;
 
 // Check to see if it returned valid planet info.
 if ($planetinfo == false)
 {
     echo "Invalid Planet<br><br>";
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
-    die ();
+    Bnt\Text::gotoMain($db, $lang, $langvars);
+    die();
 }
 
 if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_trade_turnneed'] . '<br><br>';
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
-    die ();
+    die();
 }
 
 if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $langvars['l_planet2_sector'] . '<br><br>';
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
-    die ();
+    die();
 }
 
 if (empty ($planetinfo))
 {
     echo $langvars['l_planet_none'] . "<br>";
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
-    die ();
+    die();
 }
 
-$trade_ore = round (abs ($trade_ore));
-$trade_organics = round (abs ($trade_organics));
-$trade_goods = round (abs ($trade_goods));
-$trade_energy = round (abs ($trade_energy));
+$trade_ore = round(abs($trade_ore));
+$trade_organics = round(abs($trade_organics));
+$trade_goods = round(abs($trade_goods));
+$trade_energy = round(abs($trade_energy));
 $ore_price = ($ore_price + $ore_delta / 4);
 $organics_price = ($organics_price + $organics_delta / 4);
 $goods_price = ($goods_price + $goods_delta / 4);
@@ -115,8 +115,8 @@ if ($planetinfo['sells'] == 'Y')
 {
     $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
 
-    $free_holds = Bnt\CalcLevels::holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-    $free_power = Bnt\CalcLevels::energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_holds = Bnt\CalcLevels::holds($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+    $free_power = Bnt\CalcLevels::energy($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
     $total_cost = ($trade_ore * $ore_price) + ($trade_organics * $organics_price) + ($trade_goods * $goods_price) + ($trade_energy * $energy_price);
 
     if ($free_holds < $cargo_exchanged)
@@ -156,16 +156,16 @@ if ($planetinfo['sells'] == 'Y')
         echo $langvars['l_totalcost'] . ": $total_cost<br>" . $langvars['l_traded_ore'] . ": $trade_ore<br>" . $langvars['l_traded_organics'] . ": $trade_organics<br>" . $langvars['l_traded_goods'] . ": $trade_goods<br>" . $langvars['l_traded_energy'] . ": $trade_energy<br><br>";
 
         // Update ship cargo, credits and turns
-        $trade_result = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, credits = credits - ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ? WHERE ship_id = ?;", array ($total_cost, $trade_ore, $trade_organics, $trade_goods, $trade_energy, $playerinfo['ship_id']));
-        Bnt\Db::logDbErrors ($db, $trade_result, __LINE__, __FILE__);
+        $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, credits = credits - ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ? WHERE ship_id = ?;", array ($total_cost, $trade_ore, $trade_organics, $trade_goods, $trade_energy, $playerinfo['ship_id']));
+        Bnt\Db::logDbErrors($db, $trade_result, __LINE__, __FILE__);
 
-        $trade_result2 = $db->Execute ("UPDATE {$db->prefix}planets SET ore = ore - ?, organics = organics - ?, goods = goods - ?, energy = energy - ?, credits = credits + ? WHERE planet_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $total_cost, $planet_id));
-        Bnt\Db::logDbErrors ($db, $trade_result2, __LINE__, __FILE__);
+        $trade_result2 = $db->Execute("UPDATE {$db->prefix}planets SET ore = ore - ?, organics = organics - ?, goods = goods - ?, energy = energy - ?, credits = credits + ? WHERE planet_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $total_cost, $planet_id));
+        Bnt\Db::logDbErrors($db, $trade_result2, __LINE__, __FILE__);
         echo $langvars['l_trade_complete'] . "<br><br>";
     }
 }
 
-Bnt\Score::updateScore ($db, $playerinfo['ship_id'], $bntreg);
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Score::updateScore($db, $playerinfo['ship_id'], $bntreg);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

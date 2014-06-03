@@ -19,31 +19,31 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Set a flag that we have not changed the language
 $changed_language = false;
 
 // Get POST['newlang'] returns null if not found.
-if (array_key_exists ('newlang', $_POST) == true)
+if (array_key_exists('newlang', $_POST) == true)
 {
-    $lang_dir = new DirectoryIterator ('languages/');
+    $lang_dir = new DirectoryIterator('languages/');
     foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
     {
         // If it is a PHP file, add it to the list of accepted language files
-        if ($file_info->isFile () && $file_info->getExtension() == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
+        if ($file_info->isFile() && $file_info->getExtension() == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
         {
-            $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
+            $lang_file = substr($file_info->getFilename(), 0, -8); // The actual file name
 
             // Trim and compare the new langauge with the supported.
-            if (trim ($_POST['newlang']) == $lang_file)
+            if (trim($_POST['newlang']) == $lang_file)
             {
                 // We have a match so set lang to the required supported language, then break out of loop.
                 $lang = $lang_file;
 
                 // Update the ship record to the requested language
-                $res = $db->Execute ("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ?", array ($lang, $_SESSION['username']));
-                Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+                $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ?", array ($lang, $_SESSION['username']));
+                Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
                 // Set a flag that we changed the language
                 $changed_language = true;
@@ -57,17 +57,17 @@ $title = $langvars['l_opt2_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 // Filter POST['oldpass'], POST['newpass1'], POST['newpass2']. Returns "0" if these specific values are not set because that is what the form gives if they exist but were not set.
 // This filters to the FILTER_SANITIZE_STRING ruleset, because we need to allow spaces (URL doesn't)
-$oldpass  = filter_input (INPUT_POST, 'oldpass', FILTER_SANITIZE_STRING);
-$newpass1  = filter_input (INPUT_POST, 'newpass1', FILTER_SANITIZE_STRING);
-$newpass2  = filter_input (INPUT_POST, 'newpass2', FILTER_SANITIZE_STRING);
+$oldpass  = filter_input(INPUT_POST, 'oldpass', FILTER_SANITIZE_STRING);
+$newpass1  = filter_input(INPUT_POST, 'newpass1', FILTER_SANITIZE_STRING);
+$newpass2  = filter_input(INPUT_POST, 'newpass2', FILTER_SANITIZE_STRING);
 
 // Check to see if newpass1 and newpass2 is empty.
-if (empty ($newpass1) && empty ($newpass2))
+if (empty($newpass1) && empty($newpass2))
 {
     // Both newpass1 and newpass2 are empty.
     echo $langvars['l_opt2_passunchanged'] . "<br><br>";
@@ -83,8 +83,8 @@ else
 {
     // Load Player information from their username (i.e. email)
     $playerinfo = false;
-    $rs = $db->SelectLimit ("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
-    Bnt\Db::logDbErrors ($db, $rs, __LINE__, __FILE__);
+    $rs = $db->SelectLimit("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
+    Bnt\Db::logDbErrors($db, $rs, __LINE__, __FILE__);
 
     // Do we have a valid RecordSet?
     if ($rs instanceof ADORecordSet)
@@ -99,11 +99,11 @@ else
             $new_hashed_pass = password_hash($newpass1, PASSWORD_DEFAULT);
 
             // Now update the players password.
-            $rs = $db->Execute ("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($new_hashed_pass, $playerinfo['ship_id']));
-            Bnt\Db::logDbErrors ($db, $rs, __LINE__, __FILE__);
+            $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($new_hashed_pass, $playerinfo['ship_id']));
+            Bnt\Db::logDbErrors($db, $rs, __LINE__, __FILE__);
 
             // Now check to see if we have a valid update and have ONLY 1 changed record.
-            if ((is_bool ($rs) && $rs == false) || $db->Affected_Rows() != 1)
+            if ((is_bool($rs) && $rs == false) || $db->Affected_Rows() != 1)
             {
                 // Either we got an error in the SQL Query or <> 1 records was changed.
                 echo $langvars['l_opt2_passchangeerr'] . "<br><br>";
@@ -129,11 +129,11 @@ else
 if ($changed_language)
 {
     // Tell the player that we successfully changed the language choice
-    $langvars['l_opt2_chlang'] = str_replace ("[lang]", "$lang", $langvars['l_opt2_chlang']);
+    $langvars['l_opt2_chlang'] = str_replace("[lang]", "$lang", $langvars['l_opt2_chlang']);
     echo $langvars['l_opt2_chlang'] . "<p>";
 }
 
 echo "<br>";
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

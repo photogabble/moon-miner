@@ -19,10 +19,10 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('navcomp', 'common', 'global_includes', 'global_funcs', 'footer'));
+$langvars = Bnt\Translate::load($db, $lang, array ('navcomp', 'common', 'global_includes', 'global_funcs', 'footer'));
 $title = $langvars['l_nav_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
@@ -31,23 +31,23 @@ echo "<h1>" . $title . "</h1>\n";
 if (!$bntreg->allow_navcomp)
 {
     echo $langvars['l_nav_nocomp'] . '<br><br>';
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
-$state = (int) filter_input (INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
-$stop_sector = (int) filter_input (INPUT_POST, 'stop_sector', FILTER_SANITIZE_NUMBER_INT);
+$state = (int) filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
+$stop_sector = (int) filter_input(INPUT_POST, 'stop_sector', FILTER_SANITIZE_NUMBER_INT);
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $current_sector = $playerinfo['sector'];
 $computer_tech  = $playerinfo['computer'];
 
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($current_sector));
-Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($current_sector));
+Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 if ($state == 0)
@@ -126,10 +126,10 @@ elseif ($state == 1)
         $search_query = $search_query . " LIMIT 1";
         //echo "$search_query\n\n";
 
-        $db->SetFetchMode (ADODB_FETCH_NUM);
+        $db->SetFetchMode(ADODB_FETCH_NUM);
 
-        $search_result = $db->Execute ($search_query) or die ("Invalid Query");
-        Bnt\Db::logDbErrors ($db, $search_result, __LINE__, __FILE__);
+        $search_result = $db->Execute($search_query) or die("Invalid Query");
+        Bnt\Db::logDbErrors($db, $search_result, __LINE__, __FILE__);
         $found = $search_result->RecordCount();
         if ($found > 0)
         {
@@ -147,7 +147,7 @@ elseif ($state == 1)
             echo " >> " . $links[$i];
         }
 
-        $db->SetFetchMode (ADODB_FETCH_ASSOC);
+        $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
         echo "<br><br>";
         echo $langvars['l_nav_answ1'] . " " . $search_depth . " " . $langvars['l_nav_answ2'] . "<br><br>";
@@ -158,8 +158,8 @@ elseif ($state == 1)
     }
 }
 
-$db->SetFetchMode (ADODB_FETCH_ASSOC);
+$db->SetFetchMode(ADODB_FETCH_ASSOC);
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

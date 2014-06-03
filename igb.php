@@ -119,11 +119,11 @@ elseif ($command == 'consolidate3') //consolidate operation
 }
 else
 {
-  echo "
-  <tr>
-    <td width='25%' valign='bottom' align='left'><a href=\"main.php\">" . $langvars['l_ibank_quit'] . "</a></td>
-    <td width='50%' style='text-align:left;'>
-  <pre style='text-align:left;' class='term'>
+    echo "
+    <tr>
+        <td width='25%' valign='bottom' align='left'><a href=\"main.php\">" . $langvars['l_ibank_quit'] . "</a></td>
+        <td width='50%' style='text-align:left;'>
+    <pre style='text-align:left;' class='term'>
   IIIIIIIIII          GGGGGGGGGGGGG    BBBBBBBBBBBBBBBBB
   I::::::::I       GGG::::::::::::G    B::::::::::::::::B
   I::::::::I     GG:::::::::::::::G    B::::::BBBBBB:::::B
@@ -140,19 +140,14 @@ else
   I::::::::I     GG:::::::::::::::G    B:::::::::::::::::B
   I::::::::I       GGG::::::GGG:::G    B::::::::::::::::B
   IIIIIIIIII          GGGGGG   GGGG    BBBBBBBBBBBBBBBBB
-  </pre>
-  <center class='term'>
-  ";
-  echo $langvars['l_ibank_title'];
-  echo "(tm)<br>";
-  echo $langvars['l_ibank_humor'];
-  echo "<br>&nbsp;
-  </center>
-  </td>
-  <td width='25%' valign='bottom' align='right'><a href=\"igb.php?command=login\">" . $langvars['l_ibank_login'] . "</a></td>
-  ";
+    </pre>
+    <center class='term'>";
+    echo $langvars['l_ibank_title'];
+    echo "(tm)<br>";
+    echo $langvars['l_ibank_humor'];
+    echo "<br>&nbsp;</center></td>
+            <td width='25%' valign='bottom' align='right'><a href=\"igb.php?command=login\">" . $langvars['l_ibank_login'] . "</a></td>";
 }
-
 ?>
 
 </table>

@@ -19,20 +19,20 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('main', 'port', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'));
+$langvars = Bnt\Translate::load($db, $lang, array ('main', 'port', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'));
 $title = $langvars['l_map_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
-$result3 = $db->Execute ("SELECT distinct {$db->prefix}movement_log.sector_id, port_type, beacon FROM {$db->prefix}movement_log,{$db->prefix}universe WHERE ship_id = ? AND {$db->prefix}movement_log.sector_id={$db->prefix}universe.sector_id order by sector_id ASC", array ($playerinfo['ship_id']));
-Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
+$result3 = $db->Execute("SELECT distinct {$db->prefix}movement_log.sector_id, port_type, beacon FROM {$db->prefix}movement_log,{$db->prefix}universe WHERE ship_id = ? AND {$db->prefix}movement_log.sector_id={$db->prefix}universe.sector_id order by sector_id ASC", array ($playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
 $row = $result3->fields;
 
 $tile['special'] = "port-special.png";
@@ -59,13 +59,13 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
 {
     for ($c = 0; $c < $div_xmax; $c++) // Loop the columns
     {
-        if (isset ($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false)
+        if (isset($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false)
         {
             $p = $row['port_type'];
             // Build the alt text for each image
             $alt  = $langvars['l_sector'] . ": {$row['sector_id']} Port: {$row['port_type']} ";
 
-            if (!is_null ($row['beacon']))
+            if (!is_null($row['beacon']))
             {
                 $alt .= "{$row['beacon']}";
             }
@@ -74,7 +74,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
             echo "<img class='map ".$row['port_type']."' src='" . $template->getVariables('template_dir') . "/images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
 
             // Move to next explored sector in database results
-            $result3->Movenext ();
+            $result3->Movenext();
             $row = $result3->fields;
             $cur_sector = $cur_sector + 1;
         }
@@ -115,6 +115,6 @@ echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port']
 echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_unexplored'] . "' src='" . $template->getVariables('template_dir') . "/images/{$tile['unknown']}'> &lt;- " . $langvars['l_unexplored'] . "</div>\n";
 
 echo "<br><br>";
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

@@ -184,7 +184,7 @@ else
             Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
             $res2->MoveNext();
         }
-   }
+    }
 }
 
 Bnt\Text::gotoMain ($db, $lang, $langvars);
