@@ -20,7 +20,7 @@
 include './global_includes.php';
 include './config/admin_config.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Hack for log bug issue - this really needs to be fixed
 $log_list = array (null,
@@ -33,14 +33,14 @@ $log_list = array (null,
                 );
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = Bnt\Translate::load($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $title = $langvars['l_log_titlet'];
 $body_class = 'log';
 Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
-$res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if (!isset ($_REQUEST['swordfish']))
@@ -59,8 +59,8 @@ if ($swordfish == ADMIN_PW) // Check if called by admin script
     }
     else
     {
-        $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($player));
-        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($player));
+        Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $targetname = $res->fields;
         $playerinfo['character_name'] = $targetname['character_name'];
     }
@@ -81,7 +81,7 @@ elseif ($mode == 'moz')
 echo '<center>';
 echo "<table width=80% border=0 cellspacing=0 cellpadding=0>";
 
-$logline = str_replace ("[player]", "$playerinfo[character_name]", $langvars['l_log_log']);
+$logline = str_replace("[player]", "$playerinfo[character_name]", $langvars['l_log_log']);
 
 echo "<tr><td><td width=100%><td></tr>";
 echo "<tr><td><td align='left' height=20 style='background-image: url(" . $template->getVariables('template_dir') . "/images/top_panel.png); background-repeat:no-repeat'>";
@@ -106,11 +106,11 @@ else
 
 if (empty ($startdate))
 {
-    $startdate = date ("Y-m-d");
+    $startdate = date("Y-m-d");
 }
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$startdate%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$startdate%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 if ($res instanceof ADORecordSet)
 {
@@ -121,8 +121,8 @@ if ($res instanceof ADORecordSet)
     }
 }
 
-$langvars['l_log_months_temp'] = "l_log_months_" . (int) (substr ($startdate, 5, 2));
-$entry = $langvars[$langvars['l_log_months_temp']] . " " . substr ($startdate, 8, 2) . " " . substr ($startdate, 0, 4);
+$langvars['l_log_months_temp'] = "l_log_months_" . (int) (substr($startdate, 5, 2));
+$entry = $langvars[$langvars['l_log_months_temp']] . " " . substr($startdate, 8, 2) . " " . substr($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
      "\n<div id=\"dynPage0\" class=\"dynPage\">" .
@@ -137,9 +137,9 @@ if (!empty ($logs))
 {
     foreach ($logs as $log)
     {
-        $event = BadLog::logParse ($langvars, $log);
-        $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2));
-        $time = $langvars[$log_months_temp] . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
+        $event = BadLog::logParse($langvars, $log);
+        $log_months_temp = "l_log_months_" . (int) (substr($log['time'], 5, 2));
+        $time = $langvars[$log_months_temp] . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
 
         echo "<table border=0 cellspacing=5 width=100%>\n" .
              "  <tr>\n" .
@@ -162,23 +162,23 @@ echo "<center>" .
      "</div>\n";
 
 // Convert the supplied date format (YYYY-MM-DD) to a time stamp.
-$start_time = strtotime ($startdate);
+$start_time = strtotime($startdate);
 
 // Calculate timestamp for midnight 1 day ago.
-$yd1 = $start_time - (mktime (0, 0, 0, 0, 1, 0) - 943920000);
+$yd1 = $start_time - (mktime(0, 0, 0, 0, 1, 0) - 943920000);
 
 // Calculate timestamp for midnight tomorrow.
-$tm = $start_time + (mktime (0, 0, 0, 0, 1, 0) - 943920000);
+$tm = $start_time + (mktime(0, 0, 0, 0, 1, 0) - 943920000);
 
-$month = substr ($startdate, 5, 2);
-$day = substr ($startdate, 8, 2);
-$year = substr ($startdate, 0, 4);
+$month = substr($startdate, 5, 2);
+$day = substr($startdate, 8, 2);
+$year = substr($startdate, 0, 4);
 
-$yesterday = mktime (0, 0, 0, $month, (date ("j")-1), $year);
-$yesterday = date ("Y-m-d", $yd1);
+$yesterday = mktime(0, 0, 0, $month, (date("j")-1), $year);
+$yesterday = date("Y-m-d", $yd1);
 
-$tomorrow = mktime (0, 0, 0, $month, (date ("j")+1), $year);
-$tomorrow = date ("Y-m-d", $tm);
+$tomorrow = mktime(0, 0, 0, $month, (date("j")+1), $year);
+$tomorrow = date("Y-m-d", $tm);
 
 if ($mode == 'compat')
 {
@@ -187,12 +187,12 @@ if ($mode == 'compat')
 
 if ($mode != 'compat')
 {
-    $log_months_temp = "l_log_months_" . (int) (substr ($yesterday, 5, 2));
-    $entry = $$log_months_temp . " " . substr ($yesterday, 8, 2) . " " . substr ($yesterday, 0, 4);
+    $log_months_temp = "l_log_months_" . (int) (substr($yesterday, 5, 2));
+    $entry = $$log_months_temp . " " . substr($yesterday, 8, 2) . " " . substr($yesterday, 0, 4);
 
-    unset ($logs);
-    $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
-    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+    unset($logs);
+    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
+    Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $logs[] = $res->fields;
@@ -211,9 +211,9 @@ if ($mode != 'compat')
     {
         foreach ($logs as $log)
         {
-            $event = BadLog::logParse ($log);
-            $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2));
-            $time = $$log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
+            $event = BadLog::logParse($log);
+            $log_months_temp = "l_log_months_" . (int) (substr($log['time'], 5, 2));
+            $time = $$log_months_temp . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
 
             echo "<table border=0 cellspacing=5 width=100%>\n" .
                  "  <tr>\n" .
@@ -232,12 +232,12 @@ if ($mode != 'compat')
          "</center>" .
          "</div>\n";
 
-    $log_months_temp = "l_log_months_" . (int) (substr ($tomorrow, 5, 2));
-    $entry = $$log_months_temp . " " . substr ($tomorrow, 8, 2) . " " . substr ($tomorrow, 0, 4);
+    $log_months_temp = "l_log_months_" . (int) (substr($tomorrow, 5, 2));
+    $entry = $$log_months_temp . " " . substr($tomorrow, 8, 2) . " " . substr($tomorrow, 0, 4);
 
-    unset ($logs);
-    $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$tomorrow%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
-    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+    unset($logs);
+    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$tomorrow%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
+    Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $logs[] = $res->fields;
@@ -256,9 +256,9 @@ if ($mode != 'compat')
     {
         foreach ($logs as $log)
         {
-            $event = BadLog::logParse ($log);
-            $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2));
-            $time = $$log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
+            $event = BadLog::logParse($log);
+            $log_months_temp = "l_log_months_" . (int) (substr($log['time'], 5, 2));
+            $time = $$log_months_temp . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
 
             echo "<table border=0 cellspacing=5 width=100%>\n" .
                  "<tr>\n" .
@@ -285,29 +285,29 @@ if ($mode != 'compat')
 
 echo "</div>";
 
-$log_months_short_temp = "l_log_months_short_" . date ("n", $yd1);// (int) (substr ($startdate, 5, 2));
-$date1 = $langvars[$log_months_short_temp] . " " . date ("d", $yd1);//substr ($yesterday1, 8, 2);
+$log_months_short_temp = "l_log_months_short_" . date("n", $yd1);// (int) (substr($startdate, 5, 2));
+$date1 = $langvars[$log_months_short_temp] . " " . date("d", $yd1);//substr($yesterday1, 8, 2);
 
-$log_months_short_temp = "l_log_months_short_" . date ("n", $start_time);//(int) (substr ($startdate, 5, 2));
-$date2 = $langvars[$log_months_short_temp] . " " . date ("d", $start_time);//substr ($startdate, 8, 2);
+$log_months_short_temp = "l_log_months_short_" . date("n", $start_time);//(int) (substr($startdate, 5, 2));
+$date2 = $langvars[$log_months_short_temp] . " " . date("d", $start_time);//substr($startdate, 8, 2);
 
-$log_months_short_temp = "l_log_months_short_" . date ("n", $tm);// (int) (substr ($startdate, 5, 2));
-$date3 = $langvars[$log_months_short_temp] . " " . date ("d", $tm);//substr ($tomorrow, 8, 2);
+$log_months_short_temp = "l_log_months_short_" . date("n", $tm);// (int) (substr($startdate, 5, 2));
+$date3 = $langvars[$log_months_short_temp] . " " . date("d", $tm);//substr($tomorrow, 8, 2);
 
-$month = substr ($startdate, 5, 2);
-$day = substr ($startdate, 8, 2) - 3;
-$year = substr ($startdate, 0, 4);
+$month = substr($startdate, 5, 2);
+$day = substr($startdate, 8, 2) - 3;
+$year = substr($startdate, 0, 4);
 
-$backlink = mktime (0, 0, 0, $month, $day, $year);
-$backlink = date ("Y-m-d", $backlink);
+$backlink = mktime(0, 0, 0, $month, $day, $year);
+$backlink = date("Y-m-d", $backlink);
 
-$day = substr ($startdate, 8, 2) + 3;
+$day = substr($startdate, 8, 2) + 3;
 
-$nextlink = mktime (0, 0, 0, $month, $day, $year);
-$nextlink = date ("Y-m-d", $nextlink);
+$nextlink = mktime(0, 0, 0, $month, $day, $year);
+$nextlink = date("Y-m-d", $nextlink);
 
 $nonext = 0;
-#if ($startdate == date ("Y-m-d"))
+#if ($startdate == date("Y-m-d"))
 #{
 #    $nonext = 1;
 #}
@@ -318,7 +318,7 @@ $nonext = 0;
 
 if ($swordfish == ADMIN_PW) // Fix for admin log view
 {
-    $postlink = "&swordfish=" . urlencode ($swordfish) . "&player=$player";
+    $postlink = "&swordfish=" . urlencode($swordfish) . "&player=$player";
 }
 else
 {
@@ -375,13 +375,13 @@ if ($swordfish == ADMIN_PW)
 }
 else
 {
-    $langvars['l_log_click'] = str_replace ("[here]", "<a href=main.php><font color=#00ff00>" . $langvars['l_here'] . "</font></a>", $langvars['l_log_click']);
+    $langvars['l_log_click'] = str_replace("[here]", "<a href=main.php><font color=#00ff00>" . $langvars['l_here'] . "</font></a>", $langvars['l_log_click']);
     echo "<tr><td><td style='text-align:left;'><p style='font-size:2;'>" . $langvars['l_log_click'] . "</p></td></tr>";
 }
 
 if ($mode != 'compat')
 {
-    $langvars['l_log_note'] = str_replace ("[disable them]", "<a href=options.php><font color=#00FF00>" . $langvars['l_log_note_disable'] . "</font></a>", $langvars['l_log_note']);
+    $langvars['l_log_note'] = str_replace("[disable them]", "<a href=options.php><font color=#00FF00>" . $langvars['l_log_note_disable'] . "</font></a>", $langvars['l_log_note']);
     echo "<tr><td><td align=center><br><font size=2 color=white>" . $langvars['l_log_note'] . "</td></tr>";
 }
 

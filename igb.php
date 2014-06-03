@@ -21,21 +21,21 @@ include './global_includes.php';
 
 // TODO: This should not be hard-coded, but for now, I need to be able to clear the errors
 $active_template = 'classic';
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
 Bnt\Header::display($db, $lang, $template, $title, $body_class);
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+$result = $db->Execute("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 
 echo "<body class='" . $body_class . "'>";
@@ -48,7 +48,7 @@ echo '<table style="width:550px; height:300px;" border="0px">';
 
 if (!$bntreg->allow_ibank)
 {
-    Bad\Ibank::ibankError ($template->getVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
+    Bad\Ibank::ibankError($template->getVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
 }
 
 if (!isset ($_REQUEST['command']))
@@ -63,59 +63,59 @@ else
 
 if ($command == 'login') //main menu
 {
-    Bad\Ibank::ibankLogin ($langvars, $playerinfo, $account);
+    Bad\Ibank::ibankLogin($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw') //withdraw menu
 {
-    Bad\Ibank::ibankWithdraw ($langvars, $playerinfo, $account);
+    Bad\Ibank::ibankWithdraw($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw2') //withdraw operation
 {
-    Bad\Ibank::ibankWithdraw2 ($db, $langvars, $playerinfo, $amount, $account);
+    Bad\Ibank::ibankWithdraw2($db, $langvars, $playerinfo, $amount, $account);
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    Bad\Ibank::deposit ($db, $lang, $account, $playerinfo, $langvars);
+    Bad\Ibank::deposit($db, $lang, $account, $playerinfo, $langvars);
 }
 elseif ($command == 'deposit2') //deposit operation
 {
-    Bad\Ibank::ibankDeposit2 ($db, $langvars, $playerinfo, $amount, $account);
+    Bad\Ibank::ibankDeposit2($db, $langvars, $playerinfo, $amount, $account);
 }
 elseif ($command == 'transfer') //main transfer menu
 {
-    Bad\Ibank::ibankTransfer ($db, $langvars, $playerinfo, $ibank_min_turns);
+    Bad\Ibank::ibankTransfer($db, $langvars, $playerinfo, $ibank_min_turns);
 }
 elseif ($command == 'transfer2') //specific transfer menu (ship or planet)
 {
-    Bad\Ibank::ibankTransfer2 ($db);
+    Bad\Ibank::ibankTransfer2($db);
 }
 elseif ($command == 'transfer3') //transfer operation
 {
-    Bad\Ibank::ibankTransfer3 ($db);
+    Bad\Ibank::ibankTransfer3($db);
 }
 elseif ($command == 'loans') //loans menu
 {
-    Bad\Ibank::ibankLoans ($db, $langvars, $bntreg, $playerinfo);
+    Bad\Ibank::ibankLoans($db, $langvars, $bntreg, $playerinfo);
 }
 elseif ($command == 'borrow') //borrow operation
 {
-    Bad\Ibank::ibankBorrow ($db, $langvars, $playerinfo, $active_template);
+    Bad\Ibank::ibankBorrow($db, $langvars, $playerinfo, $active_template);
 }
 elseif ($command == 'repay') //repay operation
 {
-    Bad\Ibank::ibankRepay ($db, $langvars, $playerinfo, $account, $amount);
+    Bad\Ibank::ibankRepay($db, $langvars, $playerinfo, $account, $amount);
 }
 elseif ($command == 'consolidate') //consolidate menu
 {
-    Bad\Ibank::ibankConsolidate ($langvars);
+    Bad\Ibank::ibankConsolidate($langvars);
 }
 elseif ($command == 'consolidate2') //consolidate compute
 {
-    Bad\Ibank::ibankConsolidate2 ($db, $langvars, $playerinfo);
+    Bad\Ibank::ibankConsolidate2($db, $langvars, $playerinfo);
 }
 elseif ($command == 'consolidate3') //consolidate operation
 {
-    Bad\Ibank::ibankConsolidate3 ($db, $langvars, $playerinfo);
+    Bad\Ibank::ibankConsolidate3($db, $langvars, $playerinfo);
 }
 else
 {
