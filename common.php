@@ -28,6 +28,7 @@ if (strpos($_SERVER['PHP_SELF'], 'common.php'))    // Prevent direct access to t
 ini_set('include_path', '.');                      // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 ini_set('session.use_only_cookies', 1);            // Ensure that sessions will only be stored in a cookie
 ini_set('session.cookie_httponly', 1);             // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
+ini_set('session.use_trans_sid', 0);               // Prevent session ID from being put in URLs
 ini_set('session.entropy_file', '/dev/urandom');   // Use urandom as entropy source, to help the random number generator
 ini_set('session.entropy_length', '512');          // Increase the length of entropy gathered
 ini_set('session.hash_function', 'sha512');        // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
