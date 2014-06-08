@@ -574,7 +574,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             // Kami Multi Browser Window Attack Fix
             if (array_key_exists('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
-                Bnt\AdminLog::writeLog $db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
+                Bnt\AdminLog::writeLog($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
                 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
