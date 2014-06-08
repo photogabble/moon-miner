@@ -19,10 +19,10 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = Bnt\Translate::load($db, $lang, array ('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 $title = $langvars['l_sendm_title'];
 Bnt\Header::display($db, $lang, $template, $title, $body_class = 'bnt', $include_ckeditor = true);
 
@@ -33,40 +33,40 @@ Bnt\Header::display($db, $lang, $template, $title, $body_class = 'bnt', $include
 $name = null;
 if (isset ($_POST['name']))
 {
-    $name  = filter_input (INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+    $name  = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 }
 elseif (isset ($_GET['name']))
 {
-    $name  = filter_input (INPUT_GET, 'name', FILTER_SANITIZE_STRING);
+    $name  = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_STRING);
 }
 
 $to = null;
-if (isset ($_POST['to']))
+if (isset($_POST['to']))
 {
-    $to  = filter_input (INPUT_POST, 'to', FILTER_SANITIZE_STRING);
+    $to  = filter_input(INPUT_POST, 'to', FILTER_SANITIZE_STRING);
 }
-elseif (isset ($_GET['to']))
+elseif (isset($_GET['to']))
 {
-    $to  = filter_input (INPUT_GET, 'to', FILTER_SANITIZE_STRING);
+    $to  = filter_input(INPUT_GET, 'to', FILTER_SANITIZE_STRING);
 }
 
 $subject = null;
 if (!empty ($_POST['subject']))
 {
-    $subject  = filter_input (INPUT_POST, 'subject', FILTER_SANITIZE_STRING);
+    $subject  = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_STRING);
 }
 elseif (!empty ($_GET['subject']))
 {
-    $subject  = filter_input (INPUT_GET, 'subject', FILTER_SANITIZE_STRING);
+    $subject  = filter_input(INPUT_GET, 'subject', FILTER_SANITIZE_STRING);
 }
 
 // Allow rich-text codes (dirty) in, we will filter them using html purifier
-$dirtycontent = filter_input (INPUT_POST, 'content', FILTER_UNSAFE_RAW);
+$dirtycontent = filter_input(INPUT_POST, 'content', FILTER_UNSAFE_RAW);
 
 // Include HTML purifier, set its config, use the 4.01 doctype (since they don't do HTML5 yet)
 $html_purifier_config = HTMLPurifier_Config::createDefault();
 $html_purifier_config->set('HTML.Doctype', 'HTML 4.01 Transitional');
-$purifier = new HTMLPurifier ($html_purifier_config);
+$purifier = new HTMLPurifier($html_purifier_config);
 
 // Filter the submitted content to ensure that it doesn't have exploits
 $content = $purifier->purify($dirtycontent);
@@ -77,18 +77,18 @@ if (!empty ($subject))
     $subject = $purifier->purify($subject);
 }
 
-$res = $db->Execute ("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 echo "<h1>" . $title . "</h1>\n";
 
 if (empty ($content))
 {
-    $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE email NOT LIKE '%@Xenobe' AND ship_id <> ? ORDER BY character_name ASC;", array ($playerinfo['ship_id']));
-    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
-    $res2 = $db->Execute ("SELECT team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC;");
-    Bnt\Db::logDbErrors ($db, $res2, __LINE__, __FILE__);
+    $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE email NOT LIKE '%@Xenobe' AND ship_id <> ? ORDER BY character_name ASC;", array ($playerinfo['ship_id']));
+    Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
+    $res2 = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC;");
+    Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
     echo "<form action=mailto.php method=post>\n";
     echo "  <table>\n";
     echo "    <tr>\n";
@@ -147,14 +147,14 @@ if (empty ($content))
 }
 else
 {
-    if (mb_strpos ($to, $langvars['l_sendm_ally']) === false)
+    if (mb_strpos($to, $langvars['l_sendm_ally']) === false)
     {
-        $timestamp = date ("Y\-m\-d H\:i\:s");
-        $res = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE character_name = ?;", array ($to));
-        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+        $timestamp = date("Y\-m\-d H\:i\:s");
+        $res = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE character_name = ?;", array ($to));
+        Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $target_info = $res->fields;
-        $resx = $db->Execute ("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $target_info['ship_id'], $timestamp, $subject, $content));
-        Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+        $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $target_info['ship_id'], $timestamp, $subject, $content));
+        Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
         if ($db->ErrorNo() != 0)
         {
             echo "Message failed to send: " . $db->ErrorMsg() . "<br>\n";
@@ -166,27 +166,27 @@ else
     }
     else
     {
-        $timestamp = date ("Y\-m\-d H\:i\:s");
-        $to = str_replace ($langvars['l_sendm_ally'], "", $to);
-        $to = trim ($to);
+        $timestamp = date("Y\-m\-d H\:i\:s");
+        $to = str_replace($langvars['l_sendm_ally'], "", $to);
+        $to = trim($to);
         $to = addslashes($to);
-        $res = $db->Execute ("SELECT id FROM {$db->prefix}teams WHERE team_name = ?;", array ($to));
-        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+        $res = $db->Execute("SELECT id FROM {$db->prefix}teams WHERE team_name = ?;", array ($to));
+        Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
 
-        $res2 = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE team = ?;", array ($row['id']));
-        Bnt\Db::logDbErrors ($db, $res2, __LINE__, __FILE__);
+        $res2 = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE team = ?;", array ($row['id']));
+        Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
 
         while (!$res2->EOF)
         {
             $row2 = $res2->fields;
-            $resx = $db->Execute ("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $row2['ship_id'], $timestamp, $subject, $content));
-            Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+            $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $row2['ship_id'], $timestamp, $subject, $content));
+            Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
             $res2->MoveNext();
         }
     }
 }
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

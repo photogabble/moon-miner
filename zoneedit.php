@@ -19,102 +19,102 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_ze_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $command = null;
-if (array_key_exists ('command', $_GET) == true)
+if (array_key_exists('command', $_GET) == true)
 {
     $command = $_GET['command'];
 }
 
 $zone = null;
-if (array_key_exists ('zone', $_GET) == true)
+if (array_key_exists('zone', $_GET) == true)
 {
     $zone = $_GET['zone'];
 }
 
 $name = null;
-if (array_key_exists ('name', $_POST) == true)
+if (array_key_exists('name', $_POST) == true)
 {
     $name = $_POST['name'];
 }
 
 $beacons = null;
-if (array_key_exists ('beacons', $_POST) == true)
+if (array_key_exists('beacons', $_POST) == true)
 {
     $beacons = $_POST['beacons'];
 }
 
 $attacks = null;
-if (array_key_exists ('attacks', $_POST) == true)
+if (array_key_exists('attacks', $_POST) == true)
 {
     $attacks = $_POST['attacks'];
 }
 
 $warpedits = null;
-if (array_key_exists ('warpedits', $_POST) == true)
+if (array_key_exists('warpedits', $_POST) == true)
 {
     $warpedits = $_POST['warpedits'];
 }
 
 $defenses = null;
-if (array_key_exists ('defenses', $_POST) == true)
+if (array_key_exists('defenses', $_POST) == true)
 {
     $defenses = $_POST['defenses'];
 }
 
 $planets = null;
-if (array_key_exists ('planets', $_POST) == true)
+if (array_key_exists('planets', $_POST) == true)
 {
     $planets = $_POST['planets'];
 }
 
 $trades = null;
-if (array_key_exists ('trades', $_POST) == true)
+if (array_key_exists('trades', $_POST) == true)
 {
     $trades = $_POST['trades'];
 }
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($zone));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($zone));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 if ($res->EOF)
 {
     echo "<p>" . $langvars['l_zi_nexist'] . "<p>";
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
-    die ();
+    die();
 }
 $curzone = $res->fields;
 
 // Sanitize ZoneName.
-$curzone['zone_name'] = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $curzone['zone_name']);
+$curzone['zone_name'] = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', '', $curzone['zone_name']);
 
 if ($curzone['corp_zone'] == 'N')
 {
-    $result = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-    Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+    Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
 else
 {
-    $result = $db->Execute ("SELECT creator, id FROM {$db->prefix}teams WHERE creator = ?;", array ($curzone['owner']));
-    Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+    $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator = ?;", array ($curzone['owner']));
+    Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
 
 if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id']) || ($curzone['corp_zone'] == 'Y' && $curzone['owner'] != $ownerinfo['id'] && $row['owner'] == $ownerinfo['creator']))
 {
     echo "<p>" . $langvars['l_ze_notowner'] . "<p>";
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
-    die ();
+    die();
 }
 
 if ($command == 'change')
@@ -122,20 +122,20 @@ if ($command == 'change')
     global $zone, $name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses;
 
     // Sanitize zone name.
-    $name = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $name);
+    $name = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', '', $name);
 
-    if (!get_magic_quotes_gpc ())
+    if (!get_magic_quotes_gpc())
     {
-        $name = addslashes ($name);
+        $name = addslashes($name);
     }
 
-    $resx = $db->Execute ("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ?, allow_attack = ?, allow_warpedit = ?, allow_planet = ?, allow_trade = ?, allow_defenses = ? WHERE zone_id = ?;", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
-    Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ?, allow_attack = ?, allow_warpedit = ?, allow_planet = ?, allow_trade = ?, allow_defenses = ? WHERE zone_id = ?;", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
+    Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
     echo $langvars['l_ze_saved'] . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_ze_return'] . ".<p>";
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
-    die ();
+    die();
 }
 
 $ybeacon = null;
@@ -257,6 +257,6 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "</form>";
 
 echo "<a href=zoneinfo.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_ze_return'] . ".<p>";
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

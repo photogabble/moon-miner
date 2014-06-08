@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-if (!isset ($_GET['lang']))
+if (!isset($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $bntreg->default_lang;

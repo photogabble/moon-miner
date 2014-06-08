@@ -19,23 +19,23 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_teamplanet_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load($db, $lang, array ('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if ($playerinfo['team'] == 0)
 {
     echo "<br>" . $langvars['l_teamplanet_notally'];
     echo "<br><br>";
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     return;
 }
@@ -63,8 +63,8 @@ if (!empty ($sort))
     }
 }
 
-$res = $db->Execute ($query);
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute($query);
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
@@ -142,21 +142,21 @@ else
         }
 
         $owner = $planet[$i]['owner'];
-        $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
-        Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
+        Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $player = $res->fields['character_name'];
 
         echo "<tr bgcolor=\"$color\">";
         echo "<td><a href=rsmove.php?engage=1&destination=". $planet[$i]['sector_id'] . ">". $planet[$i]['sector_id'] ."</a></td>";
         echo "<td>" . $planet[$i]['name']              . "</td>";
-        echo "<td>" . number_format ($planet[$i]['ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])       . "</td>";
-        echo "<td>" . number_format ($planet[$i]['organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])  . "</td>";
-        echo "<td>" . number_format ($planet[$i]['goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])     . "</td>";
-        echo "<td>" . number_format ($planet[$i]['energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])    . "</td>";
-        echo "<td>" . number_format ($planet[$i]['colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-        echo "<td>" . number_format ($planet[$i]['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])   . "</td>";
-        echo "<td>" . number_format ($planet[$i]['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])  . "</td>";
-        echo "<td>" . number_format ($planet[$i]['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])     . "</td>";
+        echo "<td>" . number_format($planet[$i]['ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])       . "</td>";
+        echo "<td>" . number_format($planet[$i]['organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])  . "</td>";
+        echo "<td>" . number_format($planet[$i]['goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])     . "</td>";
+        echo "<td>" . number_format($planet[$i]['energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])    . "</td>";
+        echo "<td>" . number_format($planet[$i]['colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td>" . number_format($planet[$i]['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])   . "</td>";
+        echo "<td>" . number_format($planet[$i]['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])  . "</td>";
+        echo "<td>" . number_format($planet[$i]['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])     . "</td>";
         echo "<td>" . ($planet[$i]['base'] == 'Y' ? $langvars['l_yes'] : $langvars['l_no']) . "</td>";
         echo "<td>" . ($planet[$i]['sells'] == 'Y' ? $langvars['l_yes'] : $langvars['l_no']) . "</td>";
         echo "<td>" . $player                        . "</td>";
@@ -175,22 +175,22 @@ else
     echo "<tr bgcolor=\"$color\">";
     echo "<td></td>";
     echo "<td>" . $langvars['l_pr_totals'] . "</td>";
-    echo "<td>" . number_format ($total_ore, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_organics, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_goods, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_energy, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_colonists, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_credits, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_fighters, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_torp, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_base, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
-    echo "<td>" . number_format ($total_selling, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_ore, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_organics, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_goods, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_energy, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_colonists, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_credits, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_fighters, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_torp, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_base, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format($total_selling, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
     echo "<td></td>";
     echo "</tr>";
     echo "</table>";
 }
 
 echo "<br><br>";
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

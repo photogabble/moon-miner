@@ -906,7 +906,7 @@ if ($command != "")
 
 if ($bntreg->allow_ibank)
 {
-  echo $langvars['l_ifyouneedplan'] . " <a href=\"igb.php?planet_id=$planet_id\">" . $langvars['l_ibank_term'] . "</a>.<br><br>";
+    echo $langvars['l_ifyouneedplan'] . " <a href=\"igb.php?planet_id=$planet_id\">" . $langvars['l_ibank_term'] . "</a>.<br><br>";
 }
 echo "<a href =\"bounty.php\">" . $langvars['l_by_placebounty'] . "</a><p>";
 

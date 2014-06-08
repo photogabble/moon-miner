@@ -39,7 +39,7 @@ $title = $setup_info->appinfo['title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('common', 'global_includes', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('common', 'global_includes', 'footer', 'news'));
 
 $setup_info->DisplayFlush("<div align=\"center\">\n");
 $setup_info->DisplayFlush("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
@@ -72,11 +72,11 @@ $setup_info->DisplayFlush("<br>\n");
 
 $Cols = 3;
 $switch_info = $setup_info->get_switches();
-$setup_info->do_Table_Title ("Setup Info Switch Configuration", $Cols);
+$setup_info->do_Table_Title("Setup Info Switch Configuration", $Cols);
 for ($n = 0; $n < count($switch_info); $n++)
 {
-    list ($switch_name, $switch_array) = each ($switch_info);
-    $setup_info->do_Table_Row ($switch_array['caption'], "<font color='maroon'>".$switch_array['info']."</font>", (($switch_array['value']) ? "<font color='#0000ff'>Enabled</font>" : "<font color='#ff0000'>Disabled</font>"));
+    list($switch_name, $switch_array) = each($switch_info);
+    $setup_info->do_Table_Row($switch_array['caption'], "<font color='maroon'>".$switch_array['info']."</font>", (($switch_array['value']) ? "<font color='#0000ff'>Enabled</font>" : "<font color='#ff0000'>Disabled</font>"));
 }
 $setup_info->do_Table_Footer("<br>");
 
@@ -88,25 +88,26 @@ $setup_info->DisplayFlush("<font size=\"2\">// This is just to find out what Ser
 $setup_info->DisplayFlush("<font size=\"2\">// And to find out what other software is running e.g. PHP,</font><br>\n");
 $setup_info->DisplayFlush("<br>\n");
 
-$Cols = 3; $Wrap = true;
-$setup_info->do_Table_Title ("Server Software/Operating System", $Cols);
+$Cols = 3;
+$Wrap = true;
+$setup_info->do_Table_Title("Server Software/Operating System", $Cols);
 
 $software_info = $setup_info->get_server_software();
 
 for ($n = 0; $n < count($software_info); $n++)
 {
-    list ($software_name, $software_array) = each ($software_info);
-    list ($software_key, $software_value) = each ($software_array);
+    list($software_name, $software_array) = each($software_info);
+    list($software_key, $software_value) = each($software_array);
     $setup_info->do_Table_Row($software_key, $software_value);
 }
 
 if ($setup_info->testdb_connection())
 {
-    $setup_info->do_Table_Row ("DB CONNECTION", "<font color='#0000ff'><strong>".$setup_info->db_status['status']."</strong></font>");
+    $setup_info->do_Table_Row("DB CONNECTION", "<font color='#0000ff'><strong>".$setup_info->db_status['status']."</strong></font>");
 }
 else
 {
-    $setup_info->do_Table_Row ("DB CONNECTION", "<font color='#ff0000'><strong>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</strong></font>");
+    $setup_info->do_Table_Row("DB CONNECTION", "<font color='#ff0000'><strong>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</strong></font>");
 }
 
 if ($setup_info->cookie_test['enabled'])
@@ -128,14 +129,15 @@ else
 $setup_info->do_Table_Footer("");
 $setup_info->DisplayFlush("<br>\n");
 
-$Cols = 3; $Wrap = true;
+$Cols = 3;
+$Wrap = true;
 $setup_info->do_Table_Title("Software Versions", $Cols);
 
 $software_versions = $setup_info->get_software_versions();
 for ($n = 0; $n < count($software_versions); $n++)
 {
-    list ($software_name, $software_array) = each ($software_versions);
-    list ($software_key, $software_value) = each ($software_array);
+    list($software_name, $software_array) = each($software_versions);
+    list($software_key, $software_value) = each($software_array);
     $setup_info->do_Table_Row($software_key, $software_value);
 }
 
@@ -282,23 +284,23 @@ $Cols = 3;
 $setup_info->do_Table_Title("Current DB Config Information", $Cols);
 $cur_cfg_loc = $setup_info->get_current_db_config_info();
 
-if (is_array ($cur_cfg_loc))
+if (is_array($cur_cfg_loc))
 {
-    for ($n=0; $n < count ($cur_cfg_loc) - 1; $n++)
+    for ($n=0; $n<count($cur_cfg_loc)-1; $n++)
     {
-        if (is_string ($cur_cfg_loc[$n]) & $cur_cfg_loc[$n] == "%SEPERATOR%")
+        if (is_string($cur_cfg_loc[$n]) & $cur_cfg_loc[$n] == "%SEPERATOR%")
         {
             $setup_info->do_Table_Blank_Row();
         }
-        if (is_array ($cur_cfg_loc[$n]))
+        if (is_array($cur_cfg_loc[$n]))
         {
-            if (count ($cur_cfg_loc[$n])>2)
+            if (count($cur_cfg_loc[$n])>2)
             {
-                $setup_info->do_Table_Row ($cur_cfg_loc[$n]['caption'], $cur_cfg_loc[$n]['value'], $cur_cfg_loc[$n]['status']);
+                $setup_info->do_Table_Row($cur_cfg_loc[$n]['caption'], $cur_cfg_loc[$n]['value'], $cur_cfg_loc[$n]['status']);
             }
             else
             {
-                $setup_info->do_Table_Row ($cur_cfg_loc[$n]['caption'], $cur_cfg_loc[$n]['value']);
+                $setup_info->do_Table_Row($cur_cfg_loc[$n]['caption'], $cur_cfg_loc[$n]['value']);
             }
         }
     }
@@ -364,12 +366,12 @@ $setup_info->DisplayFlush("<br>\n");
 
 if (empty ($_SESSION['username']))
 {
-    echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {
     global $db;
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
 }
 
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);

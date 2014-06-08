@@ -461,7 +461,7 @@ else
 
     if (($tpcredits == -1) && $planetinfo['base'] == 'N' && ($transfer_credits + $planetinfo['credits'] > $max_credits_without_base))
     {
-        $transfer_credits = max ($max_credits_without_base - $planetinfo['credits'], 0);
+        $transfer_credits = max($max_credits_without_base - $planetinfo['credits'], 0);
         echo $langvars['l_planet2_baseexceeded'] . " " . $langvars['l_planet2_settr'] . " " .  $transfer_credits . " " . $langvars['l_credits'] . ".<br>\n";
     }
 

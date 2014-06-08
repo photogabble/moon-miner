@@ -19,34 +19,34 @@
 
 include './global_includes.php';
 
-Bnt\Login::checkLogin ($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 
 $title = $langvars['l_mines_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 $op = null;
-if (array_key_exists ('op', $_GET) == true)
+if (array_key_exists('op', $_GET) == true)
 {
     $op = $_GET['op'];
 }
-elseif (array_key_exists ('op', $_POST) == true)
+elseif (array_key_exists('op', $_POST) == true)
 {
     $op = $_POST['op'];
 }
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-$res = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
-$result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($playerinfo['sector']));
-Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
+$result3 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($playerinfo['sector']));
+Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
 
 // Put the defence information into the array "defenceinfo"
 $i = 0;
@@ -108,13 +108,13 @@ echo "<h1>" . $title . "</h1>\n";
 if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_mines_noturn'] . "<br><br>";
-    Bnt\Text::gotoMain ($db, $lang, $langvars);
+    Bnt\Text::gotoMain($db, $lang, $langvars);
     Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
-$res = $db->Execute ("SELECT allow_defenses, {$db->prefix}universe.zone_id, owner FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id = ? AND {$db->prefix}zones.zone_id = {$db->prefix}universe.zone_id", array ($playerinfo['sector']));
-Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+$res = $db->Execute("SELECT allow_defenses, {$db->prefix}universe.zone_id, owner FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id = ? AND {$db->prefix}zones.zone_id = {$db->prefix}universe.zone_id", array ($playerinfo['sector']));
+Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 if ($zoneinfo['allow_defenses'] == 'N')
@@ -128,15 +128,15 @@ else
         if (!$owns_all)
         {
             $defence_owner = $defences[0]['ship_id'];
-            $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($defence_owner));
-            Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
+            $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($defence_owner));
+            Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
             $fighters_owner = $result2->fields;
 
             if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
                 echo $langvars['l_mines_nodeploy'] . "<br>";
-                Bnt\Text::gotoMain ($db, $lang, $langvars);
-                die ();
+                Bnt\Text::gotoMain($db, $lang, $langvars);
+                die();
             }
         }
     }
@@ -144,8 +144,8 @@ else
     if ($zoneinfo['allow_defenses'] == 'L')
     {
         $zone_owner = $zoneinfo['owner'];
-        $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zone_owner));
-        Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
+        $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zone_owner));
+        Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
         $zoneowner_info = $result2->fields;
 
         if ($zone_owner != $playerinfo['ship_id'])
@@ -153,23 +153,23 @@ else
             if ($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
                 echo $langvars['l_mines_nopermit'] . "<br><br>";
-                Bnt\Text::gotoMain ($db, $lang, $langvars);
-                die ();
+                Bnt\Text::gotoMain($db, $lang, $langvars);
+                die();
             }
         }
     }
 
-    if (!isset ($nummines) || !isset ($numfighters) || !isset ($mode))
+    if (!isset($nummines) || !isset($numfighters) || !isset($mode))
     {
-        $availmines = number_format ($playerinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
-        $availfighters = number_format ($playerinfo['ship_fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+        $availmines = number_format($playerinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+        $availfighters = number_format($playerinfo['ship_fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
         echo "<form action=mines.php method=post>";
-        $langvars['l_mines_info1'] = str_replace ("[sector]", $playerinfo['sector'], $langvars['l_mines_info1']);
-        $langvars['l_mines_info1'] = str_replace ("[mines]", number_format ($total_sector_mines, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_mines_info1']);
-        $langvars['l_mines_info1'] = str_replace ("[fighters]", number_format ($total_sector_fighters, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_mines_info1']);
+        $langvars['l_mines_info1'] = str_replace("[sector]", $playerinfo['sector'], $langvars['l_mines_info1']);
+        $langvars['l_mines_info1'] = str_replace("[mines]", number_format($total_sector_mines, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_mines_info1']);
+        $langvars['l_mines_info1'] = str_replace("[fighters]", number_format($total_sector_fighters, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_mines_info1']);
         echo $langvars['l_mines_info1'] . "<br><br>";
-        $langvars['l_mines_info2'] = str_replace ("[mines]", $availmines, $langvars['l_mines_info2']);
-        $langvars['l_mines_info2'] = str_replace ("[fighters]", $availfighters, $langvars['l_mines_info2']);
+        $langvars['l_mines_info2'] = str_replace("[mines]", $availmines, $langvars['l_mines_info2']);
+        $langvars['l_mines_info2'] = str_replace("[fighters]", $availfighters, $langvars['l_mines_info2']);
         echo "You have $availmines mines and $availfighters fighters available to deploy.<br>\n";
         echo "<br>\n";
         echo $langvars['l_mines_deploy'] . " <input type=text name=nummines size=10 maxlength=10 value=$playerinfo[torps]> " . $langvars['l_mines'] . ".<br>";
@@ -183,8 +183,8 @@ else
     }
     else
     {
-        $nummines = preg_replace ('/[^0-9]/', '', $nummines);
-        $numfighters = preg_replace ('/[^0-9]/', '', $numfighters);
+        $nummines = preg_replace('/[^0-9]/', '', $nummines);
+        $numfighters = preg_replace('/[^0-9]/', '', $numfighters);
         if (empty ($nummines))
         {
             $nummines = 0;
@@ -208,7 +208,7 @@ else
         }
         else
         {
-            $langvars['l_mines_dmines'] = str_replace ("[mines]", $nummines, $langvars['l_mines_dmines']);
+            $langvars['l_mines_dmines'] = str_replace("[mines]", $nummines, $langvars['l_mines_dmines']);
             echo $langvars['l_mines_dmines'] . "<br>";
         }
 
@@ -219,23 +219,23 @@ else
         }
         else
         {
-            $langvars['l_mines_dfighter'] = str_replace ("[fighters]", $numfighters, $langvars['l_mines_dfighter']);
-            $langvars['l_mines_dfighter'] = str_replace ("[mode]", $mode, $langvars['l_mines_dfighter']);
+            $langvars['l_mines_dfighter'] = str_replace("[fighters]", $numfighters, $langvars['l_mines_dfighter']);
+            $langvars['l_mines_dfighter'] = str_replace("[mode]", $mode, $langvars['l_mines_dfighter']);
             echo $langvars['l_mines_dfighter'] . "<br>";
         }
 
-        $stamp = date ("Y-m-d H:i:s");
+        $stamp = date("Y-m-d H:i:s");
         if ($numfighters > 0)
         {
             if ($fighter_id != 0)
             {
-                $update = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = quantity + ? ,fm_setting = ? WHERE defence_id = ?;", array ($numfighters, $mode, $fighter_id));
-                Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
+                $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity = quantity + ? ,fm_setting = ? WHERE defence_id = ?;", array ($numfighters, $mode, $fighter_id));
+                Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
             }
             else
             {
-                $update = $db->Execute ("INSERT INTO {$db->prefix}sector_defence (ship_id, sector_id, defence_type, quantity, fm_setting) values (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $playerinfo['sector'], 'F', $numfighters, $mode));
-                Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
+                $update = $db->Execute("INSERT INTO {$db->prefix}sector_defence (ship_id, sector_id, defence_type, quantity, fm_setting) values (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $playerinfo['sector'], 'F', $numfighters, $mode));
+                Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
                 echo $db->ErrorMsg();
             }
         }
@@ -244,21 +244,21 @@ else
         {
             if ($mine_id != 0)
             {
-                $update = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = quantity + ?, fm_setting = ? WHERE defence_id = ?;", array ($nummines, $mode, $mine_id));
-                Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
+                $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity = quantity + ?, fm_setting = ? WHERE defence_id = ?;", array ($nummines, $mode, $mine_id));
+                Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
             }
             else
             {
-                $update = $db->Execute ("INSERT INTO {$db->prefix}sector_defence (ship_id, sector_id, defence_type, quantity, fm_setting) values (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $playerinfo['sector'], 'M', $nummines, $mode));
-                Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
+                $update = $db->Execute("INSERT INTO {$db->prefix}sector_defence (ship_id, sector_id, defence_type, quantity, fm_setting) values (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $playerinfo['sector'], 'M', $nummines, $mode));
+                Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
             }
         }
 
-        $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, ship_fighters = ship_fighters - ?, torps = torps - ? WHERE ship_id = ?;", array ($stamp, $numfighters, $nummines, $playerinfo['ship_id']));
-        Bnt\Db::logDbErrors ($db, $update, __LINE__, __FILE__);
+        $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, ship_fighters = ship_fighters - ?, torps = torps - ? WHERE ship_id = ?;", array ($stamp, $numfighters, $nummines, $playerinfo['ship_id']));
+        Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
     }
 }
 
-Bnt\Text::gotoMain ($db, $lang, $langvars);
+Bnt\Text::gotoMain($db, $lang, $langvars);
 Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

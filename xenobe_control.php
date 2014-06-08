@@ -25,7 +25,7 @@ $title = $langvars['l_ai_control'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load ($db, $lang, array ('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 function checked($yesno)
@@ -33,7 +33,7 @@ function checked($yesno)
     return (($yesno == "Y") ? "CHECKED" : "");
 }
 
-if (isset ($_POST['menu']))
+if (isset($_POST['menu']))
 {
     $module = $menu;
 }
@@ -42,7 +42,7 @@ else
     $module = '';
 }
 
-if (isset ($_POST['swordfish']))
+if (isset($_POST['swordfish']))
 {
     $swordfish = $_POST['swordfish'];
 }
@@ -60,7 +60,7 @@ if ($swordfish != ADMIN_PW)
 }
 else
 {
-    if (empty ($module)) // Main menu
+    if (empty($module)) // Main menu
     {
         echo "Welcome to the Blacknova Traders Xenobe Control module<br><br>";
         echo "Select a function from the list below:<br>";
@@ -150,14 +150,14 @@ else
             if (empty ($user))
             {
                 echo "<select size=20 name=user>";
-                $res = $db->Execute ("SELECT email, character_name, ship_destroyed, active, sector FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email = xenobe_id ORDER BY sector;");
-                Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+                $res = $db->Execute("SELECT email, character_name, ship_destroyed, active, sector FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email = xenobe_id ORDER BY sector;");
+                Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
                 while (!$res->EOF)
                 {
                     $row = $res->fields;
-                    $charnamelist = sprintf ("%-20s", $row['character_name']);
-                    $charnamelist = str_replace ("  ", "&nbsp;&nbsp;", $charnamelist);
-                    $sectorlist = sprintf ("Sector %'04d&nbsp;&nbsp;", $row['sector']);
+                    $charnamelist = sprintf("%-20s", $row['character_name']);
+                    $charnamelist = str_replace("  ", "&nbsp;&nbsp;", $charnamelist);
+                    $sectorlist = sprintf("Sector %'04d&nbsp;&nbsp;", $row['sector']);
                     if ($row['active'] == "Y")
                     {
                         $activelist = "Active &Oslash;&nbsp;&nbsp;";
@@ -176,7 +176,7 @@ else
                         $destroylist = "Destroyed O&nbsp;&nbsp;";
                     }
 
-                    printf ("<option value=%s>%s %s %s %s</option>", $row['email'], $activelist, $destroylist, $sectorlist, $charnamelist);
+                    printf("<option value=%s>%s %s %s %s</option>", $row['email'], $activelist, $destroylist, $sectorlist, $charnamelist);
                     $res->MoveNext();
                 }
 
@@ -185,18 +185,18 @@ else
             }
             else
             {
-                if (empty ($operation))
+                if (empty($operation))
                 {
-                    $res = $db->Execute ("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email = ?;", array ($user));
-                    Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+                    $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email = ?;", array ($user));
+                    Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
                     $row = $res->fields;
                     echo "<table border=0 cellspacing=0 cellpadding=5>";
                     echo "<tr><td>Xenobe name</td><td><input type=text name=character_name value=\"$row[character_name]\"></td></tr>";
-                    echo "<tr><td>Active?</td><td><input type=checkbox name=active value=ON " . checked ($row['active']) . "></td></tr>";
+                    echo "<tr><td>Active?</td><td><input type=checkbox name=active value=ON " . checked($row['active']) . "></td></tr>";
                     echo "<tr><td>E-mail</td><td>$row[email]</td></tr>";
                     echo "<tr><td>ID</td><td>$row[ship_id]</td></tr>";
                     echo "<tr><td>Ship</td><td><input type=text name=ship_name value=\"$row[ship_name]\"></td></tr>";
-                    echo "<tr><td>Destroyed?</td><td><input type=checkbox name=ship_destroyed value=ON " . checked ($row['ship_destroyed']) . "></td></tr>";
+                    echo "<tr><td>Destroyed?</td><td><input type=checkbox name=ship_destroyed value=ON " . checked($row['ship_destroyed']) . "></td></tr>";
                     echo "<tr><td>Orders</td><td>";
                     echo "<select size=1 name=orders>";
                     $oorder0 = $oorder1 = $oorder2 = $oorder3 = "value";
@@ -281,8 +281,8 @@ else
                     echo "<td>Genesis Torpedoes</td><td><input type=text size=5 name=dev_genesis value=\"$row[dev_genesis]\"></td></tr>";
                     echo "<tr><td>Mine Deflectors</td><td><input type=text size=5 name=dev_minedeflector value=\"$row[dev_minedeflector]\"></td>";
                     echo "<td>Emergency Warp</td><td><input type=text size=5 name=dev_emerwarp value=\"$row[dev_emerwarp]\"></td></tr>";
-                    echo "<tr><td>Escape Pod</td><td><input type=checkbox name=dev_escapepod value=ON " . checked ($row['dev_escapepod']) . "></td>";
-                    echo "<td>FuelScoop</td><td><input type=checkbox name=dev_fuelscoop value=ON " . checked ($row['dev_fuelscoop']) . "></td></tr>";
+                    echo "<tr><td>Escape Pod</td><td><input type=checkbox name=dev_escapepod value=ON " . checked($row['dev_escapepod']) . "></td>";
+                    echo "<td>FuelScoop</td><td><input type=checkbox name=dev_fuelscoop value=ON " . checked($row['dev_fuelscoop']) . "></td></tr>";
                     echo "</table></td></tr>";
                     echo "<tr><td>Credits</td><td><input type=text name=credits value=\"$row[credits]\"></td></tr>";
                     echo "<tr><td>Turns</td><td><input type=text name=turns value=\"$row[turns]\"></td></tr>";
@@ -296,8 +296,8 @@ else
                     echo "<hr>";
                     echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0;\">Log Data For This Xenobe</span><br>";
 
-                    $logres = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? ORDER BY time DESC, type DESC", array ($row['ship_id']));
-                    Bnt\Db::logDbErrors ($db, $logres, __LINE__, __FILE__);
+                    $logres = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? ORDER BY time DESC, type DESC", array ($row['ship_id']));
+                    Bnt\Db::logDbErrors($db, $logres, __LINE__, __FILE__);
                     while (!$logres->EOF)
                     {
                         $logrow = $logres->fields;
@@ -315,7 +315,7 @@ else
                                 break;
                         }
 
-                        $logdatetime = substr ($logrow['time'], 4, 2) . "/" . substr ($logrow['time'], 6, 2) . "/" . substr ($logrow['time'], 0, 4) . " " . substr ($logrow['time'], 8, 2) . ":" . substr ($logrow['time'], 10, 2) . ":" . substr ($logrow['time'], 12, 2);
+                        $logdatetime = substr($logrow['time'], 4, 2) . "/" . substr($logrow['time'], 6, 2) . "/" . substr($logrow['time'], 0, 4) . " " . substr($logrow['time'], 8, 2) . ":" . substr($logrow['time'], 10, 2) . ":" . substr($logrow['time'], 12, 2);
                         echo "$logdatetime $logtype$logrow[data] <br>";
                         $logres->MoveNext();
                     }
@@ -323,12 +323,12 @@ else
                 elseif ($operation == "save")
                 {
                     // Update database
-                    $_ship_destroyed = empty ($ship_destroyed) ? "N" : "Y";
-                    $_dev_escapepod = empty ($dev_escapepod) ? "N" : "Y";
-                    $_dev_fuelscoop = empty ($dev_fuelscoop) ? "N" : "Y";
-                    $_active = empty ($active) ? "N" : "Y";
-                    $result = $db->Execute ("UPDATE {$db->prefix}ships SET character_name = ?, ship_name = ?, ship_destroyed = ?, hull = ?, engines = ?, power = ?, computer = ?, sensors = ?, armor = ?, shields = ?, beams = ?, torp_launchers = ?, cloak = ?, credits = ?, turns = ?, dev_warpedit = ?, dev_genesis = ?, dev_beacon = ?, dev_emerwarp = ?, dev_escapepod = ?, dev_fuelscoop = ?, dev_minedeflector = ?, sector = ?, ship_ore = ?, ship_organics = ?, ship_goods = ?, ship_energy = ?, ship_colonists = ?, ship_fighters = ?, torps = ?, armor_pts = ? WHERE email = ?;", array ($character_name, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $user));
-                    Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+                    $_ship_destroyed = empty($ship_destroyed) ? "N" : "Y";
+                    $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
+                    $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
+                    $_active = empty($active) ? "N" : "Y";
+                    $result = $db->Execute("UPDATE {$db->prefix}ships SET character_name = ?, ship_name = ?, ship_destroyed = ?, hull = ?, engines = ?, power = ?, computer = ?, sensors = ?, armor = ?, shields = ?, beams = ?, torp_launchers = ?, cloak = ?, credits = ?, turns = ?, dev_warpedit = ?, dev_genesis = ?, dev_beacon = ?, dev_emerwarp = ?, dev_escapepod = ?, dev_fuelscoop = ?, dev_minedeflector = ?, sector = ?, ship_ore = ?, ship_organics = ?, ship_goods = ?, ship_energy = ?, ship_colonists = ?, ship_fighters = ?, torps = ?, armor_pts = ? WHERE email = ?;", array ($character_name, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $user));
+                    Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
                     if (!$result)
                     {
                         echo "Changes to Xenobe ship record have FAILED Due to the following Error:<br><br>";
@@ -337,8 +337,8 @@ else
                     else
                     {
                         echo "Changes to Xenobe ship record have been saved.<br><br>";
-                        $result2 = $db->Execute ("UPDATE {$db->prefix}xenobe SET active = ?, orders = ?, aggression = ? WHERE xenobe_id = ?;", array ($_active, $orders, $aggression, $user));
-                        Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
+                        $result2 = $db->Execute("UPDATE {$db->prefix}xenobe SET active = ?, orders = ?, aggression = ? WHERE xenobe_id = ?;", array ($_active, $orders, $aggression, $user));
+                        Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
                         if (!$result2)
                         {
                             echo "Changes to Xenobe activity record have FAILED Due to the following Error:<br><br>";
@@ -366,7 +366,7 @@ else
             echo "<h1>Drop and Re-Install Xenobe Database</h1>";
             echo "<h3>This will DELETE All Xenobe records from the <i>ships</i> table then DROP and reset the <i>xenobe</i> table</h3>";
             echo "<form action=xenobe_control.php method=post>";
-            if (empty ($operation))
+            if (empty($operation))
             {
                 echo "<br>";
                 echo "<h2><font COLOR=Red>Are You Sure?</font></h2><br>";
@@ -377,17 +377,17 @@ else
             {
                 // Delete all xenobe in the ships table
                 echo "Deleting xenobe records in the ships table...<br>";
-                $resx = $db->Execute ("DELETE FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
-                Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+                $resx = $db->Execute("DELETE FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
+                Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
                 echo "deleted.<br>";
                 // Drop xenobe table
                 echo "Dropping xenobe table...<br>";
-                $resy = $db->Execute ("DROP TABLE IF EXISTS {$db->prefix}xenobe");
-                Bnt\Db::logDbErrors ($db, $resy, __LINE__, __FILE__);
+                $resy = $db->Execute("DROP TABLE IF EXISTS {$db->prefix}xenobe");
+                Bnt\Db::logDbErrors($db, $resy, __LINE__, __FILE__);
                 echo "dropped.<br>";
                 // Create xenobe table
                 echo "Re-Creating table: xenobe...<br>";
-                $resz = $db->Execute ("CREATE table {$db->prefix}xenobe(" .
+                $resz = $db->Execute("CREATE table {$db->prefix}xenobe(" .
                                      "xenobe_id char(40) NOT NULL," .
                                      "active enum('Y','N') DEFAULT 'Y' NOT NULL," .
                                      "aggression smallint(5) DEFAULT '0' NOT NULL," .
@@ -395,7 +395,7 @@ else
                                      "PRIMARY KEY (xenobe_id)," .
                                      "KEY xenobe_id (xenobe_id)" .
                                      ")");
-                Bnt\Db::logDbErrors ($db, $resz, __LINE__, __FILE__);
+                Bnt\Db::logDbErrors($db, $resz, __LINE__, __FILE__);
                 echo "created.<br>";
             }
             else
@@ -412,7 +412,7 @@ else
             echo "<h1>Clear All Xenobe Logs</h1>";
             echo "<h3>This will DELETE All Xenobe log files</h3>";
             echo "<form action=xenobe_control.php method=post>";
-            if (empty ($operation))
+            if (empty($operation))
             {
                 echo "<br>";
                 echo "<h2><font COLOR=Red>Are You Sure?</font></h2><br>";
@@ -421,13 +421,13 @@ else
             }
             elseif ($operation == "clearxenlog")
             {
-                $res = $db->Execute ("SELECT email,ship_id FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
-                Bnt\Db::logDbErrors ($db, $res, __LINE__, __FILE__);
+                $res = $db->Execute("SELECT email,ship_id FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
+                Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
                 while (!$res->EOF)
                 {
                     $row = $res->fields;
-                    $resx = $db->Execute ("DELETE FROM {$db->prefix}logs WHERE ship_id = ?;", array ($row['ship_id']));
-                    Bnt\Db::logDbErrors ($db, $resx, __LINE__, __FILE__);
+                    $resx = $db->Execute("DELETE FROM {$db->prefix}logs WHERE ship_id = ?;", array ($row['ship_id']));
+                    Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
                     echo "Log for ship_id $row[ship_id] cleared.<br>";
                     $res->MoveNext();
                 }
@@ -446,32 +446,32 @@ else
             echo "<strong>Create A New Xenobe</strong>";
             echo "<br>";
             echo "<form action=xenobe_control.php method=post>";
-            if (empty ($operation))
+            if (empty($operation))
             {
                 // Create Xenobe Name
                 $Sylable1 = array ("Ak","Al","Ar","B","Br","D","F","Fr","G","Gr","K","Kr","N","Ol","Om","P","Qu","R","S","Z");
                 $Sylable2 = array ("a","ar","aka","aza","e","el","i","in","int","ili","ish","ido","ir","o","oi","or","os","ov","u","un");
                 $Sylable3 = array ("ag","al","ak","ba","dar","g","ga","k","ka","kar","kil","l","n","nt","ol","r","s","ta","til","x");
-                $sy1roll = Bnt\Rand::betterRand (0, 19);
-                $sy2roll = Bnt\Rand::betterRand (0, 19);
-                $sy3roll = Bnt\Rand::betterRand (0, 19);
+                $sy1roll = Bnt\Rand::betterRand(0, 19);
+                $sy2roll = Bnt\Rand::betterRand(0, 19);
+                $sy3roll = Bnt\Rand::betterRand(0, 19);
                 $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
                 $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-                $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
-                Bnt\Db::logDbErrors ($db, $resultnm, __LINE__, __FILE__);
+                $resultnm = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
+                Bnt\Db::logDbErrors($db, $resultnm, __LINE__, __FILE__);
                 $namecheck = $resultnm->fields;
                 $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
                 $nametry = 1;
                 // If Name Exists Try Again - Up To Nine Times
                 while (($namecheck[0]) and ($nametry <= 9))
                 {
-                    $sy1roll = Bnt\Rand::betterRand (0, 19);
-                    $sy2roll = Bnt\Rand::betterRand (0, 19);
-                    $sy3roll = Bnt\Rand::betterRand (0, 19);
+                    $sy1roll = Bnt\Rand::betterRand(0, 19);
+                    $sy2roll = Bnt\Rand::betterRand(0, 19);
+                    $sy3roll = Bnt\Rand::betterRand(0, 19);
                     $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
                     $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-                    $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
-                    Bnt\Db::logDbErrors ($db, $resultnm, __LINE__, __FILE__);
+                    $resultnm = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
+                    Bnt\Db::logDbErrors($db, $resultnm, __LINE__, __FILE__);
                     $namecheck = $resultnm->fields;
                     $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
                     $nametry++;
@@ -481,7 +481,7 @@ else
                 $shipname = "Xenobe-" . $character;
 
                 // Select Random Sector
-                $sector = Bnt\Rand::betterRand (1, $sector_max);
+                $sector = Bnt\Rand::betterRand(1, $sector_max);
 
                 // Display Confirmation form
                 echo "<td><table border=0 cellspacing=0 cellpadding=5>";
@@ -511,7 +511,7 @@ else
             elseif ($operation == "createxenobe")
             {
                 // Update database
-                $_active = empty ($active) ? "N" : "Y";
+                $_active = empty($active) ? "N" : "Y";
                 $errflag = 0;
                 if ($character == '' || $shipname == '')
                 {
@@ -520,13 +520,13 @@ else
                 }
 
                 // Change Spaces to Underscores in shipname
-                $shipname = str_replace (" ", "_", $shipname);
+                $shipname = str_replace(" ", "_", $shipname);
 
                 // Create emailname from character
-                $emailname = str_replace (" ", "_", $character) . "@xenobe";
+                $emailname = str_replace(" ", "_", $character) . "@xenobe";
                 $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-                $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email = ? OR character_name = ? OR ship_name = ?;", array ($emailname, $character, $shipname));
-                Bnt\Db::logDbErrors ($db, $result, __LINE__, __FILE__);
+                $result = $db->Execute("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email = ? OR character_name = ? OR ship_name = ?;", array ($emailname, $character, $shipname));
+                Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
                 if ($result instanceof ADORecordSet)
                 {
                     while (!$result->EOF)
@@ -547,7 +547,7 @@ else
                         if ($row[2] == $shipname)
                         {
                             echo "ERROR: Ship name $shipname, is already in use.<br>";
-                           $errflag = 1;
+                            $errflag = 1;
                         }
 
                         $result->MoveNext();
@@ -559,16 +559,16 @@ else
                 {
                     $makepass = '';
                     $syllables ="er,in,tia,wol,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se";
-                    $syllable_array = explode (",", $syllables);
+                    $syllable_array = explode(",", $syllables);
                     for ($count = 1; $count <= 4; $count++)
                     {
-                        if (Bnt\Rand::betterRand () %10 == 1)
+                        if (Bnt\Rand::betterRand() %10 == 1)
                         {
-                            $makepass .= sprintf ("%0.0f", (Bnt\Rand::betterRand () %50)+1);
+                            $makepass .= sprintf("%0.0f", (Bnt\Rand::betterRand() %50)+1);
                         }
                         else
                         {
-                            $makepass .= sprintf ("%s", $syllable_array[Bnt\Rand::betterRand () %62]);
+                            $makepass .= sprintf("%s", $syllable_array[Bnt\Rand::betterRand() %62]);
                         }
                     }
                     if ($xenlevel == null)
@@ -585,8 +585,8 @@ else
                     // Add Xenobe record to ships table ... modify if the ships schema changes
                     $thesql = "INSERT INTO {$db->prefix}ships ( `ship_id` , `ship_name` , `ship_destroyed` , `character_name` , `password` , `email` , `hull` , `engines` , `power` , `computer` , `sensors` , `beams` , `torp_launchers` , `torps` , `shields` , `armor` , `armor_pts` , `cloak` , `credits` , `sector` , `ship_ore` , `ship_organics` , `ship_goods` , `ship_energy` , `ship_colonists` , `ship_fighters` , `ship_damage` , `turns` , `on_planet` , `dev_warpedit` , `dev_genesis` , `dev_beacon` , `dev_emerwarp` , `dev_escapepod` , `dev_fuelscoop` , `dev_minedeflector` , `turns_used` , `last_login` , `rating` , `score` , `team` , `team_invite` , `interface` , `ip_address` , `planet_id` , `preset1` , `preset2` , `preset3` , `trade_colonists` , `trade_fighters` , `trade_torps` , `trade_energy` , `cleared_defences` , `lang` , `dev_lssd` )
                                VALUES (NULL,'$shipname','N','$character','$makepass','$emailname',$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$maxtorps,$xenlevel,$xenlevel,$maxarmor,$xenlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,0,$start_turns,'N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y',NULL,'$default_lang','Y')";
-                    $result2 = $db->Execute ($thesql);
-                    Bnt\Db::logDbErrors ($db, $result2, __LINE__, __FILE__);
+                    $result2 = $db->Execute($thesql);
+                    Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
                     if (!$result2)
                     {
                         echo $db->ErrorMsg() . "<br>";
@@ -598,8 +598,8 @@ else
                         echo "Ship Records have been updated.<br><br>";
                     }
 
-                    $result3 = $db->Execute ("INSERT INTO {$db->prefix}xenobe (xenobe_id, active, aggression, orders) values(?,?,?,?)", array ($emailname, $_active, $aggression, $orders));
-                    Bnt\Db::logDbErrors ($db, $result3, __LINE__, __FILE__);
+                    $result3 = $db->Execute("INSERT INTO {$db->prefix}xenobe (xenobe_id, active, aggression, orders) values(?,?,?,?)", array ($emailname, $_active, $aggression, $orders));
+                    Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
                     if (!$result3)
                     {
                         echo $db->ErrorMsg() . "<br>";

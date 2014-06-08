@@ -27,7 +27,7 @@ Bnt\Header::display($db, $lang, $template, $title);
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
-if (!isset ($defence_id))
+if (!isset($defence_id))
 {
     echo $langvars['l_md_invalid'] . "<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
@@ -84,7 +84,7 @@ if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
 else
 {
     $defence_ship_id = $defenceinfo['ship_id'];
-    $resulta = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($defence_ship_id));
+    $resulta = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($defence_ship_id));
     $ownerinfo = $resulta->fields;
     $defence_owner = $ownerinfo['character_name'];
 }
