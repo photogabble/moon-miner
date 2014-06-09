@@ -1,3 +1,7 @@
+TheKabal (8 June 2014)
+--------------------------------------
+Setup info has been rewritten to use templates, add additional tests, improve html compliance, etc.
+
 TheKabal (2 June 2014)
 --------------------------------------
 Continued cleanup based on PSR standards, correct space before functions formatting, indention, php statement on its own line, etc.

@@ -18,361 +18,146 @@
 // File: setup_info.php
 
 include './global_includes.php';
+require './config/db_config.php';
 
-// Stores the class for creating the universe.
-include './setup_info_class.php';
+// Set headers
+header('Content-type: text/html; charset=utf-8');  // Set character set to utf-8, and using HTML as our content type
+header('X-UA-Compatible: IE=Edge, chrome=1');      // Tell IE to use the latest version of the rendering engine, and to use chrome if it is available. This is not needed after IE11.
+header('Cache-Control: public');                   // Tell the browser (and any caches) that this information can be stored in public caches.
+header('Connection: Keep-Alive');                  // Tell the browser to keep going until it gets all data, please.
+header('Vary: Accept-Encoding, Accept-Language');  // Tell CDN's or proxies to keep a separate version of the page in various encodings - compressed or not, in english or french for example.
+header('Keep-Alive: timeout=15, max=100');         // Ask for persistent HTTP connections (15sec), which give better per-client performance, but can be worse (for a server) for many.
 
-// Load up SETUPINFO Class
-$setup_info = new SETUPINFO_CLASS();
-
-// Class Test Switches.
-$setup_info->switches['Show_Env_Var']['enabled']    = true;
-$setup_info->switches['Test_Cookie']['enabled']     = true;
-$setup_info->switches['Enable_Database']['enabled'] = false;
-$setup_info->switches['Display_Patches']['enabled'] = true;
-$setup_info->switches['Display_Errors']['enabled']  = true;
-
-$setup_info->testcookies();
-$setup_info->initDB();
-
-$title = $setup_info->appinfo['title'];
-Bnt\Header::display($db, $lang, $template, $title);
+// Set cookies for cookie test
+SetCookie ("TestCookie", "", 0);
+SetCookie ("TestCookie", "Shuzbutt", time()+3600, Bnt\SetPaths::setGamepath(), Bnt\SetPaths::setGamedomain());
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('common', 'global_includes', 'footer', 'news'));
+$langvars = Bnt\Translate::load($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index', 'options'));
 
-$setup_info->DisplayFlush("<div align=\"center\">\n");
-$setup_info->DisplayFlush("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
-$setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td><font size=\"6\" color=\"#ffffff\">{$setup_info->appinfo['title']}</font></td>\n");
-$setup_info->DisplayFlush("  </tr>\n");
-$setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#ffffff\"><strong>{$setup_info->appinfo['description']}</strong></font></td>\n");
-$setup_info->DisplayFlush("  </tr>\n");
-$setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#ffffff\"><strong>Written by {$setup_info->appinfo['author']}</strong></font></td>\n");
-$setup_info->DisplayFlush("  </tr>\n");
-$setup_info->DisplayFlush("</table>\n");
-$setup_info->DisplayFlush("</div><br>\n");
-$setup_info->DisplayFlush("<br>\n");
+$variables = null;
+$variables['lang'] = $lang;
+$variables['link'] = 'http://blacknova.net';
+$variables['admin_mail'] = $bntreg->admin_mail;
+$variables['body_class'] = 'bnt';
+$variables['template'] = $bntreg->default_template; // Temporarily set the template to the default template until we have a user option
 
-//End of own HTML Tables
-$setup_info->DisplayFlush("<font size=\"2\" color=#ffff00><i>Well since a lot of people are having problems setting up Blacknova Traders on a Linux based server.</i></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#ffff00><i>Here is the settings that you may require to set.</i></font><br><br>\n");
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvars";
+$variables['selected_lang'] = null;
+$variables['system'] = php_uname();
+$variables['remote_addr'] = $_SERVER['REMOTE_ADDR'];
+$variables['server_addr'] = $_SERVER['HTTP_HOST'] . ':' . $_SERVER['SERVER_PORT'];
+$variables['zend_version'] = zend_version();
+$variables['apache_version'] = apache_get_version();
+$variables['php_version'] = PHP_VERSION;
+$variables['php_sapi_name'] = php_sapi_name();
+$variables['game_path'] = Bnt\SetPaths::setGamepath();
+$variables['game_domain'] = Bnt\SetPaths::setGamedomain();
+$variables['db_type'] = $db_type;
+$variables['db_name'] = $db_name;
+$variables['db_prefix'] = $db_prefix;
+$variables['admin_name'] = $bntreg->admin_name;
+$variables['admin_email'] = str_replace('@', ' AT ', $bntreg->admin_mail);
+$variables['release_version'] = $bntreg->release_version;
+$variables['turns_per_tick'] = $bntreg->turns_per_tick;
+$variables['sched_ticks'] = $bntreg->sched_ticks;
+$variables['sched_turns'] = $bntreg->sched_turns;
+$variables['sched_ports'] = $bntreg->sched_ports;
+$variables['sched_planets'] = $bntreg->sched_planets;
+$variables['sched_igb'] = $bntreg->sched_igb;
+$variables['sched_ranking'] = $bntreg->sched_ranking;
+$variables['sched_news'] = $bntreg->sched_news;
+$variables['sched_degrade'] = $bntreg->sched_degrade;
+$variables['sched_apocalypse'] = $bntreg->sched_apocalypse;
+$variables['sched_thegovernor'] = $bntreg->sched_thegovernor;
+$variables['hash'] = strtoupper(md5_file(__FILE__));
+$variables['updated_on'] = date("l, F d, Y", filemtime(basename(__FILE__)));
+$variables['cookie_test'] = isset($_COOKIE['TestCookie']);
+$variables['dev_mode'] = file_exists('dev');
+$variables['php_module_pdo'] = extension_loaded('pdo_mysql');
+$variables['php_module_mysqli'] = extension_loaded('mysqli');
+$variables['adodb_path_test'] = file_exists(realpath("vendor/adodb/adodb-php/adodb.inc.php"));
+$variables['smarty_path_test'] = file_exists(realpath("vendor/smarty/smarty/distribution/libs/Smarty.class.php"));
 
-$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>ADMINS: <font color=#ffff00>If you get any errors or incorrect info returned then set <font color=\"#0000fff00\">\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font></font></font><br><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>To Enable the Cookie Test, set <font color=\"#0000fff00\">\$setup_info->switches['Test_Cookie']['enabled'] = true;</font></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>To Enable the Database Test, set <font color=\"#0000fff00\">\$setup_info->switches['Enable_Database']['enabled'] = true;</font></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>To Enable the Display All installed patches, set <font color=\"#0000fff00\">\$setup_info->switches['Display_Patches']['enabled'] = true;</font></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>To Enable the Display All Errors, set <font color=\"#0000fff00\">\$setup_info->switches['Display_Errors']['enabled'] = true;</font></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=yellow>Then refresh the page and then save it as htm or html and then Email it to me.</font><br>\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='height:1px; width:100%; margin:0px; background-color:#808080;'></div>\n");
-$setup_info->DisplayFlush("<br>\n");
-
-$Cols = 3;
-$switch_info = $setup_info->get_switches();
-$setup_info->do_Table_Title("Setup Info Switch Configuration", $Cols);
-for ($n = 0; $n < count($switch_info); $n++)
+// Test Smarty
+$test_smarty = new \Smarty;
+$test_smarty->setCompileDir('templates/_compile/');
+$test_smarty->setCacheDir('templates/_cache/');
+$test_smarty->setConfigDir('templates/_configs/');
+// Smarty outputs directly (yuck), so we output buffer it instead
+ob_start();
+$test_smarty->testInstall();
+$variables['smarty_test_err'] = ob_get_contents();
+ob_end_clean();
+if (strpos($variables['smarty_test_err'], 'FAILED'))
 {
-    list($switch_name, $switch_array) = each($switch_info);
-    $setup_info->do_Table_Row($switch_array['caption'], "<font color='maroon'>".$switch_array['info']."</font>", (($switch_array['value']) ? "<font color='#0000ff'>Enabled</font>" : "<font color='#ff0000'>Disabled</font>"));
-}
-$setup_info->do_Table_Footer("<br>");
-
-#$setup_info->DisplayFlush("<p><hr align='center' width='80%' size='1'></p>\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-
-$setup_info->DisplayFlush("<font size=\"2\">// This is just to find out what Server Operating System your running bnt on.</font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\">// And to find out what other software is running e.g. PHP,</font><br>\n");
-$setup_info->DisplayFlush("<br>\n");
-
-$Cols = 3;
-$Wrap = true;
-$setup_info->do_Table_Title("Server Software/Operating System", $Cols);
-
-$software_info = $setup_info->get_server_software();
-
-for ($n = 0; $n < count($software_info); $n++)
-{
-    list($software_name, $software_array) = each($software_info);
-    list($software_key, $software_value) = each($software_array);
-    $setup_info->do_Table_Row($software_key, $software_value);
-}
-
-if ($setup_info->testdb_connection())
-{
-    $setup_info->do_Table_Row("DB CONNECTION", "<font color='#0000ff'><strong>".$setup_info->db_status['status']."</strong></font>");
+    $variables['smarty_test'] = false;
 }
 else
 {
-    $setup_info->do_Table_Row("DB CONNECTION", "<font color='#ff0000'><strong>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</strong></font>");
+    $variables['smarty_test'] = true;
 }
 
-if ($setup_info->cookie_test['enabled'])
+if (!empty ($db_port))
 {
-    if ($setup_info->cookie_test['result'])
-    {
-        $setup_info->do_Table_Row("Cookie Test", "<font color='#0000ff'><strong>Passed</strong></font>");
-    }
-    else
-    {
-        $setup_info->do_Table_Row("Cookie Test", "<font color='#ff0000'><strong>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</strong></font>");
-    }
+    $db_host.= ":$db_port";
+}
+
+// Attempt to connect to the database via adodb
+$test_db = ADONewConnection('mysqli');
+$variables['adodb_conn_test'] = @$test_db->Connect($db_host, $db_user, $db_pwd, $db_name);
+if ($variables['adodb_conn_test'])
+{
 }
 else
 {
-    $setup_info->do_Table_Row("Cookie Test", "<font color='#ff0000'><strong>{$setup_info->cookie_test['status']}</strong></font>");
+    $variables['adodb_conn_err'] = "Error message";
 }
 
-$setup_info->do_Table_Footer("");
-$setup_info->DisplayFlush("<br>\n");
-
-$Cols = 3;
-$Wrap = true;
-$setup_info->do_Table_Title("Software Versions", $Cols);
-
-$software_versions = $setup_info->get_software_versions();
-for ($n = 0; $n < count($software_versions); $n++)
+// Attempt to connect to the database via PDO
+try
 {
-    list($software_name, $software_array) = each($software_versions);
-    list($software_key, $software_value) = each($software_array);
-    $setup_info->do_Table_Row($software_key, $software_value);
+    $test_pdo_db = new PDO("mysql:host=$db_host; port=$db_port; dbname=$db_name; charset=utf8mb4", $db_user, $db_pwd);
+    $variables['pdo_conn_test'] = true;
+    $variables['pdo_server_ver'] = $test_pdo_db->getAttribute(constant("PDO::ATTR_SERVER_VERSION"));
+}
+catch (\PDOException $e)
+{
+    $err_msg = "Unable to connect to the " . $db_type .
+               " Database.<br>\n Database Error: ".
+               $e->getMessage() ."<br>\n";
+    $variables['pdo_conn_test'] = false;
+    $variables['pdo_conn_err'] = $err_msg;
 }
 
-$setup_info->do_Table_Blank_Row();
-$setup_info->do_Table_Single_Row("* = Module (if any installed).");
-$setup_info->do_Table_Footer("<br>");
-
-// Config local settings
-#$setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-
-$setup_info->DisplayFlush("<p><font size=\"2\">// This is what you need to put in your db_config.php file.</font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\">// If you are having problems using this script then email me <a class=\"email\" href=\"mailto:{$setup_info->appinfo['email']}\">{$setup_info->appinfo['author']}</a>.</font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\">// Also if you think the info displayed is Incorrect then Email me <a class=\"email\" href=\"mailto:{$setup_info->appinfo['email']}\">{$setup_info->appinfo['author']}</a> with the following information:</font></p>\n");
-$setup_info->DisplayFlush("<ul>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>A htm or html saved page from within you browser of Setup Info with <font size=\"2\" color=#0000fff00>\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font> This is settable within setup_info.php.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>What Operating System you are using.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>What Version of Apache, PHP and mySQL that you are using.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>And if using Windows OS are you using IIS.</font></li>\n");
-$setup_info->DisplayFlush("</ul>\n");
-$setup_info->DisplayFlush("<p><font size=\"2\">// With this information it will help me to help you much faster and also get my Script to display more reliable information.</font></p>\n");
-
-$setup_info->do_Table_Title("DB Config Settings", $Cols);
-
-$setup_info->do_Table_Blank_Row();
-$game_path = $setup_info->get_gamepath();
-$setup_info->do_Table_Row("gamepath", "<strong>".(!$game_path['status'] ? "<font color='#ff0000'>{$game_path['info']}</font>" : $game_path['result'] )."</strong>");
-if (!$game_path['status'])
+// Get environment variables
+$id=0;
+ksort($_SERVER);
+reset($_SERVER);
+foreach ($_SERVER as $name => $value)
 {
-    $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
+    $array_var = explode(";", "$value");
+    $value = implode("; ", $array_var);
+    $variables['env_vars'][$id]['name']=trim($name);
+    $variables['env_vars'][$id]['value']=trim($value);
+    $id++;
 }
 
-$setup_info->do_Table_Blank_Row();
-$game_domain = $setup_info->get_gamedomain();
-$setup_info->do_Table_Row("gamedomain", "<strong>".(!$game_domain['status'] ? "<font color='#ff0000'>{$game_domain['info']}</font>" : $game_domain['result'] )."</strong>");
-if (!$game_domain['status'])
+// Properly format the database host/port
+if ($db_port !== null)
 {
-    $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
-}
-
-$setup_info->do_Table_Blank_Row();
-$setup_info->do_Table_Single_Row("You need to set this information in db_config.php");
-$setup_info->do_Table_Blank_Row();
-$setup_info->do_Table_Footer();
-
-/*
-// Display BNT DataBase Status.
-#$setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-
-$setup_info->DisplayFlush("<p><font size=\"2\">// This displays status on the BNT Database.</font></p>\n");
-$Cols = 3;
-$setup_info->do_Table_Title("Blacknova Traders Database Status", $Cols);
-
-$DB_STATUS = $setup_info->validate_database();
-$setup_info->do_Table_Row("TableCount", $DB_STATUS['status']);
-$setup_info->do_Table_Blank_Row();
-foreach ($DB_STATUS as $n => $s)
-{
-    if ($n!="status")
-    {
-        $setup_info->do_Table_Row($DB_STATUS[$n]['name'], $DB_STATUS[$n]['info'], $DB_STATUS[$n]['status']);
-    }
-}
-$setup_info->do_Table_Blank_Row();
-$setup_info->do_Table_Footer("<br>");
-*/
-
-// Display BNT Patch Status.
-$setup_info->get_patch_info($patch_info);
-
-#$setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-
-$setup_info->DisplayFlush("<p><font size=\"2\">// This displays Installed Patch information on the BNT Server.</font></p>\n");
-
-$Cols = 3;
-$setup_info->do_Table_Title("Testing for installed patches", $Cols);
-
-if ($patch_info != null)
-{
-    foreach ($patch_info as $n => $s)
-    {
-        $setup_info->do_Table_Row($patch_info[$n][0]['name'], $patch_info[$n][0]['info'], $patch_info[$n][0]['patched']);
-        if ($patch_info[$n][0]['patched']!="Not Found")
-        {
-            $setup_info->do_Table_Row("Patch Information", "<font color=\"maroon\">Author: </font><font color=\"purple\">".$patch_info[$n][1]['author']."</font><br>\n<font color=\"maroon\">Created: </font><font color=\"purple\">".$patch_info[$n][1]['created']."</font>");
-        }
-        $setup_info->do_Table_Blank_Row();
-    }
-    $setup_info->do_Table_Footer("<br>");
+    $variables['db_addr'] = $db_host . ":" . $db_port;
 }
 else
 {
-    $setup_info->do_Table_Row("Patch Information", "<font color=\"maroon\">Author: </font><font color=\"purple\">".$patch_info[$n][1]['author']."</font><br>\n<font color=\"maroon\">Created: </font><font color=\"purple\">".$patch_info[$n][1]['created']."</font>");
-    $setup_info->do_Table_Blank_Row();
-    $setup_info->do_Table_Footer("<br>");
+    $variables['db_addr'] = $db_host;
 }
 
-// This gets the Environment Variables
-#$setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-
-$setup_info->DisplayFlush("<p><font size=\"2\">// This is used to help the admin of the server set up BNT, Or its used by me if you are having problems setting up BNT.</font></p>\n");
-
-$Cols = 2;
-$Wrap = true;
-$setup_info->do_Table_Title("Environment Variables", $Cols);
-if ($setup_info->get_env_variables($env_info))
-{
-    for ($n=0; $n <count($env_info); $n++)
-    {
-        $setup_info->do_Table_Row($env_info[$n]['name'], $env_info[$n]['value']);
-    }
-}
-else
-{
-    $env_status = null;
-    for ($n=0; $n <count($env_info['status']); $n++)
-    {
-        $env_status .= $env_info['status'][$n];
-        if ($n < count($env_info['status']))
-        {
-            $env_status .="<br>";
-        }
-    }
-    $setup_info->do_Table_Single_Row("<strong>$env_status</strong>");
-}
-$setup_info->do_Table_Footer("<br>");
-
-// Current db_config Information.
-#$setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-
-$setup_info->DisplayFlush("<p><font size=\"2\">// This is what you already have set in db_config.php.</font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\">// This will also tell you if what you have set in db_config.php is the same as what Setup Info has Auto Detected.</font></p>\n");
-
-$Cols = 3;
-$setup_info->do_Table_Title("Current DB Config Information", $Cols);
-$cur_cfg_loc = $setup_info->get_current_db_config_info();
-
-if (is_array($cur_cfg_loc))
-{
-    for ($n=0; $n<count($cur_cfg_loc)-1; $n++)
-    {
-        if (is_string($cur_cfg_loc[$n]) & $cur_cfg_loc[$n] == "%SEPERATOR%")
-        {
-            $setup_info->do_Table_Blank_Row();
-        }
-        if (is_array($cur_cfg_loc[$n]))
-        {
-            if (count($cur_cfg_loc[$n])>2)
-            {
-                $setup_info->do_Table_Row($cur_cfg_loc[$n]['caption'], $cur_cfg_loc[$n]['value'], $cur_cfg_loc[$n]['status']);
-            }
-            else
-            {
-                $setup_info->do_Table_Row($cur_cfg_loc[$n]['caption'], $cur_cfg_loc[$n]['value']);
-            }
-        }
-    }
-}
-$setup_info->do_Table_Footer("<br>");
-
-// Current scheduler information.
-#$setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-
-$setup_info->DisplayFlush("<p><font size=\"2\">// This displays the Scheduler information.</font></p>\n");
-
-$Cols = 3;
-$setup_info->do_Table_Title("Scheduler Information", $Cols);
-
-$scheduler_info = $setup_info->get_scheduler_info();
-
-for ($n=0; $n <count($scheduler_info); $n++)
-{
-    $setup_info->do_Table_Row($scheduler_info[$n]['name'], $scheduler_info[$n]['caption'], $scheduler_info[$n]['value']);
-}
-$setup_info->do_Table_Footer("<br>");
-
-// My script information.
-$setup_info->appinfo;
-
-#$setup_info->DisplayFlush("<hr size=\"1\">\n");
-$setup_info->DisplayFlush("<br>\n");
-$setup_info->DisplayFlush("<div style='width:100%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-
-$setup_info->DisplayFlush("<div align=\"center\">\n");
-$setup_info->DisplayFlush("  <center>\n");
-$setup_info->DisplayFlush("  <table cellSpacing=\"0\" width=\"100%\" border=\"0\">\n");
-$setup_info->DisplayFlush("<tbody>\n");
-$setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td style=\"padding-top:4px;\" vAlign=\"top\" noWrap align=\"left\" width=\"50%\"><font size=\"1\" color=\"white\">Version <font color=\"lime\">{$setup_info->appinfo['version']} (<font color=\"white\">{$setup_info->appinfo['releasetype']}</font>)</font></font></td>\n");
-$setup_info->DisplayFlush("        <td style=\"padding-top:4px;\" vAlign=\"top\" noWrap align=\"right\" width=\"50%\"><font size=\"1\" color=\"white\">Created on <font color=\"lime\">{$setup_info->appinfo['createdate']}</font></font></td>\n");
-$setup_info->DisplayFlush("      </tr>\n");
-$setup_info->DisplayFlush("      <tr>\n");
-$setup_info->DisplayFlush("        <td style=\"padding-bottom:4px;\" vAlign=\"top\" noWrap align=\"left\" width=\"50%\"><font size=\"1\" color=\"white\">");
-
-if (function_exists('md5_file'))
-{
-    $hash = strtoupper(md5_file(basename($_SERVER['PHP_SELF'])));
-    $setup_info->DisplayFlush(" Hash: [<font color=\"yellow\">$hash</font>] - [<font color=\"yellow\">". $setup_info->appinfo['hash']."</font>]");
-}
-else
-{
-    $setup_info->DisplayFlush(" Hash: [<font color=\"yellow\">Disabled</font>]");
-}
-
-$setup_info->DisplayFlush("</font></td>\n");
-$setup_info->DisplayFlush("        <td style=\"padding-bottom:4px;\" vAlign=\"top\" noWrap align=\"right\" width=\"50%\"><font size=\"1\" color=\"white\">Updated on <font color=\"lime\">{$setup_info->appinfo['updatedate']}</font></font></td>\n");
-$setup_info->DisplayFlush("      </tr>\n");
-$setup_info->DisplayFlush("    </tbody>\n");
-$setup_info->DisplayFlush("  </table>\n");
-$setup_info->DisplayFlush("  </center>\n");
-$setup_info->DisplayFlush("</div>\n");
-#$setup_info->DisplayFlush("<hr size=\"1\"><br>\n");
-$setup_info->DisplayFlush("<div style='width:100%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-$setup_info->DisplayFlush("<br>\n");
-
-if (empty ($_SESSION['username']))
-{
-    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
-}
-else
-{
-    global $db;
-    Bnt\Text::gotoMain($db, $lang, $langvars);
-}
-
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+// Pull in footer variables from footer_t.php
+include './footer_t.php';
+$template->addVariables('langvars', $langvars);
+$template->addVariables('variables', $variables);
+$template->display('templates/classic/setup_info.tpl');
 ?>

@@ -27,7 +27,7 @@ if (strpos($_SERVER['PHP_SELF'], 'db_config.php')) // Prevent direct access to t
 // We are migrating away from adodb, switching to pure PDO instead.
 
 // Port to connect to database on. Note : if you do not know the port, set this to '' for default. Ex, MySQL default is 3306
-$db_port = '';
+$db_port = null;
 
 // Hostname of the database server:
 $db_host = '127.0.0.1';
