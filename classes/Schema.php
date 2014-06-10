@@ -59,7 +59,8 @@ class Schema
                     }
                     else
                     {
-                        $destroy_table_results[$i]['result'] = $db->errorInfo()[1] . ": " . $db->errorInfo()[2];
+                        $errorinfo = $db->errorInfo();
+                        $destroy_table_results[$i]['result'] = $errorinfo[1] . ": " . $errorinfo[2];
                     }
                 }
                 else
@@ -118,7 +119,8 @@ class Schema
 
                 if ($db->errorCode() !== PDO_SUCCESS)
                 {
-                    $create_table_results[$i]['result'] = $db->errorInfo()[1] . ": " . $db->errorInfo()[2];
+                    $errorinfo = $db->errorInfo();
+                    $create_table_results[$i]['result'] = $errorinfo[1] . ": " . $errorinfo[2];
                 }
                 else
                 {
