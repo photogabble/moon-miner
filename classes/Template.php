@@ -82,8 +82,34 @@ class Template
         {
             if ($type === TEMPLATE_USE_SMARTY)
             {
-                // Create the module.
-                $api = new Smarty($this);
+                $smarty_errors = null;
+                if (!is_dir('templates'))
+                {
+                    $smarty_errors.='Error: The templates/ subdirectory under the main BNT directory does not exist. Please create it.<br>';
+                }
+
+                $cache_perms = substr(decoct(fileperms('templates/_cache')), 2);
+                $compile_perms = substr(decoct(fileperms('templates/_compile')), 2);
+
+                if ($cache_perms != "777")
+                {
+                    $smarty_errors.= 'Error: The templates/_cache directory needs to have its permissions set to 777, or ugo+rwx.<br>';
+                }
+
+                if ($compile_perms != "777")
+                {
+                    $smarty_errors.= 'Error: The templates/_compile directory needs to have its permissions set to 777, or ugo+rwx.<br>';
+                }
+
+                if ($smarty_errors !== null)
+                {
+                    die ($smarty_errors);
+                }
+                else
+                {
+                    // Create the module.
+                    $api = new Smarty($this);
+                }
             }
             elseif ($type === TEMPLATE_USE_XML)
             {

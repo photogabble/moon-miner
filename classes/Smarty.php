@@ -112,11 +112,7 @@ class Smarty
         catch (exception $e)
         {
             // $output = $this->smarty->fetch ($template_file);
-            $output  = "The smarty template system is not working. We suggest checking the following: <br><br>1.";
-            $output .= "Make sure the templates/ directory has not been deleted.<br>";
-            $output .= "2. Please check the permissions on your _cache and _compile directories and make sure they";
-            $output .= " are set to 777 (rwxrwxrwx).<br>";
-            $output .= "3. Check the specific template you are using for an error in the page that you want to access.";
+            $output  = "The smarty template system is not working. We suggest checking the specific template you are using for an error in the page that you want to access.";
         }
 
         echo $output;
