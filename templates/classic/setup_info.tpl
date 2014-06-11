@@ -116,7 +116,7 @@ This information will help us to help you much faster and will help improve our 
 {if ($variables['cookie_test'])}
 <font color="green">Passed - Cookies are set correctly</font>
 {else}
-<font color="red">Failed! - Cookies cannot be set. Please report this issue to <a href="forums.blacknova.net">The BNT Forums</a></font>
+<font color="red">Failed! - Cookies cannot be set. Please report this issue to <a href="http://forums.blacknova.net">The BNT Forums</a></font>
 {/if}
 </font></td>
     </tr>
