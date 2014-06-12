@@ -16,11 +16,9 @@
 //
 // File: create_universe/50.php
 
-$pos = strpos($_SERVER['PHP_SELF'], "/50.php");
-if ($pos !== false)
+if (strpos($_SERVER['PHP_SELF'], '/0.php')) // Prevent direct access to this file
 {
-    echo "You can not access this file directly!";
-    die();
+    die('Blacknova Traders error: You cannot access this file directly.');
 }
 
 // Determine current step, next step, and number of steps
