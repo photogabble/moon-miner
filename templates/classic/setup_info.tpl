@@ -350,7 +350,7 @@ This information will help us to help you much faster and will help improve our 
     <tbody>
       <tr>
         <td style="padding-bottom:4px;" valign="top" noWrap align="left" width="50%"><font color="white"> Hash: [<font color="yellow">{$variables['hash']}</font>]</font></td>
-        <td style="padding-bottom:4px;" valign="top" noWrap align="right" width="50%"><font color="white">Updated on <font color="lime">{$variables['updated_on']}</font></font></td>
+        <td style="padding-bottom:4px;" valign="top" noWrap align="right" width="50%"><font color="white">Updated on <font color="yellow">{$variables['updated_on']}</font></font></td>
       </tr>
     </tbody>
   </table>
