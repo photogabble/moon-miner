@@ -16,7 +16,7 @@
 //
 // File: create_universe/60.php
 
-if (strpos($_SERVER['PHP_SELF'], '/0.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], '/60.php')) // Prevent direct access to this file
 {
     die('Blacknova Traders error: You cannot access this file directly.');
 }
