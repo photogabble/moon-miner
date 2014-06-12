@@ -19,10 +19,9 @@
 //
 // This file must not contain any include/require type actions (other than error) - those must occur in global_includes instead.
 
-if (strpos($_SERVER['PHP_SELF'], 'common.php'))    // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to this file
 {
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
+    die('Blacknova Traders error: You cannot access this file directly.');
 }
 
 ini_set('include_path', '.');                      // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
