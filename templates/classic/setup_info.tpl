@@ -194,10 +194,6 @@ This information will help us to help you much faster and will help improve our 
       <td width="75%" colspan="2" bgcolor="#C0C0C0" align="left" valign="top"><font color="#000"><strong>{$variables['game_path']}</strong></font></td>
     </tr>
     <tr>
-      <td width="25%" bgcolor="#ccccff" align="left" valign="top"><font color="#000">Game domain</font></td>
-      <td width="75%" colspan="2" bgcolor="#C0C0C0" align="left" valign="top"><font color="#000"><strong>{$variables['game_domain']}</strong></font></td>
-    </tr>
-    <tr>
       <td style="background-color:#9999cc; width:75%; height:1px; padding:0px;" colspan="3"></td>
     </tr>
     <tr>

@@ -143,10 +143,7 @@ if ($flag == 0)
         // Some reason \r\n is broken, so replace them now.
         $langvars['l_new_message'] = str_replace('\r\n', "\r\n", $langvars['l_new_message']);
 
-        $link_to_game = "http://";
-        $gamedomain = Bnt\SetPaths::setGamedomain();
-        $link_to_game .= ltrim($gamedomain, ".");// Trim off the leading . if any
-        $link_to_game .= Bnt\SetPaths::setGamepath();
+        $link_to_game = "http://" . $_SERVER['HTTP_HOST'] . Bnt\SetPaths::setGamepath();
         $langvars['l_new_message'] = str_replace("[website]", $link_to_game, $langvars['l_new_message']);
         $langvars['l_new_message'] = str_replace("[npg]", $link_to_game . "newplayerguide.php", $langvars['l_new_message']);
         $langvars['l_new_message'] = str_replace("[faq]", $link_to_game . "faq.php", $langvars['l_new_message']);

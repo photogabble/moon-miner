@@ -49,10 +49,7 @@ if (!$result->EOF)
     else
     {
         $playerinfo = $result->fields;
-        $link_to_reset = "http://";
-        $gamedomain = Bnt\SetPaths::setGamedomain();
-        $link_to_reset .= ltrim($gamedomain, ".");// Trim off the leading . if any
-        $link_to_reset .= Bnt\SetPaths::setGamepath();
+        $link_to_reset = "http://" . $_SERVER['HTTP_HOST'] . Bnt\SetPaths::setGamepath();
         $link_to_reset .= "pwreset.php?code=" . substr(md5($playerinfo['password']), 5, 8);
 
         $langvars['l_mail_message'] = str_replace("[link]", $link_to_reset, $langvars['l_mail_message']);

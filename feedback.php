@@ -48,10 +48,7 @@ if (array_key_exists('content', $_POST) === false)
 }
 else
 {
-    $link_to_game = "http://";
-    $gamedomain = Bnt\SetPaths::setGamedomain();
-    $link_to_game .= ltrim($gamedomain, ".");// Trim off the leading . if any
-    $link_to_game .= Bnt\SetPaths::setGamepath();
+    $link_to_game = "http://" . $_SERVER['HTTP_HOST'] . Bnt\SetPaths::setGamepath();
     mail("$bntreg->admin_mail", $langvars['l_feedback_subj'], "IP address - " . $_SERVER['REMOTE_ADDR'] . "\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}", "From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
     echo $langvars['l_feedback_messent'] . "<br><br>";
 }
