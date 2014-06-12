@@ -15,13 +15,11 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: plugins/test_plugin/plugin_loader.php
+// File: plugins/test_plugin/plugin_config.php
 
 $pluginname = "PluginTest";
 $plugin_config[$pluginname]['enabled']                  = true;     // Enable plugin.
-
 $plugin_config[$pluginname]['has_loader']               = true;     // Used to autoloading the plugin loader.
 $plugin_config[$pluginname]['has_settings']             = true;     // ??.
 $plugin_config[$pluginname]['plugin_type']              = "Test Plugin";
-
 ?>
