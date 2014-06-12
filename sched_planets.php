@@ -17,10 +17,9 @@
 //
 // File: sched_planets.php
 
-if (strpos($_SERVER['PHP_SELF'], 'sched_planets.php')) // Prevent direct access to this file
+if (strpos($_SERVER['PHP_SELF'], 'sched_fighters.php')) // Prevent direct access to this file
 {
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
+    die('Blacknova Traders error: You cannot access this file directly.');
 }
 
 echo "<strong>PLANETS</strong><p>";
