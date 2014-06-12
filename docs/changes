@@ -1,3 +1,8 @@
+TheKabal (11 June 2014)
+--------------------------------------
+Fixes for cookie handling
+Redo direct file access protection - to not use includes.
+
 TheKabal (8 June 2014)
 --------------------------------------
 Setup info has been rewritten to use templates, add additional tests, improve html compliance, etc.

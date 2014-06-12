@@ -19,8 +19,7 @@
 
 if (strpos($_SERVER['PHP_SELF'], 'universe_editor.php')) // Prevent direct access to this file
 {
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
+    die('Blacknova Traders error: You cannot access this file directly.');
 }
 
 $i = 0;

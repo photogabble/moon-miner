@@ -19,8 +19,7 @@
 
 if (strpos($_SERVER['PHP_SELF'], 'log_viewer.php')) // Prevent direct access to this file
 {
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
+    die('Blacknova Traders error: You cannot access this file directly.');
 }
 
 $res = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships ORDER BY character_name ASC");
