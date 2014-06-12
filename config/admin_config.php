@@ -16,11 +16,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: admin_config.php
-if (strpos($_SERVER['PHP_SELF'], 'admin_config.php')) // Prevent direct access to this file
-{
-    die('Please do not access this file directly');
-}
-
 // Define the admin password, used for accessing create_universe, scheduler, and the admin control panel
 define('ADMIN_PW', 'secret');
 ?>
