@@ -1,4 +1,4 @@
-; <?php die ( 'Please do not access this page directly.' ); ?>
+; <?php die('Blacknova Traders error: You cannot access this file directly.'); ?>
 ; This is the set config page, do not modify the above line.
 // Blacknova Traders - A web-based massively multiplayer space combat and trading game
 // Copyright 2001-2014 Ron Harwood and the BNT development team
