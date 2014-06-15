@@ -5,8 +5,8 @@ REQUIREMENTS:
 - PHP version 5.3.7 minimum is required. (For Smarty, password_hash for login, directoryIterator, and many other features)
 - PHP's mbstring extension must be installed (used in common.php)
 - PHP's pdo extension must be installed (used in create_universe, and soon the rest of the game)
-- Web browser - Internet Explorer 8 or above - we recommended at least version 9, or preferably recent versions of Firefox, Safari, or Chrome
-- Apache version 2.2.20+ is supported, we have not determined a required minimum.
+- Web browser - Recent versons of Firefox, Safari, and Chrome are best, but we also support Internet Explorer 9 or above - Older versions of Internet Explorer will have degraded functionality.
+- Apache version 2.2.22+ is supported, we have not determined a required minimum.
 - IIS is not supported, and BNT will likely not work correctly on it in future versions.
 
 INSTALLATION
