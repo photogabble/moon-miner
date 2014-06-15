@@ -8,10 +8,11 @@ REQUIREMENTS:
 - Web browser - Recent versons of Firefox, Safari, and Chrome are best, but we also support Internet Explorer 9 or above - Older versions of Internet Explorer will have degraded functionality.
 - Apache version 2.2.22+ is supported, we have not determined a required minimum.
 - IIS is not supported, and BNT will likely not work correctly on it in future versions.
+- Development "Snapshots" are intended only for developers that are actively involved in the development process, and require additional effort to work (composer, etc)
 
 INSTALLATION
 
-1. Untar the distribution (be sure to untar the subdirectories):
+1. Untar the distribution (be sure to untar the subdirectories) -- This is for a release version of BNT, *not* a development snapshot:
    tar xvf bnt-x.x.x.tar
 
 2. chmod 777 the directories templates/_cache and templates/_compile . This allows the Smarty
