@@ -60,7 +60,7 @@ class CalcLevels
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-        $planetbeams = CalcLevels::beams($ownerinfo['beams'] + $base_factor, $level_factor);
+        $planetbeams = self::beams($ownerinfo['beams'] + $base_factor, $level_factor);
         $energy_available = $planetinfo['energy'];
 
         $res = $db->Execute("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
@@ -69,7 +69,7 @@ class CalcLevels
         {
             while (!$res->EOF)
             {
-                $planetbeams = $planetbeams + CalcLevels::beams($res->fields['beams'], $level_factor);
+                $planetbeams = $planetbeams + self::beams($res->fields['beams'], $level_factor);
                 $res->MoveNext();
             }
         }
@@ -86,7 +86,7 @@ class CalcLevels
     public static function planetShields($db, $ownerinfo, $base_defense, $planetinfo)
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
-        $planetshields = CalcLevels::shields($ownerinfo['shields'] + $base_factor, $level_factor);
+        $planetshields = self::shields($ownerinfo['shields'] + $base_factor, $level_factor);
         $energy_available = $planetinfo['energy'];
 
         $res = $db->Execute("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
@@ -96,7 +96,7 @@ class CalcLevels
         {
             while (!$res->EOF)
             {
-                $planetshields += CalcLevels::shields($res->fields['shields'], $level_factor);
+                $planetshields += self::shields($res->fields['shields'], $level_factor);
                 $res->MoveNext();
             }
         }
