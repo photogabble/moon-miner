@@ -300,7 +300,7 @@ elseif ($sectorinfo['port_type'] == "special")
         die();
     }
 
-    if ($bntreg->bounty_all_special == true)
+    if ($bntreg->bounty_all_special)
     {
         $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM {$db->prefix}bounty WHERE placed_by = 0 AND bounty_on = ?;", array ($playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
