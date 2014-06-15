@@ -180,10 +180,11 @@
       than this FAQ. First, you can always send a message to one of the top 10
       players in the game. They should know the answer, but they may not bother
       to reply. The second source is the <a
-      href="http://thegeek.org/forum.php">official forum</a>. This link is to
-      the <a href="http://thegeek.org/forum.php">forum</a> on <a
-      href="http://thegeek.org/">TheGeek.org</a>. The creator of the the game,
-      Ron Harwood, runs <a href="http://thegeek.org/">TheGeek.org</a>.
+      href="http://forums.blacknova.net">official forum</a>. This link is to
+      the <a href="http://forums.blacknova.net">forum</a> on <a
+      href="http://blacknova.net/">blacknova.net</a>. The current lead developer
+      of the the game,
+      TheMightyDude, runs <a href="http://blacknova.net/">blacknova.net</a>.
       <br><br></p></td>
     <td style="width:5%">&nbsp;</td></tr></tbody></table><br><a id="strategies"></a>
 <table>
