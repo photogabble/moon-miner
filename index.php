@@ -29,7 +29,7 @@ if (!isset($_GET['lang']))
 else
 {
     $lang = $_GET['lang'];
-    $link = "?lang=" . $lang;
+    $link = '?lang=' . $lang;
 }
 
 // Check to see if the language database has been installed yet.
@@ -41,7 +41,7 @@ if (($result instanceof ADORecordSet) && ($result != false)) // Before DB is ins
 else
 {
     // If not, redirect to create_universe.
-    header("Location: create_universe.php");
+    header('Location: create_universe.php');
     die();
 }
 
@@ -95,8 +95,8 @@ unset($list_of_langs, $lang_rs);
 
 $variables['template'] = $bntreg->default_template; // Temporarily set the template to the default template until we have a user option
 // Now set a container for the variables and langvars and send them off to the template system
-$variables['container'] = "variable";
-$langvars['container'] = "langvars";
+$variables['container'] = 'variable';
+$langvars['container'] = 'langvars';
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
