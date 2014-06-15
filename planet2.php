@@ -499,7 +499,7 @@ else
 
     $total_holds_needed = $transfer_ore + $transfer_organics + $transfer_goods + $transfer_colonists;
 
-    if ($playerinfo['ship_id'] != $planetinfo['owner'] && $transfer_credits != 0 && $corp_planet_transfers != 1)
+    if ($playerinfo['ship_id'] != $planetinfo['owner'] && $transfer_credits != 0 && !$corp_planet_transfers)
     {
         echo $langvars['l_planet2_nocorptransfer'] . "<p>";
         echo "<a href=planet.php?planet_id=$planet_id>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "<br><br>";
