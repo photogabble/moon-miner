@@ -307,14 +307,14 @@ $nextlink = mktime(0, 0, 0, $month, $day, $year);
 $nextlink = date("Y-m-d", $nextlink);
 
 $nonext = 0;
-#if ($startdate == date("Y-m-d"))
-#{
-#    $nonext = 1;
-#}
-#else
-#{
-#    $nonext = 0;
-#}
+//if ($startdate == date("Y-m-d"))
+//{
+//   $nonext = 1;
+//}
+//else
+//{
+//    $nonext = 0;
+//}
 
 if ($swordfish == ADMIN_PW) // Fix for admin log view
 {

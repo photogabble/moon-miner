@@ -691,11 +691,11 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <th><strong>" . $langvars['l_upgrade'] . "</strong></th>\n";
     echo "   </tr>\n";
     echo "   <tr>\n";
-#   echo "    <td>" . $langvars['l_genesis'] . "</td>\n";
-#   echo "    <td>" . number_format($dev_genesis_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
-#   echo "    <td>" . number_format($playerinfo['dev_genesis'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
-#   echo "    <td>" . $langvars['l_unlimited'] . "</td>\n";
-#   echo "    <td><input type=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>\n";
+//   echo "    <td>" . $langvars['l_genesis'] . "</td>\n";
+//   echo "    <td>" . number_format($dev_genesis_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
+//   echo "    <td>" . number_format($playerinfo['dev_genesis'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
+//   echo "    <td>" . $langvars['l_unlimited'] . "</td>\n";
+//  echo "    <td><input type=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>\n";
 
     echo "    <td>" . $langvars['l_genesis'] . "</td>\n";
     echo "    <td>" . number_format($bntreg->dev_genesis_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
@@ -722,11 +722,11 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    </td>\n";
     echo "   </tr>\n";
     echo "   <tr>\n";
-#   echo "    <td>" . $langvars['l_beacons'] . "</td>\n";
-#   echo "    <td>" . number_format($dev_beacon_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
-#   echo "    <td>" . number_format($playerinfo['dev_beacon'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
-#   echo "    <td>" . $langvars['l_unlimited'] . "</td>\n";
-#   echo "    <td><input type=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>\n";
+//   echo "    <td>" . $langvars['l_beacons'] . "</td>\n";
+//  echo "    <td>" . number_format($dev_beacon_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
+//  echo "    <td>" . number_format($playerinfo['dev_beacon'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
+//  echo "    <td>" . $langvars['l_unlimited'] . "</td>\n";
+//  echo "    <td><input type=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>\n";
 
     echo "    <td>" . $langvars['l_beacons'] . "</td>\n";
     echo "    <td>" . number_format($bntreg->dev_beacon_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
@@ -777,9 +777,9 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
-#   echo "    <td>" . $langvars['l_warpedit'] . "</td>\n";
-#   echo "    <td>" . number_format($dev_warpedit_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
-#   echo "    <td>" . number_format($playerinfo['dev_warpedit'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_unlimited'] . "</td><td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>";
+//   echo "    <td>" . $langvars['l_warpedit'] . "</td>\n";
+//  echo "    <td>" . number_format($dev_warpedit_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
+//  echo "    <td>" . number_format($playerinfo['dev_warpedit'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . $langvars['l_unlimited'] . "</td><td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>";
 
     echo "    <td>" . $langvars['l_warpedit'] . "</td>\n";
     echo "    <td>" . number_format($bntreg->dev_warpedit_price, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
