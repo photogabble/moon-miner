@@ -155,7 +155,7 @@ color_line1                = '#300030';                        // GUI colors - s
 color_line2                = '#400040';                        // GUI colors - soon to be moved into templates
 
 [NEWBIE_NICE]
-newbie_nice                = 'YES';                            // If a ship is destroyed without a EWD, *and* is below a certain level for all items, then regen their ship
+newbie_nice                = true;                            // If a ship is destroyed without a EWD, *and* is below a certain level for all items, then regen their ship
 newbie_hull                = '8';                              // If a destroyed player has a hull less than newbie hull, he will be regen'd to play more
 newbie_engines             = '8';                              // If a destroyed player has a engines less than newbie engines, he will be regen'd to play more
 newbie_power               = '8';                              // If a destroyed player has a power less than newbie power, he will be regen'd to play more

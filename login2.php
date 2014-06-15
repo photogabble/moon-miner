@@ -117,7 +117,7 @@ if ($playerfound)
                     echo "You have died in a horrible incident, <a href=log.php>here</a> is the blackbox information that was retrieved from your ships wreckage.<br><br>";
 
                     // Check if $newbie_nice is set, if so, verify ship limits
-                    if ($newbie_nice == "YES")
+                    if ($bntreg->newbie_nice)
                     {
                         $newbie_info = $db->Execute ("SELECT hull, engines, power, computer, sensors, armor, shields, beams, torp_launchers, cloak FROM {$db->prefix}ships WHERE ship_id = ? AND hull <= ? AND engines <= ? AND power <= ? AND computer <= ? AND sensors <= ? AND armor <= ? AND shields <= ? AND beams <= ? AND torp_launchers <= ? AND cloak <= ?;", array ($playerinfo['ship_id'], $newbie_hull, $newbie_engines, $newbie_power, $newbie_computer, $newbie_sensors, $newbie_armor, $newbie_shields, $newbie_beams, $newbie_torp_launchers, $newbie_cloak));
                         Bnt\Db::logDbErrors($db, $newbie_info, __LINE__, __FILE__);
@@ -137,7 +137,7 @@ if ($playerfound)
                             echo "<br><br>" . $langvars['l_login_looser'] . "<br><br>" . $langvars['l_login_looser2'];
                         }
 
-                    } // End if $newbie_nice
+                    }
                     else
                     {
                         echo "<br><br>" . $langvars['l_login_looser'] . "<br><br>" . $langvars['l_login_looser2'];
