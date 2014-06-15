@@ -84,7 +84,7 @@ while (!$res->EOF)
 
 $ret = $db->Execute("COMMIT");
 Bnt\Db::logDbErrors($db, $ret, __LINE__, __FILE__);
-if ($bntreg->sched_planet_valid_credits == true)
+if ($bntreg->sched_planet_valid_credits)
 {
     $ret = $db->Execute("UPDATE {$db->prefix}planets SET credits = ? WHERE credits > ? AND base = 'N';", array ($bntreg->max_credits_without_base, $bntreg->max_credits_without_base));
     Bnt\Db::logDbErrors($db, $ret, __LINE__, __FILE__);
