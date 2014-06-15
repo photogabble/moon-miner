@@ -153,7 +153,7 @@ else
         }
         unset ($_SESSION['port_shopping']);
 
-        if (Bad\Ibank::isLoanPending($db, $playerinfo['ship_id'], $ibank_lrate))
+        if (Bad\Ibank::isLoanPending($db, $playerinfo['ship_id'], $bntreg->ibank_lrate))
         {
             echo $langvars['l_port_loannotrade'] . "<p>";
             echo "<a href=igb.php>" . $langvars['l_ibank_term'] . "</a><p>";
@@ -254,7 +254,7 @@ else
         }
 
         $fighter_number = round(abs($fighter_number));
-        $fighter_max = Bnt\CalcLevels::fighters($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+        $fighter_max = Bnt\CalcLevels::fighters($playerinfo['computer'], $bntreg->level_factor) - $playerinfo['ship_fighters'];
         if ($fighter_max < 0)
         {
             $fighter_max = 0;
@@ -265,14 +265,14 @@ else
             $fighter_number = $fighter_max;
         }
 
-        $fighter_cost    = $fighter_number * $fighter_price;
+        $fighter_cost    = $fighter_number * $bntreg->fighter_price;
         if ($torpedo_number < 0)
         {
             $torpedo_number = 0;
         }
 
         $torpedo_number = round(abs($torpedo_number));
-        $torpedo_max = Bnt\CalcLevels::torpedoes($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+        $torpedo_max = Bnt\CalcLevels::torpedoes($playerinfo['torp_launchers'], $bntreg->level_factor) - $playerinfo['torps'];
         if ($torpedo_max < 0)
         {
             $torpedo_max = 0;
@@ -283,14 +283,14 @@ else
             $torpedo_number = $torpedo_max;
         }
 
-        $torpedo_cost = $torpedo_number * $torpedo_price;
+        $torpedo_cost = $torpedo_number * $bntreg->torpedo_price;
         if ($armor_number < 0)
         {
             $armor_number = 0;
         }
 
         $armor_number = round(abs($armor_number));
-        $armor_max = Bnt\CalcLevels::armor($playerinfo['armor'], $level_factor) - $playerinfo['armor_pts'];
+        $armor_max = Bnt\CalcLevels::armor($playerinfo['armor'], $bntreg->level_factor) - $playerinfo['armor_pts'];
         if ($armor_max < 0)
         {
             $armor_max = 0;
@@ -301,14 +301,14 @@ else
             $armor_number = $armor_max;
         }
 
-        $armor_cost     = $armor_number * $armor_price;
+        $armor_cost     = $armor_number * $bntreg->armor_price;
         if ($colonist_number < 0)
         {
             $colonist_number = 0;
         }
 
         $colonist_number = round(abs($colonist_number));
-        $colonist_max    = Bnt\CalcLevels::holds($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $colonist_max    = Bnt\CalcLevels::holds($playerinfo['hull'], $bntreg->level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
         if ($colonist_max < 0)
         {
@@ -320,22 +320,22 @@ else
             $colonist_number = $colonist_max;
         }
 
-        $colonist_cost = $colonist_number * $colonist_price;
+        $colonist_cost = $colonist_number * $bntreg->colonist_price;
 
-        $dev_genesis_number = min(round(abs($dev_genesis_number)), $max_genesis - $playerinfo['dev_genesis']);
-        $dev_genesis_cost = $dev_genesis_number * $dev_genesis_price;
+        $dev_genesis_number = min(round(abs($dev_genesis_number)), $bntreg->max_genesis - $playerinfo['dev_genesis']);
+        $dev_genesis_cost = $dev_genesis_number * $bntreg->dev_genesis_price;
 
-        $dev_beacon_number = min(round(abs($dev_beacon_number)), $max_beacons - $playerinfo['dev_beacon']);
-        $dev_beacon_cost = $dev_beacon_number * $dev_beacon_price;
+        $dev_beacon_number = min(round(abs($dev_beacon_number)), $bntreg->max_beacons - $playerinfo['dev_beacon']);
+        $dev_beacon_cost = $dev_beacon_number * $bntreg->dev_beacon_price;
 
-        $dev_emerwarp_number = min(round(abs($dev_emerwarp_number)), $max_emerwarp - $playerinfo['dev_emerwarp']);
-        $dev_emerwarp_cost = $dev_emerwarp_number * $dev_emerwarp_price;
+        $dev_emerwarp_number = min(round(abs($dev_emerwarp_number)), $bntreg->max_emerwarp - $playerinfo['dev_emerwarp']);
+        $dev_emerwarp_cost = $dev_emerwarp_number * $bntreg->dev_emerwarp_price;
 
-        $dev_warpedit_number = min(round(abs($dev_warpedit_number)), $max_warpedit - $playerinfo['dev_warpedit']);
-        $dev_warpedit_cost = $dev_warpedit_number * $dev_warpedit_price;
+        $dev_warpedit_number = min(round(abs($dev_warpedit_number)), $bntreg->max_warpedit - $playerinfo['dev_warpedit']);
+        $dev_warpedit_cost = $dev_warpedit_number * $bntreg->dev_warpedit_price;
 
         $dev_minedeflector_number = round(abs($dev_minedeflector_number));
-        $dev_minedeflector_cost = $dev_minedeflector_number * $dev_minedeflector_price;
+        $dev_minedeflector_cost = $dev_minedeflector_number * $bntreg->dev_minedeflector_price;
 
         $dev_escapepod_cost = 0;
         $dev_fuelscoop_cost = 0;
