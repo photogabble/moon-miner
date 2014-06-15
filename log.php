@@ -130,7 +130,7 @@ echo "<div id=\"divScroller1\">" .
      "<br>" .
      "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_start'] . " " . $entry . "<strong></font>" .
      "<p>" .
-     "<hr width=80% size=1 NOSHADE style=\"color: #040658\">" .
+     "<hr width=80% size=1 noshade style=\"color: #040658\">" .
      "</center>\n";
 
 if (!empty ($logs))
@@ -150,7 +150,7 @@ if (!empty ($logs))
              "    <td colspan=2 style='text-align:left; font-size:12px; color:#DEDEEF;'>{$event['text']}</td>\n".
              "  </tr>\n" .
              "</table>\n" .
-             "<center><hr width='80%' size='1' NOSHADE style='color: #040658;'></center>\n";
+             "<center><hr width='80%' size='1' noshade style='color: #040658;'></center>\n";
     }
 }
 
@@ -205,7 +205,7 @@ if ($mode != 'compat')
          "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_start'] . " " . $entry . "<strong></font>" .
          "<p>" .
          "</center>" .
-         "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+         "<hr width=80% size=1 noshade style=\"color: #040658\">";
 
     if (!empty ($logs))
     {
@@ -221,7 +221,7 @@ if ($mode != 'compat')
                  "    <td align='right'><font size='2' color='#040658'><strong>{$time}</strong></td>\n" .
                  "  <tr><td colspan='2' align='left'><font size='2' color='#DEDEEF'>{$event['text']}</td></tr>\n" .
                  "</table>\n" .
-                 "<hr width='80%' size='1' NOSHADE style='color: #040658;'>\n";
+                 "<hr width='80%' size='1' noshade style='color: #040658;'>\n";
         }
     }
 
@@ -250,7 +250,7 @@ if ($mode != 'compat')
          "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_start'] . " " . $entry . "<strong></font>" .
          "<p>" .
          "</center>" .
-         "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+         "<hr width=80% size=1 noshade style=\"color: #040658\">";
 
     if (!empty ($logs))
     {
@@ -270,7 +270,7 @@ if ($mode != 'compat')
                  "$event[text]" .
                  "</td>\n</tr>\n" .
                  "</table>\n" .
-                 "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+                 "<hr width=80% size=1 noshade style=\"color: #040658\">";
         }
     }
 
