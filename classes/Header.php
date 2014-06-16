@@ -49,7 +49,7 @@ class Header
 
         $template->addVariables('langvars', $langvars);
         $template->addVariables('variables', $variables);
-        $template->display("header.tpl");
+        $template->display('header.tpl');
         // Perhaps this should return the template instead of kicking off display. I'm not sure.
     }
 }

@@ -37,7 +37,7 @@ class File
         $start_tran_res = $db->beginTransaction(); // We enclose the inserts in a transaction as it is roughly 30 times faster
         Db::logDbErrors($db, $start_tran_res, __LINE__, __FILE__);
 
-        $insert_sql = "INSERT into {$db->prefix}$ini_table (name, category, value, section, type) VALUES (:config_key, :config_category, :config_value, :section, :type)";
+        $insert_sql = 'INSERT into ' . $db->prefix. $ini_table . ' (name, category, value, section, type) VALUES (:config_key, :config_category, :config_value, :section, :type)';
         $stmt = $db->prepare($insert_sql);
 
         foreach($ini_keys as $config_category => $config_line)
@@ -78,14 +78,14 @@ class File
         if ($final_result !== true) // If the final result is not true, rollback our transaction, and return false.
         {
             $db->rollBack();
-            Db::logDbErrors($db, "Rollback transaction on File::initodb", __LINE__, __FILE__);
+            Db::logDbErrors($db, 'Rollback transaction on File::initodb', __LINE__, __FILE__);
 
             return false;
         }
         else // Else we process the transaction, and return true
         {
             $db->commit(); // Complete the transaction
-            Db::logDbErrors($db, "Complete transaction on File::initodb", __LINE__, __FILE__);
+            Db::logDbErrors($db, 'Complete transaction on File::initodb', __LINE__, __FILE__);
 
             return true;
         }
@@ -144,9 +144,9 @@ class File
                 {
                     $value +=0;
                 }
-                elseif (strtolower($value) === "true" || strtolower($value) === "false")
+                elseif (strtolower($value) === 'true' || strtolower($value) === 'false')
                 {
-                    $value =(strtolower($value) == "true" ? true : false);
+                    $value =(strtolower($value) == 'true' ? true : false);
                     settype($value, 'bool');
                 }
                 elseif (is_string($value))

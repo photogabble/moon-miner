@@ -27,14 +27,14 @@ class Footer
     public static function display($pdo_db, $lang, $bntreg, $template)
     {
         // Now set a container for the variables and langvars and send them off to the template system
-        $variables['container'] = "variable";
-        $langvars['container'] = "langvars";
+        $variables['container'] = 'variable';
+        $langvars['container'] = 'langvars';
 
         // Pull in footer variables from footer_t.php
         include './footer_t.php';
         $template->addVariables('langvars', $langvars);
         $template->addVariables('variables', $variables);
-        $template->display("footer.tpl");
+        $template->display('footer.tpl');
     }
 }
 ?>

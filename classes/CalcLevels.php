@@ -142,14 +142,14 @@ class CalcLevels
         return $planettorps;
     }
 
-    public static function avgTech($ship_info = null, $type = "ship")
+    public static function avgTech($ship_info = null, $type = 'ship')
     {
         // Used to define what devices are used to calculate the average tech level.
-        $calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-        $calc_ship_tech    = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-        $calc_planet_tech  = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+        $calc_tech         = array ('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
+        $calc_ship_tech    = array ('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
+        $calc_planet_tech  = array ('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
 
-        if ($type == "ship")
+        if ($type == 'ship')
         {
             $calc_tech = $calc_ship_tech;
         }

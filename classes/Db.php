@@ -100,9 +100,9 @@ class Db
             catch (exception $e)
             {
                 // We need to display the error message onto the screen.
-                $err_msg = "Unable to connect to the " . $db_type .
-                           " Database.<br>\n Database Error: ". $db->ErrorNo() .
-                           ": ". $db->ErrorMsg() ."<br>\n";
+                $err_msg = 'Unable to connect to the ' . $db_type .
+                           ' Database.<br>\n Database Error: '. $db->ErrorNo() .
+                           ': '. $db->ErrorMsg() .'<br>\n';
                 die ($err_msg);
             }
 
@@ -120,8 +120,8 @@ class Db
             }
             catch (\PDOException $e)
             {
-                $err_msg = "Unable to connect to the " . $db_type .
-                           " Database.<br>\n Database Error: ".
+                $err_msg = 'Unable to connect to the ' . $db_type .
+                           ' Database.<br>\n Database Error: '.
                            $e->getMessage() ."<br>\n";
                 die ($err_msg);
             }
@@ -172,10 +172,10 @@ class Db
                 $served_line = ($served_line-1); // Unless it is line 1 of the file, it is generally one lower than where it is reported.
             }
 
-            $text_error = "A Database error occurred in " . $served_page .
-                          " on line " . $served_line .
-                          " (called from: " . $safe_script_name . " the error message was: " . $db_error .
-                          "and the query was " . $query;
+            $text_error = 'A Database error occurred in ' . $served_page .
+                          ' on line ' . $served_line .
+                          ' (called from: ' . $safe_script_name . ' the error message was: ' . $db_error .
+                          'and the query was ' . $query;
 
             if (!Db::isActive($db))
             {

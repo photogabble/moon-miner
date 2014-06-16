@@ -43,28 +43,28 @@ class Compress
         $supported_enc = array ();
         if (isset($_SERVER['HTTP_ACCEPT_ENCODING']))
         {
-            $supported_enc = explode(",", $_SERVER['HTTP_ACCEPT_ENCODING']);
+            $supported_enc = explode(',', $_SERVER['HTTP_ACCEPT_ENCODING']);
         }
 
-        if (in_array("gzip", $supported_enc) === true)
+        if (in_array('gzip', $supported_enc) === true)
         {
             header('Vary: Accept-Encoding');
             header('Content-Encoding: gzip');
-            header("DEBUG: gzip found");
+            header('DEBUG: gzip found');
 
             return gzencode($output, 9);
         }
-        elseif (in_array("deflate", $supported_enc) === true)
+        elseif (in_array('deflate', $supported_enc) === true)
         {
             header('Vary: Accept-Encoding');
             header('Content-Encoding: deflate');
-            header("DEBUG: deflate found");
+            header('DEBUG: deflate found');
 
             return gzdeflate($output, 9);
         }
         else
         {
-            header("DEBUG: None found");
+            header('DEBUG: None found');
 
             return $output;
         }

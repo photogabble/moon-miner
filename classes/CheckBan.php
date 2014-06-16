@@ -50,7 +50,7 @@ class CheckBan
         if ($idbans_res instanceof ADORecordSet && $idbans_res->RecordCount() > 0)
         {
             // Now return the highest ban type (i.e. worst type of ban)
-            $ban_type = array("ban_type" => 0);
+            $ban_type = array('ban_type' => 0);
             while (!$idbans_res->EOF)
             {
                 if ($idbans_res->fields['ban_type'] > $ban_type['ban_type'])
