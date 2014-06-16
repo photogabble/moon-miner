@@ -88,17 +88,17 @@ class Template
                     $smarty_errors.='Error: The templates/ subdirectory under the main BNT directory does not exist. Please create it.<br>';
                 }
 
-                $cache_perms = substr(decoct(fileperms('templates/_cache')), 2);
-                $compile_perms = substr(decoct(fileperms('templates/_compile')), 2);
+                $cache_perms = is_writable('templates/_cache');
+                $compile_perms = is_writable('templates/_compile');
 
-                if ($cache_perms != "777")
+                if (!$cache_perms)
                 {
-                    $smarty_errors.= 'Error: The templates/_cache directory needs to have its permissions set to 777, or ugo+rwx.<br>';
+                    $smarty_errors.= 'Error: The templates/_cache directory needs to have its permissions set to be writable by the web server user, OR 777, or ugo+rwx.<br>';
                 }
 
-                if ($compile_perms != "777")
+                if (!$compile_perms)
                 {
-                    $smarty_errors.= 'Error: The templates/_compile directory needs to have its permissions set to 777, or ugo+rwx.<br>';
+                    $smarty_errors.= 'Error: The templates/_compile directory needs to have its permissions set to be writable by the web server user, OR 777, or ugo+rwx.<br>';
                 }
 
                 if ($smarty_errors !== null)
