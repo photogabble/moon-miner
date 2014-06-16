@@ -122,5 +122,5 @@ include './footer_t.php';
 $langvars = Bnt\Translate::load($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional', 'news'));
 $template->addVariables('langvars', $langvars);
 $template->addVariables('variables', $variables);
-$template->display("report.tpl");
+$template->display('report.tpl');
 ?>

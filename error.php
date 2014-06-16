@@ -88,6 +88,6 @@ $langvars['container'] = "langvar";
 include_once './footer_t.php';
 $template->addVariables('langvars', $langvars);
 $template->addVariables('variables', $variables);
-$template->display("error.tpl");
+$template->display('error.tpl');
 die ();
 ?>

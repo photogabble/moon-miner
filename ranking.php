@@ -176,5 +176,5 @@ $langvars['container'] = "langvar";
 $template->addVariables('langvars', $langvars);
 
 // Now we tell the Template API to output the page
-$template->display("ranking.tpl");
+$template->display('ranking.tpl');
 ?>

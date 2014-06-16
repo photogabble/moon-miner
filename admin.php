@@ -109,5 +109,5 @@ $langvars = Bnt\Translate::load($db, $lang, array ('admin', 'common',
                                 'planet'));
 $template->addVariables('langvars', $langvars);
 $template->addVariables('variables', $variables);
-$template->display("admin.tpl");
+$template->display('admin.tpl');
 ?>
