@@ -32,7 +32,7 @@ class News
         $day = $day - 86400;
 
         // Return the final amount formatted as YYYY/MM/DD
-        return date("Y/m/d", $day);
+        return date('Y/m/d', $day);
     }
 
     public static function nextDay($day)
@@ -44,7 +44,7 @@ class News
         $day = $day + 86400;
 
         // Return the final amount formatted as YYYY/MM/DD
-        return date("Y/m/d", $day);
+        return date('Y/m/d', $day);
     }
 }
 ?>

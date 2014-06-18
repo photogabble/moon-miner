@@ -19,8 +19,8 @@
 
 namespace Bnt;
 
-define("TEMPLATE_USE_SMARTY", 0x00000000, true);
-define("TEMPLATE_USE_XML", 0x00000001, true);
+define('TEMPLATE_USE_SMARTY', 0x00000000, true);
+define('TEMPLATE_USE_XML', 0x00000001, true);
 
 class Template
 {
@@ -76,7 +76,7 @@ class Template
     }
 
     // Needs to be updated to suit Smarty and XML Template Systems.
-    public function initialize($type = null, $themeName = "classic")
+    public function initialize($type = null, $themeName = 'classic')
     {
         if ($this->initialized != true)
         {
@@ -128,7 +128,7 @@ class Template
             $this->api[$this->api_class] = $api;
 
             // Initialize Wrapper.
-            $this->api[$this->api_class]->initialize("CRAP");
+            $this->api[$this->api_class]->initialize('CRAP');
 
             // Flag as initialised.
             $this->initialized = (boolean) true;
@@ -191,28 +191,28 @@ class Template
         $supported_enc = array ();
         if (isset($_SERVER['HTTP_ACCEPT_ENCODING']))
         {
-            $supported_enc = explode(",", $_SERVER['HTTP_ACCEPT_ENCODING']);
+            $supported_enc = explode(',', $_SERVER['HTTP_ACCEPT_ENCODING']);
         }
 
-        if (in_array("gzip", $supported_enc) === true)
+        if (in_array('gzip', $supported_enc) === true)
         {
             header('Vary: Accept-Encoding');
             header('Content-Encoding: gzip');
-            header("DEBUG: gzip found");
+            header('DEBUG: gzip found');
 
             return gzencode($output, 9);
         }
-        elseif (in_array("deflate", $supported_enc) === true)
+        elseif (in_array('deflate', $supported_enc) === true)
         {
             header('Vary: Accept-Encoding');
             header('Content-Encoding: deflate');
-            header("DEBUG: deflate found");
+            header('DEBUG: deflate found');
 
             return gzdeflate($output, 9);
         }
         else
         {
-            header("DEBUG: None found");
+            header('DEBUG: None found');
 
             return $output;
         }

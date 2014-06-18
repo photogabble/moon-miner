@@ -29,11 +29,11 @@ class TestXml
             $xml = simplexml_load_file($filename);
             if (!$xml)
             {
-                $message = "Failed to open text.xml. ";
+                $message = 'Failed to open text.xml. ';
                 $errors = libxml_get_errors();
                 foreach ($errors as $error)
                 {
-                    $message .= "\t" . $error->message . " ";
+                    $message .= "\t" . $error->message . ' ';
                 }
             }
             else

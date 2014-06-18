@@ -44,8 +44,8 @@ class Header
         $variables['include_ckeditor'] = $include_ckeditor;
 
         // Now set a container for the variables and langvars and send them off to the template system
-        $variables['container'] = "variable";
-        $langvars['container'] = "langvars";
+        $variables['container'] = 'variable';
+        $langvars['container'] = 'langvars';
 
         $template->addVariables('langvars', $langvars);
         $template->addVariables('variables', $variables);

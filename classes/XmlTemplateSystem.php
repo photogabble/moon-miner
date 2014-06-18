@@ -30,15 +30,15 @@
 
 namespace Bnt;
 
-define("XMLDOM_PROCESSED", 0x0001, true);
-define("XMLDOM_UNPROCESSED", 0x0002, true);
-define("XMLDOM_XML", 0x0003, true);
+define('XMLDOM_PROCESSED', 0x0001, true);
+define('XMLDOM_UNPROCESSED', 0x0002, true);
+define('XMLDOM_XML', 0x0003, true);
 
 class XmlTemplateSystem
 {
-    public static $version    = "0.0.9 (0032) [DEV]";
-    public static $author     = "TheMightyDude";
-    private $qualifiedName    = "root";
+    public static $version    = '0.0.9 (0032) [DEV]';
+    public static $author     = 'TheMightyDude';
+    private $qualifiedName    = 'root';
     private $document         = null;
     private $root             = null;
     private $validation       = false;
@@ -48,19 +48,19 @@ class XmlTemplateSystem
 
     public function __construct($publicId = null, $systemId = null)
     {
-        $this->chkLibraries(array("xsl", "dom"));
+        $this->chkLibraries(array('xsl', 'dom'));
 
         $imp = new \DOMImplementation;
         if (!is_null($publicId) && !is_null($systemId))
         {
             $this->validation = (boolean) true;
             $dtd = $imp->createDocumentType($this->qualifiedName, $publicId, $systemId);
-            $this->document = $imp->createDocument("", "", $dtd);
+            $this->document = $imp->createDocument('', '', $dtd);
         }
         else
         {
             $this->validation = (boolean) false;
-            $this->document = $imp->createDocument("", "");
+            $this->document = $imp->createDocument('', '');
         }
         $this->initialized = (boolean) false;
     }
@@ -84,7 +84,7 @@ class XmlTemplateSystem
         }
     }
 
-    public function initialize($encoding = "iso-8859-1", $stylesheet = null, $comment = null)
+    public function initialize($encoding = 'iso-8859-1', $stylesheet = null, $comment = null)
     {
         $this->encoding($encoding);
         $this->StyleSheet($stylesheet);
@@ -99,7 +99,7 @@ class XmlTemplateSystem
         $this->standAlone(true);
 
         // Add Template class info.
-        $this->addAttributes($this->root, array("version" => self::$version, "author" => self::$author));
+        $this->addAttributes($this->root, array('version' => self::$version, 'author' => self::$author));
         $this->initialized = (boolean) true;
     }
 
@@ -109,7 +109,7 @@ class XmlTemplateSystem
         unset($this->error);
     }
 
-    public function encoding($encoding = "iso-8859-1")
+    public function encoding($encoding = 'iso-8859-1')
     {
         $this->document->encoding = $encoding;
     }
@@ -149,7 +149,7 @@ class XmlTemplateSystem
 
             if ($this->mode == XMLDOM_UNPROCESSED)
             {
-                $this->document->appendChild($this->document->createProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"$stylesheet\""));
+                $this->document->appendChild($this->document->createProcessingInstruction('xml-stylesheet', "type=\"text/xsl\" href=\"$stylesheet\""));
 
             }
             else
@@ -175,7 +175,7 @@ class XmlTemplateSystem
 
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT initialized", E_USER_ERROR);
+            trigger_error('Template System NOT initialized', E_USER_ERROR);
         }
 
         if (is_null($parent))
@@ -196,7 +196,7 @@ class XmlTemplateSystem
 
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT initialized", E_USER_ERROR);
+            trigger_error('Template System NOT initialized', E_USER_ERROR);
         }
 
         if (is_null($parent))
@@ -233,7 +233,7 @@ class XmlTemplateSystem
 
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT initialized", E_USER_ERROR);
+            trigger_error('Template System NOT initialized', E_USER_ERROR);
         }
 
         if (is_null($parent))
@@ -290,7 +290,7 @@ class XmlTemplateSystem
 
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT initialized", E_USER_ERROR);
+            trigger_error('Template System NOT initialized', E_USER_ERROR);
         }
 
         if (is_null($node))
@@ -312,7 +312,7 @@ class XmlTemplateSystem
 
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT initialized", E_USER_ERROR);
+            trigger_error('Template System NOT initialized', E_USER_ERROR);
         }
 
         if (is_null($node))
@@ -334,7 +334,7 @@ class XmlTemplateSystem
 
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT initialized", E_USER_ERROR);
+            trigger_error('Template System NOT initialized', E_USER_ERROR);
         }
 
         if (is_null($node))
@@ -350,7 +350,7 @@ class XmlTemplateSystem
     {
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT initialized", E_USER_ERROR);
+            trigger_error('Template System NOT initialized', E_USER_ERROR);
         }
 
         if (@$this->document->validate() || $this->validation == false)
@@ -364,7 +364,7 @@ class XmlTemplateSystem
                 $this->document->formatOutput = true;
 
                 // Hash the content, so that we can validate the client end.
-                header("Content-Hash: ". sha1($this->document->saveXML()));
+                header('Content-Hash: '. sha1($this->document->saveXML()));
 
                 return $this->document->saveXML();
             }
@@ -372,11 +372,11 @@ class XmlTemplateSystem
             {
                 if (is_null($this->stylesheet))
                 {
-                    trigger_error("styleSheet Not Set.", E_USER_ERROR);
+                    trigger_error('styleSheet Not Set.', E_USER_ERROR);
                 }
 
 //              header("Content-Type: text/html; charset={$this->document->encoding}");
-                header("Content-Type: text/html");
+                header('Content-Type: text/html');
                 $proc = new \XSLTProcessor;
                 $proc->setProfiling('logs/profiling.txt');
                 @$proc->importStyleSheet($this->stylesheet); // attach the xsl rules
@@ -390,12 +390,12 @@ class XmlTemplateSystem
             }
             else
             {
-                trigger_error("Output Mode NOT SUPPORTED", E_USER_ERROR);
+                trigger_error('Output Mode NOT SUPPORTED', E_USER_ERROR);
             }
         }
         else
         {
-            trigger_error("Failed to Validate", E_USER_ERROR);
+            trigger_error('Failed to Validate', E_USER_ERROR);
         }
     }
 }

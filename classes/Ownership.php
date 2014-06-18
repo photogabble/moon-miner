@@ -169,19 +169,19 @@ class Ownership
             $i = 0;
             foreach ($ships as $ship)
             {
-                $query = $query . "ship_id=$ship";
+                $query = $query . 'ship_id=$ship';
                 $i++;
                 if ($i != $nbships)
                 {
-                    $query = $query . " OR ";
+                    $query = $query . ' OR ';
                 }
                 else
                 {
-                    $query = $query . ")";
+                    $query = $query . ')';
                 }
             }
 
-            $query = $query . " AND team!=0";
+            $query = $query . ' AND team!=0';
             $select_team_res = $db->Execute($query);
             Db::logDbErrors($db, $select_team_res, __LINE__, __FILE__);
 
@@ -231,10 +231,10 @@ class Ownership
             Db::logDbErrors($db, $setzone_resg, __LINE__, __FILE__);
             $corp = $setzone_resg->fields;
 
-            $update_res = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array ($sector));
+            $update_res = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=? WHERE sector_id=?", array ($zone['zone_id'], $sector));
             Db::logDbErrors($db, $update_res, __LINE__, __FILE__);
 
-            return $langvars['l_global_team'] . " " . $corp['team_name'] . "!";
+            return $langvars['l_global_team'] . ' ' . $corp['team_name'] . '!';
         }
         else
         {
@@ -266,10 +266,10 @@ class Ownership
                 Db::logDbErrors($db, $setzone_resj, __LINE__, __FILE__);
                 $ship = $setzone_resj->fields;
 
-                $update_res2 = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array ($sector));
+                $update_res2 = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=? WHERE sector_id=?", array ($zone['zone_id'], $sector));
                 Db::logDbErrors($db, $update_res2, __LINE__, __FILE__);
 
-                return $langvars['l_global_player'] . " " . $ship['character_name'] . "!";
+                return $langvars['l_global_player'] . ' ' . $ship['character_name'] . '!';
             }
         }
     }

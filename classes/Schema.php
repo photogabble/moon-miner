@@ -27,7 +27,7 @@ class Schema
         $db->inactive = true;
 
         $i = 0;
-        $schema_files = new \DirectoryIterator("schema/mysql"); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
+        $schema_files = new \DirectoryIterator('schema/mysql'); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
         $destroy_table_results = array();
 
         foreach ($schema_files as $schema_filename)
@@ -60,7 +60,7 @@ class Schema
                     else
                     {
                         $errorinfo = $db->errorInfo();
-                        $destroy_table_results[$i]['result'] = $errorinfo[1] . ": " . $errorinfo[2];
+                        $destroy_table_results[$i]['result'] = $errorinfo[1] . ': ' . $errorinfo[2];
                     }
                 }
                 else
@@ -81,8 +81,8 @@ class Schema
     public static function create($db, $db_prefix)
     {
         $i = 0;
-        define("PDO_SUCCESS", (string) "00000"); // PDO gives an error code of string 00000 if successful. Not extremely helpful.
-        $schema_files = new \DirectoryIterator("schema/mysql/"); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
+        define('PDO_SUCCESS', (string) '00000'); // PDO gives an error code of string 00000 if successful. Not extremely helpful.
+        $schema_files = new \DirectoryIterator('schema/mysql/'); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
 
         // New SQL Schema table creation
         $create_table_results = array ();
@@ -106,7 +106,7 @@ class Schema
                 }
 
                 // Slurp the SQL call from schema, and turn it into an SQL string
-                $sql_query = file_get_contents("schema/mysql/" . $schema_filename);
+                $sql_query = file_get_contents('schema/mysql/' . $schema_filename);
 
                 // Replace the default prefix (bnt_) with the chosen table prefix from the game.
                 $sql_query = preg_replace('/bnt_/', $db_prefix, $sql_query);
@@ -120,7 +120,7 @@ class Schema
                 if ($db->errorCode() !== PDO_SUCCESS)
                 {
                     $errorinfo = $db->errorInfo();
-                    $create_table_results[$i]['result'] = $errorinfo[1] . ": " . $errorinfo[2];
+                    $create_table_results[$i]['result'] = $errorinfo[1] . ': ' . $errorinfo[2];
                 }
                 else
                 {

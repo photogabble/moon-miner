@@ -78,9 +78,9 @@ class Player
         Db::logDbErrors($db, $char_res, __LINE__, __FILE__);
         $name = $char_res->fields;
 
-        $headline = $name['character_name'] ." ". $langvars['l_killheadline'];
+        $headline = $name['character_name'] .' '. $langvars['l_killheadline'];
 
-        $newstext = str_replace("[name]", $name['character_name'], $langvars['l_news_killed']);
+        $newstext = str_replace('[name]', $name['character_name'], $langvars['l_news_killed']);
 
         $news_ins_res = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?,?,?,NOW(), 'killed')", array ($headline, $newstext, $ship_id));
         Db::logDbErrors($db, $news_ins_res, __LINE__, __FILE__);
@@ -109,7 +109,7 @@ class Player
             if ($playerinfo['score'] <= $value)
             {
                 // Ok we have found our Insignia, now set and break out of the for loop.
-                $temp_insignia = "l_insignia_" . $i;
+                $temp_insignia = 'l_insignia_' . $i;
                 $player_insignia = $langvars[$temp_insignia];
                 break;
             }

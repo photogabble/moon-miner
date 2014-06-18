@@ -40,7 +40,7 @@ class Ship
                         $cur = $on_pl_result->fields;
                         $uppl_res = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id = ?", array ($cur['ship_id']));
                         Db::logDbErrors($db, $uppl_res, __LINE__, __FILE__);
-                        PlayerLog::writeLog($db, $cur['ship_id'], LOG_PLANET_EJECT, $cur['sector'] ."|". $row['character_name']);
+                        PlayerLog::writeLog($db, $cur['ship_id'], LOG_PLANET_EJECT, $cur['sector'] .'|'. $row['character_name']);
                         $on_pl_result->MoveNext();
                     }
                 }

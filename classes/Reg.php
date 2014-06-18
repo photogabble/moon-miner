@@ -32,7 +32,7 @@ class Reg
         if ($result !== false) // If the database is not live, this will give false, and db calls will fail silently
         {
             $big_array = $result->fetchAll();
-            Db::logDbErrors($db, "fetchAll from gameconfig", __LINE__, __FILE__);
+            Db::logDbErrors($db, 'fetchAll from gameconfig', __LINE__, __FILE__);
             if (!empty ($big_array))
             {
                 foreach ($big_array as $row)

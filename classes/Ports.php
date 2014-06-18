@@ -25,22 +25,22 @@ class Ports
     {
         switch ($ptype)
         {
-            case "ore":
+            case 'ore':
                 $ret = $langvars['l_ore'];
                 break;
-            case "none":
+            case 'none':
                 $ret = $langvars['l_none'];
                 break;
-            case "energy":
+            case 'energy':
                 $ret = $langvars['l_energy'];
                 break;
-            case "organics":
+            case 'organics':
                 $ret = $langvars['l_organics'];
                 break;
-            case "goods":
+            case 'goods':
                 $ret = $langvars['l_goods'];
                 break;
-            case "special":
+            case 'special':
                 $ret = $langvars['l_special'];
                 break;
         }

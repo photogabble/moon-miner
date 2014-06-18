@@ -24,7 +24,7 @@ class Move
     public static function calcFuelScooped($playerinfo, $distance, $triptime, $bntreg)
     {
         // Check if we have a fuel scoop
-        if ($playerinfo['dev_fuelscoop'] == "Y")
+        if ($playerinfo['dev_fuelscoop'] == 'Y')
         {
             // We have a fuel scoop, now calculate the amount of energy scooped.
             $energyscooped = $distance * 100;
@@ -36,7 +36,7 @@ class Move
         }
 
         // Seems this will never happen ?
-        if ($playerinfo['dev_fuelscoop'] == "Y" && $energyscooped == 0 && $triptime == 1)
+        if ($playerinfo['dev_fuelscoop'] == 'Y' && $energyscooped == 0 && $triptime == 1)
         {
             $energyscooped = 100;
         }

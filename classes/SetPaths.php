@@ -32,27 +32,27 @@ class SetPaths
         {
             if ($gamepath === "\\")
             {
-                $gamepath = "/";
+                $gamepath = '/';
             }
 
-            if ($gamepath[0] != ".")
+            if ($gamepath[0] != '.')
             {
-                if ($gamepath[0] != "/")
+                if ($gamepath[0] != '/')
                 {
                     $gamepath = "/$gamepath";
                 }
 
-                if ($gamepath[strlen($gamepath)-1] != "/")
+                if ($gamepath[strlen($gamepath)-1] != '/')
                 {
                     $gamepath = "$gamepath/";
                 }
             }
             else
             {
-                $gamepath ="/";
+                $gamepath ='/';
             }
 
-            $gamepath = str_replace("\\", "/", stripcslashes($gamepath));
+            $gamepath = str_replace("\\", '/', stripcslashes($gamepath));
         }
 
         return $gamepath;
@@ -65,13 +65,13 @@ class SetPaths
 
         if (isset($gamedomain) && strlen($gamedomain) >0)
         {
-            $pos = strpos($gamedomain, "http://");
+            $pos = strpos($gamedomain, 'http://');
             if (is_int($pos))
             {
                 $gamedomain = substr($gamedomain, $pos+7);
             }
 
-            $pos = strpos($gamedomain, "www.");
+            $pos = strpos($gamedomain, 'www.');
             if (is_int($pos))
             {
                 $gamedomain = substr($gamedomain, $pos+4);
@@ -79,7 +79,7 @@ class SetPaths
 
             if ($remove_port)
             {
-                $pos = strpos($gamedomain, ":");
+                $pos = strpos($gamedomain, ':');
             }
 
             if (is_int($pos))
@@ -87,7 +87,7 @@ class SetPaths
                 $gamedomain = substr($gamedomain, 0, $pos);
             }
 
-            if ($gamedomain[0] != ".")
+            if ($gamedomain[0] != '.')
             {
                 $gamedomain = ".$gamedomain";
             }

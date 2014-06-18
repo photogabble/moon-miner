@@ -25,7 +25,7 @@ class Xml
     private $parent                         = null;
 
     // List of all names to ignore.
-    private $ignore_list                    = array("language_vars");
+    private $ignore_list                    = array('language_vars');
 
     public function __construct($parent)
     {
@@ -82,7 +82,7 @@ class Xml
 
                 if (is_numeric($key) == false)
                 {
-                    $this->xmldom->AddAttributes($childNode, array ("name" => $key));
+                    $this->xmldom->AddAttributes($childNode, array ('name' => $key));
                 }
             }
             else
@@ -98,7 +98,7 @@ class Xml
                 {
                     for ($i = 0; $i < $tmpnode->childNodes->length; $i++)
                     {
-                        if ($tmpnode->childNodes->item($i)->getAttribute("name") == $key && $tmpnode->childNodes->item($i)->nodeValue == $value)
+                        if ($tmpnode->childNodes->item($i)->getAttribute('name') == $key && $tmpnode->childNodes->item($i)->nodeValue == $value)
                         {
                             $skipNode = true;
                             break;

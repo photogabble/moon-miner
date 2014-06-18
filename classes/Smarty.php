@@ -43,15 +43,15 @@ class Smarty
 
         // Add a Modifier Wrapper for PHP Function: number_format.
         // Usage in the tpl file {$number|number_format:decimals:"dec_point":"thousands_sep"}
-        $this->smarty->registerPlugin("modifier", "number_format", "number_format");
+        $this->smarty->registerPlugin('modifier', 'number_format', 'number_format');
 
         // Add a Modifier Wrapper for PHP Function: strlen.
         // Usage in the tpl file {$string|strlen}
-        $this->smarty->registerPlugin("modifier", "strlen", "strlen");
+        $this->smarty->registerPlugin('modifier', 'strlen', 'strlen');
 
         // Add a Modifier Wrapper for PHP Function: gettype.
         // Usage in the tpl file {$variable|gettype}
-        $this->smarty->registerPlugin("modifier", "gettype", "gettype");
+        $this->smarty->registerPlugin('modifier', 'gettype', 'gettype');
 
         $this->smarty->enableSecurity();
 
@@ -62,7 +62,7 @@ class Smarty
     public function setTheme($themeName = null)
     {
         $this->smarty->setTemplateDir("templates/{$themeName}");
-        $this->addVariables("template_dir", "templates/{$themeName}");
+        $this->addVariables('template_dir', "templates/{$themeName}");
     }
 
     public function addVariables($nodeName, $variables)
@@ -112,7 +112,7 @@ class Smarty
         catch (exception $e)
         {
             // $output = $this->smarty->fetch ($template_file);
-            $output  = "The smarty template system is not working. We suggest checking the specific template you are using for an error in the page that you want to access.";
+            $output  = 'The smarty template system is not working. We suggest checking the specific template you are using for an error in the page that you want to access.';
         }
 
         echo $output;

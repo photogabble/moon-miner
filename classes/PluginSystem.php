@@ -24,10 +24,10 @@ require_once 'eventsystem/event_list.php';
 
 class PluginSystem
 {
-    public static $version                         = "0.0.5 (0010) Alpha";
-    public static $author                          = "Blacknova Development";
+    public static $version                         = '0.0.5 (0010) Alpha';
+    public static $author                          = 'Blacknova Development';
 
-    private static $callbackfunc            = "onEvent";
+    private static $callbackfunc            = 'onEvent';
     private static $db                      = null;
     private static $events                  = null;
     private static $pluginlist              = null;
@@ -53,7 +53,7 @@ class PluginSystem
 
         while (false !== ($entry = $d->read()))
         {
-            if (is_dir("{$d->path}/{$entry}") && $entry != "." && $entry != "..")
+            if (is_dir("{$d->path}/{$entry}") && $entry != '.' && $entry != '..')
             {
                 $plugin_name = $entry;
                 if (file_exists("{$d->path}/{$plugin_name}/plugin_config.php"))
@@ -108,14 +108,14 @@ class PluginSystem
 
         if (is_null($event) || !is_numeric($event))
         {
-            AdminLog::writeLog(self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
+            AdminLog::writeLog(self::$db, LOG_RAW, 'Plugin Error on line ('. __LINE__ .'): invalid event ID.');
 
             return (boolean) false;
         }
 
         if (is_null($callback) || !is_object($callback))
         {
-            AdminLog::writeLog(self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid callback.");
+            AdminLog::writeLog(self::$db, LOG_RAW, 'Plugin Error on line ('. __LINE__ .'): invalid callback.');
 
             return (boolean) false;
         }
@@ -123,7 +123,7 @@ class PluginSystem
         // Check if the callback class::function exists and is callable.
         if (!method_exists($callback, self::$callbackfunc) || !is_callable(array ($callback, self::$callbackfunc), false, $callable_name))
         {
-            AdminLog::writeLog(self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): " . get_class($callback) ."::". self::$callbackfunc ." function doesn't exist or it isn't callable.");
+            AdminLog::writeLog(self::$db, LOG_RAW, 'Plugin Error on line ('. __LINE__ .'): ' . get_class($callback) .'::'. self::$callbackfunc .' function doesn\'t exist or it isn\'t callable.');
 
             return (boolean) false;
         }
@@ -141,7 +141,7 @@ class PluginSystem
     {
         if (!array_key_exists($event, self::$events) || !in_array($callback, self::$events[$event]))
         {
-            AdminLog::writeLog(self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): Cannot find supplied Event.");
+            AdminLog::writeLog(self::$db, LOG_RAW, 'Plugin Error on line ('. __LINE__ .'): Cannot find supplied Event.');
 
             return (boolean) false;
         }
@@ -176,7 +176,7 @@ class PluginSystem
 
         if (is_null($event) || !is_int($event))
         {
-            AdminLog::writeLog(self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
+            AdminLog::writeLog(self::$db, LOG_RAW, 'Plugin Error on line ('. __LINE__ .'): invalid event ID.');
 
             return (boolean) false;
         }
@@ -189,7 +189,7 @@ class PluginSystem
             }
             else
             {
-                AdminLog::writeLog(self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): Invalid Hook.");
+                AdminLog::writeLog(self::$db, LOG_RAW, 'Plugin Error on line ('. __LINE__ .'): Invalid Hook.');
             }
         }
     }
