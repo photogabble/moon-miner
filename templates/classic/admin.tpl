@@ -52,7 +52,7 @@
 
         {* Now check and handle the inclusion of the admin module templates *}
         {if isset($variables['module'])}
-            {include file="admin_{$variables['module']}.tpl"}
+            {include file="admin_{$variables['module']}.tpl" inline}
         {/if}
 
         {if $variables['button_main'] == true}
