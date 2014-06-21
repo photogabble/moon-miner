@@ -54,5 +54,5 @@ include './footer_t.php';
 
 $template->addVariables('langvars', $langvars);
 $template->addVariables('variables', $variables);
-$template->display("emerwarp.tpl");
+$template->display('emerwarp.tpl');
 ?>
