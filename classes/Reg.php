@@ -21,7 +21,7 @@ namespace Bnt;
 
 class Reg
 {
-    public static function init($db, $bntreg)
+    public function __construct($db)
     {
         // Get the config_values from the DB - This is a pdo operation
         $stmt = "SELECT name,value,type FROM {$db->prefix}gameconfig";
@@ -38,10 +38,10 @@ class Reg
                 foreach ($big_array as $row)
                 {
                     settype($row['value'], $row['type']);
-                    $bntreg->$row['name'] = $row['value'];
+                    $this->$row['name'] = $row['value'];
                 }
 
-                return $bntreg;
+                return $this;
             }
             else
             {
@@ -52,11 +52,11 @@ class Reg
                 {
                     foreach ($config_line as $config_key => $config_value)
                     {
-                        $bntreg->$config_key = $config_value;
+                        $this->$config_key = $config_value;
                     }
                 }
 
-                return $bntreg;
+                return $this;
             }
         }
         else
@@ -68,11 +68,11 @@ class Reg
             {
                 foreach ($config_line as $config_key => $config_value)
                 {
-                    $bntreg->$config_key = $config_value;
+                    $this->$config_key = $config_value;
                 }
             }
 
-            return $bntreg;
+            return $this;
         }
     }
 }

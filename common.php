@@ -44,10 +44,6 @@ else
     ini_set('display_errors', 0);                  // Do not display errors
 }
 
-$bntreg = new stdClass();                          // Create a registry, for passing the most common variables in game through classes
-$bntreg->bnttimer = new Bnt\Timer;                 // We want benchmarking data for all activities, so create a benchmark timer object
-$bntreg->bnttimer->start();                        // Start benchmarking immediately
-
 date_default_timezone_set('UTC');                  // Set to your server's local time zone - PHP throws a notice if this is not set.
 if (extension_loaded('mbstring'))                  // Ensure that we don't trigger an error if the mbstring extension is not loaded
 {
@@ -68,8 +64,10 @@ $pdo_db = new Bnt\Db;
 $pdo_db = $pdo_db->initDb('pdo');                  // Connect to db using pdo
 $db = new Bnt\Db;
 $db = $db->initDb('adodb');                        // Connect to db using adodb also - for now - to be eliminated!
-$bntreg = Bnt\Reg::init($pdo_db, $bntreg);         // Initalize the BNT Registry object
 
+$bntreg = new Bnt\Reg($pdo_db);                    // Initalize the BNT Registry object, for passing the most common variables in game through classes
+$bntreg->bnttimer = new Bnt\Timer;                 // We want benchmarking data for all activities, so create a benchmark timer object
+$bntreg->bnttimer->start();                        // Start benchmarking immediately
 $langvars = null;                                  // We need language variables in every page, set them to a null value first.
 $template = new \Bnt\Template();                   // Template API.
 $template->setTheme($bntreg->default_template);    // We set the name of the theme, temporary until we have a theme picker
