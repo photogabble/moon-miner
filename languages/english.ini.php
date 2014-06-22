@@ -502,6 +502,7 @@ l_cu_admin_username                     = "Username:";
 l_cu_admin_password                     = "Password:";
 l_cu_insert_shipinfo_admin              = "Inserting Ship Information for";
 l_cu_insert_zoneinfo_admin              = "Inserting Zone Information for";
+l_cu_insert_presetinfo_admin            = "Inserting Preset #[num] for";
 l_cu_already_set                        = "Already set";
 l_cu_congrats_success                   = "Congratulations! Universe created successfully.";
 l_cu_return_to_login                    = "Click [here] to return to the login screen.";
@@ -1311,6 +1312,7 @@ l_trade_installed                       = "installed";
 [presets]
 l_pre_title                             = "Change Realspace Presets";
 l_pre_exceed                            = "Preset [preset] exceeds universe max of [sector_max]. No presets saved.";
+l_pre_set_loop                          = "Preset [num] set to [preset]";
 l_pre_set                               = "Preset 1 set to [preset1], preset 2 set to [preset2] and preset 3 set to [preset3].";
 l_pre_save                              = "Save";
 

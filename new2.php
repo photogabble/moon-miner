@@ -158,6 +158,18 @@ if ($flag == 0)
         $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (?,0,0);", array ($shipid['ship_id']));
         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 
+        // Add presets for new player
+        for ($zz=0; $zz<$bntreg->preset_max; $zz++)
+        {
+            $sql = "INSERT INTO {$pdo_db->prefix}presets (ship_id, preset, type) " .
+                   "VALUES (:ship_id, :preset, :type)";
+            $stmt = $pdo_db->prepare($sql);
+            $stmt->bindValue(':ship_id', $shipid['ship_id']);
+            $stmt->bindValue(':preset', 1);
+            $stmt->bindValue(':type', 'R');
+            $resxx = $stmt->execute();
+        }
+
         echo $langvars['l_new_welcome_sent'] . '<br><br>';
 
         // They have logged in successfully, so update their session ID as well

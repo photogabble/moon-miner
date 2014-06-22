@@ -258,6 +258,21 @@ $variables['admin_pass'] = ADMIN_PW;
 $local_table_timer->stop();
 $variables['admin_account_results']['elapsed'] = $local_table_timer->elapsed();
 
+for ($zz=0; $zz<$bntreg->preset_max; $zz++)
+{
+    $local_table_timer->start(); // Start benchmarking for admin preset #$zz
+    $sql = "INSERT INTO {$pdo_db->prefix}presets (ship_id, preset, type) " .
+           "VALUES (:ship_id, :preset, :type)";
+    $stmt = $pdo_db->prepare($sql);
+    $stmt->bindValue(':ship_id', 1);
+    $stmt->bindValue(':preset', 1);
+    $stmt->bindValue(':type', 'R');
+    $resxx = $stmt->execute();
+    $variables['admin_preset_results'][$zz]['result'] = Bnt\Db::logDbErrors($pdo_db, $resxx, __LINE__, __FILE__);
+    $local_table_timer->stop(); // Stop benchmarking for admin preset #$zz
+    $variables['admin_preset_results'][$zz]['elapsed'] = $local_table_timer->elapsed();
+}
+
 $local_table_timer->start(); // Start benchmarking for admin zone ownership
 $sql = "INSERT INTO {$pdo_db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) " .
        "VALUES (:zone_name, :owner, :corp_zone, :allow_beacon, :allow_attack, :allow_planetattack, :allow_warpedit, :allow_planet, :allow_trade, :allow_defenses, :max_hull)";

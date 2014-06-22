@@ -790,18 +790,43 @@ echo "</table>\n";
 <tr><td  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050; padding:0px;'>
 
 <table style="width:100%;">
-<tr>
-  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset1']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset1']; ?></a></td>
-  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($langvars['l_set']); ?></a>]</td>
-</tr>
-<tr>
-  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset2']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset2']; ?></a></td>
-  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($langvars['l_set']); ?></a>]</td>
-</tr>
-<tr>
-  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset3']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset3']; ?></a></td>
-  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($langvars['l_set']); ?></a>]</td>
-</tr>
+<?php
+
+// Pull the presets for the player from the db.
+$i = 0;
+$debug_query = $db->Execute("SELECT * FROM {$db->prefix}presets WHERE ship_id=?", array($playerinfo['ship_id']));
+Bnt\Db::logDbErrors($db, $debug_query ,__LINE__, __FILE__);
+while (!$debug_query->EOF)
+{
+    $presetinfo[$i] = $debug_query->fields;
+    $debug_query->MoveNext();
+    $i++;
+}
+
+if ($i==0)
+{
+    for ($x=0; $x<$bntreg->preset_max; $x++)
+    {
+        $i++;
+        echo "<tr>\n";
+        echo '<td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=1">=&gt;&nbsp;1</a></td>';
+        echo '<td style="text-align:right;">[<a class=mnu href=preset.php>' . ucwords($langvars['l_set']) . '</a>]</td>';
+        echo "</tr>\n";
+        $presetinfo[$i] = '1';
+    }
+}
+else
+{
+    for ($z=0; $z<$i; $z++)
+    {
+        echo "<tr>\n";
+        echo '<td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=' . $presetinfo[$z]['preset'] . '">=&gt;&nbsp;' . $presetinfo[$z]['preset'] . '</a></td>';
+        echo '<td style="text-align:right;">[<a class=mnu href=preset.php>' . ucwords($langvars['l_set']) . '</a>]</td>';
+        echo "</tr>\n";
+        $debug_query->MoveNext();
+    }
+}
+?>
 </table>
 </td></tr>
 <?php

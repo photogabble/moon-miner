@@ -227,3 +227,4 @@ admin_ship_name            = "Game Admin's ship";              // The title for 
 admin_zone_name            = "Game Admin's zone";              // The title for the administrators zone
 enable_gravatars           = false;                            // True if you'd like to enable gravatars for players
 default_template           = 'classic';                        // Used for players and the admin until/unless they choose another
+preset_max                 = 5;                                // The number of presets available to players

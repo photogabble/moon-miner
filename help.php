@@ -69,7 +69,7 @@ if ($bntreg->allow_navcomp)
 }
 echo "<strong>RealSpace:</strong><br>";
 echo "Use your ship's engines to get to a specific sector. Upgrade your engines' tech level to use RealSpace ";
-echo "moves effectively. By clicking on the 'Presets' link you can memorize up to 3 sector numbers for quick ";
+echo "moves effectively. By clicking on the 'Presets' link you can memorize up to " . $bntreg->preset_max . " sector numbers for quick ";
 echo "movement or you can target any sector using the 'Other' link.";
 echo "<br><br>";
 echo "<strong>Trade routes:</strong><br>";
