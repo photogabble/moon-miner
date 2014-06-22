@@ -193,7 +193,7 @@ function newsTicker(inst)
                 this.output("<div style='color:#FF0000; font-weight:bold;'>Error: No News Loaded!</div>");
                 instant.stopTicker();
 
-                //document.write ("Ret: False<br />\n");
+                //document.write ("Ret: False<br>\n");
                 return false;
             }
             else if(ticketArticle[instance].URL[article[instance]] == null || ticketArticle[instance].URL[article[instance]].length ==0)
