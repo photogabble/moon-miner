@@ -58,7 +58,7 @@ class Db
         }
     }
 
-    public static function initDb($db_layer)
+    public function initDb($db_layer)
     {
         require './config/db_config.php';
         if ($db_layer == 'adodb')

@@ -44,9 +44,9 @@ else
     ini_set('display_errors', 0);                  // Do not display errors
 }
 
-$bntreg = new stdClass();                           // Create a registry, for passing the most common variables in game through classes
-$bntreg->bnttimer = new Bnt\Timer;                  // We want benchmarking data for all activities, so create a benchmark timer object
-$bntreg->bnttimer->start();                         // Start benchmarking immediately
+$bntreg = new stdClass();                          // Create a registry, for passing the most common variables in game through classes
+$bntreg->bnttimer = new Bnt\Timer;                 // We want benchmarking data for all activities, so create a benchmark timer object
+$bntreg->bnttimer->start();                        // Start benchmarking immediately
 
 date_default_timezone_set('UTC');                  // Set to your server's local time zone - PHP throws a notice if this is not set.
 if (extension_loaded('mbstring'))                  // Ensure that we don't trigger an error if the mbstring extension is not loaded
@@ -54,8 +54,8 @@ if (extension_loaded('mbstring'))                  // Ensure that we don't trigg
     mb_http_output('UTF-8');                       // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
     mb_internal_encoding('UTF-8');                 // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
 }
-                                                    // Since header is now temlate driven, these weren't being passed along except on old
-                                                    // crusty pages. Now everthing gets them!
+                                                   // Since header is now temlate driven, these weren't being passed along except on old
+                                                   // crusty pages. Now everthing gets them!
 header('Content-type: text/html; charset=utf-8');  // Set character set to utf-8, and using HTML as our content type
 header('X-UA-Compatible: IE=Edge, chrome=1');      // Tell IE to use the latest version of the rendering engine, and to use chrome if it is available. This is not needed after IE11.
 header('Cache-Control: public');                   // Tell the browser (and any caches) that this information can be stored in public caches.
@@ -63,12 +63,16 @@ header('Connection: Keep-Alive');                  // Tell the browser to keep g
 header('Vary: Accept-Encoding, Accept-Language');  // Tell CDN's or proxies to keep a separate version of the page in various encodings - compressed or not, in english or french for example.
 header('Keep-Alive: timeout=15, max=100');         // Ask for persistent HTTP connections (15sec), which give better per-client performance, but can be worse (for a server) for many.
 ob_start(array('Bnt\Compress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bnt\Compress" to properly handle detection of compression.
-$pdo_db = Bnt\Db::initDb('pdo');                    // Connect to db using pdo
-$db = Bnt\Db::initDb('adodb');                      // Connect to db using adodb also - for now - to be eliminated!
-$bntreg = Bnt\Reg::init($pdo_db, $bntreg);          // Initalize the BNT Registry object
-$langvars = null;                                   // We need language variables in every page, set them to a null value first.
-$template = new \Bnt\Template();                    // Template API.
-$template->setTheme($bntreg->default_template);     // We set the name of the theme, temporary until we have a theme picker
+
+$pdo_db = new Bnt\Db;
+$pdo_db = $pdo_db->initDb('pdo');                  // Connect to db using pdo
+$db = new Bnt\Db;
+$db = $db->initDb('adodb');                        // Connect to db using adodb also - for now - to be eliminated!
+$bntreg = Bnt\Reg::init($pdo_db, $bntreg);         // Initalize the BNT Registry object
+
+$langvars = null;                                  // We need language variables in every page, set them to a null value first.
+$template = new \Bnt\Template();                   // Template API.
+$template->setTheme($bntreg->default_template);    // We set the name of the theme, temporary until we have a theme picker
 
 if (!isset($index_page))
 {
@@ -92,7 +96,7 @@ if (Bnt\Db::isActive($pdo_db))
     {
         if (array_key_exists('lang', $_GET))       // And the user has chosen a language on index.php
         {
-            $lang = $_GET['lang'];                  // Set $lang to the language the user has chosen
+            $lang = $_GET['lang'];                 // Set $lang to the language the user has chosen
         }
     }
     else // The user has logged in, so use his preference from the database
