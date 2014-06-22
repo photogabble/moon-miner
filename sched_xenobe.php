@@ -40,9 +40,10 @@ $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $
 $resa = $db->Execute("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE");
 Bnt\Db::logDbErrors($db, $resa, __LINE__, __FILE__);
 
+/*
+//Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id");
-Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
-while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
+while (($res instanceof ADORecordSet) && ($res != false))
 //while (!$res->EOF)
 {
     $xenobeisdead = 0;
@@ -296,7 +297,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
     $res->MoveNext();
 }
 $res->_close();
-
+*/
 $furnonmove = $furcount - ($furcount0 + $furcount1 + $furcount2 + $furcount3);
 echo "Counted $furcount Xenobe players that are ACTIVE with working ships.<br>";
 echo "$furnonmove Xenobe players did not do anything this round. <br>";
