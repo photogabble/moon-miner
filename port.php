@@ -158,45 +158,45 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
 
     if ($sectorinfo['port_type'] == "ore")
     {
-        $ore_price = $ore_price - $ore_delta * $sectorinfo['port_ore'] / $ore_limit * $inventory_factor;
+        $bntreg->ore_price = $bntreg->ore_price - $bntreg->ore_delta * $sectorinfo['port_ore'] / $bntreg->ore_limit * $bntreg->inventory_factor;
         $sb_ore = $langvars['l_selling'];
     }
     else
     {
-        $ore_price = $ore_price + $ore_delta * $sectorinfo['port_ore'] / $ore_limit * $inventory_factor;
+        $bntreg->ore_price = $bntreg->ore_price + $bntreg->ore_delta * $sectorinfo['port_ore'] / $bntreg->ore_limit * $bntreg->inventory_factor;
         $sb_ore = $langvars['l_buying'];
     }
 
     if ($sectorinfo['port_type'] == "organics")
     {
-        $organics_price = $organics_price - $organics_delta * $sectorinfo['port_organics'] / $organics_limit * $inventory_factor;
+        $bntreg->organics_price = $bntreg->organics_price - $bntreg->organics_delta * $sectorinfo['port_organics'] / $bntreg->organics_limit * $bntreg->inventory_factor;
         $sb_organics = $langvars['l_selling'];
     }
     else
     {
-        $organics_price = $organics_price + $organics_delta * $sectorinfo['port_organics'] / $organics_limit * $inventory_factor;
+        $bntreg->organics_price = $bntreg->organics_price + $bntreg->organics_delta * $sectorinfo['port_organics'] / $bntreg->organics_limit * $bntreg->inventory_factor;
         $sb_organics = $langvars['l_buying'];
     }
 
     if ($sectorinfo['port_type'] == "goods")
     {
-        $goods_price = $goods_price - $goods_delta * $sectorinfo['port_goods'] / $goods_limit * $inventory_factor;
+        $bntreg->goods_price = $bntreg->goods_price - $bntreg->goods_delta * $sectorinfo['port_goods'] / $bntreg->goods_limit * $bntreg->inventory_factor;
         $sb_goods = $langvars['l_selling'];
     }
     else
     {
-        $goods_price = $goods_price + $goods_delta * $sectorinfo['port_goods'] / $goods_limit * $inventory_factor;
+        $bntreg->goods_price = $bntreg->goods_price + $bntreg->goods_delta * $sectorinfo['port_goods'] / $bntreg->goods_limit * $bntreg->inventory_factor;
         $sb_goods = $langvars['l_buying'];
     }
 
     if ($sectorinfo['port_type'] == "energy")
     {
-        $energy_price = $energy_price - $energy_delta * $sectorinfo['port_energy'] / $energy_limit * $inventory_factor;
+        $bntreg->energy_price = $bntreg->energy_price - $bntreg->energy_delta * $sectorinfo['port_energy'] / $bntreg->energy_limit * $bntreg->inventory_factor;
         $sb_energy = $langvars['l_selling'];
     }
     else
     {
-        $energy_price = $energy_price + $energy_delta * $sectorinfo['port_energy'] / $energy_limit * $inventory_factor;
+        $bntreg->energy_price = $bntreg->energy_price + $bntreg->energy_delta * $sectorinfo['port_energy'] / $bntreg->energy_limit * $bntreg->inventory_factor;
         $sb_energy = $langvars['l_buying'];
     }
 
@@ -246,31 +246,31 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     // Limit amounts to what the player can afford
     if ($sb_ore == $langvars['l_selling'])
     {
-        $amount_ore = min($amount_ore, floor(($playerinfo['credits'] + $amount_organics * $organics_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $ore_price));
+        $amount_ore = min($amount_ore, floor(($playerinfo['credits'] + $amount_organics * $bntreg->organics_price + $amount_goods * $bntreg->goods_price + $amount_energy * $bntreg->energy_price) / $bntreg->ore_price));
     }
 
     if ($sb_organics == $langvars['l_selling'])
     {
-        $amount_organics = min($amount_organics, floor(($playerinfo['credits'] + $amount_ore * $ore_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $organics_price));
+        $amount_organics = min($amount_organics, floor(($playerinfo['credits'] + $amount_ore * $bntreg->ore_price + $amount_goods * $bntreg->goods_price + $amount_energy * $bntreg->energy_price) / $bntreg->organics_price));
     }
 
     if ($sb_goods == $langvars['l_selling'])
     {
-        $amount_goods = min($amount_goods, floor(($playerinfo['credits'] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_energy * $energy_price) / $goods_price));
+        $amount_goods = min($amount_goods, floor(($playerinfo['credits'] + $amount_ore * $bntreg->ore_price + $amount_organics * $bntreg->organics_price + $amount_energy * $bntreg->energy_price) / $bntreg->goods_price));
     }
 
     if ($sb_energy == $langvars['l_selling'])
     {
-        $amount_energy = min($amount_energy, floor(($playerinfo['credits'] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_goods * $goods_price) / $energy_price));
+        $amount_energy = min($amount_energy, floor(($playerinfo['credits'] + $amount_ore * $bntreg->ore_price + $amount_organics * $bntreg->organics_price + $amount_goods * $bntreg->goods_price) / $bntreg->energy_price));
     }
 
     echo "<form action=port2.php method=post>";
     echo "<table>";
     echo "<tr><td><strong>" . $langvars['l_commodity'] . "</strong></td><td><strong>" . $langvars['l_buying'] . "/" . $langvars['l_selling'] . "</strong></td><td><strong>" . $langvars['l_amount'] . "</strong></td><td><strong>" . $langvars['l_price'] . "</strong></td><td><strong>" . $langvars['l_buy'] . "/" . $langvars['l_sell'] . "</strong></td><td><strong>" . $langvars['l_cargo'] . "</strong></td></tr>";
-    echo "<tr><td>" . $langvars['l_ore'] . "</td><td>$sb_ore</td><td>" . number_format($sectorinfo['port_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$ore_price</td><td><input type=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 value=$amount_ore></td><td>" . number_format($playerinfo['ship_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
-    echo "<tr><td>" . $langvars['l_organics'] . "</td><td>$sb_organics</td><td>" . number_format($sectorinfo['port_organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$organics_price</td><td><input type=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 value=$amount_organics></td><td>" . number_format($playerinfo['ship_organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
-    echo "<tr><td>" . $langvars['l_goods'] . "</td><td>$sb_goods</td><td>" . number_format($sectorinfo['port_goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$goods_price</td><td><input type=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 value=$amount_goods></td><td>" . number_format($playerinfo['ship_goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
-    echo "<tr><td>" . $langvars['l_energy'] . "</td><td>$sb_energy</td><td>" . number_format($sectorinfo['port_energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$energy_price</td><td><input type=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 value=$amount_energy></td><td>" . number_format($playerinfo['ship_energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
+    echo "<tr><td>" . $langvars['l_ore'] . "</td><td>$sb_ore</td><td>" . number_format($sectorinfo['port_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$bntreg->ore_price</td><td><input type=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 value=$amount_ore></td><td>" . number_format($playerinfo['ship_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
+    echo "<tr><td>" . $langvars['l_organics'] . "</td><td>$sb_organics</td><td>" . number_format($sectorinfo['port_organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$bntreg->organics_price</td><td><input type=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 value=$amount_organics></td><td>" . number_format($playerinfo['ship_organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
+    echo "<tr><td>" . $langvars['l_goods'] . "</td><td>$sb_goods</td><td>" . number_format($sectorinfo['port_goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$bntreg->goods_price</td><td><input type=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 value=$amount_goods></td><td>" . number_format($playerinfo['ship_goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
+    echo "<tr><td>" . $langvars['l_energy'] . "</td><td>$sb_energy</td><td>" . number_format($sectorinfo['port_energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$bntreg->energy_price</td><td><input type=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 value=$amount_energy></td><td>" . number_format($playerinfo['ship_energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
     echo "</table><br>";
     echo "<input type=submit value=" . $langvars['l_trade'] . ">";
     echo "</form>";
@@ -472,7 +472,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "     Delta=Delta-1;\n";
     echo "    }\n";
     echo "\n";
-    echo "  DeltaCost=DeltaCost * $upgrade_cost\n";
+    echo "  DeltaCost=DeltaCost * " . $bntreg->upgrade_cost . "\n";
     echo "  return DeltaCost;\n";
     echo "}\n";
 
@@ -547,40 +547,40 @@ elseif ($sectorinfo['port_type'] == "special")
     // NaN Fix :: Needed to be put in an if statment to check for Full.
     if ($genesis_free > 0)
     {
-        echo "+ form.dev_genesis_number.value * $dev_genesis_price \n";
+        echo "+ form.dev_genesis_number.value * " . $bntreg->dev_genesis_price . "\n";
     }
 
     // NaN Fix :: Needed to be put in an if statment to check for Full.
     if ($beacon_free > 0)
     {
-        echo "+ form.dev_beacon_number.value * $dev_beacon_price\n";
+        echo "+ form.dev_beacon_number.value * " . $bntreg->dev_beacon_price . "\n";
     }
 
     if ($emerwarp_free > 0)
     {
-        echo "+ form.dev_emerwarp_number.value * $dev_emerwarp_price\n";
+        echo "+ form.dev_emerwarp_number.value * " . $bntreg->dev_emerwarp_price . "\n";
     }
 
     // NaN Fix :: Needed to be put in an if statment to check for Full.
     if ($warpedit_free > 0)
     {
-        echo "+ form.dev_warpedit_number.value * $dev_warpedit_price\n";
+        echo "+ form.dev_warpedit_number.value * " . $bntreg->dev_warpedit_price . "\n";
     }
 
-    echo "+ form.elements['dev_minedeflector_number'].value * $dev_minedeflector_price\n";
+    echo "+ form.elements['dev_minedeflector_number'].value * " . $bntreg->dev_minedeflector_price . "\n";
 
     if ($playerinfo['dev_escapepod'] == 'N')
     {
-        echo "+ (form.escapepod_purchase.checked ?  $dev_escapepod_price : 0)\n";
+        echo "+ (form.escapepod_purchase.checked ?  " . $bntreg->dev_escapepod_price . " : 0)\n";
     }
 
     if ($playerinfo['dev_fuelscoop'] == 'N')
     {
-        echo "+ (form.fuelscoop_purchase.checked ?  $dev_fuelscoop_price : 0)\n";
+        echo "+ (form.fuelscoop_purchase.checked ?  " . $bntreg->dev_fuelscoop_price . ": 0)\n";
     }
     if ($playerinfo['dev_lssd'] == 'N')
     {
-        echo "+ (form.lssd_purchase.checked ?  $dev_lssd_price : 0)\n";
+        echo "+ (form.lssd_purchase.checked ? " . $bntreg->dev_lssd_price . " : 0)\n";
     }
 
     echo "+ change_delta(form.hull_upgrade.value, $playerinfo[hull])\n";
@@ -596,22 +596,22 @@ elseif ($sectorinfo['port_type'] == "special")
 
     if ($playerinfo['ship_fighters'] != $fighter_max)
     {
-        echo "+ form.fighter_number.value * $fighter_price ";
+        echo "+ form.fighter_number.value * " . $bntreg->fighter_price . " ";
     }
 
     if ($playerinfo['torps'] != $torpedo_max)
     {
-        echo "+ form.torpedo_number.value * $torpedo_price ";
+        echo "+ form.torpedo_number.value * " . $bntreg->torpedo_price . " ";
     }
 
     if ($playerinfo['armor_pts'] != $armor_max)
     {
-        echo "+ form.armor_number.value * $armor_price ";
+        echo "+ form.armor_number.value * " . $bntreg->armor_price . " ";
     }
 
     if ($playerinfo['ship_colonists'] != $colonist_max)
     {
-        echo "+ form.colonist_number.value * $colonist_price ";
+        echo "+ form.colonist_number.value * " . $bntreg->colonist_price ." ";
     }
 
     echo ";\n";

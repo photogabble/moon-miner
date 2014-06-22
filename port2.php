@@ -540,7 +540,7 @@ else
             echo "<div style='font-size:16px; color:#fff;'><br>[<span style='color:#0f0;'>Border Patrol</span>]<br>\n";
             echo "Halt, while we scan your cargo...<br>\n";
 
-            if ((Bnt\CalcLevels::holds($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0)
+            if ((Bnt\CalcLevels::holds($playerinfo['hull'], $bntreg->level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0)
             {
                 // build_two_col("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
@@ -560,7 +560,6 @@ else
         // Here is the trade fonction to strip out some "spaghetti code". The function saves about 60 lines of code, I hope it will be
         // easier to modify/add something in this part.
         $price_array = array ();
-
 
         // Clear variables that are not selected in the form
         if (!isset ($_POST['trade_ore']))
@@ -622,24 +621,24 @@ else
         $trade_goods    = round(abs($trade_goods));
         $trade_energy   = round(abs($trade_energy));
 
-        $trade_ore       =  trade($ore_price, $ore_delta, $sectorinfo['port_ore'], $ore_limit, $inventory_factor, "ore", $trade_ore, $price_array, $sectorinfo);
-        $trade_organics  =  trade($organics_price, $organics_delta, $sectorinfo['port_organics'], $organics_limit, $inventory_factor, "organics", $trade_organics, $price_array, $sectorinfo);
-        $trade_goods     =  trade($goods_price, $goods_delta, $sectorinfo['port_goods'], $goods_limit, $inventory_factor, "goods", $trade_goods, $price_array, $sectorinfo);
-        $trade_energy    =  trade($energy_price, $energy_delta, $sectorinfo['port_energy'], $energy_limit, $inventory_factor, "energy", $trade_energy, $price_array, $sectorinfo);
+        $trade_ore       =  trade($bntreg->ore_price, $bntreg->ore_delta, $sectorinfo['port_ore'], $bntreg->ore_limit, $bntreg->inventory_factor, "ore", $trade_ore, $price_array, $sectorinfo);
+        $trade_organics  =  trade($bntreg->organics_price, $bntreg->organics_delta, $sectorinfo['port_organics'], $bntreg->organics_limit, $bntreg->inventory_factor, "organics", $trade_organics, $price_array, $sectorinfo);
+        $trade_goods     =  trade($bntreg->goods_price, $bntreg->goods_delta, $sectorinfo['port_goods'], $bntreg->goods_limit, $bntreg->inventory_factor, "goods", $trade_goods, $price_array, $sectorinfo);
+        $trade_energy    =  trade($bntreg->energy_price, $bntreg->energy_delta, $sectorinfo['port_energy'], $bntreg->energy_limit, $bntreg->inventory_factor, "energy", $trade_energy, $price_array, $sectorinfo);
 
-        $ore_price       =  $price_array['ore'];
-        $organics_price  =  $price_array['organics'];
-        $goods_price     =  $price_array['goods'];
-        $energy_price    =  $price_array['energy'];
+//        $bntreg->ore_price       =  $price_array['ore'];
+//        $bntreg->organics_price  =  $price_array['organics'];
+//        $bntreg->goods_price     =  $price_array['goods'];
+//        $bntreg->energy_price    =  $price_array['energy'];
 
         $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
 
-        $free_holds = Bnt\CalcLevels::holds($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-        $free_power = Bnt\CalcLevels::energy($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
-        $total_cost = $trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + $trade_energy * $energy_price;
+        $free_holds = Bnt\CalcLevels::holds($playerinfo['hull'], $bntreg->level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $free_power = Bnt\CalcLevels::energy($playerinfo['power'], $bntreg->level_factor) - $playerinfo['ship_energy'];
+        $total_cost = $trade_ore * $bntreg->ore_price + $trade_organics * $bntreg->organics_price + $trade_goods * $bntreg->goods_price + $trade_energy * $bntreg->energy_price;
 
         // Debug info
-        // echo "$trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + $trade_energy * $energy_price = $total_cost";
+        // echo "$trade_ore * $bntreg->ore_price + $trade_organics * $bntreg->organics_price + $trade_goods * $bntreg->goods_price + $trade_energy * $bntreg->energy_price = $total_cost";
 
         if ($free_holds < $cargo_exchanged)
         {
@@ -714,16 +713,16 @@ else
                     <tr>
                         <td colspan=99 align=center><strong><font style='color:{$trade_color};'>". $trade_result ." " . number_format(abs($total_cost), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_credits'] . "</font></strong></td>
                     </tr>
-                    <tr bgcolor=$color_line1>
+                    <tr bgcolor=$bntreg->color_line1>
                         <td><strong><font size=2 color=white>" . $langvars['l_traded_ore'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format($trade_ore, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</font></strong></td>
                     </tr>
-                   <tr bgcolor=$color_line2>
+                   <tr bgcolor=$bntreg->color_line2>
                         <td><strong><font size=2 color=white>" . $langvars['l_traded_organics'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format($trade_organics, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</font></strong></td>
                     </tr>
-                    <tr bgcolor=$color_line1>
+                    <tr bgcolor=$bntreg->color_line1>
                         <td><strong><font size=2 color=white>" . $langvars['l_traded_goods'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format($trade_goods, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</font></strong></td>
                     </tr>
-                    <tr bgcolor=$color_line2>
+                    <tr bgcolor=$bntreg->color_line2>
                         <td><strong><font size=2 color=white>" . $langvars['l_traded_energy'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format($trade_energy, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</font></strong></td>
                     </tr>
                     </table>";
