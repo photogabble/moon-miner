@@ -7,9 +7,9 @@ converted to use templates for output.. the list goes on.
 
 With that out of the way, here is a general guide to most of the code:
 
-For any given file, which represents a location in game (igb, main menu, planet, etc), a file will (usually) include global includes.
+For any given file, which represents a location in game (igb, main menu, planet, etc), a file will (usually) include common.php.
 
-Global includes will in turn include the database settings, the global defines, the autoloader, and then common.php.
+common.php will in turn include the database settings, the global defines, and the autoloader.
 
 After common is complete, the file will continue its processing. 
 
