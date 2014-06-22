@@ -166,7 +166,7 @@ if ($playerfound)
             echo "</div>\n";
             echo "<br>\n";
             echo "<div style='color:#FF0000;'>Maybe you will behave yourself next time.</div>\n";
-            echo "<br />\n";
+            echo "<br>\n";
             echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
         }
     }
