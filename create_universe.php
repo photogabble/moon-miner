@@ -17,7 +17,7 @@
 //
 // File: create_universe.php
 
-include './global_includes.php';
+require_once './common.php';
 include './config/admin_config.php';
 
 // Set timelimit to infinite

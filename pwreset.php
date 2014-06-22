@@ -17,7 +17,7 @@
 //
 // File: pwreset.php
 
-include './global_includes.php';
+require_once './common.php';
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset'));

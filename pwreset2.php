@@ -17,7 +17,7 @@
 //
 // File: pwreset2.php
 
-include './global_includes.php';
+require_once './common.php';
 
 $title = $langvars['l_pwr_title'];
 $body_class = 'options';

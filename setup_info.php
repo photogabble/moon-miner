@@ -17,7 +17,7 @@
 //
 // File: setup_info.php
 
-include './global_includes.php';
+require_once './common.php';
 require './config/db_config.php';
 
 // Set headers

@@ -19,7 +19,7 @@
 // External variables: $destination (from get or post), int, range 1 - $bntreg->sector_max)
 // $engage (from get), int, range 0 - 2)
 
-include './global_includes.php';
+require_once './common.php';
 
 Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 

@@ -18,7 +18,7 @@
 //
 // File: attack.php
 
-include './global_includes.php';
+require_once './common.php';
 
 Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 

@@ -18,7 +18,7 @@
 //
 // File: admin.php
 
-include './global_includes.php';
+require_once './common.php';
 include './config/admin_config.php';
 
 // Database driven language entries

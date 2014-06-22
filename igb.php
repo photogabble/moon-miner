@@ -17,7 +17,7 @@
 //
 // File: igb.php
 
-include './global_includes.php';
+require_once './common.php';
 
 // TODO: This should not be hard-coded, but for now, I need to be able to clear the errors
 $active_template = 'classic';

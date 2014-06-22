@@ -17,7 +17,7 @@
 //
 // File: newplayerguide.php
 
-include './global_includes.php';
+require_once './common.php';
 
 if (!isset ($_GET['lang']))
 {

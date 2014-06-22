@@ -17,7 +17,7 @@
 //
 // File: error.php
 
-include_once './global_includes.php';
+require_once './common.php';
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('footer', 'common', 'error', 'main'));

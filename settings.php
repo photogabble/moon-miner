@@ -17,7 +17,7 @@
 //
 // File: settings.php
 
-include './global_includes.php';
+require_once './common.php';
 
 $link = '';
 if (isset($_GET['lang']))

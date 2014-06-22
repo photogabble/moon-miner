@@ -20,7 +20,7 @@
 // Added a quick fix for creating a new team with the same name
 // This file needs to be completely recoded from scratch :(
 
-include './global_includes.php';
+require_once './common.php';
 
 Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 

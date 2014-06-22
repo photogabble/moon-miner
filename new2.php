@@ -17,7 +17,7 @@
 //
 // File: new2.php
 
-include './global_includes.php';
+require_once './common.php';
 
 $title = $langvars['l_new_title2'];
 Bnt\Header::display($db, $lang, $template, $title);

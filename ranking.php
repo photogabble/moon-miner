@@ -18,7 +18,7 @@
 // File: ranking.php
 // Todo: Remove color controls out to css
 
-include './global_includes.php';
+require_once './common.php';
 
 // Always make sure we are using empty vars before use.
 $variables = null;

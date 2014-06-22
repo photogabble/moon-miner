@@ -16,14 +16,14 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: common.php
-//
-// This file must not contain any include/require type actions (other than error) - those must occur in global_includes instead.
 
 if (strpos($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to this file
 {
     die('Blacknova Traders error: You cannot access this file directly.');
 }
 
+require_once './vendor/autoload.php';              // Load the auto-loader
+require_once './global_defines.php';               // Defines used in many places
 ini_set('include_path', '.');                      // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 ini_set('session.use_only_cookies', 1);            // Ensure that sessions will only be stored in a cookie
 ini_set('session.cookie_httponly', 1);             // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie

@@ -22,7 +22,7 @@
 // code completely from here and putting it in the planet menu
 // instead. Easier to manage, makes more sense too.
 
-include './global_includes.php';
+require_once './common.php';
 
 Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 

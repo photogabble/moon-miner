@@ -18,7 +18,7 @@
 // File: index.php
 
 $index_page = true;
-include './global_includes.php';
+require_once './common.php';
 
 if (!isset($_GET['lang']))
 {

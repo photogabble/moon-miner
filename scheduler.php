@@ -62,7 +62,7 @@
 //  End of scheduler explanation
 
 $index_page = true; // Ensure that we do not set sessions
-include './global_includes.php';
+require_once './common.php';
 include './config/admin_config.php';
 
 $title = $langvars['l_sys_update'];

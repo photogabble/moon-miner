@@ -17,7 +17,7 @@
 //
 // File: logout.php
 
-include './global_includes.php';
+require_once './common.php';
 
 $variables = null;
 

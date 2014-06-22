@@ -17,7 +17,7 @@
 //
 // File: mail.php
 
-include './global_includes.php';
+require_once './common.php';
 
 $title = $langvars['l_mail_title'];
 Bnt\Header::display($db, $lang, $template, $title);

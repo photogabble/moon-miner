@@ -17,7 +17,7 @@
 //
 // File: info_publiclist.php
 
-include './global_includes.php';
+require_once './common.php';
 
 $info = array();
 
