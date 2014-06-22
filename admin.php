@@ -44,6 +44,7 @@ $button_main = false;
 $variables = null;
 
 $variables['is_admin'] = false;
+$variables['module'] = null;
 
 if ($swordfish == ADMIN_PW)
 {
