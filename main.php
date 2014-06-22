@@ -795,7 +795,7 @@ echo "</table>\n";
 // Pull the presets for the player from the db.
 $i = 0;
 $debug_query = $db->Execute("SELECT * FROM {$db->prefix}presets WHERE ship_id=?", array($playerinfo['ship_id']));
-Bnt\Db::logDbErrors($db, $debug_query ,__LINE__, __FILE__);
+Bnt\Db::logDbErrors($db, $debug_query, __LINE__, __FILE__);
 while (!$debug_query->EOF)
 {
     $presetinfo[$i] = $debug_query->fields;
