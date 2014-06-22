@@ -22,7 +22,7 @@
 {if isset($news)}
 <br>
 <script type="text/javascript" src="{$template_dir}/javascript/newsticker.js.php"></script>
-<p id="news_ticker" class="faderlines" style="width:602px; margin:auto; text-align:center; float:center;">{$langvars['l_news_broken']}</p>
+<p id="news_ticker" class="faderlines" style="width:602px; margin:auto; text-align:center;">{$langvars['l_news_broken']}</p>
 <script>
 // News Ticker Constructor.
 news = new newsTicker();
