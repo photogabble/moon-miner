@@ -1,3 +1,7 @@
+TheKabal (23 June 2014)
+--------------------------------------
+Add DB-driven session class - not yet hooked up, still work to be done.
+
 TheKabal (21 June 2014)
 --------------------------------------
 Split presets out into its own table, increase default max preset count to five
