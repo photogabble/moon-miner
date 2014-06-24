@@ -29,6 +29,7 @@
         "smarty/smarty": "v3.1.18",
         "ezyang/htmlpurifier": "v4.6.0",
         "ircmaxell/password-compat": "1.0.3",
+        "swiftmailer/swiftmailer": "v5.2.1",
         "adodb/adodb-php": "v5.19"
     },
 
@@ -61,7 +62,10 @@
             "rm -rf vendor/adodb/adodb-php/docs/",
             "rm -rf vendor/adodb/adodb-php/.git/",
             "rm -rf vendor/smarty/smarty/development",
-            "rm -rf vendor/smarty/smarty/documentation"
+            "rm -rf vendor/smarty/smarty/documentation",
+            "rm -rf vendor/swiftmailer/swiftmailer/notes",
+            "rm -rf vendor/swiftmailer/swiftmailer/doc",
+            "rm -rf vendor/swiftmailer/swiftmailer/tests"
         ]
     }
 }
