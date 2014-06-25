@@ -72,6 +72,16 @@ $langvars = null;                                  // We need language variables
 $template = new \Bnt\Template();                   // Template API.
 $template->setTheme($bntreg->default_template);    // We set the name of the theme, temporary until we have a theme picker
 
+$bnt_session = new Bnt\Sessions($pdo_db);
+session_set_save_handler(
+    array(&$bnt_session, "open"),
+    array(&$bnt_session, "close"),
+    array(&$bnt_session, "read"),
+    array(&$bnt_session, "write"),
+    array(&$bnt_session, "destroy"),
+    array(&$bnt_session, "gc")
+);
+
 if (!isset($index_page))
 {
     $index_page = false;
