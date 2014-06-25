@@ -18,7 +18,6 @@
 // File: login2.php
 
 require_once './common.php';
-
 // Test to see if server is closed to logins
 $playerfound = false;
 
@@ -100,7 +99,8 @@ if ($playerfound)
                 $_SESSION['password'] = $_POST['pass'];
                 $_SESSION['username'] = $playerinfo['email'];
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-                header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually
+//                header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually. - However, it breaks frequently the session handling.
+                echo '<meta http-equiv="refresh" content="0; url=main.php" />';
             }
             else
             {
