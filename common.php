@@ -24,16 +24,16 @@ if (strpos($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to this
 
 require_once './vendor/autoload.php';              // Load the auto-loader
 require_once './global_defines.php';               // Defines used in many places
-ini_set('include_path', '.');                      // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
+ini_set('include_path', '.');                      // Set include path to avoid issues on a few platforms
 ini_set('session.use_only_cookies', 1);            // Ensure that sessions will only be stored in a cookie
-ini_set('session.cookie_httponly', 1);             // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
+ini_set('session.cookie_httponly', 1);             // Ensure that javascript cannot tamper with session cookies
 ini_set('session.use_trans_sid', 0);               // Prevent session ID from being put in URLs
-ini_set('session.entropy_file', '/dev/urandom');   // Use urandom as entropy source, to help the random number generator
+ini_set('session.entropy_file', '/dev/urandom');   // Use urandom as entropy source, to increase randomness
 ini_set('session.entropy_length', '512');          // Increase the length of entropy gathered
-ini_set('session.hash_function', 'sha512');        // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
-ini_set('url_rewriter.tags', '');                  // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+ini_set('session.hash_function', 'sha512');        // Provides improved reduction for session collision
+ini_set('url_rewriter.tags', '');                  // Do not pass Session id on the url for improved security on login
 
-if (file_exists('dev'))                            // Create/touch a file named dev in the main game directory to activate development mode
+if (file_exists('dev'))                            // Create/touch a file named dev to activate development mode
 {
     ini_set('error_reporting', -1);                // During development, output all errors, even notices
     ini_set('display_errors', 1);                  // During development, display all errors
@@ -44,42 +44,42 @@ else
     ini_set('display_errors', 0);                  // Do not display errors
 }
 
-date_default_timezone_set('UTC');                  // Set to your server's local time zone - PHP throws a notice if this is not set.
-if (extension_loaded('mbstring'))                  // Ensure that we don't trigger an error if the mbstring extension is not loaded
+date_default_timezone_set('UTC');                  // Set to your server's local time zone - Avoid a PHP notice
+if (extension_loaded('mbstring'))                  // Don't trigger an error if the mbstring extension is not loaded
 {
-    mb_http_output('UTF-8');                       // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
-    mb_internal_encoding('UTF-8');                 // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
+    mb_http_output('UTF-8');                       // Our output should be served in UTF-8 no matter what.
+    mb_internal_encoding('UTF-8');                 // We are explicitly UTF-8, with Unicode language variables.
 }
-                                                   // Since header is now temlate driven, these weren't being passed along except on old
-                                                   // crusty pages. Now everthing gets them!
+                                                   // Since header is now temlate driven, these weren't being passed
+                                                   // along except on old crusty pages. Now everthing gets them!
 header('Content-type: text/html; charset=utf-8');  // Set character set to utf-8, and using HTML as our content type
-header('X-UA-Compatible: IE=Edge, chrome=1');      // Tell IE to use the latest version of the rendering engine, and to use chrome if it is available. This is not needed after IE11.
-header('Cache-Control: public');                   // Tell the browser (and any caches) that this information can be stored in public caches.
-header('Connection: Keep-Alive');                  // Tell the browser to keep going until it gets all data, please.
+header('X-UA-Compatible: IE=Edge, chrome=1');      // IE - use the latest rendering engine (edge), and chrome shell
+header('Cache-Control: public');                   // Tell browser and caches that it's ok to store in public caches
+header('Connection: Keep-Alive');                  // Tell browser to keep going until it gets all data, please
 header('Vary: Accept-Encoding, Accept-Language');  // Tell CDN's or proxies to keep a separate version of the page in various encodings - compressed or not, in english or french for example.
 header('Keep-Alive: timeout=15, max=100');         // Ask for persistent HTTP connections (15sec), which give better per-client performance, but can be worse (for a server) for many.
-ob_start(array('Bnt\Compress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bnt\Compress" to properly handle detection of compression.
+ob_start(array('Bnt\Compress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function 'bnt\Compress' to properly handle detection of compression.
 
 $pdo_db = new Bnt\Db;
 $pdo_db = $pdo_db->initDb('pdo');                  // Connect to db using pdo
 $db = new Bnt\Db;
 $db = $db->initDb('adodb');                        // Connect to db using adodb also - for now - to be eliminated!
 
-$bntreg = new Bnt\Reg($pdo_db);                    // Initalize the BNT Registry object, for passing the most common variables in game through classes
-$bntreg->bnttimer = new Bnt\Timer;                 // We want benchmarking data for all activities, so create a benchmark timer object
+$bntreg = new Bnt\Reg($pdo_db);                    // BNT Registry object -  passing config variables via classes
+$bntreg->bnttimer = new Bnt\Timer;                 // Create a benchmark timer to get benchmarking data for everything
 $bntreg->bnttimer->start();                        // Start benchmarking immediately
-$langvars = null;                                  // We need language variables in every page, set them to a null value first.
+$langvars = null;                                  // Language variables in every page, set them to a null value first
 $template = new \Bnt\Template();                   // Template API.
-$template->setTheme($bntreg->default_template);    // We set the name of the theme, temporary until we have a theme picker
+$template->setTheme($bntreg->default_template);    // Set the name of the theme, temporary until we have a theme picker
 
 $bnt_session = new Bnt\Sessions($pdo_db);
 session_set_save_handler(
-    array(&$bnt_session, "open"),
-    array(&$bnt_session, "close"),
-    array(&$bnt_session, "read"),
-    array(&$bnt_session, "write"),
-    array(&$bnt_session, "destroy"),
-    array(&$bnt_session, "gc")
+    array(&$bnt_session, 'open'),
+    array(&$bnt_session, 'close'),
+    array(&$bnt_session, 'read'),
+    array(&$bnt_session, 'write'),
+    array(&$bnt_session, 'destroy'),
+    array(&$bnt_session, 'gc')
 );
 
 if (!isset($index_page))
@@ -126,8 +126,8 @@ Bnt\PluginSystem::initialize($pdo_db);
 // Load all Plugins.
 Bnt\PluginSystem::loadPlugins();
 
-// Ok, here we raise EVENT_TICK which is called every page load, this saves us from having to add new lines to support new features.
-// This is used for ingame stuff and Plug-ins that need to be called on every page load.
+// Ok, here we raise EVENT_TICK which is called every page load, this saves us from having to add new lines to
+// support new features. This is used for ingame stuff and Plug-ins that need to be called on every page load.
 // May need to change array(time()) to have extra info, but the current suits us fine for now.
 Bnt\PluginSystem::raiseEvent(EVENT_TICK, array (time()));
 ?>
