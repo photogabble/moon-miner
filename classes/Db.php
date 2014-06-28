@@ -100,8 +100,8 @@ class Db
             catch (exception $e)
             {
                 // We need to display the error message onto the screen.
-                $err_msg = 'Unable to connect to the ' . $db_type .
-                           ' Database.<br>\n Database Error: '. $db->ErrorNo() .
+                $err_msg = 'Blacknova Traders Error: Unable to connect to the ' . $db_type .
+                           ' Database.<br> Database Error: '. $db->ErrorNo() .
                            ': '. $db->ErrorMsg() .'<br>\n';
                 die ($err_msg);
             }
@@ -120,8 +120,8 @@ class Db
             }
             catch (\PDOException $e)
             {
-                $err_msg = 'Unable to connect to the ' . $db_type .
-                           ' Database.<br>\n Database Error: '.
+                $err_msg = 'Blacknova Traders Error: Unable to connect to the ' . $db_type .
+                           ' Database.<br> Database Error: '.
                            $e->getMessage() ."<br>\n";
                 die ($err_msg);
             }
