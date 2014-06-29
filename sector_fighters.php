@@ -181,7 +181,7 @@ if ($playerarmor < 1)
     else
     {
         Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
-        Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
+        Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
         $ok = 0;
         Bnt\Text::gotoMain($db, $lang, $langvars);
         die();

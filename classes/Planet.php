@@ -508,7 +508,7 @@ class Planet
             }
             else
             {
-                \Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
+                \Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
                 \Bnt\Bounty::collect($db, $langvars, $planetinfo['owner'], $playerinfo['ship_id']);
             }
         }
@@ -1087,7 +1087,7 @@ class Planet
             else
             {
                 \Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-                \Bnt\Player::kill($db, $targetinfo['ship_id'], $langvars, $bntreg, false);
+                \Bnt\Character::kill($db, $targetinfo['ship_id'], $langvars, $bntreg, false);
                 \Bnt\Bounty::collect($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
             }
         }

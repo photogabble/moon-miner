@@ -525,7 +525,7 @@ class Xenobe
         if (!$attackerarmor > 0) // Check if attackers ship destroyed
         {
             \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
-            \Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
+            \Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
             $xenobeisdead = 1;
 
             $free_ore = round($playerinfo['ship_ore'] / 2);
@@ -973,7 +973,7 @@ class Xenobe
             // Target had no pod
             {
                 \Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|N");
-                \Bnt\Player::kill($db, $targetinfo['ship_id'], $langvars, $bntreg, false);
+                \Bnt\Character::kill($db, $targetinfo['ship_id'], $langvars, $bntreg, false);
             }
 
             if ($attackerarmor>0)
@@ -1066,7 +1066,7 @@ class Xenobe
         if (!$attackerarmor > 0)
         {
             \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "$targetinfo[character_name] destroyed your ship!");
-            \Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
+            \Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
             $xenobeisdead = 1;
             if ($targetarmor > 0)
             {
@@ -1312,7 +1312,7 @@ class Xenobe
                     $langvars['l_sf_sendlog2'] = str_replace("[sector]", $targetlink, $langvars['l_sf_sendlog2']);
                     \Bnt\SectorDefense::messageDefenseOwner($db, $targetlink, $langvars['l_sf_sendlog2']);
                     \Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
-                    \Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
+                    \Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
                     $xenobeisdead = 1;
 
                     return;
@@ -1358,7 +1358,7 @@ class Xenobe
 
                             // Actually kill the Xenobe now
                             \Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
-                            \Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
+                            \Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
                             $xenobeisdead = 1;
                             // Lets get rid of the mines now and return out of this function
                             \Bnt\Mines::explode($db, $targetlink, $roll);

@@ -1,5 +1,6 @@
 TheKabal (29 June 2014)
 --------------------------------------
+Add new "Character" class & object - in prep for player authentication
 Added session regeneration method - $bnt_session->regen that plays nicely with our db-driven sessions
 Sessions now correctly expire after create_time + maxlifetime (currently at 30 mins)
 

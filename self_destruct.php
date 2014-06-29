@@ -57,7 +57,7 @@ elseif ($sure == 2)
     echo $langvars['l_die_vapor'] . "<br><br>";
     $langvars['l_die_please'] = str_replace("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
     echo $langvars['l_die_please'] . "<br>";
-    Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, true);
+    Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, true);
     Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
     Bnt\AdminLog::writeLog($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|" . $_SERVER['REMOTE_ADDR'] . "");
     Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_HARAKIRI, $_SERVER['REMOTE_ADDR']);

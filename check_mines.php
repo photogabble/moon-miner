@@ -172,7 +172,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                     {
                         // Or they lose!
                         Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
-                        Bnt\Player::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
+                        Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
                     }
                 }
             }

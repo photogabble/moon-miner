@@ -15,11 +15,11 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/Player.php
+// File: classes/Character.php
 
 namespace Bnt;
 
-class Player
+class Character
 {
     public static function kill($db, $ship_id, $langvars, $bntreg, $remove_planets = false)
     {
