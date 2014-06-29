@@ -1,3 +1,7 @@
+TheKabal (29 June 2014)
+--------------------------------------
+Sessions now correctly expire after create_time + maxlifetime (currently at 30 mins)
+
 TheKabal (24 June 2014)
 --------------------------------------
 Database driven sessions return - now PDO powered. More functionality to come, but it is entirely functional now.

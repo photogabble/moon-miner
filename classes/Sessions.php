@@ -36,6 +36,9 @@ class Sessions
         $stmt->execute();
         $row = $stmt->fetch();
 
+        // Set the current time for comparison to sessions to be the current database time
+        $this->currenttime = $row['currenttime'];
+
         // Set the expiry time for sessions to be the current database time plus the maxlifetime set at top of class
         $this->expiry = gmdate('Y-m-d H:i:s', strtotime($row['currenttime']) + $this->maxlifetime);
     }
@@ -57,10 +60,10 @@ class Sessions
 
     public function read($sesskey)
     {
-        $qry = "SELECT sessdata FROM {$this->pdo_db->prefix}sessions where sesskey=:sesskey and expiry<:expiry";
+        $qry = "SELECT sessdata FROM {$this->pdo_db->prefix}sessions where sesskey=:sesskey and expiry>=:expiry";
         $stmt = $this->pdo_db->prepare($qry);
         $stmt->bindParam(':sesskey', $sesskey);
-        $stmt->bindParam(':expiry', $this->expiry);
+        $stmt->bindParam(':expiry', $this->currenttime);
         $stmt->execute();
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $result['sessdata'];
