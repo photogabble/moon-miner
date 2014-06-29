@@ -86,25 +86,25 @@ if ($playerfound)
 
             if ($playerinfo['ship_destroyed'] == "N")
             {
-                // player's ship has not been destroyed
+                // Player's ship has not been destroyed
                 Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_LOGIN, $_SERVER['REMOTE_ADDR']);
                 $stamp = date("Y-m-d H:i:s");
                 $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
                 Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
 
                 // They have logged in successfully, so update their session ID as well
-                session_regenerate_id();
+                // This needs a custom handler for our db driven sessions - next on the list.
+//                session_regenerate_id();
 
                 $_SESSION['logged_in'] = true;
                 $_SESSION['password'] = $_POST['pass'];
                 $_SESSION['username'] = $playerinfo['email'];
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-//                header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually. - However, it breaks frequently the session handling.
-                echo '<meta http-equiv="refresh" content="0; url=main.php" />';
+                header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually
             }
             else
             {
-                // player's ship has been destroyed
+                // Player's ship has been destroyed
                 if ($playerinfo['dev_escapepod'] == "Y")
                 {
                     $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
