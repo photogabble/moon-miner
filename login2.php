@@ -92,14 +92,13 @@ if ($playerfound)
                 $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
                 Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
 
-                // They have logged in successfully, so update their session ID as well
-                // This needs a custom handler for our db driven sessions - next on the list.
-//                session_regenerate_id();
-
                 $_SESSION['logged_in'] = true;
                 $_SESSION['password'] = $_POST['pass'];
                 $_SESSION['username'] = $playerinfo['email'];
                 Bnt\Text::gotoMain($db, $lang, $langvars);
+
+                // They have logged in successfully, so update their session ID as well
+                $bnt_session->regen();
                 header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually
             }
             else
