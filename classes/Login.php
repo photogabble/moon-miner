@@ -39,9 +39,9 @@ class Login
             $_SESSION['password'] = null;
         }
 
-        if (is_null($_SESSION['username']) == false && is_null($_SESSION['password']) == false)
+        if (is_null($_SESSION['username']) === false && is_null($_SESSION['password']) === false)
         {
-            $res = $db->SelectLimit("SELECT * FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
+            $res = $db->SelectLimit("SELECT ip_address, password, last_login, ship_id, ship_destroyed, dev_escapepod FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
             Db::logDbErrors($db, $res, __LINE__, __FILE__);
 //            if ($res instanceof ADORecordSet && $res->RecordCount() >0) // This is producing errors for some reason, while if $res does not
             if ($res)
@@ -116,10 +116,10 @@ class Login
                     }
 
                     // Check for destroyed ship
-                    if ($playerinfo['ship_destroyed'] == 'Y' && $banned == 0)
+                    if ($playerinfo['ship_destroyed'] === 'Y' && $banned == 0)
                     {
                         // if the player has an escapepod, set the player up with a new ship
-                        if ($playerinfo['dev_escapepod'] == 'Y')
+                        if ($playerinfo['dev_escapepod'] === 'Y')
                         {
                             $newship_res = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' WHERE email=?", array ($_SESSION['username']));
                             Db::logDbErrors($db, $newship_res, __LINE__, __FILE__);
@@ -162,7 +162,7 @@ class Login
             $flag = 1;
         }
 
-        if ($bntreg->server_closed && $flag == 0)
+        if ($bntreg->server_closed && $flag === 0)
         {
             $title = $langvars['l_login_closed_message'];
             $error_status .= $langvars['l_login_closed_message'];
@@ -171,7 +171,7 @@ class Login
 
         // This isn't the prettiest way to do this, and I'd like this split up and templated and so
         // forth, but for now, it works.
-        if ($flag == 1)
+        if ($flag === 1)
         {
             $title = $langvars['l_error'];
             Header::display($db, $lang, $template, $title);
