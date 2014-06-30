@@ -90,7 +90,7 @@ class Login
                             session_destroy();
 
                             $error_status = "<div style='font-size:18px; color:#FF0000;'>\n";
-                            if (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] == ID_LOCKED)
+                            if (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_LOCKED)
                             {
                                 $error_status .= 'Your account has been Locked';
                             }
@@ -116,7 +116,7 @@ class Login
                     }
 
                     // Check for destroyed ship
-                    if ($playerinfo['ship_destroyed'] === 'Y' && $banned == 0)
+                    if ($playerinfo['ship_destroyed'] === 'Y' && $banned === 0)
                     {
                         // if the player has an escapepod, set the player up with a new ship
                         if ($playerinfo['dev_escapepod'] === 'Y')
