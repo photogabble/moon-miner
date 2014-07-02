@@ -22,8 +22,15 @@ if (strpos($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to this
     die('Blacknova Traders error: You cannot access this file directly.');
 }
 
+if (!extension_loaded('mbstring')) // Test to ensure mbstring extension is loaded
+{
+    die ('Blacknova Traders Error: The PHP mbstring extension is required. Please install it.');
+}
+
 require_once './vendor/autoload.php';              // Load the auto-loader
 require_once './global_defines.php';               // Defines used in many places
+mb_http_output('UTF-8');                           // Our output should be served in UTF-8 no matter what.
+mb_internal_encoding('UTF-8');                     // We are explicitly UTF-8, with Unicode language variables.
 ini_set('include_path', '.');                      // Set include path to avoid issues on a few platforms
 ini_set('session.use_only_cookies', 1);            // Ensure that sessions will only be stored in a cookie
 ini_set('session.cookie_httponly', 1);             // Ensure that javascript cannot tamper with session cookies
@@ -45,20 +52,20 @@ else
 }
 
 date_default_timezone_set('UTC');                  // Set to your server's local time zone - Avoid a PHP notice
-if (extension_loaded('mbstring'))                  // Don't trigger an error if the mbstring extension is not loaded
-{
-    mb_http_output('UTF-8');                       // Our output should be served in UTF-8 no matter what.
-    mb_internal_encoding('UTF-8');                 // We are explicitly UTF-8, with Unicode language variables.
-}
                                                    // Since header is now temlate driven, these weren't being passed
                                                    // along except on old crusty pages. Now everthing gets them!
 header('Content-type: text/html; charset=utf-8');  // Set character set to utf-8, and using HTML as our content type
 header('X-UA-Compatible: IE=Edge, chrome=1');      // IE - use the latest rendering engine (edge), and chrome shell
 header('Cache-Control: public');                   // Tell browser and caches that it's ok to store in public caches
 header('Connection: Keep-Alive');                  // Tell browser to keep going until it gets all data, please
-header('Vary: Accept-Encoding, Accept-Language');  // Tell CDN's or proxies to keep a separate version of the page in various encodings - compressed or not, in english or french for example.
-header('Keep-Alive: timeout=15, max=100');         // Ask for persistent HTTP connections (15sec), which give better per-client performance, but can be worse (for a server) for many.
-ob_start(array('Bnt\Compress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function 'bnt\Compress' to properly handle detection of compression.
+header('Vary: Accept-Encoding, Accept-Language');  // Tell CDN's or proxies to keep a separate version of the page in
+                                                   // various encodings - compressed or not, in english or french
+                                                   // for example.
+header('Keep-Alive: timeout=15, max=100');         // Ask for persistent HTTP connections (15sec), which give better
+                                                   // per-client performance, but can be worse (for a server) for many
+ob_start(array('Bnt\Compress', 'compress'));       // Start a buffer, and when it closes (at the end of a request),
+                                                   // call the callback function 'bnt\Compress' to properly handle
+                                                   // detection of compression.
 
 $pdo_db = new Bnt\Db;
 $pdo_db = $pdo_db->initDb('pdo');                  // Connect to db using pdo
