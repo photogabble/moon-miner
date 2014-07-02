@@ -151,7 +151,7 @@ class File
                 }
                 elseif (is_string($value))
                 {
-                    if (strlen(trim($value)) == 0)
+                    if (mb_strlen(trim($value)) == 0)
                     {
                         $value = null;
                     }
