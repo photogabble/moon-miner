@@ -90,7 +90,7 @@ ob_start();
 $test_smarty->testInstall();
 $variables['smarty_test_err'] = ob_get_contents();
 ob_end_clean();
-if (strpos($variables['smarty_test_err'], 'FAILED'))
+if (mb_strpos($variables['smarty_test_err'], 'FAILED'))
 {
     $variables['smarty_test'] = false;
 }

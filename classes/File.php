@@ -45,7 +45,7 @@ class File
             foreach($config_line as $config_key => $type_n_value)
             {
                 $j++;
-                if (strpos($ini_file, '_config') !== false)
+                if (mb_strpos($ini_file, '_config') !== false)
                 {
                     // Import all the variables into the registry
                     settype($type_n_value['value'], $type_n_value['type']);
@@ -111,7 +111,7 @@ class File
                 $name = trim($name);
                 $data = trim($data);
                 $comment = null;
-                if (strpos($data, '//') != 0)
+                if (mb_strpos($data, '//') != 0)
                 {
                     list($value, $comment) = explode('//', $data, 2);
                 }
