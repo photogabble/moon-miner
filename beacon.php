@@ -105,7 +105,7 @@ if ($playerinfo['dev_beacon'] > 0)
         }
         else
         {
-            $beacon_text = trim(htmlentities($beacon_text));
+            $beacon_text = trim(htmlentities($beacon_text, ENT_HTML5, 'UTF-8'));
             echo $langvars['l_beacon_nowreads'] . ": " . $beacon_text . ".<br><br>";
             $update = $db->Execute("UPDATE {$db->prefix}universe SET beacon = ? WHERE sector_id = ?;", array ($beacon_text, $sectorinfo['sector_id']));
             Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);

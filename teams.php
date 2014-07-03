@@ -398,8 +398,8 @@ switch ($teamwhat)
         }
         else
         {
-            $teamname = trim(htmlspecialchars($teamname));
-            $teamdesc = trim(htmlspecialchars($teamdesc));
+            $teamname = trim(htmlentities($teamname, ENT_HTML5, 'UTF-8'));
+            $teamdesc = trim(htmlentities($teamdesc, ENT_HTML5, 'UTF-8'));
 
             if (!Bad\Team::validateTeam($db, $teamname, $teamdesc, $playerinfo['ship_id']))
             {
@@ -522,8 +522,8 @@ switch ($teamwhat)
         }
         else
         {
-            $teamname = trim(htmlspecialchars($teamname));
-            $teamdesc = trim(htmlspecialchars($teamdesc));
+            $teamname = trim(htmlentities($teamname, ENT_HTML5, 'UTF-8'));
+            $teamdesc = trim(htmlentities($teamdesc, ENT_HTML5, 'UTF-8'));
 
             if (Bad\Team::validateTeam($db, $teamname, $teamdesc, $playerinfo['ship_id']) == false)
             {

@@ -137,7 +137,7 @@ class Db
     public static function logDbErrors($db, $query, $served_line, $served_page)
     {
         // Convert the content of PHP_SELF (in case it has been tainted) to the correct html entities
-        $safe_script_name = htmlentities($_SERVER['PHP_SELF']);
+        $safe_script_name = htmlentities($_SERVER['PHP_SELF'], ENT_HTML5, 'UTF-8');
         $db_log = false;
         if ($db instanceof PDO)
         {

@@ -65,8 +65,8 @@ if (array_key_exists('password', $_POST))
     $password = $_POST['password'];
 }
 
-$character = htmlspecialchars($character);
-$shipname = htmlspecialchars($shipname);
+$character = htmlentities($character, ENT_HTML5, 'UTF-8');
+$shipname = htmlentities($shipname, ENT_HTML5, 'UTF-8');
 $character = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
 $shipname = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
 
