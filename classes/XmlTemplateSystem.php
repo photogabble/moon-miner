@@ -79,7 +79,7 @@ class XmlTemplateSystem
 
         foreach ($libraries as $library)
         {
-            $library = strtolower($library);
+            $library = mb_strtolower($library);
             extension_loaded($library) or trigger_error("Class '{$library}' not found", E_USER_ERROR);
         }
     }

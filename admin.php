@@ -63,7 +63,7 @@ if ($swordfish == ADMIN_PW)
             $filename[$i]['file'] = $file_info->getFilename();
 
             // Set option title to lang string of the form l_admin + file name
-            $option_title = "l_admin_" . substr($filename[$i]['file'], 0, -4);
+            $option_title = "l_admin_" . mb_substr($filename[$i]['file'], 0, -4);
 
             if (isset($langvars[$option_title]))
             {
@@ -81,7 +81,7 @@ if ($swordfish == ADMIN_PW)
                 if ($menu == $filename[$i]['file'])
                 {
                     $button_main = true;
-                    $module_name = substr($filename[$i]['file'], 0, -4);
+                    $module_name = mb_substr($filename[$i]['file'], 0, -4);
                     include_once './admin/'. $filename[$i]['file'];
                 }
             }

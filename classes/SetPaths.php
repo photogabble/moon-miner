@@ -68,13 +68,13 @@ class SetPaths
             $pos = mb_strpos($gamedomain, 'http://');
             if (is_int($pos))
             {
-                $gamedomain = substr($gamedomain, $pos+7);
+                $gamedomain = mb_substr($gamedomain, $pos+7);
             }
 
             $pos = mb_strpos($gamedomain, 'www.');
             if (is_int($pos))
             {
-                $gamedomain = substr($gamedomain, $pos+4);
+                $gamedomain = mb_substr($gamedomain, $pos+4);
             }
 
             if ($remove_port)
@@ -84,7 +84,7 @@ class SetPaths
 
             if (is_int($pos))
             {
-                $gamedomain = substr($gamedomain, 0, $pos);
+                $gamedomain = mb_substr($gamedomain, 0, $pos);
             }
 
             if ($gamedomain[0] != '.')

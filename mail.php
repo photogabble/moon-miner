@@ -50,7 +50,7 @@ if (!$result->EOF)
     {
         $playerinfo = $result->fields;
         $link_to_reset = "http://" . $_SERVER['HTTP_HOST'] . Bnt\SetPaths::setGamepath();
-        $link_to_reset .= "pwreset.php?code=" . substr(md5($playerinfo['password']), 5, 8);
+        $link_to_reset .= "pwreset.php?code=" . mb_substr(md5($playerinfo['password']), 5, 8);
 
         $langvars['l_mail_message'] = str_replace("[link]", $link_to_reset, $langvars['l_mail_message']);
         $langvars['l_mail_message'] = str_replace("[name]", $playerinfo['character_name'], $langvars['l_mail_message']);
@@ -74,7 +74,7 @@ if (!$result->EOF)
         echo "<br>\n";
         echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>";
         echo $langvars['l_mail_note_1'] . "<br><br>";
-        echo strtoupper($langvars['l_mail_note_2']);
+        echo mb_strtoupper($langvars['l_mail_note_2']);
         echo "</div>\n";
     }
 }

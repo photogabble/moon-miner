@@ -62,7 +62,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
     // If it is a PHP file, add it to the list of accepted language files
     if ($file_info->isFile() && $file_info->getExtension() == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
     {
-        $lang_file = substr($file_info->getFilename(), 0, -8); // The actual file name
+        $lang_file = mb_substr($file_info->getFilename(), 0, -8); // The actual file name
 
         // Select from the database and return the localized name of the language
         $result = $db->Execute("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));

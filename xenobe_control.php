@@ -315,7 +315,7 @@ else
                                 break;
                         }
 
-                        $logdatetime = substr($logrow['time'], 4, 2) . "/" . substr($logrow['time'], 6, 2) . "/" . substr($logrow['time'], 0, 4) . " " . substr($logrow['time'], 8, 2) . ":" . substr($logrow['time'], 10, 2) . ":" . substr($logrow['time'], 12, 2);
+                        $logdatetime = mb_substr($logrow['time'], 4, 2) . "/" . mb_substr($logrow['time'], 6, 2) . "/" . mb_substr($logrow['time'], 0, 4) . " " . mb_substr($logrow['time'], 8, 2) . ":" . mb_substr($logrow['time'], 10, 2) . ":" . mb_substr($logrow['time'], 12, 2);
                         echo "$logdatetime $logtype$logrow[data] <br>";
                         $logres->MoveNext();
                     }

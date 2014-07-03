@@ -633,7 +633,7 @@ class Xenobe
 
         // Verify not attacking another Xenobe
         // Added because the xenobe were killing each other off
-        if (strstr($targetinfo['email'], '@xenobe'))                       // He's a xenobe
+        if (mb_strstr($targetinfo['email'], '@xenobe'))                       // He's a xenobe
         {
             $resb = $db->Execute("UNLOCK TABLES");
             \Bnt\Db::logDbErrors($db, $resb, __LINE__, __FILE__);

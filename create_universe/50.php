@@ -60,7 +60,7 @@ foreach ($language_files as $language_filename)
 {
     if ($language_filename->isFile() && $language_filename->getExtension() == 'php')
     {
-        $lang_name = substr($language_filename->getFilename(), 0, -8);
+        $lang_name = mb_substr($language_filename->getFilename(), 0, -8);
 
         // Import Languages
         $local_table_timer->start(); // Start benchmarking

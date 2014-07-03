@@ -100,12 +100,12 @@ class File
         $container = null;
         foreach($ini as $line)
         {
-            if (substr(trim($line), 0, 1) === '[' && substr(trim($line), -1, 1) === ']')
+            if (mb_substr(trim($line), 0, 1) === '[' && mb_substr(trim($line), -1, 1) === ']')
             {
-                $container = trim(substr($line, 1, -1));
+                $container = trim(mb_substr($line, 1, -1));
                 continue;
             }
-            elseif (substr(trim($line), 0, 1) !== ';' && substr(trim($line), 0, 2) !== '//')
+            elseif (mb_substr(trim($line), 0, 1) !== ';' && mb_substr(trim($line), 0, 2) !== '//')
             {
                 list($name, $data) = explode('=', $line, 2);
                 $name = trim($name);
@@ -121,19 +121,19 @@ class File
                 }
 
                 // Remove any semicolons from the end of the value.
-                if (substr(trim($value), -1, 1) === ';')
+                if (mb_substr(trim($value), -1, 1) === ';')
                 {
-                    $value = substr(trim($value), 0, -1);
+                    $value = mb_substr(trim($value), 0, -1);
                 }
 
                 // Remove Quote Tags from the start and end.
-                if (substr(trim($value), 0, 1) === '\'' || substr(trim($value), 0, 1) === '"')
+                if (mb_substr(trim($value), 0, 1) === '\'' || mb_substr(trim($value), 0, 1) === '"')
                 {
-                    $value = substr(trim($value), 1);
+                    $value = mb_substr(trim($value), 1);
                 }
-                if (substr(trim($value), -1, 1) === '\'' || substr(trim($value), -1, 1) === '"')
+                if (mb_substr(trim($value), -1, 1) === '\'' || mb_substr(trim($value), -1, 1) === '"')
                 {
-                    $value = substr(trim($value), 0, -1);
+                    $value = mb_substr(trim($value), 0, -1);
                 }
 
                 $value = trim($value);
@@ -144,9 +144,9 @@ class File
                 {
                     $value +=0;
                 }
-                elseif (strtolower($value) === 'true' || strtolower($value) === 'false')
+                elseif (mb_strtolower($value) === 'true' || mb_strtolower($value) === 'false')
                 {
-                    $value =(strtolower($value) == 'true' ? true : false);
+                    $value =(mb_strtolower($value) == 'true' ? true : false);
                     settype($value, 'bool');
                 }
                 elseif (is_string($value))
