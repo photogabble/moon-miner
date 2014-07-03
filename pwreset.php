@@ -51,7 +51,7 @@ if (!$result->EOF && $result != false)
     }
     else
     {
-        echo "<form action=pwreset2.php method=post>";
+        echo "<form accept-charset='utf-8' action=pwreset2.php method=post>";
         echo "<table>";
         echo "<tr>";
         echo "<th colspan=2><strong>" . $langvars['l_opt_chpass'] . "</strong></th>";

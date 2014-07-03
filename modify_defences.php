@@ -247,7 +247,7 @@ switch ($response)
         if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
         {
             echo $langvars['l_md_youcan'] . ":<br>";
-            echo "<form action=modify_defences.php method=post>";
+            echo "<form accept-charset='utf-8' action=modify_defences.php method=post>";
             echo $langvars['l_md_retrieve'] . " <input type=test name=quantity size=10 maxlength=10 value=0></input> $defence_type<br>";
             echo "<input type=hidden name=response value=retrieve>";
             echo "<input type=hidden name=defence_id value=$defence_id>";
@@ -256,7 +256,7 @@ switch ($response)
             if ($defenceinfo['defence_type'] == 'F')
             {
                 echo $langvars['l_md_change'] . ":<br>";
-                echo "<form action=modify_defences.php method=post>";
+                echo "<form accept-charset='utf-8' action=modify_defences.php method=post>";
                 echo $langvars['l_md_cmode'] . " <input type=radio name=mode $set_attack value=attack>" . $langvars['l_md_attack'] . "</input>";
                 echo "<input type=radio name=mode $set_toll value=toll>" . $langvars['l_md_toll'] . "</input><br>";
                 echo "<input type=submit value=" . $langvars['l_submit'] . "><br><br>";
@@ -273,7 +273,7 @@ switch ($response)
             if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
                 echo $langvars['l_md_youcan'] . ":<br>";
-                echo "<form action=modify_defences.php method=post>";
+                echo "<form accept-charset='utf-8' action=modify_defences.php method=post>";
                 echo $langvars['l_md_attdef'] . "<br><input type=submit value=" . $langvars['l_md_attack'] . "></input><br>";
                 echo "<input type=hidden name=response value=fight>";
                 echo "<input type=hidden name=defence_id value=$defence_id>";

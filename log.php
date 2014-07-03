@@ -368,8 +368,8 @@ else
 if ($swordfish == ADMIN_PW)
 {
     echo "<tr><td><td>" .
-         "<form action=admin.php method=post>" .
-        "<input type=hidden name=swordfish value=\"$swordfish\">" .
+         "<form accept-charset='utf-8' action=admin.php method=post>" .
+         "<input type=hidden name=swordfish value=\"$swordfish\">" .
          "<input type=hidden name=menu value='log_viewer.php'>" .
          "<input type=submit value=\"Return to Admin\"></td></tr>";
 }

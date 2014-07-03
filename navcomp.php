@@ -52,7 +52,7 @@ $sectorinfo = $result2->fields;
 
 if ($state == 0)
 {
-    echo "<form action=\"navcomp.php\" method=post>";
+    echo "<form accept-charset='utf-8' action=\"navcomp.php\" method=post>";
     echo $langvars['l_nav_query'] . " <input name=\"stop_sector\">&nbsp;<input type=submit value=" . $langvars['l_submit'] . "><br>\n";
     echo "<input name=\"state\" value=1 TYPE=HIDDEN>";
     echo "</form>\n";

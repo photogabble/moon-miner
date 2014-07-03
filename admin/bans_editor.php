@@ -25,7 +25,7 @@ if (strpos($_SERVER['PHP_SELF'], 'bans_editor.php')) // Prevent direct access to
 echo "<strong>" . $langvars['l_admin_ban_editor'] . "</strong><p>";
 if (empty($command))
 {
-    echo "<form action=admin.php method=post>";
+    echo "<form accept-charset='utf-8' action=admin.php method=post>";
     echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
     echo "<input type='hidden' name=command value=showips>";
     echo "<input type='hidden' name=menu value='bans_editor.php'>";
@@ -112,7 +112,7 @@ if (empty($command))
             }
 
             echo "<td align=center nowrap valign=center><font size=2 color=white>" .
-                 "<form action=admin.php method=post>" .
+                 "<form accept-charset='utf-8' action=admin.php method=post>" .
                  "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                  "<input type='hidden' name=command value=unbanip>" .
                  "<input type='hidden' name=menu value='bans_editor.php'>" .
@@ -185,14 +185,14 @@ elseif ($command == 'showips')
         }
 
         echo "<td align=center nowrap valign=center><font size=2 color=white>" .
-             "<form action=admin.php method=post>" .
+             "<form accept-charset='utf-8' action=admin.php method=post>" .
              "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
              "<input type='hidden' name=command value=banip>" .
              "<input type='hidden' name=menu value='bans_editor.php'>" .
              "<input type='hidden' name=ip value=" . $ip . ">" .
              "<input type=submit value=" . $langvars['l_admin_ban'] . ">" .
              "</form>" .
-             "<form action=admin.php method=post>" .
+             "<form accept-charset='utf-8' action=admin.php method=post>" .
              "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
              "<input type='hidden' name=command value=unbanip>" .
              "<input type='hidden' name=menu value='bans_editor.php'>" .
@@ -202,7 +202,7 @@ elseif ($command == 'showips')
     }
 
     echo "</table><p>" .
-         "<form action=admin.php method=post>" .
+         "<form accept-charset='utf-8' action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
          "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type=submit value=\"" . $langvars['l_admin_return_bans_menu'] . "\">" .
@@ -218,7 +218,7 @@ elseif ($command == 'banip')
 
     echo "<table border=0>" .
          "<tr><td align=right>" .
-         "<form action=admin.php method=post>" .
+         "<form accept-charset='utf-8' action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
          "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type='hidden' name=command value=banip2>" .
@@ -235,7 +235,7 @@ elseif ($command == 'banip')
          "</table>" .
          "</form>";
 
-    echo "<form action=admin.php method=post>" .
+    echo "<form accept-charset='utf-8' action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
          "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type=submit value=\"" . $langvars['l_admin_return_bans_menu'] . "\">" .
@@ -273,7 +273,7 @@ elseif ($command == 'banip2')
         $res->MoveNext();
     }
 
-    echo "<form action=admin.php method=post>" .
+    echo "<form accept-charset='utf-8' action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
          "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type=submit value=\"" . $langvars['l_admin_return_bans_menu'] . "\">" .
@@ -347,7 +347,7 @@ elseif ($command == 'unbanip')
         }
     }
 
-    echo "<form action=admin.php method=post>" .
+    echo "<form accept-charset='utf-8' action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
          "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type=submit value=\"" . $langvars['l_admin_return_bans_menu'] . "\">" .

@@ -21,7 +21,7 @@
 {extends file="layout.tpl"}
 {block name=title}{$langvars['l_cu_step_title']|replace:'[current]':$variables['current_step']|replace:'[total]':$variables['steps']} - {$langvars['l_cu_title']}{/block}
 {block name=body}
-<form name='create_universe' action='create_universe.php' method='post'><div align="center">
+<form accept-charset='utf-8' name='create_universe' action='create_universe.php' method='post'><div align="center">
 <center>
 <table border="0" cellpadding="1" width="700" cellspacing="1" bgcolor="#000000">
     <tr>

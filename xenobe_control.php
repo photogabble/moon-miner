@@ -53,7 +53,7 @@ else
 
 if ($swordfish != ADMIN_PW)
 {
-    echo "<form action=xenobe_control.php method=post>";
+    echo "<form accept-charset='utf-8' action=xenobe_control.php method=post>";
     echo "password: <input type=password name=swordfish size=20><br><br>";
     echo "<input type=submit value=submit><input type=reset value=reset>";
     echo "</form>";
@@ -64,7 +64,7 @@ else
     {
         echo "Welcome to the Blacknova Traders Xenobe Control module<br><br>";
         echo "Select a function from the list below:<br>";
-        echo "<form action=xenobe_control.php method=post>";
+        echo "<form accept-charset='utf-8' action=xenobe_control.php method=post>";
         echo "<select name=menu>";
         echo "<option value=instruct>Xenobe Instructions</option>";
         echo "<option value=xenobeedit selected>Xenobe Character Editor</option>";
@@ -146,7 +146,7 @@ else
         elseif ($module == "xenobeedit")
         {
             echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0 \">Xenobe Editor</span><br>";
-            echo "<form action=xenobe_control.php method=post>";
+            echo "<form accept-charset='utf-8' action=xenobe_control.php method=post>";
             if (empty ($user))
             {
                 echo "<select size=20 name=user>";
@@ -365,7 +365,7 @@ else
         {
             echo "<h1>Drop and Re-Install Xenobe Database</h1>";
             echo "<h3>This will DELETE All Xenobe records from the <i>ships</i> table then DROP and reset the <i>xenobe</i> table</h3>";
-            echo "<form action=xenobe_control.php method=post>";
+            echo "<form accept-charset='utf-8' action=xenobe_control.php method=post>";
             if (empty($operation))
             {
                 echo "<br>";
@@ -411,7 +411,7 @@ else
         {
             echo "<h1>Clear All Xenobe Logs</h1>";
             echo "<h3>This will DELETE All Xenobe log files</h3>";
-            echo "<form action=xenobe_control.php method=post>";
+            echo "<form accept-charset='utf-8' action=xenobe_control.php method=post>";
             if (empty($operation))
             {
                 echo "<br>";
@@ -445,7 +445,7 @@ else
         {
             echo "<strong>Create A New Xenobe</strong>";
             echo "<br>";
-            echo "<form action=xenobe_control.php method=post>";
+            echo "<form accept-charset='utf-8' action=xenobe_control.php method=post>";
             if (empty($operation))
             {
                 // Create Xenobe Name
@@ -630,7 +630,7 @@ else
         if ($button_main)
         {
             echo "<br><br>";
-            echo "<form action=xenobe_control.php method=post>";
+            echo "<form accept-charset='utf-8' action=xenobe_control.php method=post>";
             echo "<input type=hidden name=swordfish value=$swordfish>";
             echo "<input type=submit value=\"Return to main menu\">";
             echo "</form>";

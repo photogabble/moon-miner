@@ -24,7 +24,7 @@
 
 {block name=body}
 {if $variables['is_admin'] != true}
-    <form action="admin.php" method="post">
+    <form accept-charset="utf-8" action="admin.php" method="post">
     {$langvars['l_admin_password']}: <input type="password" name="swordfish" size="20" maxlength="20">&nbsp;&nbsp;
     <input type="submit" value="{$langvars['l_submit']}"><input type="reset" value="{$langvars['l_reset']}">
     </form>
@@ -33,7 +33,7 @@
     {if $variables['menu'] == ''}
         {$langvars['l_admin_welcome']}<br><br>
         {$langvars['l_admin_menulist']}<br>
-        <form action="admin.php" method="post">
+        <form accept-charset="utf-8" action="admin.php" method="post">
         <select name="menu">
             {foreach $variables['filename'] as $admin_file}
             <option value="{$admin_file['file']}">{$admin_file['option_title']}</option>
@@ -56,7 +56,7 @@
         {/if}
 
         {if $variables['button_main'] == true}
-            <p><form action="admin.php" method="post">
+            <p><form accept-charset="utf-8" action="admin.php" method="post">
             <input type="hidden" name="swordfish" value="{$variables['swordfish']}">
             <input type="submit" value="{$langvars['l_admin_return_admin_menu']}">
             </form>

@@ -89,7 +89,7 @@ if (empty ($content))
     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
     $res2 = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC;");
     Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
-    echo "<form action=mailto.php method=post>\n";
+    echo "<form accept-charset='utf-8' action=mailto.php method=post>\n";
     echo "  <table>\n";
     echo "    <tr>\n";
     echo "      <td>" . $langvars['l_sendm_from'] . ":</td>\n";

@@ -60,13 +60,13 @@ else
     {
         // Nope, the destination was not sent, so show a web form asking for a destination.
         // Output:
-        // <form action='rsmove.php' method='post'>
+        // <form accept-charset='utf-8' action='rsmove.php' method='post'>
         // You are presently in sector X - and there are sectors available from 1 to Y.
         // Which sector would you like to reach through real space? :  <input type='text' name='destination' size='10' maxlength='10'>
         // <input type='submit' value='Compute'>
         // </form>
 
-        echo "<form action='rsmove.php' method='post'>\n";
+        echo "<form accept-charset='utf-8' action='rsmove.php' method='post'>\n";
         $langvars['l_rs_insector'] = str_replace("[sector]", $playerinfo['sector'], $langvars['l_rs_insector']);
         $langvars['l_rs_insector'] = str_replace("[sector_max]", $bntreg->sector_max - 1, $langvars['l_rs_insector']);
         echo $langvars['l_rs_insector'] . "<br><br>\n";

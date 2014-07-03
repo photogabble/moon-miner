@@ -19,7 +19,7 @@
 *}
 
 <h2>{$langvars['l_admin_sector_editor']}</h2>
-<form action='admin.php' method='post'>
+<form accept-charset='utf-8' action='admin.php' method='post'>
 {if $variables['sector'] == ''}
     <select size='20' name='sector'>
     {foreach $variables['sectors'] as $edit_sector}

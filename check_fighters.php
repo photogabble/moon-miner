@@ -162,7 +162,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 echo "<h1>" . $title . "</h1>\n";
-                echo "<form action='{$calledfrom}' method='post'>";
+                echo "<form accept-charset='utf-8' action='{$calledfrom}' method='post'>";
                 $langvars['l_chf_therearetotalfightersindest'] = str_replace("[chf_total_sector_fighters]", $total_sector_fighters, $langvars['l_chf_therearetotalfightersindest']);
                 echo $langvars['l_chf_therearetotalfightersindest'] . "<br>";
                 if ($defences[0]['fm_setting'] == "toll")

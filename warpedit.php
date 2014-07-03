@@ -102,7 +102,7 @@ else
     echo "<br><br>";
 }
 
-echo "<form action=\"warpedit2.php\" method=\"post\">";
+echo "<form accept-charset='utf-8' action=\"warpedit2.php\" method=\"post\">";
 echo "<table>";
 echo "<tr><td>" . $langvars['l_warp_query'] . "</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
 echo "<tr><td>" . $langvars['l_warp_oneway'] . "?</td><td><input type=\"checkbox\" name=\"oneway\" value=\"oneway\"></td></tr>";
@@ -110,7 +110,7 @@ echo "</table>";
 echo "<input type=\"submit\" value=\"" . $langvars['l_submit'] . "\"><input type=\"reset\" value=\"" . $langvars['l_reset'] . "\">";
 echo "</form>";
 echo "<br><br>" . $langvars['l_warp_dest'] . "<br><br>";
-echo "<form action=\"warpedit3.php\" method=\"post\">";
+echo "<form accept-charset='utf-8' action=\"warpedit3.php\" method=\"post\">";
 echo "<table>";
 echo "<tr><td>" . $langvars['l_warp_destquery'] . "</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
 echo "<tr><td>" . $langvars['l_warp_bothway'] . "?</td><td><input type=\"checkbox\" name=\"bothway\" value=\"bothway\"></td></tr>";

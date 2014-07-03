@@ -19,7 +19,7 @@
 *}
 <strong>{$langvars['l_admin_zone_editor']}</strong>
 <br>
-<form action="admin.php" method="post">
+<form accept-charset="utf-8" action="admin.php" method="post">
 {if $variables['zone'] == ''}
     <select size="20" name="zone">
     {foreach $variables['zones'] as $zone}

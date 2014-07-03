@@ -35,7 +35,7 @@ $playerinfo = $result->fields;
 
 if (array_key_exists('content', $_POST) === false)
 {
-    echo "<form action=feedback.php method=post>\n";
+    echo "<form accept-charset='utf-8' action=feedback.php method=post>\n";
     echo "<table>\n";
     echo "<tr><td>" . $langvars['l_feedback_to'] . "</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=GameAdmin></td></tr>\n";
     echo "<tr><td>" . $langvars['l_feedback_from'] . "</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=\"$playerinfo[character_name] - $playerinfo[email]\"></td></tr>\n";

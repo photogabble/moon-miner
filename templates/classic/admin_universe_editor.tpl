@@ -22,7 +22,7 @@
 <br>{$langvars['l_expand_or_contract']}<br>
 
 {if $variables['action'] == ''}
-    <form action="admin.php" method="post">
+    <form accept-charset="utf-8" action="admin.php" method="post">
     {$langvars['l_universe_size']}: <input type="text" name="radius" value="{$variables['universe_size']}">
     <input type="hidden" name="swordfish" value="{$variables['swordfish']}">
     <input type="hidden" name="menu" value="universe_editor.php">

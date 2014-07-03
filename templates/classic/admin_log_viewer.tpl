@@ -18,12 +18,12 @@
     File: admin_log_viewer.tpl
 *}
 
-<form action="log.php" method="post">
+<form accept-charset="utf-8" action="log.php" method="post">
 <input type="hidden" name="swordfish" value="{$variables['swordfish']}">
 <input type="hidden" name="player" value="0">
 <input type="submit" value="{$langvars['l_admin_view_admin_log']}">
 </form>
-<form action="log.php" method="post">
+<form accept-charset="utf-8" action="log.php" method="post">
 <input type="hidden" name="swordfish" value="{$variables['swordfish']}">
 <select name="player">
 

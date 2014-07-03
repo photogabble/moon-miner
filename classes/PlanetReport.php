@@ -107,7 +107,7 @@ class PlanetReport
         else
         {
             echo "<br>";
-            echo "<form action=planet_report_ce.php method=post>";
+            echo "<form accept-charset='utf-8' action=planet_report_ce.php method=post>";
 
             // Next block of echo 's creates the header of the table
             echo $langvars['l_pr_clicktosort'] . "<br><br>";
@@ -299,7 +299,7 @@ class PlanetReport
         }
         else
         {
-            echo "<form action='planet_report_ce.php' method='post'>\n";
+            echo "<form accept-charset='utf-8' action='planet_report_ce.php' method='post'>\n";
 
             // Next block of echo 's creates the header of the table
             echo $langvars['l_pr_clicktosort'] . "<br><br>\n";

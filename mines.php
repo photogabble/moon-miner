@@ -163,7 +163,7 @@ else
     {
         $availmines = number_format($playerinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
         $availfighters = number_format($playerinfo['ship_fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
-        echo "<form action=mines.php method=post>";
+        echo "<form accept-charset='utf-8' action=mines.php method=post>";
         $langvars['l_mines_info1'] = str_replace("[sector]", $playerinfo['sector'], $langvars['l_mines_info1']);
         $langvars['l_mines_info1'] = str_replace("[mines]", number_format($total_sector_mines, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_mines_info1']);
         $langvars['l_mines_info1'] = str_replace("[fighters]", number_format($total_sector_fighters, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_mines_info1']);

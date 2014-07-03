@@ -1512,7 +1512,7 @@ class Traderoute
 
         // Start of form for starting location
         echo "
-            <form action=traderoute.php?command=create method=post>
+            <form accept-charset='utf-8' action=traderoute.php?command=create method=post>
             <table border=0><tr>
             <td align=right><font size=2><strong>" . $langvars['l_tdr_selspoint'] . " <br>&nbsp;</strong></font></td>
             <tr>
@@ -2302,7 +2302,7 @@ class Traderoute
 
         echo "<p><font size=3 color=blue><strong>" . $langvars['l_tdr_globalset'] . "</strong></font><p>";
         echo "<font color=white size=2><strong>" . $langvars['l_tdr_sportsrc'] . " :</strong></font><p>".
-             "<form action=traderoute.php?command=setsettings method=post>".
+             "<form accept-charset='utf-8' action=traderoute.php?command=setsettings method=post>".
              "<table border=0><tr>".
              "<td><font size=2 color=white> - " . $langvars['l_tdr_colonists'] . " :</font></td>".
              "<td><input type=checkbox name=colonists";
@@ -2462,7 +2462,7 @@ class Traderoute
 
     public static function traderouteResultsShowRepeat($engage)
     {
-        echo "<form action='traderoute.php?engage=".$engage."' method='post'>\n";
+        echo "<form accept-charset='utf-8' action='traderoute.php?engage=".$engage."' method='post'>\n";
         echo "<br>Enter times to repeat <input type='TEXT' name='tr_repeat' value='1' size='5'> <input type='SUBMIT' value='SUBMIT'>\n";
         echo "</form>\n";
         // echo "<p>";

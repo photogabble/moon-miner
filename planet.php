@@ -247,7 +247,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             }
 
             // Change production rates
-            echo "<form action=planet.php?planet_id=$planet_id&command=productions method=post>";
+            echo "<form accept-charset='utf-8' action=planet.php?planet_id=$planet_id&command=productions method=post>";
             echo "<table border=0 cellspacing=0 cellpadding=2>";
             echo "<tr bgcolor=\"$color_header\"><td></td><td><strong>" . $langvars['l_ore'] . "</strong></td><td><strong>" . $langvars['l_organics'] . "</strong></td><td><strong>" . $langvars['l_goods'] . "</strong></td><td><strong>" . $langvars['l_energy'] . "</strong></td><td><strong>" . $langvars['l_colonists'] . "</strong></td><td><strong>" . $langvars['l_credits'] . "</strong></td><td><strong>" . $langvars['l_fighters'] . "</strong></td><td><strong>" . $langvars['l_torps'] . "</td></tr>";
             echo "<tr bgcolor=\"$color_line1\">";
@@ -341,7 +341,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
         elseif ($command == "name")
         {
             // Name menu
-            echo "<form action=\"planet.php?planet_id=$planet_id&command=cname\" method=\"post\">";
+            echo "<form accept-charset='utf-8' action=\"planet.php?planet_id=$planet_id&command=cname\" method=\"post\">";
             echo $langvars['l_planet_iname'] . ":  ";
             echo "<input type=\"text\" name=\"new_name\" size=\"20\" maxlength=\"20\" value=\"$planetinfo[name]\"><br><br>";
             echo "<input type=\"submit\" value=\"" . $langvars['l_submit'] . "\"><input type=\"reset\" value=\"" . $langvars['l_reset'] . "\"><br><br>";
@@ -377,7 +377,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             $langvars['l_planet_cinfo'] = str_replace("[cargo]", number_format($free_holds, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_planet_cinfo']);
             $langvars['l_planet_cinfo'] = str_replace("[energy]", number_format($free_power, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_planet_cinfo']);
             echo $langvars['l_planet_cinfo'] . "<br><br>";
-            echo "<form action=planet2.php?planet_id=$planet_id method=post>";
+            echo "<form accept-charset='utf-8' action=planet2.php?planet_id=$planet_id method=post>";
             echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=0>";
             echo "<tr bgcolor=\"$color_header\"><td><strong>" . $langvars['l_commodity'] . "</strong></td><td><strong>" . $langvars['l_planet'] . "</strong></td><td><strong>" . $langvars['l_ship'] . "</strong></td><td><strong>" . $langvars['l_planet_transfer_link'] . "</strong></td><td><strong>" . $langvars['l_planet_toplanet'] . "</strong></td><td><strong>" . $langvars['l_all'] . "?</strong></td></tr>";
             echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_ore'] . "</td><td>" . number_format($planetinfo['ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format($playerinfo['ship_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_ore size=10 maxlength=20></td><td><input type=CHECKBOX name=tpore value=-1></td><td><input type=CHECKBOX name=allore value=-1></td></tr>";
@@ -507,7 +507,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 $organics_price = ($organics_price + $organics_delta / 4);
                 $goods_price = ($goods_price + $goods_delta / 4);
                 $energy_price = ($energy_price + $energy_delta / 4);
-                echo "<form action=planet3.php?planet_id=$planet_id method=post>";
+                echo "<form accept-charset='utf-8' action=planet3.php?planet_id=$planet_id method=post>";
                 echo "<table>";
                 echo "<tr><td>" . $langvars['l_commodity'] . "</td><td>" . $langvars['l_avail'] . "</td><td>" . $langvars['l_price'] . "</td><td>" . $langvars['l_buy'] . "</td><td>" . $langvars['l_cargo'] . "</td></tr>";
                 echo "<tr><td>" . $langvars['l_ore'] . "</td><td>$planetinfo[ore]</td><td>$ore_price</td><td><input type=text name=trade_ore size=10 maxlength=20 value=0></td><td>$playerinfo[ship_ore]</td></tr>";

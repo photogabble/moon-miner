@@ -96,7 +96,7 @@ if ($playerinfo['dev_beacon'] > 0)
             {
                 echo $langvars['l_beacon_none'] . "<br><br>";
             }
-            echo "<form action=beacon.php method=post>";
+            echo "<form accept-charset='utf-8' action=beacon.php method=post>";
             echo "<table>";
             echo "<tr><td>" . $langvars['l_beacon_enter'] . ":</td><td><input type=text name=beacon_text size=40 maxlength=80></td></tr>";
             echo "</table>";

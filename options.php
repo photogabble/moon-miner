@@ -33,7 +33,7 @@ echo "<body class = " . $body_class . ">";
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 $playerinfo = $res->fields;
 
-echo "<form action=option2.php method=post>";
+echo "<form accept-charset='utf-8' action=option2.php method=post>";
 echo "<table>";
 echo "<tr>";
 echo "<th colspan=2><strong>" . $langvars['l_opt_chpass'] . "</strong></th>";

@@ -201,7 +201,7 @@ switch ($teamwhat)
                 if (Bad\Team::isTeamOwner($team, $playerinfo))
                 {
                     echo $langvars['l_team_youarecoord'] . " <strong>$team[team_name]</strong>. " . $langvars['l_team_relinq'] . "<br><br>";
-                    echo "<form action='teams.php' method=post>";
+                    echo "<form accept-charset='utf-8' action='teams.php' method=post>";
                     echo "<table><input type=hidden name=teamwhat value=$teamwhat><input type=hidden name=confirmleave value=2><input type=hidden name=whichteam value=$whichteam>";
                     echo "<tr><td>" . $langvars['l_team_newc'] . "</td><td><select name=newcreator>";
 
@@ -386,7 +386,7 @@ switch ($teamwhat)
 
         if (is_null ($teamname))
         {
-            echo "<form action='teams.php' method='post'>\n";
+            echo "<form accept-charset='utf-8' action='teams.php' method='post'>\n";
             echo $langvars['l_team_entername'] . ": ";
             echo "<input type='hidden' name='teamwhat' value='{$teamwhat}'>\n";
             echo "<input type='text' name='teamname' size='40' maxlength='40'><br>\n";
@@ -430,7 +430,7 @@ switch ($teamwhat)
 
         if (is_null($invited))
         {
-            echo "<form action='teams.php' method=post>";
+            echo "<form accept-charset='utf-8' action='teams.php' method=post>";
             echo "<table><input type=hidden name=teamwhat value=$teamwhat><input type=hidden name=invited value=1><input type=hidden name=whichteam value=$whichteam>";
             echo "<tr><td>" . $langvars['l_team_selectp'] . ":</td><td><select name=who style='width:200px;'>";
 
@@ -508,7 +508,7 @@ switch ($teamwhat)
 
         if (is_null($update))
         {
-            echo "<form action='teams.php' method='post'>";
+            echo "<form accept-charset='utf-8' action='teams.php' method='post'>";
             echo $langvars['l_team_edname'] . " . : <br>";
             echo "<input type='hidden' name='teamwhat' value='{$teamwhat}'>";
             echo "<input type='hidden' name='whichteam' value='{$whichteam}'>";

@@ -264,7 +264,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
         $amount_energy = min($amount_energy, floor(($playerinfo['credits'] + $amount_ore * $bntreg->ore_price + $amount_organics * $bntreg->organics_price + $amount_goods * $bntreg->goods_price) / $bntreg->energy_price));
     }
 
-    echo "<form action=port2.php method=post>";
+    echo "<form accept-charset='utf-8' action=port2.php method=post>";
     echo "<table>";
     echo "<tr><td><strong>" . $langvars['l_commodity'] . "</strong></td><td><strong>" . $langvars['l_buying'] . "/" . $langvars['l_selling'] . "</strong></td><td><strong>" . $langvars['l_amount'] . "</strong></td><td><strong>" . $langvars['l_price'] . "</strong></td><td><strong>" . $langvars['l_buy'] . "/" . $langvars['l_sell'] . "</strong></td><td><strong>" . $langvars['l_cargo'] . "</strong></td></tr>";
     echo "<tr><td>" . $langvars['l_ore'] . "</td><td>$sb_ore</td><td>" . number_format($sectorinfo['port_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>$bntreg->ore_price</td><td><input type=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 value=$amount_ore></td><td>" . number_format($playerinfo['ship_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td></tr>";
@@ -677,7 +677,7 @@ elseif ($sectorinfo['port_type'] == "special")
     }
     echo "\n";
     echo "<a href=\"bounty.php\">" . $langvars['l_by_placebounty'] . "</a><br>\n";
-    echo " <form action=port2.php method=post>\n";
+    echo " <form accept-charset='utf-8' action=port2.php method=post>\n";
     echo "  <table>\n";
     echo "   <tr>\n";
     echo "    <th><strong>" . $langvars['l_device'] . "</strong></th>\n";

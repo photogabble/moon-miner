@@ -229,7 +229,7 @@ else
     $ldefense = "checked";
 }
 
-echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
+echo "<form accept-charset='utf-8' action=zoneedit.php?command=change&zone=$zone method=post>" .
      "<table border=0><tr>" .
      "<td align=right><font size=2><strong>" . $langvars['l_ze_name'] . " : &nbsp;</strong></font></td>" .
      "<td><input type=text name=name size=30 maxlength=30 value=\"$curzone[zone_name]\"></td>" .

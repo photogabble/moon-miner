@@ -72,7 +72,7 @@ echo "<br>\n";
 
 if ($change !== 1)
 {
-    echo "<form action='preset.php' method='post'>";
+    echo "<form accept-charset='utf-8' action='preset.php' method='post'>";
     for ($x=0; $x<$bntreg->preset_max; $x++)
     {
         echo "<div style='padding:2px;'>Preset " . ($x+1) . ": <input type='text' name='preset[$x]' size='6' maxlength='6' value='" . $presetinfo[$x]['preset'] . "'></div>";

@@ -1,3 +1,8 @@
+TheKabal (2 July 2014)
+--------------------------------------
+Assorted DB session fixes, including schema sizes
+Add explicit accept-charset to forms to allow utf-8 submissions
+
 TheKabal (29 June 2014)
 --------------------------------------
 Add new "Character" class & object - in prep for player authentication

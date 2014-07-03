@@ -46,7 +46,7 @@
 <div class="index-welcome">
 <h1 class="index-h1">{$langvars['l_welcome_bnt']}</h1>
 <p>{$langvars['l_bnt_description']}<br></p>
-<form action="login2.php{$variables['link']}" method="post">
+<form accept-charset="utf-8" action="login2.php{$variables['link']}" method="post">
 <dl class="twocolumn-form">
 <dt><label for="email">{$langvars['l_login_email']}</label></dt>
 <dd><input type="email" id="email" name="email" size="20" maxlength="40" placeholder="someone@example.com"></dd>

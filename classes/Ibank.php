@@ -104,7 +104,7 @@ class Ibank
              "<td align=right>" . number_format($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." C<br></td>" .
              "</tr><tr valign=top>" .
              "<td>" . $langvars['l_ibank_selwithdrawamount'] . ":</td><td align=right>" .
-             "<form action='igb.php?command=withdraw2' method=post>" .
+             "<form accept-charset='utf-8' action='igb.php?command=withdraw2' method=post>" .
              "<input class=term type=text size=15 maxlength=20 name=amount value=0>" .
              "<br><br><input class=term type=submit value='" . $langvars['l_ibank_withdraw'] . "'>" .
              "</form></td></tr>" .
@@ -173,7 +173,7 @@ class Ibank
 
         echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_transfertype'] . "<br>---------------------------------</td></tr>" .
              "<tr valign=top>" .
-             "<form action='igb.php?command=transfer2' method=post>" .
+             "<form accept-charset='utf-8' action='igb.php?command=transfer2' method=post>" .
              "<td>" . $langvars['l_ibank_toanothership'] . " :<br><br>" .
              "<select class=term name=ship_id style='width:200px;'>";
 
@@ -188,7 +188,7 @@ class Ibank
              "</td></tr>" .
              "<tr valign=top>" .
              "<td><br>" . $langvars['l_ibank_fromplanet'] . " :<br><br>" .
-             "<form action='igb.php?command=transfer2' method=post>" .
+             "<form accept-charset='utf-8' action='igb.php?command=transfer2' method=post>" .
              $langvars['l_ibank_source'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class=term name=splanet_id>";
 
         if (isset($planets))
@@ -233,7 +233,7 @@ class Ibank
         // ---- begin Consol Credits form    // ---- added by Torr
         echo "<tr valign=top>" .
              "<td><br>" . $langvars['l_ibank_conspl'] . " :<br><br>" .
-             "<form action='igb.php?command=consolidate' method=post>" .
+             "<form accept-charset='utf-8' action='igb.php?command=consolidate' method=post>" .
              $langvars['l_ibank_destination'] . " <select class=term name=dplanet_id>";
 
         if (isset($planets))
@@ -304,7 +304,7 @@ class Ibank
             $langvars['l_ibank_loanrates'] = str_replace("[factor]", $factor, $langvars['l_ibank_loanrates']);
             $langvars['l_ibank_loanrates'] = str_replace("[interest]", $interest, $langvars['l_ibank_loanrates']);
 
-            echo "<form action='igb.php?command=repay' method=post>" .
+            echo "<form accept-charset='utf-8' action='igb.php?command=repay' method=post>" .
                  "<tr valign=top>" .
                  "<td><br>" . $langvars['l_ibank_repayamount'] . " :</td>" .
                  "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
@@ -327,7 +327,7 @@ class Ibank
             $langvars['l_ibank_loanrates'] = str_replace("[factor]", $factor, $langvars['l_ibank_loanrates']);
             $langvars['l_ibank_loanrates'] = str_replace("[interest]", $interest, $langvars['l_ibank_loanrates']);
 
-            echo "<form action='igb.php?command=borrow' method=post>" .
+            echo "<form accept-charset='utf-8' action='igb.php?command=borrow' method=post>" .
                  "<tr valign=top>" .
                  "<td><br>" . $langvars['l_ibank_loanamount'] . " :</td>" .
                  "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
@@ -405,7 +405,7 @@ class Ibank
         $langvars['l_ibank_transferrate3'] = str_replace("[nbplanets]", $ibank_tconsolidate, $langvars['l_ibank_transferrate3']);
 
         echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_planetconsolidate'] . "<br>---------------------------------</td></tr>" .
-             "<form action='igb.php?command=consolidate2' method=post>" .
+             "<form accept-charset='utf-8' action='igb.php?command=consolidate2' method=post>" .
              "<tr valign=top>" .
              "<td colspan=2>" . $langvars['l_ibank_consolrates'] . " :</td>" .
              "<tr valign=top>" .
@@ -497,7 +497,7 @@ class Ibank
 
             $langvars['l_ibank_transferrate'] = str_replace("[ibank_num_percent]", number_format($percent, 1, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_ibank_transferrate']);
             echo "<tr valign=top><td>" . $langvars['l_ibank_recipient'] . " :</td><td align=right>" . $target['character_name'] . "&nbsp;&nbsp;</td></tr>" .
-                 "<form action='igb.php?command=transfer3' method=post>" .
+                 "<form accept-charset='utf-8' action='igb.php?command=transfer3' method=post>" .
                  "<tr valign=top>" .
                  "<td><br>" . $langvars['l_ibank_seltransferamount'] . " :</td>" .
                  "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
@@ -564,7 +564,7 @@ class Ibank
                  "<tr valign=top>" .
                  "<td>" . $langvars['l_ibank_destplanet'] . " " . $dest['name'] . " " . $langvars['l_ibank_in'] . " " . $dest['sector_id'] . " :" .
                  "<td align=right>" . number_format($dest['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C" .
-                 "<form action='igb.php?command=transfer3' method=post>" .
+                 "<form accept-charset='utf-8' action='igb.php?command=transfer3' method=post>" .
                  "<tr valign=top>" .
                  "<td><br>" . $langvars['l_ibank_seltransferamount'] . " :</td>" .
                  "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
@@ -889,7 +889,7 @@ class Ibank
              "<td>" . $langvars['l_ibank_amounttransferred'] . ":</td>" .
              "<td align=right>" . number_format($transfer, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</td>" .
              "<tr valign=top><td colspan=2 align=right>" .
-             "<form action='igb.php?command=consolidate3' method=post>" .
+             "<form accept-charset='utf-8' action='igb.php?command=consolidate3' method=post>" .
              "<input type=hidden name=minimum value=" . $minimum . "><br>" .
              "<input type=hidden name=maximum value=" . $maximum . "><br>" .
              "<input type=hidden name=dplanet_id value=" . $dplanet_id . ">" .
@@ -974,7 +974,7 @@ class Ibank
              "<td align=right>" . number_format($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." C<br></td>" .
              "</tr><tr valign=top>" .
              "<td height=90>" . $langvars['l_ibank_seldepositamount'] . " :</td><td align=right>" .
-             "<form action='igb.php?command=deposit2' method=post>" .
+             "<form accept-charset='utf-8' action='igb.php?command=deposit2' method=post>" .
              "<input class=term type=text size=15 maxlength=20 name=amount value=0>" .
              "<br><br><input class=term type=submit value=" . $langvars['l_ibank_deposit'] . ">" .
              "</form>" .

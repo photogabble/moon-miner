@@ -19,7 +19,7 @@
 *}
 <strong>{$langvars['l_admin_user_editor']}</strong>
 <br>
-<form action="admin.php" method="post">
+<form accept-charset="utf-8" action="admin.php" method="post">
 {if $variables['user'] == ''}
     <select size="20" name="user">
         {foreach $variables['players'] as $player}

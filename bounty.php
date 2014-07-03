@@ -257,7 +257,7 @@ switch ($response) {
         echo "<h1>" . $title . "</h1>\n";
         $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> ? ORDER BY character_name ASC;", array ($playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
-        echo "<form action=bounty.php method=post>";
+        echo "<form accept-charset='utf-8' action=bounty.php method=post>";
         echo "<table>";
         echo "<tr><td>" . $langvars['l_by_bountyon'] . "</td><td><select name=bounty_on>";
         while (!$res->EOF)
