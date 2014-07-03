@@ -84,7 +84,7 @@ class Login
                             // Set login status to false, then clear the session array, and clear the session cookie
                             $_SESSION['logged_in'] = false;
                             $_SESSION = array ();
-                            setcookie('PHPSESSID', '', 0, '/');
+                            setcookie('blacknova_session', '', 0, '/');
 
                             // Destroy the session entirely
                             session_destroy();
