@@ -17,6 +17,7 @@
 //
 // File: create_universe.php
 
+$index_page = true; // This prevents sessions from being started before DB exists
 require_once './common.php';
 include './config/admin_config.php';
 
