@@ -143,5 +143,5 @@ Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 echo "<br><br>";
 
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

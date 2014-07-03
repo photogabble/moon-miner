@@ -387,5 +387,5 @@ echo "<div style='text-align:left;'>\n";
 Bnt\Text::gotoMain($db, $lang, $langvars);
 echo "</div>\n";
 
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

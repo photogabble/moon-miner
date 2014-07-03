@@ -48,7 +48,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_warp_turn'] . "<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -56,7 +56,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $langvars['l_warp_none'] . "<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -75,7 +75,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $langvars['l_warp_forbid'] . "<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -92,7 +92,7 @@ if ($zoneinfo['allow_warpedit'] == 'N' && $bothway)
     $langvars['l_warp_forbidtwo'] = str_replace("[target_sector]", $target_sector, $langvars['l_warp_forbidtwo']);
     echo $langvars['l_warp_forbidtwo'] . "<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -146,5 +146,5 @@ if ($result3 instanceof ADORecordSet)
 }
 
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

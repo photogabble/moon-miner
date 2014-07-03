@@ -20,7 +20,7 @@
 // TODO: This file should only be used when we have not converted a file to use templates.
 // Once they use templates, the footer will be loaded correctly by layout.tpl
 
-namespace Bad;
+namespace Bnt;
 
 class Footer
 {

@@ -40,7 +40,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_warp_turn'] . "<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -48,7 +48,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $langvars['l_warp_none'] . ".<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -59,7 +59,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $langvars['l_warp_forbid'] . "<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -79,7 +79,7 @@ if ($zoneinfo['allow_warpedit'] == 'L')
         {
             echo $langvars['l_warp_forbid'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
     }
@@ -119,5 +119,5 @@ echo "<input type=\"submit\" value=\"" . $langvars['l_submit'] . "\"><input type
 echo "</form>";
 
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

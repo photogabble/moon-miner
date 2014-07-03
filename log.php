@@ -386,5 +386,5 @@ if ($mode != 'compat')
 }
 
 echo "</table></center>";
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

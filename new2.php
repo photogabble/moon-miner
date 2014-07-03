@@ -188,5 +188,5 @@ else
     echo $langvars['l_new_err'];
 }
 
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

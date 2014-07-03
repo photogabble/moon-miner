@@ -42,7 +42,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_move_turn'] . '<br><br>';
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 

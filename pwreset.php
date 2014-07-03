@@ -101,5 +101,5 @@ else
 /// Log user in (like login does)
 
 /// Redirect to game (like login does)
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

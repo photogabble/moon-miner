@@ -133,7 +133,7 @@ switch ($response) {
         {
             echo $langvars['l_by_noturn'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -143,7 +143,7 @@ switch ($response) {
         {
             echo $langvars['l_by_nobounty'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -152,7 +152,7 @@ switch ($response) {
         {
             echo $langvars['l_by_notyours'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -174,7 +174,7 @@ switch ($response) {
         {
             echo $langvars['l_by_notexists'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -183,7 +183,7 @@ switch ($response) {
         {
             echo $langvars['l_by_destroyed'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -191,7 +191,7 @@ switch ($response) {
         {
             echo $langvars['l_by_noturn'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -199,7 +199,7 @@ switch ($response) {
         {
             echo $langvars['l_by_zeroamount'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -207,7 +207,7 @@ switch ($response) {
         {
             echo $langvars['l_by_yourself'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -215,7 +215,7 @@ switch ($response) {
         {
             echo $langvars['l_by_notenough'] . "<br><br>";
             Bnt\Text::gotoMain($db, $lang, $langvars);
-            Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+            Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -239,7 +239,7 @@ switch ($response) {
                 $langvars['l_by_toomuch'] = str_replace("[percent]", $percent, $langvars['l_by_toomuch']);
                 echo $langvars['l_by_toomuch'] . "<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+                Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();
             }
         }
@@ -338,5 +338,5 @@ switch ($response) {
 }
 
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

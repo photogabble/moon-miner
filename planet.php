@@ -60,7 +60,7 @@ if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -93,7 +93,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
 
         echo $langvars['l_planet_none'] . " <p>";
         Bnt\Text::gotoMain($db, $lang, $langvars);
-        Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+        Footer::display($pdo_db, $lang, $bntreg, $template);
         die();
     }
 
@@ -108,7 +108,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
         echo $langvars['l_planet_capture2'] . ".<br><br>";
         echo "<br>";
         Bnt\Text::gotoMain($db, $lang, $langvars);
-        Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+        Footer::display($pdo_db, $lang, $bntreg, $template);
         die();
     }
 
@@ -405,7 +405,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 Bnt\AdminLog::writeLog($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+                Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();
             }
             unset($_SESSION['planet_selected']);
@@ -530,7 +530,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 Bnt\AdminLog::writeLog($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+                Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();
             }
 
@@ -577,7 +577,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 Bnt\AdminLog::writeLog($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+                Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();
             }
             unset($_SESSION['planet_selected']);
@@ -630,7 +630,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 Bnt\AdminLog::writeLog($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+                Footer::display($pdo_db, $lang, $bntreg, $template);
                 die ();
             }
             unset($_SESSION['planet_selected']);
@@ -640,7 +640,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             {
                 echo $langvars['l_plant_scn_turn'] . "<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+                Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();
             }
 
@@ -662,7 +662,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 echo $langvars['l_planet_noscan'] . "<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
                 Bnt\PlayerLog::writeLog($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-                Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+                Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();
             }
             else
@@ -911,5 +911,5 @@ if ($bntreg->allow_ibank)
 echo "<a href =\"bounty.php\">" . $langvars['l_by_placebounty'] . "</a><p>";
 
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

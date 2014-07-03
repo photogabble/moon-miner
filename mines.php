@@ -109,7 +109,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_mines_noturn'] . "<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+    Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
@@ -260,5 +260,5 @@ else
 }
 
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Bad\Footer::display($pdo_db, $lang, $bntreg, $template);
+Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>
