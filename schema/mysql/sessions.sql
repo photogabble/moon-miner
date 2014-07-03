@@ -1,10 +1,7 @@
 CREATE TABLE IF NOT EXISTS bnt_sessions (
-  sesskey varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  sesskey varchar(104) COLLATE utf8mb4_unicode_ci NOT NULL,
   expiry datetime NOT NULL,
-  expireref varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  created datetime NOT NULL,
-  modified datetime NOT NULL,
-  sessdata text COLLATE utf8mb4_unicode_ci,
+  sessdata text COLLATE utf8mb4_unicode_ci
   PRIMARY KEY (sesskey),
   KEY bnt_sess2_expiry (expiry),
   KEY bnt_sess2_expireref (expireref)
