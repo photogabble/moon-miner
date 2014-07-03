@@ -37,7 +37,7 @@ class Template
 // will be reverting back once exploit is fixed.
 /*
         // Here we check if it's an External Client, else it's a Browser Client.
-        if (isset($_SERVER['HTTP_ACCEPT']) && strlen ($_SERVER['HTTP_ACCEPT']) > 0)
+        if (isset($_SERVER['HTTP_ACCEPT']) && mb_strlen ($_SERVER['HTTP_ACCEPT']) > 0)
         {
             $accept = $_SERVER['HTTP_ACCEPT'];
         }

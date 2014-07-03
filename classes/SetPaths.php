@@ -28,7 +28,7 @@ class SetPaths
     public static function setGamepath()
     {
         $gamepath = dirname($_SERVER['PHP_SELF']);
-        if (isset($gamepath) && strlen($gamepath) > 0)
+        if (isset($gamepath) && mb_strlen($gamepath) > 0)
         {
             if ($gamepath === "\\")
             {
@@ -42,7 +42,7 @@ class SetPaths
                     $gamepath = "/$gamepath";
                 }
 
-                if ($gamepath[strlen($gamepath)-1] != '/')
+                if ($gamepath[mb_strlen($gamepath)-1] != '/')
                 {
                     $gamepath = "$gamepath/";
                 }
@@ -63,7 +63,7 @@ class SetPaths
         $remove_port = true;
         $gamedomain = $_SERVER['HTTP_HOST'];
 
-        if (isset($gamedomain) && strlen($gamedomain) >0)
+        if (isset($gamedomain) && mb_strlen($gamedomain) >0)
         {
             $pos = strpos($gamedomain, 'http://');
             if (is_int($pos))

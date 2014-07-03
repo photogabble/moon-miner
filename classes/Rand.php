@@ -45,7 +45,7 @@ class Rand
             do
             {
                 $feed = openssl_random_pseudo_bytes($bytes);
-                if ($feed === false || strlen($feed) != $bytes)
+                if ($feed === false || mb_strlen($feed) != $bytes)
                 {
                     return false; // Unable to generate sufficient bytes
                 }
@@ -81,7 +81,7 @@ class Rand
             do
             {
                 $feed = mcrypt_create_iv($bytes);
-                if ($feed === false || strlen($feed) != $bytes)
+                if ($feed === false || mb_strlen($feed) != $bytes)
                 {
                     return false; // Unable to generate sufficient bytes
                 }
@@ -108,7 +108,7 @@ class Rand
             $bits .= @fread($fp, $bytes);
             @fclose($fp);
         }
-        $bitlength = strlen($bits);
+        $bitlength = mb_strlen($bits);
         for ($i = 0; $i < $bitlength; $i++)
         {
             $int =  1 + (ord($bits[$i]) % (($max - $min) + 1));

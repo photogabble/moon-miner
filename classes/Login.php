@@ -99,7 +99,7 @@ class Login
                                 $error_status .= 'Your account has been Banned';
                             }
 
-                            if (array_key_exists('public_info', $ban_result) && strlen(trim($ban_result['public_info'])) >0)
+                            if (array_key_exists('public_info', $ban_result) && mb_strlen(trim($ban_result['public_info'])) >0)
                             {
                                 $error_status .=" for the following:<br>\n";
                                 $error_status .="<br>\n";
