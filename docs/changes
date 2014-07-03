@@ -52,7 +52,7 @@ Switch all functions out of Planet report ce, and into BadPlanetReportCE class
 Move functions out of log.php, and into BadLog
 Move functions out of planet_report.php, and into BadPlanetReport
 Move functions out of traderoute.php, and into BadTraderoute
-Eliminate footer.php, replace with BadFooter::display class & method
+Eliminate footer.php, replace with BadBnt\Footer::display class & method
 Eliminate header.php, replace with BntHeader::display class & method
 
 TheKabal (7 May 2014)

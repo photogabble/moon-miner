@@ -342,5 +342,5 @@ else
     echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
-Footer::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

@@ -88,7 +88,7 @@ if ($res->EOF)
 {
     echo "<p>" . $langvars['l_zi_nexist'] . "<p>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Footer::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 $curzone = $res->fields;
@@ -113,7 +113,7 @@ if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id'])
 {
     echo "<p>" . $langvars['l_ze_notowner'] . "<p>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Footer::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -134,7 +134,7 @@ if ($command == 'change')
     echo $langvars['l_ze_saved'] . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_ze_return'] . ".<p>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Footer::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 
@@ -258,5 +258,5 @@ echo "<form accept-charset='utf-8' action=zoneedit.php?command=change&zone=$zone
 
 echo "<a href=zoneinfo.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_ze_return'] . ".<p>";
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Footer::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

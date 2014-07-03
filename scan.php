@@ -49,7 +49,7 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
 {
     echo "You need to Click on the ship first.<br><br>";
     Bnt\Text::gotoMain($db, $lang, $langvars);
-    Footer::display($pdo_db, $lang, $bntreg, $template);
+    Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
     die();
 }
 unset($_SESSION['ship_selected']);
@@ -452,5 +452,5 @@ else
 
 echo "<br><br>";
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Footer::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

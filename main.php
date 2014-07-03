@@ -892,5 +892,5 @@ echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[" . $langvars['l_fullscan
 </table>
 
 <?php
-Footer::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

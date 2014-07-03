@@ -49,7 +49,7 @@ if ($sector == "*")
     {
         echo $langvars['l_lrs_nofull'] . "<br><br>";
         Bnt\Text::gotoMain($db, $lang, $langvars);
-        Footer::display($pdo_db, $lang, $bntreg, $template);
+        Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
         die();
     }
 
@@ -58,7 +58,7 @@ if ($sector == "*")
         $langvars['l_lrs_noturns'] = str_replace("[turns]", $bntreg->fullscan_cost, $langvars['l_lrs_noturns']);
         echo $langvars['l_lrs_noturns'] . "<br><br>";
         Bnt\Text::gotoMain($db, $lang, $langvars);
-        Footer::display($pdo_db, $lang, $bntreg, $template);
+        Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
         die();
     }
 
@@ -419,5 +419,5 @@ else
 echo "<br><br>";
 Bnt\Text::gotoMain($db, $lang, $langvars);
 
-Footer::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

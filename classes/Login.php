@@ -176,7 +176,7 @@ class Login
             $title = $langvars['l_error'];
             Header::display($db, $lang, $template, $title);
             echo $error_status;
-            Footer::display($pdo_db, $lang, $bntreg, $template);
+            Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
             if ($stop_die)
             {
                 die();

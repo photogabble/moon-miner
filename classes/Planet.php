@@ -53,7 +53,7 @@ class Planet
         {
             echo $langvars['l_cmb_atleastoneturn'] . "<br><br>";
             \Bnt\Text::gotoMain($db, $lang, $langvars);
-            \Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
+            \Bnt\Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 
@@ -140,7 +140,7 @@ class Planet
         {
             echo $langvars['l_cmb_atleastoneturn'] . "<br><br>";
             \Bnt\Text::gotoMain($db, $lang, $langvars);
-            \Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
+            \Bnt\Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
         }
 

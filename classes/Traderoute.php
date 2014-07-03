@@ -1801,7 +1801,7 @@ class Traderoute
         \Bnt\Text::gotoMain($db, $lang, $langvars);
         echo "</div>\n";
 
-        \Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
+        \Bnt\Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 
@@ -1813,7 +1813,7 @@ class Traderoute
         echo "<div style='text-align:left;'>\n";
         \Bnt\Text::gotoMain($db, $lang, $langvars);
         echo "</div>\n";
-        \Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
+        \Bnt\Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
         die ();
     }
 

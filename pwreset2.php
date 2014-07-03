@@ -133,5 +133,5 @@ else
     // Admin log this attempt to use an invalid code
 }
 
-Footer::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

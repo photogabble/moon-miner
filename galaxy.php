@@ -116,5 +116,5 @@ echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port']
 
 echo "<br><br>";
 Bnt\Text::gotoMain($db, $lang, $langvars);
-Footer::display($pdo_db, $lang, $bntreg, $template);
+Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>
