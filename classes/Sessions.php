@@ -28,9 +28,6 @@ class Sessions
         // Set the database variable for this class
         $this->pdo_db = $pdo_db;
 
-        // Set the error mode to be exceptions, so that we can catch them
-        $this->pdo_db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
         // Select the current time from the database, NOT PHP
         $stmt = $this->pdo_db->prepare('SELECT now() as currenttime');
         $stmt->execute();
@@ -41,6 +38,9 @@ class Sessions
 
         // Set the expiry time for sessions to be the current database time plus the maxlifetime set at top of class
         $this->expiry = gmdate('Y-m-d H:i:s', strtotime($row['currenttime']) + $this->maxlifetime);
+
+        // This line prevents unexpected effects when using objects as save handlers.
+        register_shutdown_function('session_write_close');
     }
 
     public function __destruct()
@@ -72,11 +72,15 @@ class Sessions
 
     public function write($sesskey, $sessdata)
     {
+        $err_mode = $this->pdo_db->getAttribute(\PDO::ATTR_ERRMODE);
+        // Set the error mode to be exceptions, so that we can catch them -- This fucks everything in game except for sessions
+        $this->pdo_db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
         $table = $this->pdo_db->prefix . 'sessions';
         try
         {
             // Try to insert the record. This will fail if the record already exists, which will trigger catch below..
-            $qry = 'INSERT into ' . $table . ' (sesskey, sessdata, expiry) values(:sesskey, :sessdata, :expiry)';
+            $qry = 'INSERT into ' . $table . ' (sesskey, sessdata, expiry) values (:sesskey, :sessdata, :expiry)';
             $stmt = $this->pdo_db->prepare($qry);
             $stmt->bindParam(':sesskey', $sesskey);
             $stmt->bindParam(':sessdata', $sessdata);
@@ -93,6 +97,7 @@ class Sessions
             $stmt->bindParam(':expiry', $this->expiry);
             $result = $stmt->execute();
         }
+        $this->pdo_db->setAttribute(\PDO::ATTR_ERRMODE, $err_mode);
         return $result;
     }
 
