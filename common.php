@@ -38,6 +38,7 @@ ini_set('session.use_trans_sid', 0);               // Prevent session ID from be
 ini_set('session.entropy_file', '/dev/urandom');   // Use urandom as entropy source, to increase randomness
 ini_set('session.entropy_length', '512');          // Increase the length of entropy gathered
 ini_set('session.hash_function', 'sha512');        // Provides improved reduction for session collision
+ini_set('session.hash_bits_per_character', 5);     // Explicitly set the number of bits per character of the hash
 ini_set('url_rewriter.tags', '');                  // Do not pass Session id on the url for improved security on login
 
 if (file_exists('dev'))                            // Create/touch a file named dev to activate development mode
