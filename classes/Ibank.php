@@ -145,7 +145,7 @@ class Ibank
              "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
              "</tr>";
 
-        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
         \Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
         \Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
@@ -815,9 +815,9 @@ class Ibank
              "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
              "</tr>";
 
-        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance+? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = balance + ? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
         \Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits-? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits - ? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
         \Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
     }
 

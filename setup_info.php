@@ -30,7 +30,7 @@ header('Keep-Alive: timeout=15, max=100');         // Ask for persistent HTTP co
 
 // Set cookies for cookie test
 SetCookie ("TestCookie", "", 0);
-SetCookie ("TestCookie", "Shuzbutt", time()+3600, Bnt\SetPaths::setGamepath(), $_SERVER['HTTP_HOST']);
+SetCookie ("TestCookie", "Shuzbutt", time() + 3600, Bnt\SetPaths::setGamepath(), $_SERVER['HTTP_HOST']);
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index', 'options'));

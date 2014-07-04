@@ -75,7 +75,7 @@ if ($change !== 1)
     echo "<form accept-charset='utf-8' action='preset.php' method='post'>";
     for ($x=0; $x<$bntreg->preset_max; $x++)
     {
-        echo "<div style='padding:2px;'>Preset " . ($x+1) . ": <input type='text' name='preset[$x]' size='6' maxlength='6' value='" . $presetinfo[$x]['preset'] . "'></div>";
+        echo "<div style='padding:2px;'>Preset " . ($x + 1) . ": <input type='text' name='preset[$x]' size='6' maxlength='6' value='" . $presetinfo[$x]['preset'] . "'></div>";
     }
 
     echo "<input type='hidden' name='change' value='1'>";
@@ -92,7 +92,7 @@ else
             $update = $db->Execute("UPDATE {$db->prefix}presets SET preset = ? WHERE preset_id = ?;", array ($preset_list[$key], $presetinfo[$key]['preset_id']));
             Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
             $preset_result_echo = str_replace("[preset]", "<a href=rsmove.php?engage=1&destination=$preset_list[$key]>$preset_list[$key]</a>", $langvars['l_pre_set_loop']);
-            $preset_result_echo = str_replace("[num]", $key+1, $preset_result_echo);
+            $preset_result_echo = str_replace("[num]", $key + 1, $preset_result_echo);
             echo $preset_result_echo . "<br>";
         }
     }

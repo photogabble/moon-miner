@@ -286,7 +286,7 @@ class PlanetReportCE
         if ($planet_hack)
         {
             $serial_data = serialize($prodpercentarray);
-            \Bnt\AdminLog::writeLog($db, LOG_ADMIN_PLANETCHEAT+1000, "{$ship_id}|{$serial_data}");
+            \Bnt\AdminLog::writeLog($db, LOG_ADMIN_PLANETCHEAT + 1000, "{$ship_id}|{$serial_data}");
             printf("<font color=\"red\"><strong>Your Cheat has been logged to the admin (%08x) [%02X:%02X:%02X].</strong></font><br>\n", (int) $hack_id, (int) $hack_count[0], (int) $hack_count[1], (int) $hack_count[2]);
         }
 

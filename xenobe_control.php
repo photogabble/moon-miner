@@ -564,7 +564,7 @@ else
                     {
                         if (Bnt\Rand::betterRand() %10 == 1)
                         {
-                            $makepass .= sprintf("%0.0f", (Bnt\Rand::betterRand() %50)+1);
+                            $makepass .= sprintf("%0.0f", (Bnt\Rand::betterRand() %50) + 1);
                         }
                         else
                         {

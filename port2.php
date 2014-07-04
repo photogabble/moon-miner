@@ -530,7 +530,7 @@ else
                 build_one_col($langvars['l_lssd'] . " " .  $langvars['l_trade_installed']);
             }
 
-            $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
+            $query = $query . ", turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id=$playerinfo[ship_id]";
             $purchase = $db->Execute("$query");
             Bnt\Db::logDbErrors($db, $purchase, __LINE__, __FILE__);
 

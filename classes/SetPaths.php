@@ -63,18 +63,18 @@ class SetPaths
         $remove_port = true;
         $gamedomain = $_SERVER['HTTP_HOST'];
 
-        if (isset($gamedomain) && mb_strlen($gamedomain) >0)
+        if (isset($gamedomain) && mb_strlen($gamedomain) > 0)
         {
             $pos = mb_strpos($gamedomain, 'http://');
             if (is_int($pos))
             {
-                $gamedomain = mb_substr($gamedomain, $pos+7);
+                $gamedomain = mb_substr($gamedomain, $pos + 7);
             }
 
             $pos = mb_strpos($gamedomain, 'www.');
             if (is_int($pos))
             {
-                $gamedomain = mb_substr($gamedomain, $pos+4);
+                $gamedomain = mb_substr($gamedomain, $pos + 4);
             }
 
             if ($remove_port)

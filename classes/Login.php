@@ -59,7 +59,7 @@ class Login
                     $timestamp['last'] = (int) strtotime($playerinfo['last_login']);
 
                     // Update the players last_login every 60 seconds to cut back SQL Queries.
-                    if ($timestamp['now'] >= ($timestamp['last'] +60))
+                    if ($timestamp['now'] >= ($timestamp['last'] + 60))
                     {
                         $update_llogin = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
                         Db::logDbErrors($db, $update_llogin, __LINE__, __FILE__);
@@ -72,7 +72,7 @@ class Login
                     $banned = 0;
 
                     // Check to see if the player is banned every 60 seconds (may need to ajust this).
-                    if ($timestamp['now'] >= ($timestamp['last'] +60))
+                    if ($timestamp['now'] >= ($timestamp['last'] + 60))
                     {
                         $ban_result = CheckBan::isBanned($db, $lang, null, $playerinfo);
                         if ($ban_result === false ||  (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))

@@ -445,7 +445,7 @@ else
             Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");
         }
 
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id=?", array ($playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
     }
 }

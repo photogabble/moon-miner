@@ -27,7 +27,7 @@ $variables['body_class'] = 'bnt';
 $variables['lang'] = $lang;
 $variables['link'] = "ranking.php";
 
-// These should be set within the template config, and be css driven using nth+1 selectors.
+// These should be set within the template config, and be css driven using nth + 1 selectors.
 $variables['color_header'] = $bntreg->color_header;
 $variables['color_line1'] = $bntreg->color_line1;
 $variables['color_line2'] = $bntreg->color_line2;
