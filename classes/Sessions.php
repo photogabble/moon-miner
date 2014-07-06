@@ -25,6 +25,15 @@ class Sessions
 
     public function __construct($pdo_db)
     {
+        session_set_save_handler(
+        array($this, 'open'),
+        array($this, 'close'),
+        array($this, 'read'),
+        array($this, 'write'),
+        array($this, 'destroy'),
+        array($this, 'gc')
+        );
+
         // Set the database variable for this class
         $this->pdo_db = $pdo_db;
 
