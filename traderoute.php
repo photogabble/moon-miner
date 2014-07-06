@@ -101,10 +101,11 @@ if (array_key_exists('tr_repeat', $_POST) == true && (integer) $_POST['tr_repeat
     $tr_repeat = (integer) $_POST['tr_repeat'];
 }
 
+// TODO: Add filtering on command
 $command = null;
-if (array_key_exists('command', $_REQUEST) == true)
+if (array_key_exists('command', $_GET) == true)
 {
-    $command = $_REQUEST['command'];
+    $command = $_GET['command'];
 }
 
 if ($command == 'new')

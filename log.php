@@ -43,12 +43,13 @@ $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHER
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-if (!isset ($_REQUEST['swordfish']))
+// TODO: Add filtering for swordfish
+if (!isset ($_POST['swordfish']))
 {
-    $_REQUEST['swordfish'] = '';
+    $_POST['swordfish'] = '';
 }
 
-$swordfish = $_REQUEST['swordfish'];
+$swordfish = $_POST['swordfish'];
 
 if ($swordfish == ADMIN_PW) // Check if called by admin script
 {

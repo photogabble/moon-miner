@@ -916,7 +916,7 @@ class Ibank
              "<img width=600 height=21 src=" . $active_template . "/images/div2.png>" .
              "</center>";
 
-        \Bnt\Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
+        \Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
         die();
     }
 

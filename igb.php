@@ -51,14 +51,26 @@ if (!$bntreg->allow_ibank)
     Bad\Ibank::ibankError($template->getVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
 }
 
-if (!isset ($_REQUEST['command']))
+// TODO: Add filtering to command list
+if (!isset ($_GET['command']))
 {
-    $_REQUEST['command'] = '';
+    $_GET['command'] = '';
     $command = '';
 }
 else
 {
-    $command = $_REQUEST['command'];
+    $command = $_GET['command'];
+}
+
+// TODO: Add filtering to amount
+if (!isset ($_POST['amount']))
+{
+    $_POST['amount'] = '';
+    $amount = '';
+}
+else
+{
+    $amount = $_POST['amount'];
 }
 
 if ($command == 'login') //main menu
@@ -83,7 +95,7 @@ elseif ($command == 'deposit2') //deposit operation
 }
 elseif ($command == 'transfer') //main transfer menu
 {
-    Bad\Ibank::ibankTransfer($db, $langvars, $playerinfo, $ibank_min_turns);
+    Bad\Ibank::ibankTransfer($db, $langvars, $playerinfo, $bntreg->ibank_min_turns);
 }
 elseif ($command == 'transfer2') //specific transfer menu (ship or planet)
 {

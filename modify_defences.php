@@ -35,10 +35,11 @@ if (!isset($defence_id))
     die ();
 }
 
+// TODO: Add filtering for response
 $response = null;
-if (array_key_exists('response', $_REQUEST) == true)
+if (array_key_exists('response', $_POST) == true)
 {
-    $response = $_REQUEST['response'];
+    $response = $_POST['response'];
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

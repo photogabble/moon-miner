@@ -33,10 +33,11 @@ if (array_key_exists('destroy', $_GET) == true)
     $destroy = $_GET['destroy'];
 }
 
+// TODO: Add filtering for command
 $command = null;
-if (array_key_exists('command', $_REQUEST) == true)
+if (array_key_exists('command', $_GET) == true)
 {
-    $command = $_REQUEST['command'];
+    $command = $_GET['command'];
 }
 
 $planet_id = null;
