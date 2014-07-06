@@ -86,13 +86,21 @@ function is_query_ok($db, $res)
     }
 }
 
-if (isset($_REQUEST['swordfish']))
+// TODO: Add filtering to swordfish
+if (isset($_GET['swordfish']))
 {
-    $swordfish = $_REQUEST['swordfish'];
+    $swordfish = $_GET['swordfish'];
 }
 else
 {
-    $swordfish = '';
+    if (isset($_POST['swordfish']))
+    {
+        $swordfish = $_POST['swordfish'];
+    }
+    else
+    {
+        $swordfish = '';
+    }
 }
 
 if ($swordfish != ADMIN_PW)
