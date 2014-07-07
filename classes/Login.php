@@ -21,13 +21,16 @@ namespace Bnt;
 
 class Login
 {
-    public static function checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template, $stop_die = true)
+    public static function checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template)
     {
         // Database driven language entries
         $langvars = Translate::load($db, $lang, array ('login', 'global_funcs', 'common', 'footer', 'self_destruct'));
 
-        $flag = 0;
-        $error_status = '';
+        // Check if game is closed - Ignore the false return if it is open
+        Game::isGameClosed($db, $pdo_db, $bntreg, $lang, $template, $langvars);
+
+        $flag = true;
+        $error_status = null;
 
         if (array_key_exists('username', $_SESSION) === false)
         {
@@ -43,14 +46,12 @@ class Login
         {
             $res = $db->SelectLimit("SELECT ip_address, password, last_login, ship_id, ship_destroyed, dev_escapepod FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
             Db::logDbErrors($db, $res, __LINE__, __FILE__);
-//            if ($res instanceof ADORecordSet && $res->RecordCount() >0) // This is producing errors for some reason, while if $res does not
+//          if ($res instanceof ADORecordSet && $res->RecordCount() >0) // This is producing errors for some reason, while if $res does not
             if ($res)
             {
                 $playerinfo = $res->fields;
-                // Check the password against the stored hashed password
-                // The first number is the hash strength, or number of iterations of bcrypt to run.
-//                $hashed_pass = password_hash($playerinfo['password'], PASSWORD_DEFAULT);
 
+                // Check the password against the stored hashed password
                 // Check the cookie to see if username/password are empty - check password against database
                 if (password_verify($_SESSION['password'], $playerinfo['password']))
                 {
@@ -68,95 +69,29 @@ class Login
                         // replacement for the (now removed) update_cookie function.
                         $_SESSION['last_activity'] = $timestamp['now'];
                     }
-
-                    $banned = 0;
-
-                    // Check to see if the player is banned every 60 seconds (may need to ajust this).
-                    if ($timestamp['now'] >= ($timestamp['last'] + 60))
-                    {
-                        $ban_result = CheckBan::isBanned($db, $lang, null, $playerinfo);
-                        if ($ban_result === false ||  (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
-                        {
-                            // do nothing
-                        }
-                        else
-                        {
-                            // Set login status to false, then clear the session array, and clear the session cookie
-                            $_SESSION['logged_in'] = false;
-                            $_SESSION = array ();
-                            setcookie('blacknova_session', '', 0, '/');
-
-                            // Destroy the session entirely
-                            session_destroy();
-
-                            $error_status = "<div style='font-size:18px; color:#FF0000;'>\n";
-                            if (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_LOCKED)
-                            {
-                                $error_status .= 'Your account has been Locked';
-                            }
-                            else
-                            {
-                                $error_status .= 'Your account has been Banned';
-                            }
-
-                            if (array_key_exists('public_info', $ban_result) && mb_strlen(trim($ban_result['public_info'])) >0)
-                            {
-                                $error_status .=" for the following:<br>\n";
-                                $error_status .="<br>\n";
-                                $error_status .="<div style='font-size:16px; color:#FFFF00;'>" . $ban_result['public_info'] . "</div>\n";
-                            }
-                            $error_status .= "</div>\n";
-                            $error_status .= "<br>\n";
-                            $error_status .= "<div style='color:#FF0000;'>Maybe you will behave yourself next time.</div>\n";
-                            $error_status .= "<br />\n";
-                            $error_status .= str_replace('[here]', "<a href='index.php'>" . $langvars['l_here'] . '</a>', $langvars['l_global_mlogin']);
-                            $flag = 1;
-                            $banned = 1;
-                        }
-                    }
+                    $flag = false;
                 }
-                else
-                {
-                    $title = $langvars['l_error'];
-                    $error_status .= str_replace('[here]', "<a href='index.php'>" . $langvars['l_here'] . '</a>', $langvars['l_global_needlogin']);
-                    $flag = 1;
-                }
-            }
-            else
-            {
-                $title = $langvars['l_error'];
-                $error_status .= str_replace('[here]', "<a href='index.php'>" . $langvars['l_here'] . '</a>', $langvars['l_global_needlogin']);
-                $flag = 1;
             }
         }
-        else
+
+        if ($flag)
         {
             $title = $langvars['l_error'];
             $error_status .= str_replace('[here]', "<a href='index.php'>" . $langvars['l_here'] . '</a>', $langvars['l_global_needlogin']);
-            $flag = 1;
-        }
-
-        // Check for destroyed ship - Ignore the false return if not
-        Ship::isDestroyed($db, $pdo_db, $lang, $bntreg, $langvars, $template, $playerinfo);
-
-        // Check if game is closed - Ignore the false return if it is open
-        Game::isGameClosed($db, $pdo_db, $bntreg, $lang, $template, $langvars);
-
-        // This isn't the prettiest way to do this, and I'd like this split up and templated and so
-        // forth, but for now, it works.
-        if ($flag === 1)
-        {
             $title = $langvars['l_error'];
             Header::display($db, $lang, $template, $title);
             echo $error_status;
             Footer::display($pdo_db, $lang, $bntreg, $template);
-            if ($stop_die)
-            {
-                die();
-            }
+            die();
         }
 
-        return $flag;
+        // Check for ban - Ignore the false return if not
+        Player::HandleBan($timestamp, $db, $pdo_db, $lang, $template, $playerinfo);
+
+        // Check for destroyed ship - Ignore the false return if not
+        Ship::isDestroyed($db, $pdo_db, $lang, $bntreg, $langvars, $template, $playerinfo);
+
+        return (!$flag);
     }
 }
 ?>
