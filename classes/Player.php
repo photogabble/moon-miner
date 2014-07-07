@@ -128,7 +128,7 @@ class Player
                 {
                     $error_status .=" for the following:<br>\n";
                     $error_status .="<br>\n";
-                    $error_status .="<div style='font-size:16px; color:#FFFF00;'>"
+                    $error_status .="<div style='font-size:16px; color:#FFFF00;'>";
                     $error_status .= $ban_result['public_info'] . "</div>\n";
                 }
                 $error_status .= "</div>\n";
