@@ -29,61 +29,13 @@ class Login
         // Check if game is closed - Ignore the false return if it is open
         Game::isGameClosed($db, $pdo_db, $bntreg, $lang, $template, $langvars);
 
-        $flag = true;
-        $error_status = null;
+        // Handle authentication check - Will die if fails, or return correct playerinfo
+        $playerinfo = Player::HandleAuth($db, $pdo_db, $lang, $bntreg, $template);
 
-        if (array_key_exists('username', $_SESSION) === false)
-        {
-            $_SESSION['username'] = null;
-        }
-
-        if (array_key_exists('password', $_SESSION) === false)
-        {
-            $_SESSION['password'] = null;
-        }
-
-        if (is_null($_SESSION['username']) === false && is_null($_SESSION['password']) === false)
-        {
-            $res = $db->SelectLimit("SELECT ip_address, password, last_login, ship_id, ship_destroyed, dev_escapepod FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
-            Db::logDbErrors($db, $res, __LINE__, __FILE__);
-//          if ($res instanceof ADORecordSet && $res->RecordCount() >0) // This is producing errors for some reason, while if $res does not
-            if ($res)
-            {
-                $playerinfo = $res->fields;
-
-                // Check the password against the stored hashed password
-                // Check the cookie to see if username/password are empty - check password against database
-                if (password_verify($_SESSION['password'], $playerinfo['password']))
-                {
-                    $stamp = date('Y-m-d H:i:s');
-                    $timestamp['now']  = (int) strtotime($stamp);
-                    $timestamp['last'] = (int) strtotime($playerinfo['last_login']);
-
-                    // Update the players last_login every 60 seconds to cut back SQL Queries.
-                    if ($timestamp['now'] >= ($timestamp['last'] + 60))
-                    {
-                        $update_llogin = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
-                        Db::logDbErrors($db, $update_llogin, __LINE__, __FILE__);
-
-                        // Reset the last activity time on the session so that the session renews - this is the
-                        // replacement for the (now removed) update_cookie function.
-                        $_SESSION['last_activity'] = $timestamp['now'];
-                    }
-                    $flag = false;
-                }
-            }
-        }
-
-        if ($flag)
-        {
-            $title = $langvars['l_error'];
-            $error_status .= str_replace('[here]', "<a href='index.php'>" . $langvars['l_here'] . '</a>', $langvars['l_global_needlogin']);
-            $title = $langvars['l_error'];
-            Header::display($db, $lang, $template, $title);
-            echo $error_status;
-            Footer::display($pdo_db, $lang, $bntreg, $template);
-            die();
-        }
+        // Establish timestamp for interval in checking bans
+        $stamp = date('Y-m-d H:i:s');
+        $timestamp['now']  = (int) strtotime($stamp);
+        $timestamp['last'] = (int) strtotime($playerinfo['last_login']);
 
         // Check for ban - Ignore the false return if not
         Player::HandleBan($timestamp, $db, $pdo_db, $lang, $template, $playerinfo);
@@ -91,7 +43,7 @@ class Login
         // Check for destroyed ship - Ignore the false return if not
         Ship::isDestroyed($db, $pdo_db, $lang, $bntreg, $langvars, $template, $playerinfo);
 
-        return (!$flag);
+        return true;
     }
 }
 ?>
