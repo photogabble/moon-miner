@@ -48,7 +48,7 @@ else
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
-if ($bntreg->server_closed)
+if ($bntreg->game_closed)
 {
     $title = $langvars['l_login_sclosed'];
     Bnt\Header::display($db, $lang, $template, $title);

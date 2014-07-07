@@ -108,7 +108,7 @@ $info['G-PORT-DELTA-ENERGY'] = $bntreg->energy_delta;
 $info['G-SOFA'] = ($bntreg->allow_sofa===true ? "1" : "0");
 $info['G-KSM'] = ($bntreg->allow_ksm ? "1" : "0");
 
-$info['S-CLOSED'] = ($bntreg->server_closed ? "1" : "0");
+$info['S-CLOSED'] = ($bntreg->game_closed ? "1" : "0");
 $info['S-CLOSED-ACCOUNTS'] = ($bntreg->account_creation_closed ? "1" : "0");
 
 $info['ALLOW_FULLSCAN'] = ($bntreg->allow_fullscan ? "1" : "0");
