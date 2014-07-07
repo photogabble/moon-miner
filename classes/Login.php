@@ -162,12 +162,7 @@ class Login
             $flag = 1;
         }
 
-        if ($bntreg->server_closed)
-        {
-            $title = $langvars['l_login_closed_message'];
-            $error_status .= $langvars['l_login_closed_message'];
-            $flag = 1;
-        }
+        Game::isGameClosed($db, $pdo_db, $bntreg, $lang, $template, $langvars); // Ignore the false return if open
 
         // This isn't the prettiest way to do this, and I'd like this split up and templated and so
         // forth, but for now, it works.

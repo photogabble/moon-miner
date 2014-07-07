@@ -1,3 +1,9 @@
+TheKabal (6 July 2014)
+--------------------------------------
+Death to $_REQUEST calls begins (part one and two, more to follow)
+Redoing checkLogin class to split the individual checks into other classes
+Changed "server_closed" to "game_closed", in preparation for future with multiple games per server
+
 TheKabal (2 July 2014)
 --------------------------------------
 Assorted DB session fixes, including schema sizes

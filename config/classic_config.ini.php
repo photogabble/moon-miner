@@ -25,7 +25,7 @@
 
 [MAIN]
 game_name                  = 'Default Game Name';              // Please set this to a unique name for your game
-server_closed              = false;                            // True = block logins but not new account creation
+game_closed                = false;                            // True = block logins but not new account creation
 account_creation_closed    = false;                            // True = block new account creation
 release_version            = '0.7';                            // Please do not change this. Doing so will cause problems for the server lists, and setupinfo, and more.
 
