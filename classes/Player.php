@@ -21,7 +21,7 @@ namespace Bnt;
 
 class Player
 {
-    public static function HandleAuth($db, $pdo_db, $lang, $bntreg, $template)
+    public static function HandleAuth($db, $pdo_db, $lang, $langvars, $bntreg, $template)
     {
         $flag = true;
         $error_status = null;

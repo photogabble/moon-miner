@@ -30,7 +30,7 @@ class Login
         Game::isGameClosed($db, $pdo_db, $bntreg, $lang, $template, $langvars);
 
         // Handle authentication check - Will die if fails, or return correct playerinfo
-        $playerinfo = Player::HandleAuth($db, $pdo_db, $lang, $bntreg, $template);
+        $playerinfo = Player::HandleAuth($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
         // Establish timestamp for interval in checking bans
         $stamp = date('Y-m-d H:i:s');
