@@ -38,11 +38,16 @@ class Player
 
         if (is_null($_SESSION['username']) === false && is_null($_SESSION['password']) === false)
         {
-            $res = $db->SelectLimit("SELECT ip_address, password, last_login, ship_id, ship_destroyed, dev_escapepod" .
-                                    " FROM {$db->prefix}ships WHERE " .
-                                    "email=?", 1, -1, array ('email' => $_SESSION['username']));
+            $res = $db->SelectLimit(
+                "SELECT ip_address, password, last_login, ship_id, ship_destroyed, dev_escapepod" .
+                " FROM {$db->prefix}ships WHERE email=?",
+                1,
+                -1,
+                array('email' => $_SESSION['username'])
+            );
             Db::logDbErrors($db, $res, __LINE__, __FILE__);
-//          if ($res instanceof ADORecordSet && $res->RecordCount() >0) // This is producing errors for some reason, while if $res does not
+//          This is producing errors for some reason, while if $res does not
+//          if ($res instanceof ADORecordSet && $res->RecordCount() >0)
             if ($res)
             {
                 $playerinfo = $res->fields;
@@ -58,9 +63,10 @@ class Player
                     // Update the players last_login every 60 seconds to cut back SQL Queries.
                     if ($timestamp['now'] >= ($timestamp['last'] + 60))
                     {
-                        $update_llogin = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? " .
-                                                      "WHERE ship_id = ?;",
-                                                      array ($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
+                        $update_llogin = $db->Execute(
+                            "UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id=?;",
+                            array($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id'])
+                        );
                         Db::logDbErrors($db, $update_llogin, __LINE__, __FILE__);
 
                         // Reset the last activity time on the session so that the session renews - this is the
@@ -94,7 +100,7 @@ class Player
         if ($timestamp['now'] >= ($timestamp['last'] + 60))
         {
             $ban_result = CheckBan::isBanned($db, $lang, null, $playerinfo);
-            if ($ban_result === false ||  (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
+            if ($ban_result===false|| (array_key_exists('ban_type', $ban_result)&&$ban_result['ban_type']===ID_WATCH))
             {
                 return false;
             }
@@ -102,12 +108,12 @@ class Player
             {
                 // Set login status to false, then clear the session array, and clear the session cookie
                 $_SESSION['logged_in'] = false;
-                $_SESSION = array ();
+                $_SESSION = array();
                 setcookie('blacknova_session', '', 0, '/');
-    
+
                 // Destroy the session entirely
                 session_destroy();
-    
+
                 $error_status = "<div style='font-size:18px; color:#FF0000;'>\n";
                 if (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_LOCKED)
                 {
@@ -117,12 +123,13 @@ class Player
                 {
                     $error_status .= 'Your account has been Banned';
                 }
-    
+
                 if (array_key_exists('public_info', $ban_result) && mb_strlen(trim($ban_result['public_info'])) >0)
                 {
                     $error_status .=" for the following:<br>\n";
                     $error_status .="<br>\n";
-                    $error_status .="<div style='font-size:16px; color:#FFFF00;'>" . $ban_result['public_info'] . "</div>\n";
+                    $error_status .="<div style='font-size:16px; color:#FFFF00;'>"
+                    $error_status .= $ban_result['public_info'] . "</div>\n";
                 }
                 $error_status .= "</div>\n";
                 $error_status .= "<br>\n";
