@@ -21,6 +21,48 @@ namespace Bnt;
 
 class Ship
 {
+    public static function isDestroyed($db, $pdo_db, $lang, $bntreg, $langvars, $template, $playerinfo)
+    {
+        // Check for destroyed ship
+        if ($playerinfo['ship_destroyed'] === 'Y')
+        {
+            // if the player has an escapepod, set the player up with a new ship
+            if ($playerinfo['dev_escapepod'] === 'Y')
+            {
+                $newship_res = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0," .
+                               "computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, " .
+                               "armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, " .
+                               "ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, " .
+                               "ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, " .
+                               "dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', " .
+                               "dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', " .
+                               "dev_lssd='N' WHERE email=?", array ($_SESSION['username']));
+                Db::logDbErrors($db, $newship_res, __LINE__, __FILE__);
+    
+                $error_status .= str_replace('[here]', "<a href='main.php'>" . $langvars['l_here'] . '</a>', $langvars['l_login_died']);
+            }
+            else
+            {
+                // if the player doesn't have an escapepod - they're dead, delete them.
+                // But we can't delete them yet. (This prevents the self-distruct inherit bug)
+                $error_status .= str_replace('[here]', "<a href='log.php'>" .
+                                 ucfirst($langvars['l_here']) . '</a>', $langvars['l_global_died']) .
+                                 '<br><br>' . $langvars['l_global_died2'];
+                $error_status .= str_replace('[logout]', "<a href='logout.php'>" .
+                                 $langvars['l_logout'] . '</a>', $langvars['l_die_please']);
+                $title = $langvars['l_error'];
+                Header::display($db, $lang, $template, $title);
+                echo $error_status;
+                Footer::display($pdo_db, $lang, $bntreg, $template);
+                die();
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static function leavePlanet($db, $ship_id)
     {
         $own_pl_result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner = ?", array ($ship_id));
