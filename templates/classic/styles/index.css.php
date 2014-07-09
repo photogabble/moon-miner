@@ -51,16 +51,15 @@ ul.navigation { list-style:none}
     opacity: 0.9;
     text-shadow: 0 1px 2px rgba(0,0,0,0.9);
     text-transform: uppercase;
-
-            border-radius: 4px;
-            box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
-            transition: all 0.1s linear;
+    border-radius: 4px;
+    box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
+    transition: all 0.1s linear;
 }
 .button:hover {
-            box-shadow: rgba(0,0,0,0.5) 0 2px 5px, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
+    box-shadow: rgba(0,0,0,0.5) 0 2px 5px, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
 }
 .button:active {
-            box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0) 0 1px 0, inset rgba(0,0,0,0.5) 0 0 5px, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
+    box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0) 0 1px 0, inset rgba(0,0,0,0.5) 0 0 5px, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
 }
 .shine {
     display: block;
@@ -69,7 +68,7 @@ ul.navigation { list-style:none}
     padding: 0 12px;
     position: relative;
     top: -12px;
-            box-shadow: rgba(255,255,255,0.2) 0 1px 5px;
-            transition: all 0.3s ease-in-out;
+    box-shadow: rgba(255,255,255,0.2) 0 1px 5px;
+    transition: all 0.3s ease-in-out;
     background: linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
 }
