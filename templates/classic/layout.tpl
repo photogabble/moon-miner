@@ -21,10 +21,10 @@
 <html lang="{$langvars['l_lang_attribute']}">
 <!-- START OF HEADER -->
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
     <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
     <meta name="Rating" content="General">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" href="{$template_dir}/images/bntfavicon.ico">
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/bnt-prime.css.php">
 {if $variables['body_class'] != 'bnt'}
@@ -33,7 +33,9 @@
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/main.css.php">
 {/if}
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu">
-    <title>{block name=title}Default Page Title{/block}</title>
+{if isset($variables['title'])}
+    <title>{block name=title}{$variables['title']}{/block}</title>
+{/if}
 {if isset($variables['include_ckeditor'])}
     <script src="{$template_dir}/javascript/ckeditor/ckeditor.js"></script>
 {/if}
