@@ -40,6 +40,7 @@ ini_set('session.entropy_length', '512');          // Increase the length of ent
 ini_set('session.hash_function', 'sha512');        // Provides improved reduction for session collision
 ini_set('session.hash_bits_per_character', 5);     // Explicitly set the number of bits per character of the hash
 ini_set('url_rewriter.tags', '');                  // Do not pass Session id on the url for improved security on login
+ini_set('default_charset', 'utf-8');               // Set PHP's default character set to utf-8
 
 if (file_exists('dev'))                            // Create/touch a file named dev to activate development mode
 {
