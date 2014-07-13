@@ -112,7 +112,7 @@ if ($rs instanceof ADORecordSet)
             }
 
             // Set the characters Insignia.
-            $row['insignia'] = Bnt\Character::getInsignia($db, $row['email'], $langvars);
+            $row['insignia'] = Bnt\Character::getInsignia($pdo_db, $row['email'], $langvars);
 
             // This is just to show that we can set the type of player.
             // like: banned, admin, player, npc etc.
