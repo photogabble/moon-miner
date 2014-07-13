@@ -32,31 +32,33 @@ else
     $link = '?lang=' . $lang;
 }
 
-// Check to see if the language database has been installed yet.
-$result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?", array ('common', $lang));
-
-if (($result instanceof ADORecordSet) && ($result != false)) // Before DB is installed, result will give false.
+if (!Bnt\Db::isActive($pdo_db))
 {
-}
-else
-{
-    // If not, redirect to create_universe.
+    // If DB is not active, redirect to CU to run install
     header('Location: create_universe.php');
     die();
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('main', 'login', 'logout', 'index', 'common','regional', 'footer','global_includes'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('main', 'login', 'logout', 'index', 'common','regional', 'footer','global_includes'));
 
 $variables = null;
 $variables['lang'] = $lang;
 $variables['link'] = $link;
+$variables['title'] = $langvars['l_welcome_bnt'];
 $variables['link_forums'] = $bntreg->link_forums;
 $variables['admin_mail'] = $bntreg->admin_mail;
 $variables['body_class'] = 'index';
 
 // Now Get a list of supported languages etc.
-$lang_rs = $db->GetAll("SELECT section, name, value FROM {$db->prefix}languages WHERE category = 'regional' AND (name = 'local_lang_name' OR name = 'local_lang_flag') ORDER BY section, name;");
+$sql = "SELECT section, name, value FROM {$pdo_db->prefix}languages WHERE category = :category AND (name = :name1 OR name = :name2) ORDER BY section, name;";
+$stmt = $pdo_db->prepare($sql);
+$stmt->bindValue(':category', 'regional');
+$stmt->bindValue(':name1', 'local_lang_name');
+$stmt->bindValue(':name2', 'local_lang_flag');
+$stmt->execute();
+$lang_rs = $stmt->fetchAll();
+
 $list_of_langs = array();
 
 if (is_array($lang_rs) === true && count($lang_rs) >= 2)
