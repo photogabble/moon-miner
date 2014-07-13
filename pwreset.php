@@ -95,7 +95,7 @@ else
 //mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'], "From: {$bntreg->admin_mail}\r\nReply-To: {$bntreg->admin_mail}\r\nX-Mailer: PHP/" . phpversion());
 
 /// Reset recovery_time to zero
-//$recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=null WHERE email = ?;", array ($playerinfo['email']));
+//$recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time = null WHERE email = ?;", array ($playerinfo['email']));
 //var_dump (Bnt\Db::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__));
 
 /// Log user in (like login does)
