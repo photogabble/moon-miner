@@ -19,7 +19,6 @@
 *}
 
 {extends file="layout.tpl"}
-{block name=title}{$langvars['l_welcome_bnt']}{/block}
 
 {block name=body}
 <div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="templates/{$variables['template']}/images/header1.png" alt="{$langvars['l_bnt']}"></div>
