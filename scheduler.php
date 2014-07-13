@@ -87,13 +87,13 @@ function is_query_ok($db, $res)
 }
 
 // TODO: Add filtering to swordfish
-if (isset($_GET['swordfish']))
+if (array_key_exists('swordfish', $_GET))
 {
     $swordfish = $_GET['swordfish'];
 }
 else
 {
-    if (isset($_POST['swordfish']))
+    if (array_key_exists('swordfish', $_POST))
     {
         $swordfish = $_POST['swordfish'];
     }

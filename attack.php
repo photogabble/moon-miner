@@ -32,7 +32,7 @@ $langvars = Bnt\Translate::load($db, $lang, array ('attack', 'bounty', 'main',
 echo "<h1>" . $title . "</h1>\n";
 
 $ship_id = null;
-if (isset($_GET['ship_id']))
+if (array_key_exists('ship_id', $_GET))
 {
     $ship_id  = (int) filter_input(INPUT_GET, 'ship_id', FILTER_SANITIZE_NUMBER_INT);
 }

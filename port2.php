@@ -562,7 +562,7 @@ else
         $price_array = array ();
 
         // Clear variables that are not selected in the form
-        if (!isset ($_POST['trade_ore']))
+        if (!array_key_exists('trade_ore', $_POST))
         {
             $trade_ore = null;
         }
@@ -571,7 +571,7 @@ else
             $trade_ore = $_POST['trade_ore'];
         }
 
-        if (!isset ($_POST['trade_organics']))
+        if (!array_key_exists('trade_organics', $_POST))
         {
             $trade_organics = null;
         }
@@ -580,7 +580,7 @@ else
             $trade_organics = $_POST['trade_organics'];
         }
 
-        if (!isset ($_POST['trade_goods']))
+        if (!array_key_exists('trade_goods', $_POST))
         {
             $trade_goods = null;
         }
@@ -589,7 +589,7 @@ else
             $trade_goods = $_POST['trade_goods'];
         }
 
-        if (!isset ($_POST['trade_energy']))
+        if (!array_key_exists('trade_energy', $_POST))
         {
             $trade_energy = null;
         }

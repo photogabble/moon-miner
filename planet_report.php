@@ -27,7 +27,7 @@ $title = $langvars['l_pr_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 $preptype = null;
-if (array_key_exists('preptype', $_GET) == true) // !isset ($_GET['preptype']))
+if (array_key_exists('preptype', $_GET))
 {
     $preptype = $_GET['preptype'];
 }

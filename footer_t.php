@@ -131,7 +131,7 @@ else
     $sf_logo_type++; // Make the SF logo darker for all pages except login. No need to change the sizes as 12 is the same size as 11 and 15 is the same size as 14.
 }
 
-if (!isset ($_GET['lang']))
+if (!array_key_exists('lang', $_GET))
 {
     $sf_logo_link = '';
 }

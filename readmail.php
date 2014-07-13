@@ -32,7 +32,7 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_S
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-if (!isset ($_GET['action']))
+if (!array_key_exists('action', $_GET))
 {
     $_GET['action'] = '';
 }

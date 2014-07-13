@@ -19,7 +19,7 @@
 
 require_once './common.php';
 
-if(!isset ($_GET['lang']))
+if (!array_key_exists('lang', $_GET))
 {
     $_GET['lang'] = null;
     $lang = $bntreg->default_lang;

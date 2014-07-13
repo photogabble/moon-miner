@@ -40,7 +40,7 @@ $sectorinfo = $result2->fields;
 
 $allowed_rsw = "N";
 
-if (isset($_POST['beacon_text']))
+if (array_key_exists('beacon_text', $_POST))
 {
     $destination  = (int) filter_input(INPUT_GET, 'beacon_text', FILTER_SANITIZE_NUMBER_INT);
 }

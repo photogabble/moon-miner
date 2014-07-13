@@ -32,7 +32,7 @@ echo "<br>";
 echo str_replace("[here]", "<a href='planet_report.php'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return']);
 echo "<br>";
 
-if (isset($_POST["TPCreds"]))
+if (array_key_exists('TPCreds', $_POST))
 {
     Bad\PlanetReportCE::collectCredits($db, $langvars, $_POST["TPCreds"], $sector_max);
 }

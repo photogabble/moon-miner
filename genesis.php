@@ -54,7 +54,7 @@ $planetname = mb_substr($playerinfo['character_name'], 0, 1) . mb_substr($player
 echo "<h1>" . $title . "</h1>\n";
 
 $destroy = null;
-if (array_key_exists('destroy', $_GET) == true) //isset ($_GET['destroy']))
+if (array_key_exists('destroy', $_GET))
 {
     $destroy = $_GET['destroy'];
 }

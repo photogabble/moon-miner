@@ -19,8 +19,8 @@
 
 require_once './common.php';
 
-$link = '';
-if (isset($_GET['lang']))
+$link = null;
+if (array_key_exists('lang', $_GET))
 {
     $link = "?lang=" . $_GET['lang'];
 }

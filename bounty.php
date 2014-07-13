@@ -30,23 +30,23 @@ $title = $langvars['l_by_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 $response = null;
-if (isset($_POST['response']))
+if (array_key_exists('response', $_POST))
 {
     $response  = filter_input(INPUT_POST, 'response', FILTER_SANITIZE_STRING);
 }
 
-if (isset($_GET['response']))
+if (array_key_exists('response', $_GET))
 {
     $response  = filter_input(INPUT_GET, 'response', FILTER_SANITIZE_STRING);
 }
 
 $bounty_on = null;
-if (isset($_POST['bounty_on']))
+if (array_key_exists('bounty_on', $_POST))
 {
     $bounty_on  = filter_input(INPUT_POST, 'bounty_on', FILTER_SANITIZE_NUMBER_INT);
 }
 
-if (isset ($_GET['bounty_on']))
+if (array_key_exists('bounty_on', $_GET))
 {
     $bounty_on  = filter_input(INPUT_GET, 'bounty_on', FILTER_SANITIZE_NUMBER_INT);
 }

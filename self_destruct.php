@@ -32,7 +32,7 @@ $result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WH
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-if (isset($_GET['sure']))
+if (array_key_exists('sure', $_GET))
 {
     $sure = $_GET['sure'];
 }

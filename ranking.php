@@ -36,8 +36,8 @@ $variables['color_line2'] = $bntreg->color_line2;
 $langvars = Bnt\Translate::load($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
 
 // Get requested ranking order.
-$sort = '';
-if (isset($_GET['sort']))
+$sort = null;
+if (array_key_exists('sort', $_GET))
 {
     $sort = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_STRING);
 }

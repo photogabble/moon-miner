@@ -27,7 +27,7 @@ $title = $langvars['l_lrs_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 echo "<h1>" . $title . "</h1>\n";
 
-if (isset($_GET['sector']))
+if (array_key_exists('sector', $_GET))
 {
     $sector = $_GET['sector'];
 }

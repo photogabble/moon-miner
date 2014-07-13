@@ -44,9 +44,9 @@ Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 // TODO: Add filtering for swordfish
-if (!isset ($_POST['swordfish']))
+if (!array_key_exists('swordfish', $_POST))
 {
-    $_POST['swordfish'] = '';
+    $_POST['swordfish'] = null;
 }
 
 $swordfish = $_POST['swordfish'];

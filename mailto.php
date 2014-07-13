@@ -31,31 +31,31 @@ Bnt\Header::display($db, $lang, $template, $title, $body_class = 'bnt', $include
 // filter_input doesn't support INPUT_REQUEST, and also doesn't support the format INPUT_POST | INPUT_GET - I tried.
 
 $name = null;
-if (isset ($_POST['name']))
+if (array_key_exists('name', $_POST))
 {
     $name  = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 }
-elseif (isset ($_GET['name']))
+elseif (array_key_exists('name', $_GET))
 {
     $name  = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_STRING);
 }
 
 $to = null;
-if (isset($_POST['to']))
+if (array_key_exists('to', $_POST))
 {
     $to  = filter_input(INPUT_POST, 'to', FILTER_SANITIZE_STRING);
 }
-elseif (isset($_GET['to']))
+elseif (array_key_exists('to', $_GET))
 {
     $to  = filter_input(INPUT_GET, 'to', FILTER_SANITIZE_STRING);
 }
 
 $subject = null;
-if (!empty ($_POST['subject']))
+if (array_key_exists('subject', $_POST))
 {
     $subject  = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_STRING);
 }
-elseif (!empty ($_GET['subject']))
+if (array_key_exists('subject', $_GET))
 {
     $subject  = filter_input(INPUT_GET, 'subject', FILTER_SANITIZE_STRING);
 }

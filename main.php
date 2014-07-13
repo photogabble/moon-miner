@@ -33,7 +33,7 @@ $res = $db->SelectLimit("SELECT * FROM {$pdo_db->prefix}ships WHERE email = ?", 
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-if (!isset($_GET['command']))
+if (!array_key_exists('command', $_GET))
 {
     $_GET['command'] = null;
 }

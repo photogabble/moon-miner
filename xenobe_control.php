@@ -33,22 +33,22 @@ function checked($yesno)
     return (($yesno == "Y") ? "CHECKED" : "");
 }
 
-if (isset($_POST['menu']))
+if (array_key_exists('menu', $_POST))
 {
     $module = $menu;
 }
 else
 {
-    $module = '';
+    $module = null;
 }
 
-if (isset($_POST['swordfish']))
+if (array_key_exists('swordfish', $_POST))
 {
     $swordfish = $_POST['swordfish'];
 }
 else
 {
-    $swordfish = '';
+    $swordfish = null;
 }
 
 if ($swordfish != ADMIN_PW)

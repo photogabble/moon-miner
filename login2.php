@@ -33,7 +33,7 @@ if (array_key_exists('email', $_POST) && $_POST['email'] != null)
     $lang = $playerinfo['lang'];
 }
 
-if (!isset($_GET['lang']))
+if (!array_key_exists('lang', $_GET))
 {
     $_GET['lang'] = null;
     $lang = $bntreg->default_lang;

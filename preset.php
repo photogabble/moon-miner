@@ -48,7 +48,7 @@ while (!$debug_query->EOF)
 $preset_list = array();
 
 // Filter the array of presets from the form submission
-if (isset($_POST['preset']))
+if (array_key_exists('preset', $_POST))
 {
     foreach ($_POST['preset'] as $key => $value)
     {
