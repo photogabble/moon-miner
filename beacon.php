@@ -28,7 +28,7 @@ Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 
-Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);

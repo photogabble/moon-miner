@@ -20,7 +20,7 @@
 require_once './common.php';
 include './config/admin_config.php';
 
-Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Hack for log bug issue - this really needs to be fixed
 $log_list = array (null,

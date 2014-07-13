@@ -20,7 +20,7 @@
 
 require_once './common.php';
 
-Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_att_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);

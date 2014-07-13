@@ -21,7 +21,7 @@ namespace Bnt;
 
 class Player
 {
-    public static function HandleAuth($db, $pdo_db, $lang, $langvars, $bntreg, $template)
+    public static function HandleAuth($pdo_db, $lang, $langvars, $bntreg, $template)
     {
         $flag = true;
         $error_status = null;
@@ -38,20 +38,14 @@ class Player
 
         if (is_null($_SESSION['username']) === false && is_null($_SESSION['password']) === false)
         {
-            $res = $db->SelectLimit(
-                "SELECT ip_address, password, last_login, ship_id, ship_destroyed, dev_escapepod" .
-                " FROM {$db->prefix}ships WHERE email=?",
-                1,
-                -1,
-                array('email' => $_SESSION['username'])
-            );
-            Db::logDbErrors($db, $res, __LINE__, __FILE__);
-//          This is producing errors for some reason, while if $res does not
-//          if ($res instanceof ADORecordSet && $res->RecordCount() >0)
-            if ($res)
-            {
-                $playerinfo = $res->fields;
+            $sql = "SELECT ip_address, password, last_login, ship_id, ship_destroyed, dev_escapepod FROM {$pdo_db->prefix}ships WHERE email=:email LIMIT 1";
+            $stmt = $pdo_db->prepare($sql);
+            $stmt->bindParam(':email', $_SESSION['username']);
+            $stmt->execute();
+            $playerinfo = $stmt->fetch();
 
+            if ($playerinfo !== false)
+            {
                 // Check the password against the stored hashed password
                 // Check the cookie to see if username/password are empty - check password against database
                 if (password_verify($_SESSION['password'], $playerinfo['password']))
@@ -63,11 +57,13 @@ class Player
                     // Update the players last_login every 60 seconds to cut back SQL Queries.
                     if ($timestamp['now'] >= ($timestamp['last'] + 60))
                     {
-                        $update_llogin = $db->Execute(
-                            "UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id=?;",
-                            array($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id'])
-                        );
-                        Db::logDbErrors($db, $update_llogin, __LINE__, __FILE__);
+                        $sql = "UPDATE {$pdo_db->prefix}ships SET last_login = :last_login, ip_address = :ip_address WHERE ship_id=:ship_id";
+                        $stmt = $pdo_db->prepare($sql);
+                        $stmt->bindParam(':last_login', $stamp);
+                        $stmt->bindParam(':ip_address', $_SERVER['REMOTE_ADDR']);
+                        $stmt->bindParam(':ship_id', $playerinfo['ship_id']);
+                        $stmt->execute();
+                        Db::logDbErrors($pdo_db, $sql, __LINE__, __FILE__);
 
                         // Reset the last activity time on the session so that the session renews - this is the
                         // replacement for the (now removed) update_cookie function.
@@ -94,12 +90,12 @@ class Player
         }
     }
 
-    public static function HandleBan($timestamp, $db, $pdo_db, $lang, $template, $playerinfo)
+    public static function HandleBan($pdo_db, $lang, $timestamp, $template, $playerinfo)
     {
         // Check to see if the player is banned every 60 seconds (may need to ajust this).
         if ($timestamp['now'] >= ($timestamp['last'] + 60))
         {
-            $ban_result = CheckBan::isBanned($db, $lang, null, $playerinfo);
+            $ban_result = CheckBan::isBanned($pdo_db, $lang, null, $playerinfo);
             if ($ban_result===false|| (array_key_exists('ban_type', $ban_result)&&$ban_result['ban_type']===ID_WATCH))
             {
                 return false;

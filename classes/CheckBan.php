@@ -25,7 +25,7 @@ namespace Bnt;
 
 class CheckBan
 {
-    public static function isBanned($db, $lang, $langvars, $player_acc = false)
+    public static function isBanned($pdo_db, $lang, $langvars, $player_acc = false)
     {
         // Check to see if we have valid player info.
         if (is_bool($player_acc) && $player_acc == false)
@@ -36,18 +36,32 @@ class CheckBan
         }
 
         // Check for IP Ban
-        $ipbans_res = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE (ban_type = ? AND ban_mask = ?) OR (ban_mask = ? AND ? != NULL);", array(IP_BAN, $_SERVER['REMOTE_ADDR'], $player_acc['ip_address'], $player_acc['ip_address']));
-        Db::logDbErrors($db, $ipbans_res, __LINE__, __FILE__);
-        if ($ipbans_res instanceof ADORecordSet && $ipbans_res->RecordCount() > 0)
+        $sql = "SELECT * FROM {$pdo_db->prefix}bans WHERE (ban_type = :ban_type AND ban_mask = :ban_mask1) OR (ban_mask = :ban_mask2)";
+        $stmt = $pdo_db->prepare($sql);
+        $stmt->bindValue(':ban_type', IP_BAN);
+        $stmt->bindParam(':ban_mask1', $player_acc['ip_address']);
+        $stmt->bindParam(':ban_mask2', $player_acc['ip_address']);
+        $stmt->execute();
+        $ipban_count = $stmt->rowCount();
+        $ipbans_res = $stmt->fetch();
+        Db::logDbErrors($pdo_db, $sql, __LINE__, __FILE__);
+
+        if ($ipban_count > 0)
         {
             // Ok, we have a ban record matching the players current IP Address, so return the BanType.
             return (array) $ipbans_res->fields;
         }
 
         // Check for ID Watch, Ban, Lock, 24H Ban etc linked to the platyers ShipID.
-        $idbans_res = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE ban_ship = ?;", array($player_acc['ship_id']));
-        Db::logDbErrors($db, $idbans_res, __LINE__, __FILE__);
-        if ($idbans_res instanceof ADORecordSet && $idbans_res->RecordCount() > 0)
+        $sql = "SELECT * FROM {$pdo_db->prefix}bans WHERE ban_ship = :ban_ship";
+        $stmt = $pdo_db->prepare($sql);
+        $stmt->bindParam(':ban_ship', $player_acc['ship_id']);
+        $stmt->execute();
+        $idban_count = $stmt->rowCount();
+        $idbans_res = $stmt->fetch();
+        Db::logDbErrors($pdo_db, $sql, __LINE__, __FILE__);
+
+        if ($idban_count > 0)
         {
             // Now return the highest ban type (i.e. worst type of ban)
             $ban_type = array('ban_type' => 0);
@@ -64,9 +78,18 @@ class CheckBan
         }
 
         // Check for Multi Ban (IP, ID)
-        $multiban_res = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE ban_type = ? AND (ban_mask = ? OR ban_mask = ? OR ban_ship = ?)", array(MULTI_BAN, $player_acc['ip_address'], $_SERVER['REMOTE_ADDR'], $player_acc['ship_id']));
-        Db::logDbErrors($db, $multiban_res, __LINE__, __FILE__);
-        if ($multiban_res instanceof ADORecordSet && $multiban_res->RecordCount() > 0)
+        $sql = "SELECT * FROM {$pdo_db->prefix}bans WHERE ban_type = :ban_type AND (ban_mask = :ban_mask1 OR ban_mask = :ban_mask2 OR ban_ship = :ban_ship)";
+        $stmt = $pdo_db->prepare($sql);
+        $stmt->bindValue(':ban_type', MULTI_BAN);
+        $stmt->bindParam(':ban_mask1', $player_acc['ip_address']);
+        $stmt->bindParam(':ban_mask2', $_SERVER['REMOTE_ADDR']);
+        $stmt->bindParam(':ban_ship', $player_acc['ship_id']);
+        $stmt->execute();
+        $multiban_count = $stmt->rowCount();
+        $multiban_res = $stmt->fetch();
+        Db::logDbErrors($pdo_db, $sql, __LINE__, __FILE__);
+
+        if ($multiban_count > 0)
         {
             // Ok, we have a ban record matching the players current IP Address or their ShipID, so return the BanType.
             return (array) $multiban_res->fields;

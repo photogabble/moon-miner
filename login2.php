@@ -80,7 +80,7 @@ if ($playerfound)
 {
     if (password_verify($_POST['pass'], $playerinfo['password']))
     {
-        $ban_result = Bnt\CheckBan::isBanned($db, $lang, null, $playerinfo);
+        $ban_result = Bnt\CheckBan::isBanned($pdo_db, $lang, null, $playerinfo);
         if ($ban_result === false ||  (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
         {
 

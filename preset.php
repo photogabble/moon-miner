@@ -19,7 +19,7 @@
 
 require_once './common.php';
 
-Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 $langvars = Bnt\Translate::load($db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];

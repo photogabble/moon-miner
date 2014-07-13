@@ -1,5 +1,6 @@
 TheKabal (12 July 2014)
 --------------------------------------
+Switch to pdo for all SQL calls via Login::checkLogin
 Fix '' and "" calls to actually use null
 For _SERVER, _GET and _POST, isset will not correctly detect null, while array_key_exists will - standardizing on this choice
 

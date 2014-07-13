@@ -21,16 +21,16 @@ namespace Bnt;
 
 class Login
 {
-    public static function checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template)
+    public static function checkLogin($pdo_db, $lang, $langvars, $bntreg, $template)
     {
         // Database driven language entries
         $langvars = Translate::load($pdo_db, $lang, array('login', 'global_funcs', 'common', 'footer', 'self_destruct'));
 
         // Check if game is closed - Ignore the false return if it is open
-        Game::isGameClosed($db, $pdo_db, $bntreg, $lang, $template, $langvars);
+        Game::isGameClosed($pdo_db, $bntreg, $lang, $template, $langvars);
 
         // Handle authentication check - Will die if fails, or return correct playerinfo
-        $playerinfo = Player::HandleAuth($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+        $playerinfo = Player::HandleAuth($pdo_db, $lang, $langvars, $bntreg, $template);
 
         // Establish timestamp for interval in checking bans
         $stamp = date('Y-m-d H:i:s');
@@ -38,10 +38,10 @@ class Login
         $timestamp['last'] = (int) strtotime($playerinfo['last_login']);
 
         // Check for ban - Ignore the false return if not
-        Player::HandleBan($timestamp, $db, $pdo_db, $lang, $template, $playerinfo);
+        Player::HandleBan($pdo_db, $lang, $timestamp, $template, $playerinfo);
 
         // Check for destroyed ship - Ignore the false return if not
-        Ship::isDestroyed($db, $pdo_db, $lang, $bntreg, $langvars, $template, $playerinfo);
+        Ship::isDestroyed($pdo_db, $lang, $bntreg, $langvars, $template, $playerinfo);
 
         return true;
     }

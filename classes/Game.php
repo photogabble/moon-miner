@@ -21,7 +21,7 @@ namespace Bnt;
 
 class Game
 {
-    public static function isGameClosed($db, $pdo_db, $bntreg, $lang, $template, $langvars)
+    public static function isGameClosed($pdo_db, $bntreg, $lang, $template, $langvars)
     {
 
         if ($bntreg->game_closed)
