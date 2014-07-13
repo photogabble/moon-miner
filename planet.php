@@ -397,11 +397,11 @@ if (!is_bool($planetinfo) && $planetinfo != false)
         {
             if (array_key_exists('planet_selected', $_SESSION) == false)
             {
-                $_SESSION['planet_selected'] = '';
+                $_SESSION['planet_selected'] = null;
             }
 
             // Kami Multi Browser Window Attack Fix
-            if ($_SESSION['planet_selected'] != $planet_id && $_SESSION['planet_selected'] != '')
+            if ($_SESSION['planet_selected'] != $planet_id && $_SESSION['planet_selected'] !== null)
             {
                 Bnt\AdminLog::writeLog($db, 57, "{$_SERVER['REMOTE_ADDR']}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
@@ -900,7 +900,7 @@ else
     echo $langvars['l_planet_none'] . "<p>";
 }
 
-if ($command != "")
+if ($command != null)
 {
     echo "<br><a href=planet.php?planet_id=$planet_id>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "<br><br>";
 }

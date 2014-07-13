@@ -23,14 +23,14 @@ if (strpos($_SERVER['PHP_SELF'], 'zone_editor.php')) // Prevent direct access to
 }
 
 // Set array with all used variables in page
-$variables['operation'] = '';
+$variables['operation'] = null;
 
 if (!isset($_POST['zone']))
 {
-    $_POST['zone'] = '';
+    $_POST['zone'] = null;
 }
 
-if ($_POST['zone'] == '')
+if ($_POST['zone'] == null)
 {
     $res = $db->Execute("SELECT zone_id, zone_name FROM {$db->prefix}zones ORDER BY zone_name");
     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
@@ -40,11 +40,11 @@ if ($_POST['zone'] == '')
         $res->MoveNext();
     }
     $variables['zones'] = $zones;
-    $variables['zone'] = '';
+    $variables['zone'] = null;
 }
 else
 {
-    $variables['zone'] = '';
+    $variables['zone'] = null;
     if ($_POST['operation'] == "edit")
     {
         $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($_POST['zone']));
@@ -59,25 +59,25 @@ else
         $variables['max_hull'] = $row['max_hull'];
         $variables['zone'] = $_POST['zone'];
 
-        $variables['allow_beacon'] = '';
+        $variables['allow_beacon'] = null;
         if ($row['allow_beacon'] == 'Y')
         {
             $variables['allow_beacon'] = 'checked="checked"';
         }
 
-        $variables['allow_attack'] = '';
+        $variables['allow_attack'] = null;
         if ($row['allow_attack'] == 'Y')
         {
             $variables['allow_attack'] = 'checked="checked"';
         }
 
-        $variables['allow_warpedit'] = '';
+        $variables['allow_warpedit'] = null;
         if ($row['allow_warpedit'] == 'Y')
         {
             $variables['allow_warpedit'] = 'checked="checked"';
         }
 
-        $variables['allow_planet'] = '';
+        $variables['allow_planet'] = null;
         if ($row['allow_planet'] == 'Y')
         {
             $variables['allow_planet'] = 'checked="checked"';

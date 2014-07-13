@@ -54,8 +54,8 @@ if (!$bntreg->allow_ibank)
 // TODO: Add filtering to command list
 if (!array_key_exists('command', $_GET))
 {
-    $_GET['command'] = '';
-    $command = '';
+    $_GET['command'] = null;
+    $command = null;
 }
 else
 {
@@ -65,8 +65,8 @@ else
 // TODO: Add filtering to amount
 if (!array_key_exists('amount', $_POST))
 {
-    $_POST['amount'] = '';
-    $amount = '';
+    $_POST['amount'] = null;
+    $amount = null;
 }
 else
 {

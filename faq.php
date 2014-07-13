@@ -23,7 +23,7 @@ if (!array_key_exists('lang', $_GET))
 {
     $_GET['lang'] = null;
     $lang = $bntreg->default_lang;
-    $link = '';
+    $link = null;
 }
 else
 {

@@ -22,20 +22,20 @@ if (strpos($_SERVER['PHP_SELF'], 'sector_editor.php')) // Prevent direct access 
     die('Blacknova Traders error: You cannot access this file directly.');
 }
 
-$variables['operation'] = '';
+$variables['operation'] = null;
 
 if (!isset($_POST['sector']))
 {
-    $_POST['sector'] = '';
+    $_POST['sector'] = null;
 }
 
 if (!isset($_POST['operation']))
 {
-    $_POST['operation'] = '';
+    $_POST['operation'] = null;
 }
 
 $variables['sector'] = $_POST['sector'];
-if ($_POST['sector'] == '')
+if ($_POST['sector'] === null)
 {
     $res = $db->Execute("SELECT sector_id FROM {$db->prefix}universe ORDER BY sector_id");
     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
@@ -48,7 +48,7 @@ if ($_POST['sector'] == '')
 }
 else
 {
-    if ($_POST['operation'] == '')
+    if ($_POST['operation'] === null)
     {
         $res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($_POST['sector']));
         Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);

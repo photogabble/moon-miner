@@ -77,7 +77,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
             }
             else
             {
-                $selected = '';
+                $selected = null;
             }
             echo "<option value='" . $lang_file . "'" . $selected . ">" . $row['value'] . "</option>";
             $result->MoveNext();

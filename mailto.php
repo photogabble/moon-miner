@@ -126,7 +126,7 @@ if (empty ($content))
     }
     else
     {
-        $subject = '';
+        $subject = null;
     }
 
     echo "    <tr>\n";

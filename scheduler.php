@@ -99,7 +99,7 @@ else
     }
     else
     {
-        $swordfish = '';
+        $swordfish = null;
     }
 }
 

@@ -370,7 +370,7 @@ else
             else
             {
                 $planet = $pl_result->fields;
-                if ($planet['name'] == "")
+                if ($planet['name'] === null)
                 {
                     echo $langvars['l_unnamed'] . " ";
                 }
@@ -410,7 +410,7 @@ else
             else
             {
                 $planet = $pl_dest_result->fields;
-                if ($planet['name'] == "")
+                if ($planet['name'] === null)
                 {
                     echo $langvars['l_unnamed'];
                 }

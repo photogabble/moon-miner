@@ -26,7 +26,7 @@ $button_main = true;
 
 if (!isset($_POST['operation']))
 {
-    $_POST['operation'] = '';
+    $_POST['operation'] = null;
 }
 
 if (empty ($_POST['user']))
@@ -38,12 +38,12 @@ if (empty ($_POST['user']))
         $players[]=$res->fields;
         $res->MoveNext();
     }
-    $variables['user'] = '';
+    $variables['user'] = null;
     $variables['players'] = $players;
 }
 else
 {
-    if ($_POST['operation'] == '')
+    if ($_POST['operation'] === null)
     {
         $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array ($_POST['user']));
         Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
@@ -82,19 +82,19 @@ else
         $variables['sector'] = $row['sector'];
 
         // For checkboxes, switch out the database stored value of Y/N for the html checked="checked", so the checkbox actually is checked.
-        $variables['dev_escapepod'] = '';
+        $variables['dev_escapepod'] = null;
         if ($row['dev_escapepod'] == 'Y')
         {
             $variables['dev_escapepod'] = 'checked="checked"';
         }
 
-        $variables['dev_fuelscoop'] = '';
+        $variables['dev_fuelscoop'] = null;
         if ($row['dev_fuelscoop'] == 'Y')
         {
             $variables['dev_fuelscoop'] = 'checked="checked"';
         }
 
-        $variables['ship_destroyed'] = '';
+        $variables['ship_destroyed'] = null;
         if ($row['ship_destroyed'] == 'Y')
         {
             $variables['ship_destroyed'] = 'checked="checked"';

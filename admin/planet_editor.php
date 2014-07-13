@@ -32,7 +32,7 @@ if (empty($planet))
     while (!$res->EOF)
     {
         $row = $res->fields;
-        if ($row['name'] == "")
+        if ($row['name'] == null)
         {
             $row['name'] = $langvars['l_unnamed'];
         }

@@ -95,11 +95,11 @@ $qty = $defenceinfo['quantity'];
 if ($defenceinfo['fm_setting'] == 'attack')
 {
     $set_attack = 'CHECKED';
-    $set_toll = '';
+    $set_toll = null;
 }
 else
 {
-    $set_attack = '';
+    $set_attack = null;
     $set_toll = 'CHECKED';
 }
 

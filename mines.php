@@ -56,7 +56,7 @@ $owns_all = true;
 $fighter_id = 0;
 $mine_id = 0;
 $set_attack = 'CHECKED';
-$set_toll = '';
+$set_toll = null;
 
 // Do we have a valid recordset?
 if ($result3 instanceof ADORecordSet)
@@ -85,11 +85,11 @@ if ($result3 instanceof ADORecordSet)
                 if ($defences[$i]['fm_setting'] == 'attack')
                 {
                     $set_attack = 'CHECKED';
-                    $set_toll = '';
+                    $set_toll = null;
                 }
                 else
                 {
-                    $set_attack = '';
+                    $set_attack = null;
                     $set_toll = 'CHECKED';
                 }
             }

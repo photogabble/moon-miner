@@ -23,7 +23,7 @@ if (!array_key_exists('lang', $_GET))
 {
     $_GET['lang'] = null;
     $lang = $bntreg->default_lang;
-    $link = '';
+    $link = null;
 }
 else
 {
@@ -37,7 +37,7 @@ $title = $langvars['l_news_title'];
 Bnt\Header::display($db, $lang, $template, $title);
 
 $startdate = date("Y/m/d");
-if (array_key_exists('startdate', $_GET) && ($_GET['startdate'] != ''))
+if (array_key_exists('startdate', $_GET) && ($_GET['startdate'] !== null))
 {
     // The date wasn't supplied so use today's date
     $startdate = $_GET['startdate'];

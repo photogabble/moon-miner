@@ -99,7 +99,7 @@ class Rand
 
     public static function uRand($min = 0, $max = 0x7FFFFFFF)
     {
-        $bits = '';
+        $bits = null;
         $range = $max - $min;
         $bytes = ceil($range / 256);
         $fp = @fopen('/dev/urandom', 'rb');

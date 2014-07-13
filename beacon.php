@@ -86,9 +86,9 @@ if ($playerinfo['dev_beacon'] > 0)
 
     if ($allowed_rsw == "Y")
     {
-        if ($beacon_text == "")
+        if ($beacon_text === null)
         {
-            if ($sectorinfo['beacon'] != "")
+            if ($sectorinfo['beacon'] != null)
             {
                 echo $langvars['l_beacon_reads'] . ": " . $sectorinfo['beacon'] . "<br><br>";
             }

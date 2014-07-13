@@ -23,7 +23,7 @@ if (strpos($_SERVER['PHP_SELF'], 'universe_editor.php')) // Prevent direct acces
 }
 
 $i = 0;
-$changed_sectors = '';
+$changed_sectors = null;
 $action  = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 $radius  = filter_input(INPUT_POST, 'radius', FILTER_SANITIZE_NUMBER_INT);
 

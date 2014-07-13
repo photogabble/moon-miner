@@ -1480,7 +1480,7 @@ class Traderoute
         {
             $planets[$i] = $result->fields;
 
-            if ($planets[$i]['name'] == "")
+            if ($planets[$i]['name'] === null)
             {
                 $planets[$i]['name'] = $langvars['l_tdr_unnamed'];
             }
@@ -1498,7 +1498,7 @@ class Traderoute
         {
             $planets_corp[$i] = $result->fields;
 
-            if ($planets_corp[$i]['name'] == "")
+            if ($planets_corp[$i]['name'] === null)
             {
                 $planets_corp[$i]['name'] = $langvars['l_tdr_unnamed'];
             }

@@ -34,7 +34,7 @@ $playerinfo = $res->fields;
 
 if (!array_key_exists('action', $_GET))
 {
-    $_GET['action'] = '';
+    $_GET['action'] = null;
 }
 
 if ($_GET['action'] == "delete")

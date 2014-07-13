@@ -133,7 +133,7 @@ else
 
 if (!array_key_exists('lang', $_GET))
 {
-    $sf_logo_link = '';
+    $sf_logo_link = null;
 }
 else
 {

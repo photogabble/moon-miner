@@ -43,7 +43,7 @@ if (($swordfish !== null) && (ADMIN_PW != $swordfish)) // If a swordfish passwor
 else // If swordfish is set and matches (good pass)
 {
     $variables['goodpass'] = true;
-    if (isset($step) && $step != '') // We've got a good pass, and its not step 1
+    if (isset($step) && $step != null) // We've got a good pass, and its not step 1
     {
         $create_universe_info = Bnt\BigBang::findStep(false);
         natsort($create_universe_info['files']);

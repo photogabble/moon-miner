@@ -268,7 +268,7 @@ switch ($response) {
             }
             else
             {
-                $selected = "";
+                $selected = null;
             }
 
             $charname = $res->fields['character_name'];

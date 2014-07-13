@@ -323,7 +323,7 @@ if ($swordfish == ADMIN_PW) // Fix for admin log view
 }
 else
 {
-    $postlink = "";
+    $postlink = null;
 }
 
 if ($mode != 'compat')
