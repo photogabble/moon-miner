@@ -41,7 +41,7 @@ class Compress
 
         // Handle the supported compressions.
         $supported_enc = array ();
-        if (isset($_SERVER['HTTP_ACCEPT_ENCODING']))
+        if (array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER))
         {
             $supported_enc = explode(',', $_SERVER['HTTP_ACCEPT_ENCODING']);
         }

@@ -37,7 +37,7 @@ class Template
 // will be reverting back once exploit is fixed.
 /*
         // Here we check if it's an External Client, else it's a Browser Client.
-        if (isset($_SERVER['HTTP_ACCEPT']) && mb_strlen ($_SERVER['HTTP_ACCEPT']) > 0)
+        if ((array_key_exists('HTTP_ACCEPT', $_SERVER)) && mb_strlen ($_SERVER['HTTP_ACCEPT']) > 0)
         {
             $accept = $_SERVER['HTTP_ACCEPT'];
         }
@@ -189,7 +189,7 @@ class Template
 
         // Handle the supported compressions.
         $supported_enc = array ();
-        if (isset($_SERVER['HTTP_ACCEPT_ENCODING']))
+        if (array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER))
         {
             $supported_enc = explode(',', $_SERVER['HTTP_ACCEPT_ENCODING']);
         }

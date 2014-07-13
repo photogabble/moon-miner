@@ -24,7 +24,7 @@ $variables = null;
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
-if (isset($_SESSION['username']))
+if (array_key_exists('username', $_SESSION))
 {
     $current_score = 0;
     $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -46,7 +46,7 @@ if (isset($_SESSION['username']))
 }
 else
 {
-    $variables['session_username'] = '';
+    $variables['session_username'] = null;
     $variables['linkback'] = array ("fulltext" => $langvars['l_global_mlogin'], "link" => "index.php");
 }
 
