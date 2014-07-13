@@ -24,12 +24,12 @@ if (strpos($_SERVER['PHP_SELF'], 'sector_editor.php')) // Prevent direct access 
 
 $variables['operation'] = null;
 
-if (!isset($_POST['sector']))
+if (!array_key_exists('sector', $_POST))
 {
     $_POST['sector'] = null;
 }
 
-if (!isset($_POST['operation']))
+if (!array_key_exists('operation', $_POST))
 {
     $_POST['operation'] = null;
 }

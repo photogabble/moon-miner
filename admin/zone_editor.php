@@ -25,7 +25,7 @@ if (strpos($_SERVER['PHP_SELF'], 'zone_editor.php')) // Prevent direct access to
 // Set array with all used variables in page
 $variables['operation'] = null;
 
-if (!isset($_POST['zone']))
+if (!array_key_exists('zone', $_POST))
 {
     $_POST['zone'] = null;
 }

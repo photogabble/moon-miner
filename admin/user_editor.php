@@ -24,7 +24,7 @@ if (strpos($_SERVER['PHP_SELF'], 'user_editor.php')) // Prevent direct access to
 
 $button_main = true;
 
-if (!isset($_POST['operation']))
+if (!array_key_exists('operation', $_POST))
 {
     $_POST['operation'] = null;
 }
