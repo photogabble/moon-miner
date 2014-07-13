@@ -25,7 +25,7 @@ Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 $langvars = Bnt\Translate::load($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
 $title = $langvars['l_zi_title'];
 $body_class = 'zoneinfo';
-Bnt\Header::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class=" . $body_class . ">";

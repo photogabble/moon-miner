@@ -24,7 +24,7 @@ Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'news', 'footer'));
 $title = $langvars['l_die_title'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 echo "<h1>" . $title . "</h1>\n";
 

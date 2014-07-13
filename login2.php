@@ -51,7 +51,7 @@ $langvars = Bnt\Translate::load($db, $lang, array ('login2', 'login', 'common', 
 if ($bntreg->game_closed)
 {
     $title = $langvars['l_login_sclosed'];
-    Bnt\Header::display($db, $lang, $template, $title);
+    Bnt\Header::display($pdo_db, $lang, $template, $title);
     echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>" . $langvars['l_login_closed_message'] . "</div><br>\n";
     echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
     Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
@@ -73,7 +73,7 @@ if (isset ($playerinfo) && $playerfound != false)
     }
 }
 
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 echo "<h1>" . $title . "</h1>\n";
 
 if ($playerfound)

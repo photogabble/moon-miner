@@ -24,7 +24,7 @@ class Login
     public static function checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template)
     {
         // Database driven language entries
-        $langvars = Translate::load($db, $lang, array('login', 'global_funcs', 'common', 'footer', 'self_destruct'));
+        $langvars = Translate::load($pdo_db, $lang, array('login', 'global_funcs', 'common', 'footer', 'self_destruct'));
 
         // Check if game is closed - Ignore the false return if it is open
         Game::isGameClosed($db, $pdo_db, $bntreg, $lang, $template, $langvars);

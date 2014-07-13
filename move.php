@@ -22,7 +22,7 @@ require_once './common.php';
 Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_move_title'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 $sector  = (int) filter_input(INPUT_GET, 'sector', FILTER_SANITIZE_NUMBER_INT);
 

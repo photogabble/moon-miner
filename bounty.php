@@ -27,7 +27,7 @@ $langvars = Bnt\Translate::load($db, $lang, array ('bounty', 'port', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news'));
 $title = $langvars['l_by_title'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 $response = null;
 if (array_key_exists('response', $_POST))

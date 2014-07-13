@@ -20,7 +20,7 @@
 require_once './common.php';
 
 $title = $langvars['l_mail_title'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));

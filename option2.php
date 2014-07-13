@@ -54,7 +54,7 @@ if (array_key_exists('newlang', $_POST) == true)
 }
 
 $title = $langvars['l_opt2_title'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));

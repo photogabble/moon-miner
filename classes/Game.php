@@ -27,7 +27,7 @@ class Game
         if ($bntreg->game_closed)
         {
             $title = $langvars['l_login_closed_message'];
-            Header::display($db, $lang, $template, $title);
+            Header::display($pdo_db, $lang, $template, $title);
             echo $langvars['l_login_closed_message'];
             Footer::display($pdo_db, $lang, $bntreg, $template);
             die();

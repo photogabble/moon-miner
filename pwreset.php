@@ -23,7 +23,7 @@ require_once './common.php';
 $langvars = Bnt\Translate::load($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset'));
 $title = $langvars['l_pwr_title'];
 $body_class = 'options';
-Bnt\Header::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 

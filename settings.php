@@ -28,7 +28,7 @@ if (array_key_exists('lang', $_GET))
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'main', 'regional'));
 $title = $langvars['l_settings'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 $line_color = $bntreg->color_line1;
 

@@ -66,7 +66,7 @@ require_once './common.php';
 include './config/admin_config.php';
 
 $title = $langvars['l_sys_update'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));

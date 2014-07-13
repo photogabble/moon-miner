@@ -22,7 +22,7 @@ require_once './common.php';
 Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_help'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 echo "<h1>" . $title . "</h1>\n";
 
 echo "Greetings and welcome to Blacknova Traders!";

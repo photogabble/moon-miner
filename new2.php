@@ -20,7 +20,7 @@
 require_once './common.php';
 
 $title = $langvars['l_new_title2'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'));

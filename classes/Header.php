@@ -24,9 +24,9 @@ namespace Bnt;
 
 class Header
 {
-    public static function display($db, $lang, $template, $title = null, $body_class = 'bnt', $include_ckeditor = false)
+    public static function display($pdo_db, $lang, $template, $title = null, $body_class = 'bnt', $include_ckeditor = false)
     {
-        $langvars = Translate::load($db, $lang, array('common'));
+        $langvars = Translate::load($pdo_db, $lang, array('common'));
 
         $variables = null;
         $variables['lang'] = $lang;

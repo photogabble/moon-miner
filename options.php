@@ -26,7 +26,7 @@ $body_class = 'options';
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('options', 'common', 'global_includes', 'global_funcs', 'footer'));
 $title = $langvars['l_opt_title'];
-Bnt\Header::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class = " . $body_class . ">";

@@ -25,7 +25,7 @@ Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 $langvars = Bnt\Translate::load($db, $lang, array ('port', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'bounty', 'regional'));
 $title = $langvars['l_title_port'];
 $body_class = 'port';
-Bnt\Header::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
 echo "<body class=" . $body_class . "><br>";
 

@@ -83,7 +83,7 @@ class Player
             $title = $langvars['l_error'];
             $error_status .= str_replace('[here]', "<a href='index.php'>" . $langvars['l_here'] . '</a>', $langvars['l_global_needlogin']);
             $title = $langvars['l_error'];
-            Header::display($db, $lang, $template, $title);
+            Header::display($pdo_db, $lang, $template, $title);
             echo $error_status;
             Footer::display($pdo_db, $lang, $bntreg, $template);
             die();
@@ -138,7 +138,7 @@ class Player
                 $error_status .= str_replace('[here]', "<a href='index.php'>" . $langvars['l_here'] . '</a>', $langvars['l_global_mlogin']);
 
                 $title = $langvars['l_error'];
-                Header::display($db, $lang, $template, $title);
+                Header::display($pdo_db, $lang, $template, $title);
                 echo $error_status;
                 Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();

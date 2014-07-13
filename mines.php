@@ -25,7 +25,7 @@ Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 $langvars = Bnt\Translate::load($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 
 $title = $langvars['l_mines_title'];
-Bnt\Header::display($db, $lang, $template, $title);
+Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 $op = null;
 if (array_key_exists('op', $_GET) == true)

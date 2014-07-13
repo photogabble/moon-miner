@@ -24,7 +24,7 @@ Bnt\Login::checkLogin($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 $langvars = Bnt\Translate::load($db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];
 $body_class = 'bnt';
-Bnt\Header::display($db, $lang, $template, $title, $body_class);
+Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));

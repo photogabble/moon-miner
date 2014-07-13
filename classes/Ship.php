@@ -51,7 +51,7 @@ class Ship
                 $error_status .= str_replace('[logout]', "<a href='logout.php'>" .
                                  $langvars['l_logout'] . '</a>', $langvars['l_die_please']);
                 $title = $langvars['l_error'];
-                Header::display($db, $lang, $template, $title);
+                Header::display($pdo_db, $lang, $template, $title);
                 echo $error_status;
                 Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();
