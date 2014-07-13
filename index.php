@@ -21,7 +21,7 @@ $index_page = true;
 require_once './common.php';
 
 // If language has not been selected, give default
-if (!isset($_GET['lang']))
+if (!array_key_exists('lang', $_GET))
 {
     $_GET['lang'] = null;
     $lang = $bntreg->default_lang;
