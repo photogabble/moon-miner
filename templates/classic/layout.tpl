@@ -109,7 +109,7 @@ if (news.initTicker("news_ticker") == true)
 
 {* Handle the Servers Update Ticker here *}
 {if isset($variables['update_ticker']['display']) && $variables['update_ticker']['display'] == true}
-    <script type='text/javascript' async src='{$template_dir}/javascript/updateticker.js.php'></script>
+    <script type='text/javascript' src='{$template_dir}/javascript/updateticker.js.php'></script>
     <script>
         var seconds = {$variables['update_ticker']['seconds_left']};
         var nextInterval = new Date().getTime();
