@@ -51,14 +51,12 @@ $variables['link_forums'] = $bntreg->link_forums;
 $variables['admin_mail'] = $bntreg->admin_mail;
 $variables['body_class'] = 'index';
 
-// Get a list of available languages
-$list_of_langs = Bnt\Languages::listAvailable($pdo_db, $lang);
+// Get list of available languages
+$variables['list_of_langs'] = Bnt\Languages::listAvailable($pdo_db, $lang);
 
-// Add the games supported languages and unset no longer required variables.
-$variables['list_of_langs'] = $list_of_langs;
-unset($list_of_langs);
+// Temporarily set the template to the default template until we have a user option
+$variables['template'] = $bntreg->default_template;
 
-$variables['template'] = $bntreg->default_template; // Temporarily set the template to the default template until we have a user option
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = 'variable';
 $langvars['container'] = 'langvars';
