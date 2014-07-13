@@ -40,7 +40,7 @@ $num_traderoutes = $result->RecordCount();
 if (isset($traderoutes))
 {
     Bnt\AdminLog::writeLog($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded TradeRoute.");
-    Bad\Traderoute::traderouteDie($db, $lang, $langvars, $bntreg, "<div style='color:#fff; font-size: 12px;'>[<span style='color:#ff0;'>The Governor</span>] <span style='color:#f00;'>Detected Traderoute Hack!</span></div>\n", $template);
+    Bad\Traderoute::traderouteDie($db, $pdo_db, $lang, $langvars, $bntreg, "<div style='color:#fff; font-size: 12px;'>[<span style='color:#ff0;'>The Governor</span>] <span style='color:#f00;'>Detected Traderoute Hack!</span></div>\n", $template);
 }
 
 $traderoutes = array ();
@@ -111,17 +111,17 @@ if (array_key_exists('command', $_GET) == true)
 if ($command == 'new')
 {
     // Displays new trade route form
-    Bad\Traderoute::traderouteNew($db, $lang, $langvars, $bntreg, null, $template);
+    Bad\Traderoute::traderouteNew($pdo_db, $lang, $langvars, $bntreg, null, $template);
 }
 elseif ($command == 'create')
 {
     // Enters new route in db
-    Bad\Traderoute::traderouteCreate($db, $lang, $langvars, $bntreg, $template);
+    Bad\Traderoute::traderouteCreate($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 }
 elseif ($command == 'edit')
 {
     // Displays new trade route form, edit
-    Bad\Traderoute::traderouteNew($db, $lang, $langvars, $bntreg, $traderoute_id, $template);
+    Bad\Traderoute::traderouteNew($pdo_db, $lang, $langvars, $bntreg, $traderoute_id, $template);
 }
 elseif ($command == 'delete')
 {
@@ -131,12 +131,12 @@ elseif ($command == 'delete')
 elseif ($command == 'settings')
 {
     // Global traderoute settings form
-    Bad\Traderoute::traderouteSettings($db, $lang, $langvars, $bntreg, $template);
+    Bad\Traderoute::traderouteSettings($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 }
 elseif ($command == 'setsettings')
 {
     // Enters settings in db
-    Bad\Traderoute::traderouteSetsettings($db, $lang, $langvars, $bntreg, $template);
+    Bad\Traderoute::traderouteSetsettings($db, $pdo_db, $lang, $langvars, $bntreg, $template);
 }
 elseif (isset ($engage))
 {
@@ -147,7 +147,7 @@ elseif (isset ($engage))
         $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
         Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
         $playerinfo = $result->fields;
-        Bad\Traderoute::traderouteEngage($db, $lang, $i, $langvars);
+        Bad\Traderoute::traderouteEngage($db, $pdo_db, $lang, $i, $langvars);
         $i--;
     }
 }
