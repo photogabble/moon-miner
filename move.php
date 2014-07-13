@@ -27,7 +27,7 @@ Bnt\Header::display($pdo_db, $lang, $template, $title);
 $sector  = (int) filter_input(INPUT_GET, 'sector', FILTER_SANITIZE_NUMBER_INT);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('move', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('move', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 // Retrieve the user and ship information
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

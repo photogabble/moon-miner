@@ -47,7 +47,7 @@ if (result == true)
 
 <?php
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('news'));
 
 $startdate = date("Y/m/d");
 if ($db->inactive)

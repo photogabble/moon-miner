@@ -26,7 +26,7 @@ $title = $langvars['l_att_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('attack', 'bounty', 'main',
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('attack', 'bounty', 'main',
                                 'planet', 'common', 'global_includes',
                                 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";

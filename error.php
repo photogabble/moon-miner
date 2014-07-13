@@ -20,7 +20,7 @@
 require_once './common.php';
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('footer', 'common', 'error', 'main'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('footer', 'common', 'error', 'main'));
 // Always make sure we are using empty vars before use.
 $variables = null;
 

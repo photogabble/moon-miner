@@ -27,7 +27,7 @@ require_once './common.php';
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 $title = $langvars['l_gns_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 

@@ -24,7 +24,7 @@ $active_template = 'classic';
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
@@ -87,7 +87,7 @@ elseif ($command == 'withdraw2') //withdraw operation
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    Bad\Ibank::deposit($db, $lang, $account, $playerinfo, $langvars);
+    Bad\Ibank::deposit($db, $pdo_db, $lang, $account, $playerinfo, $langvars);
 }
 elseif ($command == 'deposit2') //deposit operation
 {

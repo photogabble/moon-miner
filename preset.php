@@ -21,13 +21,13 @@ require_once './common.php';
 
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
-$langvars = Bnt\Translate::load($db, $lang, array ('presets'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];
 $body_class = 'bnt';
 Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class ='" . $body_class . "'>";
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

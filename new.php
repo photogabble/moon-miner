@@ -32,7 +32,7 @@ else
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index', 'options'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index', 'options'));
 
 $variables = null;
 $variables['lang'] = $lang;

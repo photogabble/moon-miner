@@ -25,7 +25,7 @@ $title = $langvars['l_md_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 if (!isset($defence_id))
 {

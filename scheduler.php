@@ -69,7 +69,7 @@ $title = $langvars['l_sys_update'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));
 echo "<h1>" . $title . "</h1>\n";
 
 // This isn't the right thing to do, but its better than creating an entire class for a 12 line function.

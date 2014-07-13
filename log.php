@@ -33,7 +33,7 @@ $log_list = array (null,
                 );
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $title = $langvars['l_log_titlet'];
 $body_class = 'log';

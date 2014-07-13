@@ -25,7 +25,7 @@ if (strpos($_SERVER['PHP_SELF'], 'sched_news.php')) // Prevent direct access to 
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 echo "<strong>Posting News</strong><br>\n";
 

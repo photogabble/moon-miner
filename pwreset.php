@@ -20,7 +20,7 @@
 require_once './common.php';
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'options', 'pwreset'));
 $title = $langvars['l_pwr_title'];
 $body_class = 'options';
 Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);

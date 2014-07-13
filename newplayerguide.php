@@ -36,7 +36,7 @@ $body_class = 'faq';
 Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('global_funcs'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('global_funcs'));
 echo "<body class='" . $body_class . "'";
 
 ?>

@@ -23,7 +23,7 @@ if (strpos($_SERVER['PHP_SELF'], 'check_mines.php')) // Prevent direct access to
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('check_mines', 'common', 'global_includes', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('check_mines', 'common', 'global_includes', 'combat', 'footer', 'news'));
 
 // Put the sector information into the array "sectorinfo"
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($sector));

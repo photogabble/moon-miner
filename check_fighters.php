@@ -23,7 +23,7 @@ if (strpos($_SERVER['PHP_SELF'], 'check_fighters.php')) // Prevent direct access
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($sector));
 Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);

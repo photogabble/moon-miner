@@ -28,7 +28,7 @@ if (strpos($_SERVER['PHP_SELF'], 'sched_xenobe.php')) // Prevent direct access t
 echo "<br><strong>Xenobe TURNS</strong><br><br>";
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($db, $lang, array ('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array ('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'));
 
 global $targetlink;
 global $xenobeisdead;

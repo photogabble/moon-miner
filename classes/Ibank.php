@@ -950,10 +950,10 @@ class Ibank
         }
     }
 
-    public static function deposit($db, $lang, $account, $playerinfo, $langvars)
+    public static function deposit($db, $pdo_db, $lang, $account, $playerinfo, $langvars)
     {
         // Database driven language entries
-        $langvars = \Bnt\Translate::load($db, $lang, array ('igb'));
+        $langvars = \Bnt\Translate::load($pdo_db, $lang, array ('igb'));
 
         $max_credits_allowed = 18446744073709000000;
         $credit_space = ($max_credits_allowed - $account['balance']);
