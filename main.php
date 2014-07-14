@@ -22,7 +22,7 @@ require_once './common.php';
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes', 'regional'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes', 'regional'));
 $title = $langvars['l_main_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
@@ -63,7 +63,7 @@ $sectorinfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($playerinfo['on_planet'] == "Y")
 {
-    $res2 = $db->Execute("SELECT planet_id, owner FROM {$pdo_db->prefix}planets WHERE planet_id = ?;", array ($playerinfo['planet_id']));
+    $res2 = $db->Execute("SELECT planet_id, owner FROM {$pdo_db->prefix}planets WHERE planet_id = ?;", array($playerinfo['planet_id']));
     Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
     if ($res2->RecordCount() != 0)
     {
@@ -73,12 +73,12 @@ if ($playerinfo['on_planet'] == "Y")
     }
     else
     {
-        $db->Execute("UPDATE {$pdo_db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+        $db->Execute("UPDATE {$pdo_db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array($playerinfo['ship_id']));
         echo "<br>" . $langvars['l_nonexistant_pl'] . "<br><br>";
     }
 }
 
-$res = $db->Execute("SELECT * FROM {$pdo_db->prefix}links WHERE link_start=? ORDER BY link_dest ASC;", array ($playerinfo['sector']));
+$res = $db->Execute("SELECT * FROM {$pdo_db->prefix}links WHERE link_start=? ORDER BY link_dest ASC;", array($playerinfo['sector']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 $i = 0;
@@ -93,7 +93,7 @@ if ($res != false)
 }
 $num_links = $i;
 
-$res = $db->Execute("SELECT * FROM {$pdo_db->prefix}planets WHERE sector_id = ?;", array ($playerinfo['sector']));
+$res = $db->Execute("SELECT * FROM {$pdo_db->prefix}planets WHERE sector_id = ?;", array($playerinfo['sector']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 $i = 0;
@@ -108,7 +108,7 @@ if ($res != false)
 }
 $num_planets = $i;
 
-$res = $db->Execute("SELECT * FROM {$pdo_db->prefix}sector_defence, {$pdo_db->prefix}ships WHERE {$pdo_db->prefix}sector_defence.sector_id = ? AND {$pdo_db->prefix}ships.ship_id = {$pdo_db->prefix}sector_defence.ship_id;", array ($playerinfo['sector']));
+$res = $db->Execute("SELECT * FROM {$pdo_db->prefix}sector_defence, {$pdo_db->prefix}ships WHERE {$pdo_db->prefix}sector_defence.sector_id = ? AND {$pdo_db->prefix}ships.ship_id = {$pdo_db->prefix}sector_defence.ship_id;", array($playerinfo['sector']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 $i = 0;
@@ -148,7 +148,7 @@ echo "<div style='width:90%; margin:auto; background-color:#400040; color:#C0C0C
 echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['character_name']}</span>{$langvars['l_aboard']} <span style='color:#fff; font-weight:bold;'><a class='new_link' style='font-size:14px;' href='report.php'>{$playerinfo['ship_name']}</a></span>\n";
 echo "</div>\n";
 
-$result = $db->Execute("SELECT * FROM {$pdo_db->prefix}messages WHERE recp_id = ? AND notified = ?;", array ($playerinfo['ship_id'], "N"));
+$result = $db->Execute("SELECT * FROM {$pdo_db->prefix}messages WHERE recp_id = ? AND notified = ?;", array($playerinfo['ship_id'], "N"));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 
 if ($result->RecordCount() > 0)
@@ -158,7 +158,7 @@ if ($result->RecordCount() > 0)
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
 
-    $res = $db->Execute("UPDATE {$pdo_db->prefix}messages SET notified='Y' WHERE recp_id = ?;", array ($playerinfo['ship_id']));
+    $res = $db->Execute("UPDATE {$pdo_db->prefix}messages SET notified='Y' WHERE recp_id = ?;", array($playerinfo['ship_id']));
     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 }
 
@@ -306,7 +306,7 @@ $i = 0;
 $num_traderoutes = 0;
 
 // Traderoute querry
-$tr_result = $db->Execute("SELECT * FROM {$pdo_db->prefix}traderoutes WHERE source_type = ? AND source_id = ? AND owner = ? ORDER BY dest_id ASC;", array ("P", $playerinfo['sector'], $playerinfo['ship_id']));
+$tr_result = $db->Execute("SELECT * FROM {$pdo_db->prefix}traderoutes WHERE source_type = ? AND source_id = ? AND owner = ? ORDER BY dest_id ASC;", array("P", $playerinfo['sector'], $playerinfo['ship_id']));
 Bnt\Db::logDbErrors($db, $tr_result, __LINE__, __FILE__);
 while (!$tr_result->EOF)
 {
@@ -317,7 +317,7 @@ while (!$tr_result->EOF)
 }
 
 // Sector Defense Trade route query - this is still under developement
-$sd_tr_result = $db->Execute("SELECT * FROM {$pdo_db->prefix}traderoutes WHERE source_type='D' AND source_id = ? AND owner = ? ORDER BY dest_id ASC;", array ($playerinfo['sector'], $playerinfo['ship_id']));
+$sd_tr_result = $db->Execute("SELECT * FROM {$pdo_db->prefix}traderoutes WHERE source_type='D' AND source_id = ? AND owner = ? ORDER BY dest_id ASC;", array($playerinfo['sector'], $playerinfo['ship_id']));
 Bnt\Db::logDbErrors($db, $sd_tr_result, __LINE__, __FILE__);
 while (!$sd_tr_result->EOF)
 {
@@ -328,7 +328,7 @@ while (!$sd_tr_result->EOF)
 }
 
 // Personal planet traderoute type query
-$ppl_tr_result = $db->Execute("SELECT * FROM {$pdo_db->prefix}planets, {$pdo_db->prefix}traderoutes WHERE source_type = 'L' AND source_id = {$pdo_db->prefix}planets.planet_id AND {$pdo_db->prefix}planets.sector_id = ? AND {$pdo_db->prefix}traderoutes.owner = ?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
+$ppl_tr_result = $db->Execute("SELECT * FROM {$pdo_db->prefix}planets, {$pdo_db->prefix}traderoutes WHERE source_type = 'L' AND source_id = {$pdo_db->prefix}planets.planet_id AND {$pdo_db->prefix}planets.sector_id = ? AND {$pdo_db->prefix}traderoutes.owner = ?;", array($playerinfo['sector'], $playerinfo['ship_id']));
 Bnt\Db::logDbErrors($db, $ppl_tr_result, __LINE__, __FILE__);
 while (!$ppl_tr_result->EOF)
 {
@@ -339,7 +339,7 @@ while (!$ppl_tr_result->EOF)
 }
 
 // Team planet traderoute type query
-$tmpl_tr_result = $db->Execute("SELECT * FROM {$pdo_db->prefix}planets, {$pdo_db->prefix}traderoutes WHERE source_type = 'C' AND source_id = {$pdo_db->prefix}planets.planet_id AND {$pdo_db->prefix}planets.sector_id = ? AND {$pdo_db->prefix}traderoutes.owner = ?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
+$tmpl_tr_result = $db->Execute("SELECT * FROM {$pdo_db->prefix}planets, {$pdo_db->prefix}traderoutes WHERE source_type = 'C' AND source_id = {$pdo_db->prefix}planets.planet_id AND {$pdo_db->prefix}planets.sector_id = ? AND {$pdo_db->prefix}traderoutes.owner = ?;", array($playerinfo['sector'], $playerinfo['ship_id']));
 Bnt\Db::logDbErrors($db, $tmpl_tr_result, __LINE__, __FILE__);
 while (!$tmpl_tr_result->EOF)
 {
@@ -372,7 +372,7 @@ else
         }
         else
         {
-            $pl_result = $db->Execute("SELECT name FROM {$pdo_db->prefix}planets WHERE planet_id = ?;", array ($traderoutes[$i]['source_id']));
+            $pl_result = $db->Execute("SELECT name FROM {$pdo_db->prefix}planets WHERE planet_id = ?;", array($traderoutes[$i]['source_id']));
             Bnt\Db::logDbErrors($db, $pl_result, __LINE__, __FILE__);
             if (!$pl_result || $pl_result->RecordCount() == 0)
             {
@@ -411,7 +411,7 @@ else
         }
         else
         {
-            $pl_dest_result = $db->Execute("SELECT name FROM {$pdo_db->prefix}planets WHERE planet_id = ?;", array ($traderoutes[$i]['dest_id']));
+            $pl_dest_result = $db->Execute("SELECT name FROM {$pdo_db->prefix}planets WHERE planet_id = ?;", array($traderoutes[$i]['dest_id']));
             Bnt\Db::logDbErrors($db, $pl_dest_result, __LINE__, __FILE__);
 
             if (!$pl_dest_result || $pl_dest_result->RecordCount() == 0)
@@ -483,7 +483,7 @@ if ($num_planets > 0)
     {
         if ($planets[$i]['owner'] != 0)
         {
-            $result5 = $db->Execute("SELECT * FROM {$pdo_db->prefix}ships WHERE ship_id = ?;", array ($planets[$i]['owner']));
+            $result5 = $db->Execute("SELECT * FROM {$pdo_db->prefix}ships WHERE ship_id = ?;", array($planets[$i]['owner']));
             Bnt\Db::logDbErrors($db, $result5, __LINE__, __FILE__);
             $planet_owner = $result5->fields;
             $planetavg = Bnt\CalcLevels::avgTech($planet_owner, "planet");
@@ -571,7 +571,7 @@ if ($playerinfo['sector'] != 0)
     $sql .= "FROM {$pdo_db->prefix}ships LEFT OUTER JOIN {$pdo_db->prefix}teams ON {$pdo_db->prefix}ships.team = {$pdo_db->prefix}teams.id ";
     $sql .= "WHERE {$pdo_db->prefix}ships.ship_id <> ? AND {$pdo_db->prefix}ships.sector = ? AND {$pdo_db->prefix}ships.on_planet='N' ";
     $sql .= "ORDER BY " . $db->random;
-    $result4 = $db->Execute($sql, array ($playerinfo['ship_id'], $playerinfo['sector']));
+    $result4 = $db->Execute($sql, array($playerinfo['ship_id'], $playerinfo['sector']));
     Bnt\Db::logDbErrors($db, $result4, __LINE__, __FILE__);
 
     if ($result4 != false)

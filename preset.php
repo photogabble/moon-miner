@@ -21,16 +21,16 @@ require_once './common.php';
 
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('presets'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('presets'));
 $title = $langvars['l_pre_title'];
 $body_class = 'bnt';
 Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class ='" . $body_class . "'>";
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -89,7 +89,7 @@ else
     {
         if ($key < $bntreg->preset_max)
         {
-            $update = $db->Execute("UPDATE {$db->prefix}presets SET preset = ? WHERE preset_id = ?;", array ($preset_list[$key], $presetinfo[$key]['preset_id']));
+            $update = $db->Execute("UPDATE {$db->prefix}presets SET preset = ? WHERE preset_id = ?;", array($preset_list[$key], $presetinfo[$key]['preset_id']));
             Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
             $preset_result_echo = str_replace("[preset]", "<a href=rsmove.php?engage=1&destination=$preset_list[$key]>$preset_list[$key]</a>", $langvars['l_pre_set_loop']);
             $preset_result_echo = str_replace("[num]", $key + 1, $preset_result_echo);

@@ -22,9 +22,9 @@ require_once './common.php';
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -111,7 +111,7 @@ $variables['escape_pod'] = $escape_pod;
 $variables['fuel_scoop'] = $fuel_scoop;
 $variables['lssd'] = $lssd;
 $variables['ship_img'] = $template->getVariables('template_dir') . "/images/" . $shiptypes[$shiplevel];
-$variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+$variables['linkback'] = array("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
@@ -119,7 +119,7 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional', 'news'));
 $template->addVariables('langvars', $langvars);
 $template->addVariables('variables', $variables);
 $template->display('report.tpl');

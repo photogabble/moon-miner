@@ -24,17 +24,17 @@ $active_template = 'classic';
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
 Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array($playerinfo['ship_id']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 

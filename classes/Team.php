@@ -95,7 +95,7 @@ class Team
 
         // Just a test to see if an team with a name of $name exists.
         // This is just a temp fix until we find a better one.
-        $res = $db->Execute("SELECT COUNT(*) as found FROM {$db->prefix}teams WHERE team_name = ? AND creator != ?;", array ($name, $creator));
+        $res = $db->Execute("SELECT COUNT(*) as found FROM {$db->prefix}teams WHERE team_name = ? AND creator != ?;", array($name, $creator));
         \Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $num_res = $res->fields;
         if ($num_res['found'] > 0)
@@ -161,7 +161,7 @@ class Team
             echo "<td>{$row['number_of_members']}</td>";
 
             // This fixes it so that it actually displays the coordinator, and not the first member of the team.
-            $res2 = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($row['creator'])) or die ($db->ErrorMsg());
+            $res2 = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array($row['creator'])) or die ($db->ErrorMsg());
             \Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
             while (!$res2->EOF)
             {
@@ -238,7 +238,7 @@ class Team
         echo "<tr>";
         echo "<td><font color=white>" . $langvars['l_team_members'] . "</font></td>";
         echo "</tr><tr bgcolor=$color_line2>";
-        $result  = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE team = ?;", array ($whichteam));
+        $result  = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE team = ?;", array($whichteam));
         \Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
         while (!$result->EOF)
         {
@@ -260,7 +260,7 @@ class Team
         }
 
         // Displays for members name
-        $res = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE team_invite = ?;", array ($whichteam));
+        $res = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE team_invite = ?;", array($whichteam));
         \Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         echo "<td bgcolor=$color_line2><font color=white>" . $langvars['l_team_pending'] . " <strong>" . $team['team_name'] . "</strong></font></td>";
         echo "</tr><tr>";

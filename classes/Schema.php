@@ -85,7 +85,7 @@ class Schema
         $schema_files = new \DirectoryIterator('schema/mysql/'); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
 
         // New SQL Schema table creation
-        $create_table_results = array ();
+        $create_table_results = array();
 
         foreach ($schema_files as $schema_filename)
         {

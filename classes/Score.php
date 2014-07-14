@@ -84,7 +84,7 @@ class Score
         $calc_planet_defence    = "SUM({$db->prefix}planets.fighters) * $fighter_price + IF({$db->prefix}planets.base='Y', $base_credits + SUM({$db->prefix}planets.torps) * $torpedo_price, 0)";
         $calc_planet_credits    = "SUM({$db->prefix}planets.credits)";
 
-        $pl_score_res = $db->Execute("SELECT IF(COUNT(*)>0, $calc_planet_goods + $calc_planet_colonists + $calc_planet_defence + $calc_planet_credits, 0) AS planet_score FROM {$db->prefix}planets WHERE owner=?", array ($ship_id));
+        $pl_score_res = $db->Execute("SELECT IF(COUNT(*)>0, $calc_planet_goods + $calc_planet_colonists + $calc_planet_defence + $calc_planet_credits, 0) AS planet_score FROM {$db->prefix}planets WHERE owner=?", array($ship_id));
         Db::logDbErrors($db, $pl_score_res, __LINE__, __FILE__);
         if ($pl_score_res instanceof ADORecordSet)
         {
@@ -95,7 +95,7 @@ class Score
             $planet_score = null;
         }
 
-        $ship_score_res = $db->Execute("SELECT IF(COUNT(*)>0, $calc_levels + $calc_equip + $calc_dev + {$db->prefix}ships.credits, 0) AS ship_score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=? AND ship_destroyed='N'", array ($ship_id));
+        $ship_score_res = $db->Execute("SELECT IF(COUNT(*)>0, $calc_levels + $calc_equip + $calc_dev + {$db->prefix}ships.credits, 0) AS ship_score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=? AND ship_destroyed='N'", array($ship_id));
         Db::logDbErrors($db, $ship_score_res, __LINE__, __FILE__);
         if ($ship_score_res instanceof ADORecordSet)
         {
@@ -106,7 +106,7 @@ class Score
             $ship_score = null;
         }
 
-        $bank_score_res = $db->Execute("SELECT (balance - loan) AS bank_score FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($ship_id));
+        $bank_score_res = $db->Execute("SELECT (balance - loan) AS bank_score FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array($ship_id));
         Db::logDbErrors($db, $bank_score_res, __LINE__, __FILE__);
         if ($bank_score_res instanceof ADORecordSet)
         {
@@ -124,7 +124,7 @@ class Score
         }
 
         $score = (integer) round(sqrt($score));
-        $set_score_res = $db->Execute("UPDATE {$db->prefix}ships SET score=? WHERE ship_id=?", array ($score, $ship_id));
+        $set_score_res = $db->Execute("UPDATE {$db->prefix}ships SET score=? WHERE ship_id=?", array($score, $ship_id));
         Db::logDbErrors($db, $set_score_res, __LINE__, __FILE__);
 
         return $score;

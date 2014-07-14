@@ -25,7 +25,7 @@ $title = $langvars['l_ai_control'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 function checked($yesno)
@@ -190,7 +190,7 @@ else
             {
                 if (empty($operation))
                 {
-                    $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email = ?;", array ($user));
+                    $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email = ?;", array($user));
                     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
                     $row = $res->fields;
                     echo "<table border=0 cellspacing=0 cellpadding=5>";
@@ -299,7 +299,7 @@ else
                     echo "<hr>";
                     echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0;\">Log Data For This Xenobe</span><br>";
 
-                    $logres = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? ORDER BY time DESC, type DESC", array ($row['ship_id']));
+                    $logres = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? ORDER BY time DESC, type DESC", array($row['ship_id']));
                     Bnt\Db::logDbErrors($db, $logres, __LINE__, __FILE__);
                     while (!$logres->EOF)
                     {
@@ -330,7 +330,7 @@ else
                     $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
                     $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
                     $_active = empty($active) ? "N" : "Y";
-                    $result = $db->Execute("UPDATE {$db->prefix}ships SET character_name = ?, ship_name = ?, ship_destroyed = ?, hull = ?, engines = ?, power = ?, computer = ?, sensors = ?, armor = ?, shields = ?, beams = ?, torp_launchers = ?, cloak = ?, credits = ?, turns = ?, dev_warpedit = ?, dev_genesis = ?, dev_beacon = ?, dev_emerwarp = ?, dev_escapepod = ?, dev_fuelscoop = ?, dev_minedeflector = ?, sector = ?, ship_ore = ?, ship_organics = ?, ship_goods = ?, ship_energy = ?, ship_colonists = ?, ship_fighters = ?, torps = ?, armor_pts = ? WHERE email = ?;", array ($character_name, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $user));
+                    $result = $db->Execute("UPDATE {$db->prefix}ships SET character_name = ?, ship_name = ?, ship_destroyed = ?, hull = ?, engines = ?, power = ?, computer = ?, sensors = ?, armor = ?, shields = ?, beams = ?, torp_launchers = ?, cloak = ?, credits = ?, turns = ?, dev_warpedit = ?, dev_genesis = ?, dev_beacon = ?, dev_emerwarp = ?, dev_escapepod = ?, dev_fuelscoop = ?, dev_minedeflector = ?, sector = ?, ship_ore = ?, ship_organics = ?, ship_goods = ?, ship_energy = ?, ship_colonists = ?, ship_fighters = ?, torps = ?, armor_pts = ? WHERE email = ?;", array($character_name, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $user));
                     Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
                     if (!$result)
                     {
@@ -340,7 +340,7 @@ else
                     else
                     {
                         echo "Changes to Xenobe ship record have been saved.<br><br>";
-                        $result2 = $db->Execute("UPDATE {$db->prefix}xenobe SET active = ?, orders = ?, aggression = ? WHERE xenobe_id = ?;", array ($_active, $orders, $aggression, $user));
+                        $result2 = $db->Execute("UPDATE {$db->prefix}xenobe SET active = ?, orders = ?, aggression = ? WHERE xenobe_id = ?;", array($_active, $orders, $aggression, $user));
                         Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
                         if (!$result2)
                         {
@@ -429,7 +429,7 @@ else
                 while (!$res->EOF)
                 {
                     $row = $res->fields;
-                    $resx = $db->Execute("DELETE FROM {$db->prefix}logs WHERE ship_id = ?;", array ($row['ship_id']));
+                    $resx = $db->Execute("DELETE FROM {$db->prefix}logs WHERE ship_id = ?;", array($row['ship_id']));
                     Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
                     echo "Log for ship_id $row[ship_id] cleared.<br>";
                     $res->MoveNext();
@@ -452,15 +452,15 @@ else
             if (empty($operation))
             {
                 // Create Xenobe Name
-                $Sylable1 = array ("Ak","Al","Ar","B","Br","D","F","Fr","G","Gr","K","Kr","N","Ol","Om","P","Qu","R","S","Z");
-                $Sylable2 = array ("a","ar","aka","aza","e","el","i","in","int","ili","ish","ido","ir","o","oi","or","os","ov","u","un");
-                $Sylable3 = array ("ag","al","ak","ba","dar","g","ga","k","ka","kar","kil","l","n","nt","ol","r","s","ta","til","x");
+                $Sylable1 = array("Ak","Al","Ar","B","Br","D","F","Fr","G","Gr","K","Kr","N","Ol","Om","P","Qu","R","S","Z");
+                $Sylable2 = array("a","ar","aka","aza","e","el","i","in","int","ili","ish","ido","ir","o","oi","or","os","ov","u","un");
+                $Sylable3 = array("ag","al","ak","ba","dar","g","ga","k","ka","kar","kil","l","n","nt","ol","r","s","ta","til","x");
                 $sy1roll = Bnt\Rand::betterRand(0, 19);
                 $sy2roll = Bnt\Rand::betterRand(0, 19);
                 $sy3roll = Bnt\Rand::betterRand(0, 19);
                 $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
                 $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-                $resultnm = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
+                $resultnm = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array($character));
                 Bnt\Db::logDbErrors($db, $resultnm, __LINE__, __FILE__);
                 $namecheck = $resultnm->fields;
                 $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -473,7 +473,7 @@ else
                     $sy3roll = Bnt\Rand::betterRand(0, 19);
                     $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
                     $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-                    $resultnm = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
+                    $resultnm = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array($character));
                     Bnt\Db::logDbErrors($db, $resultnm, __LINE__, __FILE__);
                     $namecheck = $resultnm->fields;
                     $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -528,7 +528,7 @@ else
                 // Create emailname from character
                 $emailname = str_replace(" ", "_", $character) . "@xenobe";
                 $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-                $result = $db->Execute("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email = ? OR character_name = ? OR ship_name = ?;", array ($emailname, $character, $shipname));
+                $result = $db->Execute("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email = ? OR character_name = ? OR ship_name = ?;", array($emailname, $character, $shipname));
                 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
                 if ($result instanceof ADORecordSet)
                 {
@@ -601,7 +601,7 @@ else
                         echo "Ship Records have been updated.<br><br>";
                     }
 
-                    $result3 = $db->Execute("INSERT INTO {$db->prefix}xenobe (xenobe_id, active, aggression, orders) values(?,?,?,?)", array ($emailname, $_active, $aggression, $orders));
+                    $result3 = $db->Execute("INSERT INTO {$db->prefix}xenobe (xenobe_id, active, aggression, orders) values(?,?,?,?)", array($emailname, $_active, $aggression, $orders));
                     Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
                     if (!$result3)
                     {

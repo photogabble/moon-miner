@@ -83,7 +83,7 @@ if ($news_ticker == true)
 {
     // Database driven language entries
 
-    $langvars_temp = Bnt\Translate::load($pdo_db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
+    $langvars_temp = Bnt\Translate::load($pdo_db, $lang, array('news', 'common', 'footer', 'global_includes', 'logout'));
     // Use Array merge so that we do not clobber the langvars array, and only add to it the items needed for footer
     $langvars = array_merge($langvars, $langvars_temp);
 
@@ -93,22 +93,22 @@ if ($news_ticker == true)
 
     $startdate = date("Y/m/d");
 
-    $news_ticker = array ();
+    $news_ticker = array();
 
     if (Bnt\Db::isActive($pdo_db))
     {
         // Needs to be put into the language table.
-        array_push($news_ticker, array ('url' => null, 'text' => "News Network Down", 'type' => "error", 'delay' => 5));
+        array_push($news_ticker, array('url' => null, 'text' => "News Network Down", 'type' => "error", 'delay' => 5));
     }
     else
     {
-        $rs = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
+        $rs = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array($startdate ." 00:00:00", $startdate ." 23:59:59"));
         Bnt\Db::logDbErrors($pdo_db, $rs, __LINE__, __FILE__);
         if ($rs instanceof ADORecordSet)
         {
             if ($rs->RecordCount() == 0)
             {
-                array_push($news_ticker, array ('url' => null, 'text' => $langvars['l_news_none'], 'type' => null, 'delay' => 5));
+                array_push($news_ticker, array('url' => null, 'text' => $langvars['l_news_none'], 'type' => null, 'delay' => 5));
             }
             else
             {
@@ -116,10 +116,10 @@ if ($news_ticker == true)
                 {
                     $row = $rs->fields;
                     $headline = addslashes($row['headline']);
-                    array_push($news_ticker, array ('url' => "news.php", 'text' => $headline, 'type' => $row['news_type'], 'delay' => 5));
+                    array_push($news_ticker, array('url' => "news.php", 'text' => $headline, 'type' => $row['news_type'], 'delay' => 5));
                     $rs->MoveNext();
                 }
-                array_push($news_ticker, array ('url'=>null, 'text' => "End of News", 'type' => null, 'delay' => 5));
+                array_push($news_ticker, array('url'=>null, 'text' => "End of News", 'type' => null, 'delay' => 5));
             }
         }
     }
@@ -142,7 +142,7 @@ else
 
 $mem_peak_usage = floor(memory_get_peak_usage() / 1024);
 
-$public_pages = array ( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');
+$public_pages = array( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');
 $slash_position = mb_strrpos($_SERVER['PHP_SELF'], '/') + 1;
 $current_page = mb_substr($_SERVER['PHP_SELF'], $slash_position);
 if (in_array($current_page, $public_pages))
@@ -157,7 +157,7 @@ else
 }
 
 // Set array with all used variables in page
-$variables['update_ticker'] = array ("display" => $display_update_ticker, "seconds_left" => $seconds_left, "sched_ticks" => $bntreg->sched_ticks);
+$variables['update_ticker'] = array("display" => $display_update_ticker, "seconds_left" => $seconds_left, "sched_ticks" => $bntreg->sched_ticks);
 $variables['players_online'] = $online;
 $variables['sf_logo_type'] = $sf_logo_type;
 $variables['sf_logo_height'] = $sf_logo_height;

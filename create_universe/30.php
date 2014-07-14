@@ -59,7 +59,7 @@ for ($i = 0; $i < $destroy_array_size; $i++)
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';

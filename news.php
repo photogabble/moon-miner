@@ -32,7 +32,7 @@ else
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 $title = $langvars['l_news_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
@@ -68,7 +68,7 @@ echo "    <td height=\"22\" width=\"73%\" bgcolor=\"#00001A\" align=\"right\"><a
 echo "  </tr>\n";
 
 //Select news for date range
-$res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
+$res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array($startdate ." 00:00:00", $startdate ." 23:59:59"));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 //Check to see if there was any news to be shown

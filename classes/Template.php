@@ -31,7 +31,7 @@ class Template
     public function __construct()
     {
         $this->initialized = (boolean) false;
-        $this->api = array ();
+        $this->api = array();
 
 // Temp disabled code due to exploit, do not remove,
 // will be reverting back once exploit is fixed.
@@ -188,7 +188,7 @@ class Template
         }
 
         // Handle the supported compressions.
-        $supported_enc = array ();
+        $supported_enc = array();
         if (array_key_exists('HTTP_ACCEPT_ENCODING', $_SERVER))
         {
             $supported_enc = explode(',', $_SERVER['HTTP_ACCEPT_ENCODING']);

@@ -77,7 +77,7 @@ while (!$res->EOF)
     }
 
     $credits_production = floor($production * $credits_prate * (100.0 - $total_percent) / 100.0);
-    $ret = $db->Execute("UPDATE {$db->prefix}planets SET organics = organics + ?, ore = ore + ?, goods = goods + ?, energy = energy + ?, colonists = colonists + ? - ?, torps = torps + ?, fighters = fighters + ?, credits = credits * ? + ? WHERE planet_id = ? LIMIT 1; ", array ($organics_production, $ore_production, $goods_production, $energy_production, $reproduction, $starvation, $torp_production, $fighter_production, $interest_rate, $credits_production, $row['planet_id']));
+    $ret = $db->Execute("UPDATE {$db->prefix}planets SET organics = organics + ?, ore = ore + ?, goods = goods + ?, energy = energy + ?, colonists = colonists + ? - ?, torps = torps + ?, fighters = fighters + ?, credits = credits * ? + ? WHERE planet_id = ? LIMIT 1; ", array($organics_production, $ore_production, $goods_production, $energy_production, $reproduction, $starvation, $torp_production, $fighter_production, $interest_rate, $credits_production, $row['planet_id']));
     Bnt\Db::logDbErrors($db, $ret, __LINE__, __FILE__);
     $res->MoveNext();
 }
@@ -86,7 +86,7 @@ $ret = $db->Execute("COMMIT");
 Bnt\Db::logDbErrors($db, $ret, __LINE__, __FILE__);
 if ($bntreg->sched_planet_valid_credits)
 {
-    $ret = $db->Execute("UPDATE {$db->prefix}planets SET credits = ? WHERE credits > ? AND base = 'N';", array ($bntreg->max_credits_without_base, $bntreg->max_credits_without_base));
+    $ret = $db->Execute("UPDATE {$db->prefix}planets SET credits = ? WHERE credits > ? AND base = 'N';", array($bntreg->max_credits_without_base, $bntreg->max_credits_without_base));
     Bnt\Db::logDbErrors($db, $ret, __LINE__, __FILE__);
 }
 

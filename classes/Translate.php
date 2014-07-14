@@ -23,7 +23,7 @@ use PDO;
 
 class Translate
 {
-    private static $langvars = array ();
+    private static $langvars = array();
 
     public static function load($db = null, $language = null, $categories = null)
     {
@@ -57,7 +57,7 @@ class Translate
                 {
                     // Select from the database and return the value of the language variables requested, but do not use caching
                     $query = "SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;";
-                    $final_result = $db->Execute($query, array ($category, $language));
+                    $final_result = $db->Execute($query, array($category, $language));
                     Db::logDbErrors($db, $query, __LINE__, __FILE__);
                     while ($final_result && !$final_result->EOF)
                     {

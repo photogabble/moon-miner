@@ -22,17 +22,17 @@ require_once './common.php';
 $variables = null;
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 if (array_key_exists('username', $_SESSION))
 {
     $current_score = 0;
-    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
     Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
     $current_score = Bnt\Score::updateScore($db, $playerinfo['ship_id'], $bntreg);
 
-    $langvars = Bnt\Translate::load($pdo_db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+    $langvars = Bnt\Translate::load($pdo_db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
     Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_LOGOUT, $_SERVER['REMOTE_ADDR']);
     $langvars['l_logout_text'] = str_replace("[name]", $_SESSION['username'], $langvars['l_logout_text']);
     $langvars['l_logout_text'] = str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_logout_text']);
@@ -47,12 +47,12 @@ if (array_key_exists('username', $_SESSION))
 else
 {
     $variables['session_username'] = null;
-    $variables['linkback'] = array ("fulltext" => $langvars['l_global_mlogin'], "link" => "index.php");
+    $variables['linkback'] = array("fulltext" => $langvars['l_global_mlogin'], "link" => "index.php");
 }
 
 // Set login status to false, then clear the session array, and finally clear the session cookie
 $_SESSION['logged_in'] = false;
-$_SESSION = array ();
+$_SESSION = array();
 setcookie('blacknova_session', '', 0, '/');
 
 // Destroy the session entirely
@@ -60,7 +60,7 @@ session_destroy();
 
 $variables['body_class'] = 'bnt'; // No special CSS for this page yet, so use standard bnt-prime CSS
 $variables['lang'] = $lang;
-$variables['linkback'] = array ("fulltext" => $langvars['l_global_mlogin'], "link" => "index.php");
+$variables['linkback'] = array("fulltext" => $langvars['l_global_mlogin'], "link" => "index.php");
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";

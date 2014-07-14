@@ -48,7 +48,7 @@ else
 {
     if (empty($operation))
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array ($planet));
+        $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array($planet));
         Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
 
@@ -114,7 +114,7 @@ else
         $_defeated = empty($defeated) ? "N" : "Y";
         $_base = empty($base) ? "N" : "Y";
         $_sells = empty($sells) ? "N" : "Y";
-        $planupdate = $db->Execute("UPDATE {$db->prefix}planets SET sector_id = ?, defeated = ?, name = ?, base = ?, sells = ?, owner = ?, organics = ?, ore = ?, goods = ?, energy = ?, corp = ?, colonists = ?,credits = ? ,fighters = ?, torps = ?, prod_organics= ? , prod_ore = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?", array ($sector_id, $_defeated, $name, $_base, $_sells, $owner, $organics, $ore, $goods, $energy, $corp, $colonists, $credits, $fighters, $torps, $prod_organics, $prod_ore, $prod_goods, $prod_energy, $prod_fighters, $prod_torp, $planet));
+        $planupdate = $db->Execute("UPDATE {$db->prefix}planets SET sector_id = ?, defeated = ?, name = ?, base = ?, sells = ?, owner = ?, organics = ?, ore = ?, goods = ?, energy = ?, corp = ?, colonists = ?,credits = ? ,fighters = ?, torps = ?, prod_organics= ? , prod_ore = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?", array($sector_id, $_defeated, $name, $_base, $_sells, $owner, $organics, $ore, $goods, $energy, $corp, $colonists, $credits, $fighters, $torps, $prod_organics, $prod_ore, $prod_goods, $prod_energy, $prod_fighters, $prod_torp, $planet));
         Bnt\Db::logDbErrors($db, $planupdate, __LINE__, __FILE__);
         if (!$planupdate)
         {

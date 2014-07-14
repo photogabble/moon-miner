@@ -24,7 +24,7 @@ class Error
     public static function respond($db, $pdo_db, $lang, $bntreg, $template)
     {
         // Database driven language entries
-        $langvars = Translate::load($pdo_db, $lang, array ('footer', 'common', 'error', 'main'));
+        $langvars = Translate::load($pdo_db, $lang, array('footer', 'common', 'error', 'main'));
 
         // Always make sure we are using empty vars before use.
         $variables = null;

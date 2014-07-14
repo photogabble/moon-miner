@@ -28,7 +28,7 @@ if (strpos($_SERVER['PHP_SELF'], 'sched_xenobe.php')) // Prevent direct access t
 echo "<br><strong>Xenobe TURNS</strong><br><br>";
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'));
 
 global $targetlink;
 global $xenobeisdead;
@@ -61,7 +61,7 @@ while (($res instanceof ADORecordSet) && ($res != false))
             $furcount0++;
             // Find a target in my sector, not myself, not on a planet
 
-            $reso0 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
+            $reso0 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array($playerinfo['sector'], $playerinfo['email']));
             Bnt\Db::logDbErrors($db, $res0, __LINE__, __FILE__);
             if (!$reso0->EOF)
             {
@@ -110,7 +110,7 @@ while (($res instanceof ADORecordSet) && ($res != false))
                 continue;
             }
             // Find a target in my sector, not myself
-            $reso1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
+            $reso1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array($targetlink, $playerinfo['email']));
             Bnt\Db::logDbErrors($db, $reso1, __LINE__, __FILE__);
             if (!$reso1->EOF)
             {
@@ -172,7 +172,7 @@ while (($res instanceof ADORecordSet) && ($res != false))
             Bad\Xenobe::xenobeTrade($db);
             // FIND A TARGET
             // IN MY SECTOR, NOT MYSELF
-            $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
+            $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array($targetlink, $playerinfo['email']));
             Bnt\Db::logDbErrors($db, $reso2, __LINE__, __FILE__);
             if (!$reso2->EOF)
             {
@@ -247,7 +247,7 @@ while (($res instanceof ADORecordSet) && ($res != false))
 
                 // FIND A TARGET
                 // IN MY SECTOR, NOT MYSELF
-                $reso3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
+                $reso3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array($playerinfo['sector'], $playerinfo['email']));
                 Bnt\Db::logDbErrors($db, $reso3, __LINE__, __FILE__);
                 if (!$reso3->EOF)
                 {

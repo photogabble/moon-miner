@@ -33,7 +33,7 @@ $variables['color_line1'] = $bntreg->color_line1;
 $variables['color_line2'] = $bntreg->color_line2;
 
 // Load required language variables for the ranking page.
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
 
 // Get requested ranking order.
 // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
@@ -79,7 +79,7 @@ if ($rs instanceof ADORecordSet)
 
     if ($variables['num_players'] > 0)
     {
-        $player_list = array ();
+        $player_list = array();
 
         while (!$rs->EOF)
         {
@@ -153,12 +153,12 @@ if ($rs instanceof ADORecordSet)
 if (empty ($_SESSION['username']))
 {
     $variables['loggedin'] = (boolean) true;
-    $variables['linkback'] = array ('caption' => $langvars['l_global_mlogin'], 'link' => 'index.php');
+    $variables['linkback'] = array('caption' => $langvars['l_global_mlogin'], 'link' => 'index.php');
 }
 else
 {
     $variables['loggedin'] = (boolean) false;
-    $variables['linkback'] = array ('caption' => $langvars['l_global_mmenu'], 'link' => 'main.php');
+    $variables['linkback'] = array('caption' => $langvars['l_global_mmenu'], 'link' => 'main.php');
 }
 
 // Now we include the Footer Logic.
@@ -168,7 +168,7 @@ $variables['container'] = 'variable';
 $template->addVariables('variables', $variables);
 
 // Load required language variables for the ranking page.
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams', 'news'));
 
 // Modify the requires language variables here.
 $langvars['l_ranks_title'] = str_replace('[max_ranks]', $bntreg->max_ranks, $langvars['l_ranks_title']);

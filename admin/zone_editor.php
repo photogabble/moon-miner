@@ -47,7 +47,7 @@ else
     $variables['zone'] = null;
     if ($_POST['operation'] == "edit")
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($_POST['zone']));
+        $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array($_POST['zone']));
         Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
         $variables['operation'] = "edit";

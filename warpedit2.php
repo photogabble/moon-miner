@@ -25,7 +25,7 @@ $title = $langvars['l_warp_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
@@ -44,7 +44,7 @@ if (mb_strlen(trim($target_sector)) === 0)
     $target_sector = false;
 }
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -73,7 +73,7 @@ if (is_null($target_sector))
     die();
 }
 
-$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array ($playerinfo['sector']));
+$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array($playerinfo['sector']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
@@ -85,11 +85,11 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 }
 
 $target_sector = round($target_sector);
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($target_sector));
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array($target_sector));
 Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
 $row = $result2->fields;
 if (!$row)
@@ -99,7 +99,7 @@ if (!$row)
     die();
 }
 
-$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array ($target_sector));
+$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array($target_sector));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
@@ -111,7 +111,7 @@ if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
     die();
 }
 
-$res = $db->Execute("SELECT COUNT(*) as count FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
+$res = $db->Execute("SELECT COUNT(*) as count FROM {$db->prefix}links WHERE link_start = ?;", array($playerinfo['sector']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $row = $res->fields;
 $numlink_start = $row['count'];
@@ -125,7 +125,7 @@ if ($numlink_start >= $link_max)
     die();
 }
 
-$result3 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
+$result3 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array($playerinfo['sector']));
 Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
 if ($result3 instanceof ADORecordSet)
 {
@@ -151,10 +151,10 @@ if ($result3 instanceof ADORecordSet)
     }
     else
     {
-        $insert1 = $db->Execute("INSERT INTO {$db->prefix}links SET link_start=?, link_dest = ?;", array ($playerinfo['sector'], $target_sector));
+        $insert1 = $db->Execute("INSERT INTO {$db->prefix}links SET link_start=?, link_dest = ?;", array($playerinfo['sector'], $target_sector));
         Bnt\Db::logDbErrors($db, $insert1, __LINE__, __FILE__);
 
-        $update1 = $db->Execute("UPDATE {$db->prefix}ships SET dev_warpedit = dev_warpedit - 1, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+        $update1 = $db->Execute("UPDATE {$db->prefix}ships SET dev_warpedit = dev_warpedit - 1, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array($playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $update1, __LINE__, __FILE__);
 
         if (!is_null($oneway))
@@ -163,7 +163,7 @@ if ($result3 instanceof ADORecordSet)
         }
         else
         {
-            $result4 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($target_sector));
+            $result4 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array($target_sector));
             Bnt\Db::logDbErrors($db, $result4, __LINE__, __FILE__);
             if ($result4 instanceof ADORecordSet)
             {
@@ -180,7 +180,7 @@ if ($result3 instanceof ADORecordSet)
             }
             if ($flag2 != 1)
             {
-                $insert2 = $db->Execute("INSERT INTO {$db->prefix}links SET link_start = ?, link_dest = ?;", array ($target_sector, $playerinfo['sector']));
+                $insert2 = $db->Execute("INSERT INTO {$db->prefix}links SET link_start = ?, link_dest = ?;", array($target_sector, $playerinfo['sector']));
                 Bnt\Db::logDbErrors($db, $insert2, __LINE__, __FILE__);
             }
             echo $langvars['l_warp_ctwoway'] . " " . $target_sector . ".<br><br>";

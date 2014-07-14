@@ -41,7 +41,7 @@ while (!$tdres->EOF)
     if ($playerinfo['ship_fighters'] > $ship_fighters_max)
     {
         echo "'-> <span style='color:#f00;'>Detected Fighters Overload on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_fighters = ? WHERE ship_id = ? LIMIT 1;", array ($ship_fighters_max, $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_fighters = ? WHERE ship_id = ? LIMIT 1;", array($ship_fighters_max, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -54,7 +54,7 @@ while (!$tdres->EOF)
     elseif ($playerinfo['ship_fighters'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Fighters Flip on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resy = $db->Execute("UPDATE {$db->prefix}ships SET ship_fighters = ? WHERE ship_id = ? LIMIT 1;", array (0, $playerinfo['ship_id']));
+        $resy = $db->Execute("UPDATE {$db->prefix}ships SET ship_fighters = ? WHERE ship_id = ? LIMIT 1;", array(0, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resy, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -69,7 +69,7 @@ while (!$tdres->EOF)
     if ($playerinfo['torps'] > $torps_max)
     {
         echo "'-> <span style='color:#f00;'>Detected Torpedoes Overload on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resz = $db->Execute("UPDATE {$db->prefix}ships SET torps = ? WHERE ship_id = ? LIMIT 1;", array ($torps_max, $playerinfo['ship_id']));
+        $resz = $db->Execute("UPDATE {$db->prefix}ships SET torps = ? WHERE ship_id = ? LIMIT 1;", array($torps_max, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resz, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -82,7 +82,7 @@ while (!$tdres->EOF)
     elseif ($playerinfo['torps'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Torpedoes Flip on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resa = $db->Execute("UPDATE {$db->prefix}ships SET torps = ? WHERE ship_id = ? LIMIT 1;", array (0, $playerinfo['ship_id']));
+        $resa = $db->Execute("UPDATE {$db->prefix}ships SET torps = ? WHERE ship_id = ? LIMIT 1;", array(0, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resa, __LINE__, __FILE__);
         if ($db->ErrorNo() >0)
         {
@@ -96,7 +96,7 @@ while (!$tdres->EOF)
     if ($playerinfo['armor_pts'] > $armor_pts_max)
     {
         echo "'-> <span style='color:#f00;'>Detected Armor points Overload on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resb = $db->Execute("UPDATE {$db->prefix}ships SET armor_pts = ? WHERE ship_id = ? LIMIT 1;", array ($armor_pts_max, $playerinfo['ship_id']));
+        $resb = $db->Execute("UPDATE {$db->prefix}ships SET armor_pts = ? WHERE ship_id = ? LIMIT 1;", array($armor_pts_max, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resb, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -109,7 +109,7 @@ while (!$tdres->EOF)
     elseif ($playerinfo['armor_pts'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Armor points Flip on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resc = $db->Execute("UPDATE {$db->prefix}ships SET armor_pts = ? WHERE ship_id = ? LIMIT 1;", array (0, $playerinfo['ship_id']));
+        $resc = $db->Execute("UPDATE {$db->prefix}ships SET armor_pts = ? WHERE ship_id = ? LIMIT 1;", array(0, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resc, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -124,7 +124,7 @@ while (!$tdres->EOF)
     if ($playerinfo['credits'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Credits Flip on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resd = $db->Execute("UPDATE {$db->prefix}ships SET credits = ? WHERE ship_id = ? LIMIT 1;", array (0, $playerinfo['ship_id']));
+        $resd = $db->Execute("UPDATE {$db->prefix}ships SET credits = ? WHERE ship_id = ? LIMIT 1;", array(0, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resd, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -138,7 +138,7 @@ while (!$tdres->EOF)
     if ($playerinfo['credits'] > 100000000000000000000)
     {
         echo "'-> <span style='color:#f00;'>Detected Credits Overflow on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $rese = $db->Execute("UPDATE {$db->prefix}ships SET credits = ? WHERE ship_id = ? LIMIT 1;", array (100000000000000000000, $playerinfo['ship_id']));
+        $rese = $db->Execute("UPDATE {$db->prefix}ships SET credits = ? WHERE ship_id = ? LIMIT 1;", array(100000000000000000000, $playerinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $rese, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -164,7 +164,7 @@ while (!$tdres->EOF)
     if ($planetinfo['credits'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Credits Flip on Planet: {$planetinfo['planet_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $rese = $db->Execute("UPDATE {$db->prefix}planets SET credits = ? WHERE planet_id = ? LIMIT 1;", array (0, $planetinfo['planet_id']));
+        $rese = $db->Execute("UPDATE {$db->prefix}planets SET credits = ? WHERE planet_id = ? LIMIT 1;", array(0, $planetinfo['planet_id']));
         Bnt\Db::logDbErrors($db, $rese, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -178,7 +178,7 @@ while (!$tdres->EOF)
     if ($planetinfo['credits'] > 100000000000000000000)
     {
         echo "'-> <span style='color:#f00;'>Detected Credits Overflow on Planet: {$planetinfo['planet_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resf = $db->Execute("UPDATE {$db->prefix}planets SET credits = ? WHERE planet_id = ? LIMIT 1;", array (100000000000000000000, $planetinfo['planet_id']));
+        $resf = $db->Execute("UPDATE {$db->prefix}planets SET credits = ? WHERE planet_id = ? LIMIT 1;", array(100000000000000000000, $planetinfo['planet_id']));
         Bnt\Db::logDbErrors($db, $resf, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -193,7 +193,7 @@ while (!$tdres->EOF)
     if ($planetinfo['fighters'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Fighters Flip on Planet: {$planetinfo['planet_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resg = $db->Execute("UPDATE {$db->prefix}planets SET fighters = ? WHERE planet_id = ? LIMIT 1;", array (0, $planetinfo['planet_id']));
+        $resg = $db->Execute("UPDATE {$db->prefix}planets SET fighters = ? WHERE planet_id = ? LIMIT 1;", array(0, $planetinfo['planet_id']));
         Bnt\Db::logDbErrors($db, $resg, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -208,7 +208,7 @@ while (!$tdres->EOF)
     if ($planetinfo['torps'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Torpedoes Flip on Planet: {$planetinfo['planet_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resh = $db->Execute("UPDATE {$db->prefix}planets SET torps = ? WHERE planet_id = ? LIMIT 1;", array (0, $planetinfo['planet_id']));
+        $resh = $db->Execute("UPDATE {$db->prefix}planets SET torps = ? WHERE planet_id = ? LIMIT 1;", array(0, $planetinfo['planet_id']));
         Bnt\Db::logDbErrors($db, $resh, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -233,7 +233,7 @@ while (!$tdres->EOF)
     if ($bankinfo['balance'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Balance Credits Flip on IGB Account: {$bankinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resi = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = ? WHERE ship_id = ? LIMIT 1;", array (0, $bankinfo['ship_id']));
+        $resi = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = ? WHERE ship_id = ? LIMIT 1;", array(0, $bankinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resi, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -247,7 +247,7 @@ while (!$tdres->EOF)
     if ($bankinfo['balance'] > 100000000000000000000)
     {
         echo "'-> <span style='color:#f00;'>Detected Balance Credits Overflow on IGB Account: {$bankinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resj = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = ? WHERE ship_id = ? LIMIT 1;", array (100000000000000000000, $bankinfo['ship_id']));
+        $resj = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = ? WHERE ship_id = ? LIMIT 1;", array(100000000000000000000, $bankinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resj, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -262,7 +262,7 @@ while (!$tdres->EOF)
     if ($bankinfo['loan'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Loan Credits Flip on IGB Account: {$bankinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $resk = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan = ? WHERE ship_id = ? LIMIT 1;", array (0, $bankinfo['ship_id']));
+        $resk = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan = ? WHERE ship_id = ? LIMIT 1;", array(0, $bankinfo['ship_id']));
         Bnt\Db::logDbErrors($db, $resk, __LINE__, __FILE__);
 
         if ($db->ErrorNo() >0)
@@ -289,7 +289,7 @@ while (!$tdres->EOF)
     if ($transferinfo['amount'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Transfer Amount Credits Flip on IGB Transfer: {$transferinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $db->Execute ("UPDATE {$db->prefix}ibank_transfers SET amount = ? WHERE transfer_id = ? LIMIT 1;", array (0, $transferinfo['transfer_id']));
+        $db->Execute ("UPDATE {$db->prefix}ibank_transfers SET amount = ? WHERE transfer_id = ? LIMIT 1;", array(0, $transferinfo['transfer_id']));
         if ($db->ErrorNo() >0)
         {
             echo "error: ". $db->ErrorMsg() . "<br>\n";

@@ -82,7 +82,7 @@ class Xml
 
                 if (is_numeric($key) == false)
                 {
-                    $this->xmldom->AddAttributes($childNode, array ('name' => $key));
+                    $this->xmldom->AddAttributes($childNode, array('name' => $key));
                 }
             }
             else
@@ -114,7 +114,7 @@ class Xml
 
                     if (is_numeric($key) == false)
                     {
-                        $this->xmldom->AddAttributes($childNode, array ("name" => $key));
+                        $this->xmldom->AddAttributes($childNode, array("name" => $key));
                     }
                 }
             }

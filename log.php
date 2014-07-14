@@ -23,7 +23,7 @@ include './config/admin_config.php';
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Hack for log bug issue - this really needs to be fixed
-$log_list = array (null,
+$log_list = array(null,
         'LOG_LOGIN', 'LOG_LOGOUT', 'LOG_ATTACK_OUTMAN', 'LOG_ATTACK_OUTSCAN', 'LOG_ATTACK_EWD','LOG_ATTACK_EWDFAIL', 'LOG_ATTACK_LOSE', 'LOG_ATTACKED_WIN', 'LOG_TOLL_PAID', 'LOG_HIT_MINES',
         'LOG_SHIP_DESTROYED_MINES', 'LOG_PLANET_DEFEATED_D', 'LOG_PLANET_DEFEATED', 'LOG_PLANET_NOT_DEFEATED', 'LOG_RAW', 'LOG_TOLL_RECV', 'LOG_DEFS_DESTROYED', 'LOG_PLANET_EJECT', 'LOG_BADLOGIN', 'LOG_PLANET_SCAN',
         'LOG_PLANET_SCAN_FAIL', 'LOG_PLANET_CAPTURE', 'LOG_SHIP_SCAN', 'LOG_SHIP_SCAN_FAIL', 'LOG_XENOBE_ATTACK', 'LOG_STARVATION', 'LOG_TOW', 'LOG_DEFS_DESTROYED_F', 'LOG_DEFS_KABOOM', 'LOG_HARAKIRI',
@@ -33,13 +33,13 @@ $log_list = array (null,
                 );
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $title = $langvars['l_log_titlet'];
 $body_class = 'log';
 Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 
-$res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -60,7 +60,7 @@ if ($swordfish == ADMIN_PW) // Check if called by admin script
     }
     else
     {
-        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($player));
+        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array($player));
         Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
         $targetname = $res->fields;
         $playerinfo['character_name'] = $targetname['character_name'];
@@ -110,7 +110,7 @@ if (empty ($startdate))
     $startdate = date("Y-m-d");
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$startdate%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
+$res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$startdate%' ORDER BY time DESC, type DESC;", array($playerinfo['ship_id']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
 if ($res instanceof ADORecordSet)
@@ -192,7 +192,7 @@ if ($mode != 'compat')
     $entry = $$log_months_temp . " " . mb_substr($yesterday, 8, 2) . " " . mb_substr($yesterday, 0, 4);
 
     unset($logs);
-    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
+    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC;", array($playerinfo['ship_id']));
     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
@@ -237,7 +237,7 @@ if ($mode != 'compat')
     $entry = $$log_months_temp . " " . mb_substr($tomorrow, 8, 2) . " " . mb_substr($tomorrow, 0, 4);
 
     unset($logs);
-    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$tomorrow%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
+    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$tomorrow%' ORDER BY time DESC, type DESC", array($playerinfo['ship_id']));
     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {

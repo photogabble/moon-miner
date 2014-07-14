@@ -131,5 +131,5 @@ Bnt\PluginSystem::loadPlugins();
 // Ok, here we raise EVENT_TICK which is called every page load, this saves us from having to add new lines to
 // support new features. This is used for ingame stuff and Plug-ins that need to be called on every page load.
 // May need to change array(time()) to have extra info, but the current suits us fine for now.
-Bnt\PluginSystem::raiseEvent(EVENT_TICK, array (time()));
+Bnt\PluginSystem::raiseEvent(EVENT_TICK, array(time()));
 ?>

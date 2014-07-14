@@ -25,7 +25,7 @@ $title = $langvars['l_ship_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 if (!isset($ship_id))
@@ -33,10 +33,10 @@ if (!isset($ship_id))
     $ship_id = null;
 }
 
-$res = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
-$res2 = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
+$res2 = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id = ?;", array($ship_id));
 Bnt\Db::logDbErrors($db, $res2, __LINE__, __FILE__);
 $othership = $res2->fields;
 

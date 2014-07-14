@@ -278,7 +278,7 @@ class PlanetReport
             $query .= " ORDER BY sector_id ASC";
         }
 
-        $res = $db->Execute($query, array ($playerinfo['ship_id']));
+        $res = $db->Execute($query, array($playerinfo['ship_id']));
         \Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
         $i = 0;

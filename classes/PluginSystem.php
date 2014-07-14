@@ -41,9 +41,9 @@ class PluginSystem
 
     public static function initialize($db = null)
     {
-        self::$events = array ();
+        self::$events = array();
         self::$db = $db;
-        self::$pluginlist = array ();
+        self::$pluginlist = array();
     }
 
     public static function loadPlugins()
@@ -121,7 +121,7 @@ class PluginSystem
         }
 
         // Check if the callback class::function exists and is callable.
-        if (!method_exists($callback, self::$callbackfunc) || !is_callable(array ($callback, self::$callbackfunc), false, $callable_name))
+        if (!method_exists($callback, self::$callbackfunc) || !is_callable(array($callback, self::$callbackfunc), false, $callable_name))
         {
             AdminLog::writeLog(self::$db, LOG_RAW, 'Plugin Error on line ('. __LINE__ .'): ' . get_class($callback) .'::'. self::$callbackfunc .' function doesn\'t exist or it isn\'t callable.');
 
@@ -167,7 +167,7 @@ class PluginSystem
         }
     }
 
-    public static function raiseEvent($event = null, $args = array ())
+    public static function raiseEvent($event = null, $args = array())
     {
         if (!is_numeric($event))
         {
@@ -185,7 +185,7 @@ class PluginSystem
         {
             if (method_exists($hook, self::$callbackfunc))
             {
-                call_user_func_array(array ($hook, self::$callbackfunc), $args);
+                call_user_func_array(array($hook, self::$callbackfunc), $args);
             }
             else
             {

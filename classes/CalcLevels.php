@@ -63,7 +63,7 @@ class CalcLevels
         $planetbeams = self::beams($ownerinfo['beams'] + $base_factor, $level_factor);
         $energy_available = $planetinfo['energy'];
 
-        $res = $db->Execute("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+        $res = $db->Execute("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array($planetinfo['planet_id']));
         Db::logDbErrors($db, $res, __LINE__, __FILE__);
         if ($res instanceof ADORecordSet)
         {
@@ -89,7 +89,7 @@ class CalcLevels
         $planetshields = self::shields($ownerinfo['shields'] + $base_factor, $level_factor);
         $energy_available = $planetinfo['energy'];
 
-        $res = $db->Execute("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+        $res = $db->Execute("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array($planetinfo['planet_id']));
         Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
         if ($res instanceof ADORecordSet)
@@ -116,7 +116,7 @@ class CalcLevels
         $torp_launchers = round(pow($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
         $torps = $planetinfo['torps'];
 
-        $res = $db->Execute("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+        $res = $db->Execute("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array($planetinfo['planet_id']));
         Db::logDbErrors($db, $res, __LINE__, __FILE__);
         if ($res instanceof ADORecordSet)
         {
@@ -145,9 +145,9 @@ class CalcLevels
     public static function avgTech($ship_info = null, $type = 'ship')
     {
         // Used to define what devices are used to calculate the average tech level.
-        $calc_tech         = array ('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
-        $calc_ship_tech    = array ('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
-        $calc_planet_tech  = array ('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
+        $calc_tech         = array('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
+        $calc_ship_tech    = array('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
+        $calc_planet_tech  = array('hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers');
 
         if ($type == 'ship')
         {

@@ -21,7 +21,7 @@ require_once './common.php';
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'bounty', 'regional'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'bounty', 'regional'));
 $title = $langvars['l_tdr_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
@@ -29,11 +29,11 @@ echo "<h1>" . $title . "</h1>\n";
 
 $portfull = null; // This fixes an error of undefined variables on 1518
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE owner = ?;", array ($playerinfo['ship_id']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE owner = ?;", array($playerinfo['ship_id']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $num_traderoutes = $result->RecordCount();
 
@@ -43,7 +43,7 @@ if (isset($traderoutes))
     Bad\Traderoute::traderouteDie($db, $pdo_db, $lang, $langvars, $bntreg, "<div style='color:#fff; font-size: 12px;'>[<span style='color:#ff0;'>The Governor</span>] <span style='color:#f00;'>Detected Traderoute Hack!</span></div>\n", $template);
 }
 
-$traderoutes = array ();
+$traderoutes = array();
 $i = 0;
 while (!$result->EOF)
 {
@@ -88,7 +88,7 @@ if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playeri
         $freeholds = 0;
     }
 
-    $update1 = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=? WHERE ship_id=?;", array ($playerinfo['ship_ore'], $playerinfo['ship_organics'], $playerinfo['ship_goods'], $playerinfo['ship_energy'], $playerinfo['ship_colonists'], $playerinfo['ship_id']));
+    $update1 = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=? WHERE ship_id=?;", array($playerinfo['ship_ore'], $playerinfo['ship_organics'], $playerinfo['ship_goods'], $playerinfo['ship_energy'], $playerinfo['ship_colonists'], $playerinfo['ship_id']));
     Bnt\Db::logDbErrors($db, $update1, __LINE__, __FILE__);
 }
 
@@ -147,7 +147,7 @@ elseif (isset ($engage))
     $i = $tr_repeat;
     while ($i > 0)
     {
-        $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
         Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
         $playerinfo = $result->fields;
         Bad\Traderoute::traderouteEngage($db, $pdo_db, $lang, $i, $langvars);
@@ -220,7 +220,7 @@ else
         }
         else
         {
-            $result = $db->Execute("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=?;", array ($traderoutes[$i]['source_id']));
+            $result = $db->Execute("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=?;", array($traderoutes[$i]['source_id']));
             Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
             if ($result)
             {
@@ -236,7 +236,7 @@ else
         echo "<td align='center'><font size=2 color=white>";
         if ($traderoutes[$i]['source_type'] == 'P')
         {
-            $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($traderoutes[$i]['source_id']));
+            $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($traderoutes[$i]['source_id']));
             Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
             $port1 = $result->fields;
             echo "&nbsp;" . Bnt\Ports::getType($port1['port_type'], $langvars) . "</font></td>";
@@ -260,7 +260,7 @@ else
         }
         else
         {
-            $result = $db->Execute("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=?;", array ($traderoutes[$i]['dest_id']));
+            $result = $db->Execute("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=?;", array($traderoutes[$i]['dest_id']));
             Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
             if ($result)
             {
@@ -276,7 +276,7 @@ else
 
         if ($traderoutes[$i]['dest_type'] == 'P')
         {
-            $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($traderoutes[$i]['dest_id']));
+            $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($traderoutes[$i]['dest_id']));
             Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
             $port2 = $result->fields;
             echo "&nbsp;" . Bnt\Ports::getType($port2['port_type'], $langvars) . "</font></td>";

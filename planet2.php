@@ -25,7 +25,7 @@ $title = $langvars['l_planet2_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('main', 'report', 'planet', 'bounty', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('main', 'report', 'planet', 'bounty', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 // Needs to be validated and type cast into their correct types.
 // [GET]
@@ -60,39 +60,39 @@ $langvars = Bnt\Translate::load($pdo_db, $lang, array ('main', 'report', 'planet
 // Array list of valid vars and their types that are alowed for this page.
 // I know this is rather crude but it works.
 $valid_vars = null;
-$valid_vars[] = array ("pref" => "_POST", "var" => "transfer_ore", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "tpore", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "allore", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "transfer_ore", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "tpore", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "allore", "type" => "integer");
 
-$valid_vars[] = array ("pref" => "_POST", "var" => "transfer_organics", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "tporganics", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "allorganics", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "transfer_organics", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "tporganics", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "allorganics", "type" => "integer");
 
-$valid_vars[] = array ("pref" => "_POST", "var" => "transfer_goods", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "tpgoods", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "allgoods", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "transfer_goods", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "tpgoods", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "allgoods", "type" => "integer");
 
-$valid_vars[] = array ("pref" => "_POST", "var" => "transfer_energy", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "tpenergy", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "allenergy", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "transfer_energy", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "tpenergy", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "allenergy", "type" => "integer");
 
-$valid_vars[] = array ("pref" => "_POST", "var" => "transfer_colonists", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "tpcolonists", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "allcolonists", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "transfer_colonists", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "tpcolonists", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "allcolonists", "type" => "integer");
 
-$valid_vars[] = array ("pref" => "_POST", "var" => "transfer_fighters", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "tpfighters", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "allfighters", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "transfer_fighters", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "tpfighters", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "allfighters", "type" => "integer");
 
-$valid_vars[] = array ("pref" => "_POST", "var" => "transfer_torps", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "tptorps", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "alltorps", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "transfer_torps", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "tptorps", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "alltorps", "type" => "integer");
 
-$valid_vars[] = array ("pref" => "_POST", "var" => "transfer_credits", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "tpcredits", "type" => "integer");
-$valid_vars[] = array ("pref" => "_POST", "var" => "allcredits", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "transfer_credits", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "tpcredits", "type" => "integer");
+$valid_vars[] = array("pref" => "_POST", "var" => "allcredits", "type" => "integer");
 
-$valid_vars[] = array ("pref" => "_GET", "var" => "planet_id", "type" => "integer");
+$valid_vars[] = array("pref" => "_GET", "var" => "planet_id", "type" => "integer");
 
 foreach ($valid_vars as $k => $v)
 {
@@ -159,12 +159,12 @@ if ($planet_id <= 0)
 }
 
 // Get the Player Info
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 // Get the Planet Info
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ? AND planet_id > 0;", array ($planet_id));
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ? AND planet_id > 0;", array($planet_id));
 Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
 $planetinfo = $result2->fields;
 
@@ -618,9 +618,9 @@ else
                     $transfer_credits = 0;
                 }
 
-                $update1 = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ?, ship_colonists = ship_colonists + ?, torps = torps + ?, ship_fighters = ship_fighters + ?, credits = credits + ?, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($transfer_ore, $transfer_organics, $transfer_goods, $transfer_energy, $transfer_colonists, $transfer_torps, $transfer_fighters, $transfer_credits, $playerinfo['ship_id']));
+                $update1 = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ?, ship_colonists = ship_colonists + ?, torps = torps + ?, ship_fighters = ship_fighters + ?, credits = credits + ?, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array($transfer_ore, $transfer_organics, $transfer_goods, $transfer_energy, $transfer_colonists, $transfer_torps, $transfer_fighters, $transfer_credits, $playerinfo['ship_id']));
                 Bnt\Db::logDbErrors($db, $update1, __LINE__, __FILE__);
-                $update2 = $db->Execute("UPDATE {$db->prefix}planets SET ore = ore - ?, organics = organics - ?, goods = goods - ?, energy = energy - ?, colonists = colonists - ?, torps = torps - ?, fighters = fighters - ?, credits = credits - ? WHERE planet_id = ?;", array ($transfer_ore, $transfer_organics, $transfer_goods, $transfer_energy, $transfer_colonists, $transfer_torps, $transfer_fighters, $transfer_credits, $planet_id));
+                $update2 = $db->Execute("UPDATE {$db->prefix}planets SET ore = ore - ?, organics = organics - ?, goods = goods - ?, energy = energy - ?, colonists = colonists - ?, torps = torps - ?, fighters = fighters - ?, credits = credits - ? WHERE planet_id = ?;", array($transfer_ore, $transfer_organics, $transfer_goods, $transfer_energy, $transfer_colonists, $transfer_torps, $transfer_fighters, $transfer_credits, $planet_id));
                 Bnt\Db::logDbErrors($db, $update2, __LINE__, __FILE__);
                 echo $langvars['l_planet2_compl'] . "<br><a href=planet.php?planet_id=$planet_id>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "<br><br>";
             }

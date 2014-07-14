@@ -69,7 +69,7 @@ $title = $langvars['l_sys_update'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));
 echo "<h1>" . $title . "</h1>\n";
 
 // This isn't the right thing to do, but its better than creating an entire class for a 12 line function.
@@ -141,18 +141,18 @@ else
 
                 if ($event['spawn'] - $multiplier == 0)
                 {
-                    $resx = $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id = ?", array ($event['sched_id']));
+                    $resx = $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id = ?", array($event['sched_id']));
                     Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
                 }
                 else
                 {
-                    $resy = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left = ?, spawn = spawn - ? WHERE sched_id = ?", array ($ticks_left, $multiplier, $event['sched_id']));
+                    $resy = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left = ?, spawn = spawn - ? WHERE sched_id = ?", array($ticks_left, $multiplier, $event['sched_id']));
                     Bnt\Db::logDbErrors($db, $resy, __LINE__, __FILE__);
                 }
             }
             else
             {
-                $resz = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left = ? WHERE sched_id = ?", array ($ticks_left, $event['sched_id']));
+                $resz = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left = ? WHERE sched_id = ?", array($ticks_left, $event['sched_id']));
                 Bnt\Db::logDbErrors($db, $resz, __LINE__, __FILE__);
             }
 

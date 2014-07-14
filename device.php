@@ -22,7 +22,7 @@ require_once './common.php';
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer', 'regional'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer', 'regional'));
 $title = $langvars['l_device_title'];
 $body_class = 'device';
 Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
@@ -30,7 +30,7 @@ Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
 echo "<body class=" . $body_class . "><br>";
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 $playerinfo = $res->fields;
 
 echo $langvars['l_device_expl'] . "<br><br>";

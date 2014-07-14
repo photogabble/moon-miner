@@ -67,7 +67,7 @@ if (array_key_exists('newlang', $_POST) == true)
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 $template->addVariables('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php

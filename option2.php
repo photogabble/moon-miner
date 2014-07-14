@@ -42,7 +42,7 @@ if (array_key_exists('newlang', $_POST) == true)
                 $lang = $lang_file;
 
                 // Update the ship record to the requested language
-                $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ?", array ($lang, $_SESSION['username']));
+                $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ?", array($lang, $_SESSION['username']));
                 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
                 // Set a flag that we changed the language
@@ -57,7 +57,7 @@ $title = $langvars['l_opt2_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 // Filter POST['oldpass'], POST['newpass1'], POST['newpass2']. Returns "0" if these specific values are not set because that is what the form gives if they exist but were not set.
@@ -83,7 +83,7 @@ else
 {
     // Load Player information from their username (i.e. email)
     $playerinfo = false;
-    $rs = $db->SelectLimit("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
+    $rs = $db->SelectLimit("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=?", 1, -1, array('email' => $_SESSION['username']));
     Bnt\Db::logDbErrors($db, $rs, __LINE__, __FILE__);
 
     // Do we have a valid RecordSet?
@@ -99,7 +99,7 @@ else
             $new_hashed_pass = password_hash($newpass1, PASSWORD_DEFAULT);
 
             // Now update the players password.
-            $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($new_hashed_pass, $playerinfo['ship_id']));
+            $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array($new_hashed_pass, $playerinfo['ship_id']));
             Bnt\Db::logDbErrors($db, $rs, __LINE__, __FILE__);
 
             // Now check to see if we have a valid update and have ONLY 1 changed record.

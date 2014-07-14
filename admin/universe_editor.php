@@ -42,7 +42,7 @@ if ($action == "doexpand")
         {
             $row = $result->fields;
             $distance = Bnt\Rand::betterRand(1, $radius);
-            $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
+            $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array($distance, $row['sector_id']));
             Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 
             $changed_sectors[$i] = str_replace("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
