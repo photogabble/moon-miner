@@ -557,47 +557,42 @@ else
     }
     elseif ($sectorinfo['port_type'] != "none")
     {
-        // Here is the trade fonction to strip out some "spaghetti code". The function saves about 60 lines of code, I hope it will be
-        // easier to modify/add something in this part.
         $price_array = array ();
 
-        // Clear variables that are not selected in the form
-        if (!array_key_exists('trade_ore', $_POST))
+        // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+        $trade_ore = null;
+        $trade_ore = (int) filter_input(INPUT_POST, 'trade_ore', FILTER_SANITIZE_NUMBER_INT);
+        if (mb_strlen(trim($trade_ore)) === 0)
         {
-            $trade_ore = null;
-        }
-        else
-        {
-            $trade_ore = $_POST['trade_ore'];
+            $trade_ore = false;
         }
 
-        if (!array_key_exists('trade_organics', $_POST))
+        // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+        $trade_organics = null;
+        $trade_organics = (int) filter_input(INPUT_POST, 'trade_organics', FILTER_SANITIZE_NUMBER_INT);
+        if (mb_strlen(trim($trade_organics)) === 0)
         {
-            $trade_organics = null;
-        }
-        else
-        {
-            $trade_organics = $_POST['trade_organics'];
-        }
-
-        if (!array_key_exists('trade_goods', $_POST))
-        {
-            $trade_goods = null;
-        }
-        else
-        {
-            $trade_goods = $_POST['trade_goods'];
+            $trade_organics = false;
         }
 
-        if (!array_key_exists('trade_energy', $_POST))
+        // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+        $trade_goods = null;
+        $trade_goods = (int) filter_input(INPUT_POST, 'trade_goods', FILTER_SANITIZE_NUMBER_INT);
+        if (mb_strlen(trim($trade_goods)) === 0)
         {
-            $trade_energy = null;
-        }
-        else
-        {
-            $trade_energy = $_POST['trade_energy'];
+            $trade_goods = false;
         }
 
+        // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+        $trade_energy = null;
+        $trade_energy = (int) filter_input(INPUT_POST, 'trade_energy', FILTER_SANITIZE_NUMBER_INT);
+        if (mb_strlen(trim($trade_energy)) === 0)
+        {
+            $trade_energy = false;
+        }
+
+        // Here is the trade fonction to strip out some "spaghetti code". The function saves about 60 lines of code, I hope it will be
+        // easier to modify/add something in this part.
         function trade($price, $delta, $max, $limit, $factor, $port_type, $origin, $price_array, $sectorinfo)
         {
             if ($sectorinfo['port_type'] ==  $port_type)
