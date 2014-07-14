@@ -179,7 +179,7 @@ echo "  </tr>\n";
 
 echo "  <tr>\n";
 echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$langvars['l_sector']} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
-if (empty ($sectorinfo['beacon']) || mb_strlen(trim($sectorinfo['beacon'])) =0)
+if (empty ($sectorinfo['beacon']) || mb_strlen(trim($sectorinfo['beacon'])) == 0)
 {
     $sectorinfo['beacon'] = null;
 }
