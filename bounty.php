@@ -29,10 +29,12 @@ $langvars = Bnt\Translate::load($pdo_db, $lang, array ('bounty', 'port', 'common
 $title = $langvars['l_by_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $response = null;
-if (array_key_exists('response', $_POST))
+$response = filter_input(INPUT_POST, 'response', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($response)) === 0)
 {
-    $response  = filter_input(INPUT_POST, 'response', FILTER_SANITIZE_STRING);
+    $response = false;
 }
 
 if (array_key_exists('response', $_GET))
@@ -40,10 +42,12 @@ if (array_key_exists('response', $_GET))
     $response  = filter_input(INPUT_GET, 'response', FILTER_SANITIZE_STRING);
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $bounty_on = null;
-if (array_key_exists('bounty_on', $_POST))
+$bounty_on = (int) filter_input(INPUT_POST, 'bounty_on', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($bounty_on)) === 0)
 {
-    $bounty_on  = filter_input(INPUT_POST, 'bounty_on', FILTER_SANITIZE_NUMBER_INT);
+    $bounty_on = false;
 }
 
 if (array_key_exists('bounty_on', $_GET))
@@ -51,8 +55,21 @@ if (array_key_exists('bounty_on', $_GET))
     $bounty_on  = filter_input(INPUT_GET, 'bounty_on', FILTER_SANITIZE_NUMBER_INT);
 }
 
-$bid = (int) filter_input(INPUT_GET, 'bid', FILTER_SANITIZE_NUMBER_INT);
-$amount  = (int) filter_input(INPUT_POST, 'amount', FILTER_SANITIZE_NUMBER_INT);
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$bid = null;
+$bid = (int) filter_input(INPUT_POST, 'bid', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($bid)) === 0)
+{
+    $bid = false;
+}
+
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$amount = null;
+$amount = (int) filter_input(INPUT_POST, 'amount', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($amount)) === 0)
+{
+    $amount = false;
+}
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);

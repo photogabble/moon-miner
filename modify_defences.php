@@ -35,11 +35,12 @@ if (!isset($defence_id))
     die ();
 }
 
-// TODO: Add filtering for response
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $response = null;
-if (array_key_exists('response', $_POST) == true)
+$response = filter_input(INPUT_POST, 'response', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($response)) === 0)
 {
-    $response = $_POST['response'];
+    $response = false;
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

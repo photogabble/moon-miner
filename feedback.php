@@ -33,7 +33,15 @@ $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", arra
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-if (array_key_exists('content', $_POST) === false)
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$content = null;
+$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_URL);
+if (mb_strlen(trim($content)) === 0)
+{
+    $content = false;
+}
+
+if ($content === false || $content === null)
 {
     echo "<form accept-charset='utf-8' action=feedback.php method=post>\n";
     echo "<table>\n";

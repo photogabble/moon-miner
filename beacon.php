@@ -40,9 +40,12 @@ $sectorinfo = $result2->fields;
 
 $allowed_rsw = "N";
 
-if (array_key_exists('beacon_text', $_POST))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$beacon_text = null;
+$beacon_text = (int) filter_input(INPUT_POST, 'beacon_text', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($beacon_text)) === 0)
 {
-    $destination  = (int) filter_input(INPUT_GET, 'beacon_text', FILTER_SANITIZE_NUMBER_INT);
+    $beacon_text = false;
 }
 
 if ($playerinfo['dev_beacon'] > 0)

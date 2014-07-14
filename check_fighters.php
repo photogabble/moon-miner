@@ -39,10 +39,12 @@ $i = 0;
 $total_sector_fighters = 0;
 $owner = true;
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $response = null;
-if (array_key_exists('response', $_POST))
+$response = (int) filter_input(INPUT_POST, 'response', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($response)) === 0)
 {
-    $response  = (int) filter_input(INPUT_POST, 'response', FILTER_SANITIZE_NUMBER_INT);
+    $response = false;
 }
 
 $destination = null;

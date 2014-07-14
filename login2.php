@@ -21,9 +21,25 @@ require_once './common.php';
 // Test to see if server is closed to logins
 $playerfound = false;
 
-if (array_key_exists('email', $_POST) && $_POST['email'] != null)
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$email = null;
+$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($email)) === 0)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_POST['email']));
+    $email = false;
+}
+
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$filtered_post_password = null;
+$filtered_post_password = filter_input(INPUT_POST, 'filtered_post_password', FILTER_SANITIZE_URL);
+if (mb_strlen(trim($filtered_post_password)) === 0)
+{
+    $filtered_post_password = false;
+}
+
+if ($email !== null)
+{
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($email));
     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
     if ($res)
     {
@@ -32,21 +48,29 @@ if (array_key_exists('email', $_POST) && $_POST['email'] != null)
     $playerinfo = $res->fields;
     $lang = $playerinfo['lang'];
 }
-
-if (!array_key_exists('lang', $_GET))
+else
 {
-    $_GET['lang'] = null;
-    $lang = $bntreg->default_lang;
-    $link = null;
+    // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+    $lang = null;
+    $lang = filter_input(INPUT_POST, 'lang', FILTER_SANITIZE_STRING);
+    if (mb_strlen(trim($lang)) === 0)
+    {
+        $lang = false;
+    }
+}
+
+if ($lang !== null)
+{
+    $link = '?lang=' . $lang;
 }
 else
 {
-    $lang = $_GET['lang'];
-    $link = "?lang=" . $lang;
+    $lang = $bntreg->default_lang;
+    $link = null;
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 if ($bntreg->game_closed)
 {
@@ -65,7 +89,7 @@ $banned = 0;
 
 if (isset ($playerinfo) && $playerfound != false)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask OR ? LIKE ban_mask;", array ($_SERVER['REMOTE_ADDR'], $playerinfo['ip_address']));
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask OR ? LIKE ban_mask;", array($_SERVER['REMOTE_ADDR'], $playerinfo['ip_address']));
     Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
     if ($res->RecordCount() != 0)
     {
@@ -78,7 +102,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 if ($playerfound)
 {
-    if (password_verify($_POST['pass'], $playerinfo['password']))
+    if (password_verify($filtered_post_password, $playerinfo['password']))
     {
         $ban_result = Bnt\CheckBan::isBanned($pdo_db, $lang, null, $playerinfo);
         if ($ban_result === false ||  (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
@@ -89,11 +113,11 @@ if ($playerfound)
                 // Player's ship has not been destroyed
                 Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_LOGIN, $_SERVER['REMOTE_ADDR']);
                 $stamp = date("Y-m-d H:i:s");
-                $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
+                $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
                 Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
 
                 $_SESSION['logged_in'] = true;
-                $_SESSION['password'] = $_POST['pass'];
+                $_SESSION['password'] = $filtered_post_password;
                 $_SESSION['username'] = $playerinfo['email'];
                 Bnt\Text::gotoMain($db, $lang, $langvars);
 
@@ -106,7 +130,7 @@ if ($playerfound)
                 // Player's ship has been destroyed
                 if ($playerinfo['dev_escapepod'] == "Y")
                 {
-                    $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=1, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
+                    $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=1, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array($playerinfo['ship_id']));
                     Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
                     $langvars['l_login_died'] = str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_login_died']);
                     echo $langvars['l_login_died'];
@@ -118,14 +142,14 @@ if ($playerfound)
                     // Check if $newbie_nice is set, if so, verify ship limits
                     if ($bntreg->newbie_nice)
                     {
-                        $newbie_info = $db->Execute ("SELECT hull, engines, power, computer, sensors, armor, shields, beams, torp_launchers, cloak FROM {$db->prefix}ships WHERE ship_id = ? AND hull <= ? AND engines <= ? AND power <= ? AND computer <= ? AND sensors <= ? AND armor <= ? AND shields <= ? AND beams <= ? AND torp_launchers <= ? AND cloak <= ?;", array ($playerinfo['ship_id'], $newbie_hull, $newbie_engines, $newbie_power, $newbie_computer, $newbie_sensors, $newbie_armor, $newbie_shields, $newbie_beams, $newbie_torp_launchers, $newbie_cloak));
+                        $newbie_info = $db->Execute("SELECT hull, engines, power, computer, sensors, armor, shields, beams, torp_launchers, cloak FROM {$db->prefix}ships WHERE ship_id = ? AND hull <= ? AND engines <= ? AND power <= ? AND computer <= ? AND sensors <= ? AND armor <= ? AND shields <= ? AND beams <= ? AND torp_launchers <= ? AND cloak <= ?;", array($playerinfo['ship_id'], $newbie_hull, $newbie_engines, $newbie_power, $newbie_computer, $newbie_sensors, $newbie_armor, $newbie_shields, $newbie_beams, $newbie_torp_launchers, $newbie_cloak));
                         Bnt\Db::logDbErrors($db, $newbie_info, __LINE__, __FILE__);
                         $num_rows = $newbie_info->RecordCount();
 
                         if ($num_rows)
                         {
                             echo "<br><br>" . $langvars['l_login_newbie'] . "<br><br>";
-                            $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, credits=1000, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
+                            $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, credits=1000, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array($playerinfo['ship_id']));
                             Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 
                             $langvars['l_login_newlife'] = str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_login_newlife']);
@@ -172,9 +196,9 @@ if ($playerfound)
     else
     {
         // password is incorrect
-        echo $langvars['l_login_4gotpw1a'] . "<br><br>" . $langvars['l_login_4gotpw1b'] . " <a href='mail.php?mail=" . $_POST['email'] . "'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw2a'] . "<br><br>" . $langvars['l_login_4gotpw2b'] . " <a href='index.php'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw3'] . " " . $_SERVER['REMOTE_ADDR'] . "...";
+        echo $langvars['l_login_4gotpw1a'] . "<br><br>" . $langvars['l_login_4gotpw1b'] . " <a href='mail.php?mail=" . $email . "'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw2a'] . "<br><br>" . $langvars['l_login_4gotpw2b'] . " <a href='index.php'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw3'] . " " . $_SERVER['REMOTE_ADDR'] . "...";
         Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_BADLOGIN, $_SERVER['REMOTE_ADDR']);
-        Bnt\AdminLog::writeLog($db, (1000 + LOG_BADLOGIN), "{$_SERVER['REMOTE_ADDR']}|{$_POST['email']}|{$_POST['pass']}");
+        Bnt\AdminLog::writeLog($db, (1000 + LOG_BADLOGIN), "{$_SERVER['REMOTE_ADDR']}|{$email}|{$filtered_post_password}");
     }
 }
 else

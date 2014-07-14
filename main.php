@@ -29,9 +29,12 @@ Bnt\Header::display($pdo_db, $lang, $template, $title);
 $stylefontsize = "12pt";
 $picsperrow = 7;
 
-$res = $db->SelectLimit("SELECT * FROM {$pdo_db->prefix}ships WHERE email = ?", 1, -1, array ($_SESSION['username']));
-Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
-$playerinfo = $res->fields;
+// Get playerinfo from database
+$sql = "SELECT * FROM {$pdo_db->prefix}ships WHERE email=:email LIMIT 1";
+$stmt = $pdo_db->prepare($sql);
+$stmt->bindParam(':email', $_SESSION['username']);
+$stmt->execute();
+$playerinfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!array_key_exists('command', $_GET))
 {
@@ -50,9 +53,13 @@ if ($playerinfo['cleared_defences'] > ' ')
     die();
 }
 
-$res = $db->Execute("SELECT * FROM {$pdo_db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
-$sectorinfo = $res->fields;
+
+// Pull sector info from database
+$sql = "SELECT * FROM {$pdo_db->prefix}universe WHERE sector_id=:sector_id";
+$stmt = $pdo_db->prepare($sql);
+$stmt->bindParam(':sector_id', $playerinfo['sector']);
+$stmt->execute();
+$sectorinfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($playerinfo['on_planet'] == "Y")
 {
@@ -116,9 +123,13 @@ if ($res != false)
 }
 $num_defences = $i;
 
-$res = $db->Execute("SELECT zone_id,zone_name FROM {$pdo_db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
-Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
-$zoneinfo = $res->fields;
+
+// Grab zoneinfo from database
+$sql = "SELECT zone_id,zone_name FROM {$pdo_db->prefix}zones WHERE zone_id=:zone_id";
+$stmt = $pdo_db->prepare($sql);
+$stmt->bindParam(':zone_id', $sectorinfo['zone_id']);
+$stmt->execute();
+$zoneinfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $shiptypes[0]= "tinyship.png";
 $shiptypes[1]= "smallship.png";
@@ -168,7 +179,7 @@ echo "  </tr>\n";
 
 echo "  <tr>\n";
 echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$langvars['l_sector']} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
-if (empty ($sectorinfo['beacon']) || mb_strlen(trim($sectorinfo['beacon'])) <=0)
+if (empty ($sectorinfo['beacon']) || mb_strlen(trim($sectorinfo['beacon'])) =0)
 {
     $sectorinfo['beacon'] = null;
 }

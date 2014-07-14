@@ -51,26 +51,20 @@ if (!$bntreg->allow_ibank)
     Bad\Ibank::ibankError($template->getVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
 }
 
-// TODO: Add filtering to command list
-if (!array_key_exists('command', $_GET))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$command = null;
+$command = filter_input(INPUT_GET, 'command', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($command)) === 0)
 {
-    $_GET['command'] = null;
-    $command = null;
-}
-else
-{
-    $command = $_GET['command'];
+    $command = false;
 }
 
-// TODO: Add filtering to amount
-if (!array_key_exists('amount', $_POST))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$amount = null;
+$amount = (int) filter_input(INPUT_POST, 'amount', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($amount)) === 0)
 {
-    $_POST['amount'] = null;
-    $amount = null;
-}
-else
-{
-    $amount = $_POST['amount'];
+    $amount = false;
 }
 
 if ($command == 'login') //main menu

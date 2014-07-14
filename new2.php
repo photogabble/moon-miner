@@ -23,54 +23,64 @@ $title = $langvars['l_new_title2'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'));
-echo "<h1>" . $title . "</h1>\n";
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'));
+echo '<h1>' . $title . '</h1>';
 
 if ($bntreg->account_creation_closed)
 {
     die ($langvars['l_new_closed_message']); // This should ideally use a class based error handler instead
 }
 
-// Get the user supplied post vars.
-$username  = null;
-$shipname  = null;
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $character = null;
-$password = null;
-if (array_key_exists('character', $_POST))
+$character = filter_input(INPUT_POST, 'character', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($character)) === 0)
 {
-    $character  = $_POST['character'];
+    $character = false;
 }
 
-if (array_key_exists('shipname', $_POST))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$shipname = null;
+$shipname = filter_input(INPUT_POST, 'shipname', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($shipname)) === 0)
 {
-    $shipname   = $_POST['shipname'];
+    $shipname = false;
 }
 
-if (array_key_exists('username', $_POST))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$username = null;
+$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($username)) === 0)
 {
-    $username   = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_EMAIL);
+    $username = false;
 }
 
-if (array_key_exists('newlang', $_POST))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$filtered_post_password = null;
+$filtered_post_password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_URL);
+if (mb_strlen(trim($filtered_post_password)) === 0)
 {
-    $lang   = $_POST['newlang'];
+    $filtered_post_password = false;
+}
+
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$newlang = null;
+$newlang = filter_input(INPUT_POST, 'newlang', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($newlang)) === 0)
+{
+    $newlang = false;
+}
+
+if ($newlang !== null && $newlang !== null)
+{
+    $lang   = $newlang;
 }
 else
 {
-    $lang = $default_lang;
+    $lang = $bntreg->default_lang;
 }
 
-if (array_key_exists('password', $_POST))
-{
-    $password = $_POST['password'];
-}
-
-$character = htmlentities($character, ENT_HTML5, 'UTF-8');
-$shipname = htmlentities($shipname, ENT_HTML5, 'UTF-8');
-$character = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
-$shipname = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
-
-$result = $db->Execute("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email=? || character_name=? || ship_name=?;", array ($username, $character, $shipname));
+$result = $db->Execute("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email=? || character_name=? || ship_name=?;", array($username, $character, $shipname));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $flag = 0;
 
@@ -85,18 +95,18 @@ while (($result instanceof ADORecordSet) && !$result->EOF)
     $row = $result->fields;
     if (mb_strtolower($row['email']) == mb_strtolower($username))
     {
-        echo $langvars['l_new_inuse'] . " " .  $langvars['l_new_4gotpw1'] . " <a href=mail.php?mail=$username>" . $langvars['l_clickme'] . "</a> " . $langvars['l_new_4gotpw2'] . "<br>";
+        echo $langvars['l_new_inuse'] . ' ' .  $langvars['l_new_4gotpw1'] . ' <a href=mail.php?mail=' . $username . '>' . $langvars['l_clickme'] . '</a> ' . $langvars['l_new_4gotpw2'] . '<br>';
         $flag = 1;
     }
     if (mb_strtolower($row['character_name']) == mb_strtolower($character))
     {
-        $langvars['l_new_inusechar'] = str_replace("[character]", $character, $langvars['l_new_inusechar']);
+        $langvars['l_new_inusechar'] = str_replace('[character]', $character, $langvars['l_new_inusechar']);
         echo $langvars['l_new_inusechar'] . '<br>';
         $flag = 1;
     }
     if (mb_strtolower($row['ship_name']) == mb_strtolower($shipname))
     {
-        $langvars['l_new_inuseship'] = str_replace("[shipname]", $shipname, $langvars['l_new_inuseship']);
+        $langvars['l_new_inuseship'] = str_replace('[shipname]', $shipname, $langvars['l_new_inuseship']);
         echo $langvars['l_new_inuseship'] . '<br>';
         $flag = 1;
     }
@@ -106,7 +116,7 @@ while (($result instanceof ADORecordSet) && !$result->EOF)
 if ($flag == 0)
 {
     // Insert code to add player to database
-    $stamp = date("Y-m-d H:i:s");
+    $stamp = date('Y-m-d H:i:s');
     $query = $db->Execute("SELECT MAX(turns_used + turns) AS mturns FROM {$db->prefix}ships;");
     Bnt\Db::logDbErrors($db, $query, __LINE__, __FILE__);
     $res = $query->fields;
@@ -119,43 +129,43 @@ if ($flag == 0)
     }
 
     // Hash the password.  $hashed_pass will be a 60-character string.
-    $hashed_pass = password_hash($password, PASSWORD_DEFAULT); // PASSWORD_DEFAULT is the strongest algorithm available to PHP at the current time - today, it is BCRYPT.
+    $hashed_pass = password_hash($filtered_post_password, PASSWORD_DEFAULT); // PASSWORD_DEFAULT is the strongest algorithm available to PHP at the current time - today, it is BCRYPT.
 
     $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
-                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array ($shipname, 'N', $character, $hashed_pass, $username, $bntreg->start_armor, $bntreg->start_credits, $bntreg->start_energy, $bntreg->start_fighters, $mturns, 'N', $bntreg->start_editors, $bntreg->start_genesis, $bntreg->start_beacon, $bntreg->start_emerwarp, $bntreg->start_escape_pod, $bntreg->start_scoop, $bntreg->start_minedeflectors, $stamp, $_SERVER['REMOTE_ADDR'], 'Y', 'N', 'N', 'Y', NULL, $lang, $bntreg->start_lssd));
+                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array($shipname, 'N', $character, $hashed_pass, $username, $bntreg->start_armor, $bntreg->start_credits, $bntreg->start_energy, $bntreg->start_fighters, $mturns, 'N', $bntreg->start_editors, $bntreg->start_genesis, $bntreg->start_beacon, $bntreg->start_emerwarp, $bntreg->start_escape_pod, $bntreg->start_scoop, $bntreg->start_minedeflectors, $stamp, $_SERVER['REMOTE_ADDR'], 'Y', 'N', 'N', 'Y', NULL, $lang, $bntreg->start_lssd));
     Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
 
     if (!$result2)
     {
-        echo $db->ErrorMsg() . "<br>";
+        echo $db->ErrorMsg() . '<br>';
     }
     else
     {
-        $result2 = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($username));
+        $result2 = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array($username));
         Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
 
         $shipid = $result2->fields;
 
         // To do: build a bit better "new player" message
-        $langvars['l_new_message'] = str_replace("[pass]", $password, $langvars['l_new_message']);
-        $langvars['l_new_message'] = str_replace("[ip]", $_SERVER['REMOTE_ADDR'], $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace('[pass]', $filtered_post_password, $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace('[ip]', $_SERVER['REMOTE_ADDR'], $langvars['l_new_message']);
 
         // Some reason \r\n is broken, so replace them now.
         $langvars['l_new_message'] = str_replace('\r\n', "\r\n", $langvars['l_new_message']);
 
-        $link_to_game = "http://" . $_SERVER['HTTP_HOST'] . Bnt\SetPaths::setGamepath();
-        $langvars['l_new_message'] = str_replace("[website]", $link_to_game, $langvars['l_new_message']);
-        $langvars['l_new_message'] = str_replace("[npg]", $link_to_game . "newplayerguide.php", $langvars['l_new_message']);
-        $langvars['l_new_message'] = str_replace("[faq]", $link_to_game . "faq.php", $langvars['l_new_message']);
-        $langvars['l_new_message'] = str_replace("[forums]", "http://forums.blacknova.net", $langvars['l_new_message']);
+        $link_to_game = 'http://' . $_SERVER['HTTP_HOST'] . Bnt\SetPaths::setGamepath();
+        $langvars['l_new_message'] = str_replace('[website]', $link_to_game, $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace('[npg]', $link_to_game . 'newplayerguide.php', $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace('[faq]', $link_to_game . 'faq.php', $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace('[forums]', 'http://forums.blacknova.net', $langvars['l_new_message']);
 
-        mail("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n$link_to_game", "From: $bntreg->admin_mail\r\nReply-To: $bntreg->admin_mail\r\nX-Mailer: PHP/" . phpversion());
+        mail("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n" . $link_to_game, 'From: ' . $bntreg->admin_mail . "\r\nReply-To: " . $bntreg->admin_mail . "\r\nX-Mailer: PHP/" . phpversion());
 
         Bnt\LogMove::writeLog($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
-        $resx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES (NULL, ?, ?, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0);", array ($character ."\'s Territory", $shipid['ship_id']));
+        $resx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES (NULL, ?, ?, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0);", array($character ."\'s Territory", $shipid['ship_id']));
         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 
-        $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (?,0,0);", array ($shipid['ship_id']));
+        $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (?,0,0);", array($shipid['ship_id']));
         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 
         // Add presets for new player
@@ -176,15 +186,15 @@ if ($flag == 0)
         session_regenerate_id();
 
         $_SESSION['logged_in'] = true;
-        $_SESSION['password'] = $password;
+        $_SESSION['password'] = $filtered_post_password;
         $_SESSION['username'] = $username;
         Bnt\Text::gotoMain($db, $lang, $langvars);
-        header("Refresh: 2;url=main.php");
+        header('Refresh: 2;url=main.php');
     }
 }
 else
 {
-    $langvars['l_new_err'] = str_replace("[here]", "<a href='new.php'>" . $langvars['l_here'] . "</a>", $langvars['l_new_err']);
+    $langvars['l_new_err'] = str_replace('[here]', "<a href='new.php'>" . $langvars['l_here'] . '</a>', $langvars['l_new_err']);
     echo $langvars['l_new_err'];
 }
 
