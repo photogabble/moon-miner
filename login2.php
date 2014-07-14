@@ -31,7 +31,7 @@ if (mb_strlen(trim($email)) === 0)
 
 // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $filtered_post_password = null;
-$filtered_post_password = filter_input(INPUT_POST, 'filtered_post_password', FILTER_SANITIZE_URL);
+$filtered_post_password = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_URL);
 if (mb_strlen(trim($filtered_post_password)) === 0)
 {
     $filtered_post_password = false;
