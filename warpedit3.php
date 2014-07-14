@@ -28,16 +28,20 @@ Bnt\Header::display($pdo_db, $lang, $template, $title);
 $langvars = Bnt\Translate::load($pdo_db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $bothway = null;
-if (array_key_exists('bothway', $_POST)== true)
+$bothway = filter_input(INPUT_POST, 'bothway', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($bothway)) === 0)
 {
-    $bothway = $_POST['bothway'];
+    $bothway = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $target_sector = null;
-if (array_key_exists('target_sector', $_POST)== true)
+$target_sector = (int) filter_input(INPUT_POST, 'target_sector', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($target_sector)) === 0)
 {
-    $target_sector = $_POST['target_sector'];
+    $target_sector = false;
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

@@ -26,15 +26,23 @@ Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
 $langvars = Bnt\Translate::load($pdo_db, $lang, array ('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
-echo "<h1>" . $title . "</h1>\n";
+echo '<h1>' . $title . '</h1>';
 
-echo "<br>";
-echo str_replace("[here]", "<a href='planet_report.php'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return']);
-echo "<br>";
+echo '<br>';
+echo str_replace('[here]', "<a href='planet_report.php'>" . $langvars['l_here'] . '</a>', $langvars['l_pr_click_return']);
+echo '<br>';
 
-if (array_key_exists('TPCreds', $_POST))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$tpcreds = null;
+$tpcreds = $_POST['tpcreds']; // TODO: tp creds is an array. Filtering will be tricky.
+if (mb_strlen(trim($tpcreds)) === 0)
 {
-    Bad\PlanetReportCE::collectCredits($db, $langvars, $_POST["TPCreds"], $sector_max);
+    $tpcreds = false;
+}
+
+if ($tpcreds !== null && $tpcreds !== false)
+{
+    Bad\PlanetReportCE::collectCredits($db, $langvars, $tpcreds, $sector_max);
 }
 elseif (isset($buildp) && isset($builds))
 {
@@ -45,7 +53,7 @@ else
     Bad\PlanetReportCE::changePlanetProduction($db, $langvars, $_POST);
 }
 
-echo "<br><br>";
+echo '<br><br>';
 Bnt\Text::gotoMain($db, $lang, $langvars);
 Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
 ?>

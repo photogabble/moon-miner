@@ -24,13 +24,23 @@ include './config/admin_config.php';
 // Set timelimit to infinite
 set_time_limit(0);
 
-// Get POST Variable "swordfish" and URL Sanitize it. (returns null if not found)
-$swordfish  = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$swordfish = null;
+$swordfish = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+if (mb_strlen(trim($swordfish)) === 0)
+{
+    $swordfish = false;
+}
 
-// Get POST Variable "step" and INT Sanitize it. (returns null if not found)
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$step = null;
 $step = (int) filter_input(INPUT_POST, 'step', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($step)) === 0)
+{
+    $step = false;
+}
 
-if ($swordfish === null) // If no swordfish password has been entered, we are on the first step
+if ($swordfish === null || $swordfish === false) // If no swordfish password has been entered and/or it did not clear the filter, we are on the first step
 {
     $step = "1";
 }

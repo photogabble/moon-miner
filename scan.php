@@ -31,7 +31,14 @@ $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array (
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$filtered_ship_id = filter_input(INPUT_GET, 'ship_id', FILTER_SANITIZE_NUMBER_INT);
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$filtered_ship_id = null;
+$filtered_ship_id = filter_input(INPUT_POST, 'ship_id', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($filtered_ship_id)) === 0)
+{
+    $filtered_ship_id = false;
+}
+
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($filtered_ship_id));
 Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
 $targetinfo = $result2->fields;

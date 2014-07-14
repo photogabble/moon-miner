@@ -42,7 +42,7 @@ $allowed_rsw = "N";
 
 // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $beacon_text = null;
-$beacon_text = (int) filter_input(INPUT_POST, 'beacon_text', FILTER_SANITIZE_NUMBER_INT);
+$beacon_text = filter_input(INPUT_POST, 'beacon_text', FILTER_SANITIZE_STRING);
 if (mb_strlen(trim($beacon_text)) === 0)
 {
     $beacon_text = false;

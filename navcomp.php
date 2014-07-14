@@ -36,8 +36,21 @@ if (!$bntreg->allow_navcomp)
     die ();
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$state = null;
 $state = (int) filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($state)) === 0)
+{
+    $state = false;
+}
+
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$stop_sector = null;
 $stop_sector = (int) filter_input(INPUT_POST, 'stop_sector', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($stop_sector)) === 0)
+{
+    $stop_sector = false;
+}
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);

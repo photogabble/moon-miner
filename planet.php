@@ -25,31 +25,36 @@ $title = $langvars['l_planet_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array ('bounty', 'port', 'igb', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat', 'regional'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('bounty', 'port', 'igb', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat', 'regional'));
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $destroy = null;
-if (array_key_exists('destroy', $_GET) == true)
+$destroy = (int) filter_input(INPUT_GET, 'destroy', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($destroy)) === 0)
 {
-    $destroy = $_GET['destroy'];
+    $destroy = false;
 }
 
-// TODO: Add filtering for command
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $command = null;
-if (array_key_exists('command', $_GET) == true)
+$command = filter_input(INPUT_GET, 'command', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($command)) === 0)
 {
-    $command = $_GET['command'];
+    $command = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $planet_id = null;
-if (array_key_exists('planet_id', $_GET) == true)
+$planet_id = (int) filter_input(INPUT_GET, 'planet_id', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($planet_id)) === 0)
 {
-    $planet_id = (int) $_GET['planet_id'];
+    $planet_id = false;
 }
 
-echo "<h1>" . $title . "</h1>\n";
+echo '<h1>' . $title . '</h1>';
 
 // Get the Player Info
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -59,17 +64,17 @@ $planetinfo = null;
 // Check if planet_id is valid.
 if ($planet_id <= 0)
 {
-    echo "Invalid Planet<br><br>";
+    echo 'Invalid Planet<br><br>';
     Bnt\Text::gotoMain($db, $lang, $langvars);
     Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
     die ();
 }
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array($playerinfo['sector']));
 Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
-$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
+$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array($planet_id));
 Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
 $planetinfo = $result3->fields;
 
@@ -88,7 +93,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
     {
         if ($playerinfo['on_planet'] == 'Y')
         {
-            $resx = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+            $resx = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array($playerinfo['ship_id']));
             Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
         }
 
@@ -115,7 +120,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
 
     if ($planetinfo['owner'] != 0)
     {
-        $result3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planetinfo['owner']));
+        $result3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array($planetinfo['owner']));
         Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
         $ownerinfo = $result3->fields;
     }
@@ -149,11 +154,11 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             {
                 if ($playerinfo['dev_genesis'] > 0)
                 {
-                    $update = $db->Execute("DELETE FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
+                    $update = $db->Execute("DELETE FROM {$db->prefix}planets WHERE planet_id = ?;", array($planet_id));
                     Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
-                    $update2 = $db->Execute("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id = ?", array ($playerinfo['ship_id']));
+                    $update2 = $db->Execute("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id = ?", array($playerinfo['ship_id']));
                     Bnt\Db::logDbErrors($db, $update2, __LINE__, __FILE__);
-                    $update3 = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE planet_id = ?;", array ($planet_id));
+                    $update3 = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE planet_id = ?;", array($planet_id));
                     Bnt\Db::logDbErrors($db, $update3, __LINE__, __FILE__);
                     Bnt\Ownership::calc($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
                     header("Location: main.php");
@@ -329,13 +334,13 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             {
                 // Set planet to not sell
                 echo $langvars['l_planet_nownosell'] . "<br>";
-                $result4 = $db->Execute("UPDATE {$db->prefix}planets SET sells='N' WHERE planet_id = ?;", array ($planet_id));
+                $result4 = $db->Execute("UPDATE {$db->prefix}planets SET sells='N' WHERE planet_id = ?;", array($planet_id));
                 Bnt\Db::logDbErrors($db, $result4, __LINE__, __FILE__);
             }
             else
             {
                 echo $langvars['l_planet_nowsell'] . "<br>";
-                $result4b = $db->Execute("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id = ?;", array ($planet_id));
+                $result4b = $db->Execute("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id = ?;", array($planet_id));
                 Bnt\Db::logDbErrors($db, $result4b, __LINE__, __FILE__);
             }
         }
@@ -352,7 +357,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
         {
             // Name2 menu
             $new_name = trim(htmlentities($_POST['new_name'], ENT_HTML5, 'UTF-8'));
-            $result5 = $db->Execute("UPDATE {$db->prefix}planets SET name = ? WHERE planet_id = ?;", array ($new_name, $planet_id));
+            $result5 = $db->Execute("UPDATE {$db->prefix}planets SET name = ? WHERE planet_id = ?;", array($new_name, $planet_id));
             Bnt\Db::logDbErrors($db, $result5, __LINE__, __FILE__);
             echo $langvars['l_planet_cname'] . " " . $new_name . ".";
         }
@@ -360,14 +365,14 @@ if (!is_bool($planetinfo) && $planetinfo != false)
         {
             // Land menu
             echo $langvars['l_planet_landed'] . "<br><br>";
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='Y', planet_id = ? WHERE ship_id = ?;", array ($planet_id, $playerinfo['ship_id']));
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='Y', planet_id = ? WHERE ship_id = ?;", array($planet_id, $playerinfo['ship_id']));
             Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "leave")
         {
             // Leave menu
             echo $langvars['l_planet_left'] . "<br><br>";
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array($playerinfo['ship_id']));
             Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "transfer")
@@ -422,15 +427,15 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 else
                 {
                     // Create The Base
-                    $update1 = $db->Execute("UPDATE {$db->prefix}planets SET base='Y', ore = ? - ?, organics = ? - ?, goods = ? - ?, credits = ? - ? WHERE planet_id = ?;", array ($planetinfo['ore'], $base_ore, $planetinfo['organics'], $base_organics, $planetinfo['goods'], $base_goods, $planetinfo['credits'], $base_credits, $planet_id));
+                    $update1 = $db->Execute("UPDATE {$db->prefix}planets SET base='Y', ore = ? - ?, organics = ? - ?, goods = ? - ?, credits = ? - ? WHERE planet_id = ?;", array($planetinfo['ore'], $base_ore, $planetinfo['organics'], $base_organics, $planetinfo['goods'], $base_goods, $planetinfo['credits'], $base_credits, $planet_id));
                     Bnt\Db::logDbErrors($db, $update1, __LINE__, __FILE__);
 
                     // Update User Turns
-                    $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+                    $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array($playerinfo['ship_id']));
                     Bnt\Db::logDbErrors($db, $update1b, __LINE__, __FILE__);
 
                     // Refresh Plant Info
-                    $result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array ($planet_id));
+                    $result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array($planet_id));
                     Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
                     $planetinfo = $result3->fields;
 
@@ -474,7 +479,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             }
             else
             {
-                $resx = $db->Execute("UPDATE {$db->prefix}planets SET prod_ore= ? , prod_organics = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?;", array ($pore, $porganics, $pgoods, $penergy, $pfighters, $ptorp, $planet_id));
+                $resx = $db->Execute("UPDATE {$db->prefix}planets SET prod_ore= ? , prod_organics = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?;", array($pore, $porganics, $pgoods, $penergy, $pfighters, $ptorp, $planet_id));
                 Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
                 echo $langvars['l_planet_p_changed'] . "<br><br>";
             }
@@ -490,7 +495,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
         {
             // Leave menu
             echo $langvars['l_planet_left'] . "<br><br>";
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N', planet_id = 0 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N', planet_id = 0 WHERE ship_id = ?;", array($playerinfo['ship_id']));
             Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
             $langvars['l_global_mmenu'] = str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
             echo $langvars['l_global_mmenu'] . "<br>\n";
@@ -824,7 +829,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
 //               echo "<strong>" . $ownerinfo['character_name'] . " " . $langvars['l_planet_ison'] . "</strong><br>";
 //            }
 
-                $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' and planet_id = ?;", array ($planet_id));
+                $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' and planet_id = ?;", array($planet_id));
                 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
 
                 while (!$res->EOF)
@@ -849,13 +854,13 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                     $res->MoveNext();
                 }
             }
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array($playerinfo['ship_id']));
             Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "capture" &&  $planetinfo['owner'] == 0)
         {
             echo $langvars['l_planet_captured'] . "<br>";
-            $update = $db->Execute("UPDATE {$db->prefix}planets SET corp = 0, owner = ?, base = 'N', defeated = 'N' WHERE planet_id = ?;", array ($playerinfo['ship_id'], $planet_id));
+            $update = $db->Execute("UPDATE {$db->prefix}planets SET corp = 0, owner = ?, base = 'N', defeated = 'N' WHERE planet_id = ?;", array($playerinfo['ship_id'], $planet_id));
             Bnt\Db::logDbErrors($db, $update, __LINE__, __FILE__);
             $ownership = Bnt\Ownership::calc($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
 
@@ -871,7 +876,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
 
             if ($planetinfo['owner'] != 0)
             {
-                $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planetinfo['owner']));
+                $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array($planetinfo['owner']));
                 Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
                 $query = $res->fields;
                 $planetowner = $query['character_name'];
@@ -886,7 +891,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
         elseif ($command == "capture" &&  ($planetinfo['owner'] == 0 || $planetinfo['defeated'] == 'Y'))
         {
             echo $langvars['l_planet_notdef'] . "<br>";
-            $resx = $db->Execute("UPDATE {$db->prefix}planets SET defeated='N' WHERE planet_id = ?;", array ($planetinfo['planet_id']));
+            $resx = $db->Execute("UPDATE {$db->prefix}planets SET defeated='N' WHERE planet_id = ?;", array($planetinfo['planet_id']));
             Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
         }
         else

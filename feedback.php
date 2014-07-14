@@ -35,7 +35,7 @@ $playerinfo = $result->fields;
 
 // Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $content = null;
-$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_URL);
+$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING); // URL doesn't allow spaces, string does.
 if (mb_strlen(trim($content)) === 0)
 {
     $content = false;
