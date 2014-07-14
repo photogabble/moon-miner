@@ -94,18 +94,21 @@ if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playeri
 
 // Default to 1 run if we don't get a valid repeat value.
 $tr_repeat = 1;
-// Check if we have a $_POST['tr_repeat'] and that the type-casted value is larger than 0.
-if (array_key_exists('tr_repeat', $_POST) == true && (integer) $_POST['tr_repeat'] >0)
+
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$tr_repeat = null;
+$tr_repeat = (int) filter_input(INPUT_POST, 'tr_repeat', FILTER_SANITIZE_NUMBER_INT);
+if (mb_strlen(trim($tr_repeat)) === 0)
 {
-    // Now type cast the repeat value into an integer.
-    $tr_repeat = (integer) $_POST['tr_repeat'];
+    $tr_repeat = false;
 }
 
-// TODO: Add filtering on command
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $command = null;
-if (array_key_exists('command', $_GET) == true)
+$command = filter_input(INPUT_POST, 'command', FILTER_SANITIZE_STRING);
+if (mb_strlen(trim($command)) === 0)
 {
-    $command = $_GET['command'];
+    $command = false;
 }
 
 if ($command == 'new')

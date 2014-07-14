@@ -33,22 +33,25 @@ function checked($yesno)
     return (($yesno == "Y") ? "CHECKED" : "");
 }
 
-if (array_key_exists('menu', $_POST))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$menu = null;
+$menu = filter_input(INPUT_POST, 'menu', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($menu)) === 0)
+{
+    $menu = false;
+}
+
+if ($menu !== null && $menu !== false)
 {
     $module = $menu;
 }
-else
-{
-    $module = null;
-}
 
-if (array_key_exists('swordfish', $_POST))
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
+$swordfish = null;
+$swordfish = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($swordfish)) === 0)
 {
-    $swordfish = $_POST['swordfish'];
-}
-else
-{
-    $swordfish = null;
+    $swordfish = false;
 }
 
 if ($swordfish != ADMIN_PW)

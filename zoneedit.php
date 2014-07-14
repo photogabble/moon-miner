@@ -28,58 +28,76 @@ Bnt\Header::display($pdo_db, $lang, $template, $title);
 $langvars = Bnt\Translate::load($pdo_db, $lang, array ('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $command = null;
-if (array_key_exists('command', $_GET) == true)
+$command = filter_input(INPUT_GET, 'command', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($command)) === 0)
 {
-    $command = $_GET['command'];
+    $command = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $zone = null;
-if (array_key_exists('zone', $_GET) == true)
+$zone = filter_input(INPUT_GET, 'zone', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($zone)) === 0)
 {
-    $zone = $_GET['zone'];
+    $zone = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $name = null;
-if (array_key_exists('name', $_POST) == true)
+$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($name)) === 0)
 {
-    $name = $_POST['name'];
+    $name = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $beacons = null;
-if (array_key_exists('beacons', $_POST) == true)
+$beacons = filter_input(INPUT_POST, 'beacons', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($beacons)) === 0)
 {
-    $beacons = $_POST['beacons'];
+    $beacons = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $attacks = null;
-if (array_key_exists('attacks', $_POST) == true)
+$attacks = filter_input(INPUT_POST, 'attacks', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($attacks)) === 0)
 {
-    $attacks = $_POST['attacks'];
+    $attacks = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $warpedits = null;
-if (array_key_exists('warpedits', $_POST) == true)
+$warpedits = filter_input(INPUT_POST, 'warpedits', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($warpedits)) === 0)
 {
-    $warpedits = $_POST['warpedits'];
+    $warpedits = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $defenses = null;
-if (array_key_exists('defenses', $_POST) == true)
+$defenses = filter_input(INPUT_POST, 'defenses', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($defenses)) === 0)
 {
-    $defenses = $_POST['defenses'];
+    $defenses = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $planets = null;
-if (array_key_exists('planets', $_POST) == true)
+$planets = filter_input(INPUT_POST, 'planets', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($planets)) === 0)
 {
-    $planets = $_POST['planets'];
+    $planets = false;
 }
 
+// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
 $trades = null;
-if (array_key_exists('trades', $_POST) == true)
+$trades = filter_input(INPUT_POST, 'trades', FILTER_SANITIZE_EMAIL);
+if (mb_strlen(trim($trades)) === 0)
 {
-    $trades = $_POST['trades'];
+    $trades = false;
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($zone));
