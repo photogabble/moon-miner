@@ -1,3 +1,8 @@
+TheKabal (15 July 2014)
+--------------------------------------
+Anywhere you are unconditionally including a class file, use require_once(). Anywhere you are conditionally
+including a class file, use include_once().
+
 TheKabal (12 July 2014)
 --------------------------------------
 Switch to pdo for all SQL calls via Login::checkLogin

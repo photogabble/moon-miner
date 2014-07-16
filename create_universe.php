@@ -19,7 +19,7 @@
 
 $index_page = true; // This prevents sessions from being started before DB exists
 require_once './common.php';
-include './config/admin_config.php';
+require_once './config/admin_config.php';
 
 // Set timelimit to infinite
 set_time_limit(0);

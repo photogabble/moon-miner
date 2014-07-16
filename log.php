@@ -18,7 +18,7 @@
 // File: log.php
 
 require_once './common.php';
-include './config/admin_config.php';
+require_once './config/admin_config.php';
 
 Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
 

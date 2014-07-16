@@ -51,7 +51,7 @@
 //   It will be made available to the called file through the
 //   variable $sched_var_extrainfo.
 //
-//  If you are including files in your trigger file, it is important*
+//  If you are including files in your trigger file, it is important
 //  to use include_once instead of include, as your file might
 //  be called multiple times in a single execution. If you need to
 //  define functions, you can put them in your own
@@ -63,7 +63,7 @@
 
 $index_page = true; // Ensure that we do not set sessions
 require_once './common.php';
-include './config/admin_config.php';
+require_once './config/admin_config.php';
 
 $title = $langvars['l_sys_update'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);

@@ -67,7 +67,7 @@ $variables['container'] = "variable";
 $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
-include './footer_t.php';
+require_once './footer_t.php';
 $template->addVariables('langvars', $langvars);
 $template->addVariables('variables', $variables);
 $template->display('logout.tpl');

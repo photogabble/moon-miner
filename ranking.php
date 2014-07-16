@@ -162,7 +162,7 @@ else
 }
 
 // Now we include the Footer Logic.
-include_once './footer_t.php';
+require_once './footer_t.php';
 
 $variables['container'] = 'variable';
 $template->addVariables('variables', $variables);

@@ -18,7 +18,7 @@
 // File: setup_info.php
 
 require_once './common.php';
-require './config/db_config.php';
+require_once './config/db_config.php';
 
 // Set headers
 header('Content-type: text/html; charset=utf-8');  // Set character set to utf-8, and using HTML as our content type
@@ -155,7 +155,7 @@ else
 }
 
 // Pull in footer variables from footer_t.php
-include './footer_t.php';
+require_once './footer_t.php';
 $template->addVariables('langvars', $langvars);
 $template->addVariables('variables', $variables);
 $template->display('templates/classic/setup_info.tpl');

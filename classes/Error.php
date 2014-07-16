@@ -47,7 +47,7 @@ class Error
         $langvars['container'] = 'langvar';
 
         // Pull in footer variables from footer_t.php
-        include_once './footer_t.php';
+        require_once './footer_t.php';
         $template->addVariables('langvars', $langvars);
         $template->addVariables('variables', $variables);
         $template->display('error.tpl');

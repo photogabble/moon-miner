@@ -72,7 +72,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
 }
 
 // Pull in footer variables from footer_t.php
-include './footer_t.php';
+require_once './footer_t.php';
 $template->addVariables('langvars', $langvars);
 $template->addVariables('variables', $variables);
 $template->display('new.tpl');

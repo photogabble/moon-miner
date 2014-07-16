@@ -60,7 +60,7 @@ class Db
 
     public function initDb($db_layer)
     {
-        require './config/db_config.php';
+        require_once './config/db_config.php';
         if ($db_layer == 'adodb')
         {
             // Add MD5 encryption for sessions, and then compress it before storing it in the database
