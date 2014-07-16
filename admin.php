@@ -30,7 +30,7 @@ $title = $langvars['l_admin_title'];
 
 function checked($yesno)
 {
-    return (($yesno == "Y") ? "checked" : "");
+    return (($yesno == 'Y') ? 'checked' : '');
 }
 
 // We only want menu values that come from $_POST, and only want string values.
@@ -63,7 +63,7 @@ if ($swordfish == ADMIN_PW)
             $filename[$i]['file'] = $file_info->getFilename();
 
             // Set option title to lang string of the form l_admin + file name
-            $option_title = "l_admin_" . mb_substr($filename[$i]['file'], 0, -4);
+            $option_title = 'l_admin_' . mb_substr($filename[$i]['file'], 0, -4);
 
             if (isset($langvars[$option_title]))
             {
@@ -92,7 +92,7 @@ if ($swordfish == ADMIN_PW)
 $variables['body_class'] = 'admin';
 $variables['lang'] = $lang;
 $variables['swordfish'] = $swordfish;
-$variables['linkback'] = array("fulltext" => $langvars['l_global_mmenu'], "link"=>"main.php");
+$variables['linkback'] = array('fulltext' => $langvars['l_global_mmenu'], 'link' => 'main.php');
 $variables['menu'] = $menu;
 $variables['filename'] = $filename;
 $variables['menu_location'] = $menu_location;

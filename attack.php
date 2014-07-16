@@ -29,7 +29,7 @@ Bnt\Header::display($pdo_db, $lang, $template, $title);
 $langvars = Bnt\Translate::load($pdo_db, $lang, array('attack', 'bounty', 'main',
                                 'planet', 'common', 'global_includes',
                                 'global_funcs', 'combat', 'footer', 'news'));
-echo "<h1>" . $title . "</h1>\n";
+echo '<h1>' . $title . '</h1>';
 
 $ship_id = null;
 if (array_key_exists('ship_id', $_GET))
@@ -72,13 +72,13 @@ $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;
 
 // Check to ensure target is in the same sector as player
-if ($targetinfo['sector'] != $playerinfo['sector'] || $targetinfo['on_planet'] == "Y")
+if ($targetinfo['sector'] != $playerinfo['sector'] || $targetinfo['on_planet'] == 'Y')
 {
-    echo $langvars['l_att_notarg'] . "<br><br>";
+    echo $langvars['l_att_notarg'] . '<br><br>';
 }
 elseif ($playerinfo['turns'] < 1)
 {
-    echo $langvars['l_att_noturn'] . "<br><br>";
+    echo $langvars['l_att_noturn'] . '<br><br>';
 }
 elseif (Bad\Team::sameTeam($playerinfo['team'], $targetinfo['team']))
 {
@@ -885,7 +885,7 @@ else
         }
     }
 }
-$resx = $db->Execute("UNLOCK TABLES");
+$resx = $db->Execute('UNLOCK TABLES');
 Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
 
 $_SESSION['in_combat'] = (boolean) false;
