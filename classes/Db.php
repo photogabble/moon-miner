@@ -60,7 +60,7 @@ class Db
 
     public function initDb($db_layer)
     {
-        require_once './config/db_config.php';
+        require './config/db_config.php';
         if ($db_layer == 'adodb')
         {
             // Add MD5 encryption for sessions, and then compress it before storing it in the database
@@ -86,7 +86,7 @@ class Db
                 // However ADOdb's postgres driver returns null if postgres insn't installed.
                 if ($db_init_result === false || $db_init_result === 0)
                 {
-                    throw new Exception;
+                    throw new \Exception;
                 }
                 else
                 {
@@ -97,7 +97,7 @@ class Db
                     $db->SetFetchMode(ADODB_FETCH_ASSOC);
                 }
             }
-            catch (exception $e)
+            catch (\Exception $e)
             {
                 // We need to display the error message onto the screen.
                 $err_msg = 'Blacknova Traders Error: Unable to connect to the ' . $db_type .

@@ -114,7 +114,7 @@ if (mb_strlen(trim($command)) === 0)
 if ($command == 'new')
 {
     // Displays new trade route form
-    Bad\Traderoute::traderouteNew($pdo_db, $lang, $langvars, $bntreg, null, $template);
+    Bad\Traderoute::traderouteNew($pdo_db, $lang, $langvars, $bntreg, null, $template, $num_traderoutes, $playerinfo, $color_line1, $color_line2, $color_header);
 }
 elseif ($command == 'create')
 {
@@ -124,22 +124,22 @@ elseif ($command == 'create')
 elseif ($command == 'edit')
 {
     // Displays new trade route form, edit
-    Bad\Traderoute::traderouteNew($pdo_db, $lang, $langvars, $bntreg, $traderoute_id, $template);
+    Bad\Traderoute::traderouteNew($pdo_db, $lang, $langvars, $bntreg, $traderoute_id, $template, $num_traderoutes, $playerinfo, $color_line1, $color_line2, $color_header);
 }
 elseif ($command == 'delete')
 {
     // Displays delete info
-    Bad\Traderoute::traderouteDelete($db, $lang, $langvars, $bntreg, $template);
+    Bad\Traderoute::traderouteDelete($db, $lang, $langvars, $bntreg, $template, $playerinfo, $confirm, $num_traderoutes, $traderoute_id, $traderoutes);
 }
 elseif ($command == 'settings')
 {
     // Global traderoute settings form
-    Bad\Traderoute::traderouteSettings($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+    Bad\Traderoute::traderouteSettings($db, $pdo_db, $lang, $langvars, $bntreg, $template, $playerinfo);
 }
 elseif ($command == 'setsettings')
 {
     // Enters settings in db
-    Bad\Traderoute::traderouteSetsettings($db, $pdo_db, $lang, $langvars, $bntreg, $template);
+    Bad\Traderoute::traderouteSetsettings($db, $pdo_db, $lang, $langvars, $bntreg, $template, $playerinfo, $colonists, $fighters, $torps, $energy);
 }
 elseif (isset ($engage))
 {
@@ -342,7 +342,7 @@ else
                 $dst = $planet2['sector_id'];
             }
 
-            $dist = Bad\Traderoute::traderouteDistance($db, $langvars, $traderoutes[$i]['source_type'], $traderoutes[$i]['dest_type'], $src, $dst, $traderoutes[$i]['circuit']);
+            $dist = Bad\Traderoute::traderouteDistance($db, $langvars, $traderoutes[$i]['source_type'], $traderoutes[$i]['dest_type'], $src, $dst, $playerinfo, $traderoutes[$i]['circuit']);
 
             $langvars['l_tdr_escooped_temp'] = str_replace("[tdr_dist_triptime]", $dist['triptime'], $langvars['l_tdr_escooped']);
             $langvars['l_tdr_escooped2_temp'] = str_replace("[tdr_dist_scooped]", $dist['scooped'], $langvars['l_tdr_escooped2']);

@@ -185,7 +185,7 @@ class Ownership
             $select_team_res = $db->Execute($query);
             Db::logDbErrors($db, $select_team_res, __LINE__, __FILE__);
 
-            if ($select_team_res->RecordCount() != 0)
+            if ($select_team_res !== false && ($select_team_res->RecordCount() != 0))
             {
                 $setzone_resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
                 Db::logDbErrors($db, $setzone_resd, __LINE__, __FILE__);
@@ -258,6 +258,7 @@ class Ownership
             }
             else
             {
+
                 $setzone_resi = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' AND owner=?", array($owners[$winner]['id']));
                 Db::logDbErrors($db, $setzone_resi, __LINE__, __FILE__);
                 $zone = $setzone_resi->fields;

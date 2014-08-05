@@ -255,8 +255,8 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             // Change production rates
             echo "<form accept-charset='utf-8' action=planet.php?planet_id=$planet_id&command=productions method=post>";
             echo "<table border=0 cellspacing=0 cellpadding=2>";
-            echo "<tr bgcolor=\"$color_header\"><td></td><td><strong>" . $langvars['l_ore'] . "</strong></td><td><strong>" . $langvars['l_organics'] . "</strong></td><td><strong>" . $langvars['l_goods'] . "</strong></td><td><strong>" . $langvars['l_energy'] . "</strong></td><td><strong>" . $langvars['l_colonists'] . "</strong></td><td><strong>" . $langvars['l_credits'] . "</strong></td><td><strong>" . $langvars['l_fighters'] . "</strong></td><td><strong>" . $langvars['l_torps'] . "</td></tr>";
-            echo "<tr bgcolor=\"$color_line1\">";
+            echo "<tr bgcolor=\"$bntreg->color_header\"><td></td><td><strong>" . $langvars['l_ore'] . "</strong></td><td><strong>" . $langvars['l_organics'] . "</strong></td><td><strong>" . $langvars['l_goods'] . "</strong></td><td><strong>" . $langvars['l_energy'] . "</strong></td><td><strong>" . $langvars['l_colonists'] . "</strong></td><td><strong>" . $langvars['l_credits'] . "</strong></td><td><strong>" . $langvars['l_fighters'] . "</strong></td><td><strong>" . $langvars['l_torps'] . "</td></tr>";
+            echo "<tr bgcolor=\"$bntreg->color_line1\">";
             echo "<td>" . $langvars['l_current_qty'] . "</td>";
             echo "<td>" . number_format($planetinfo['ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
             echo "<td>" . number_format($planetinfo['organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
@@ -267,7 +267,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             echo "<td>" . number_format($planetinfo['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
             echo "<td>" . number_format($planetinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
             echo "</tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_planet_perc'] . "</td>";
+            echo "<tr bgcolor=\"$bntreg->color_line2\"><td>" . $langvars['l_planet_perc'] . "</td>";
             echo "<td><input type=text name=pore value=\"$planetinfo[prod_ore]\" size=6 maxlength=6></td>";
             echo "<td><input type=text name=porganics value=\"$planetinfo[prod_organics]\" size=6 maxlength=6></td>";
             echo "<td><input type=text name=pgoods value=\"" .round($planetinfo['prod_goods'])."\" size=6 maxlength=6></td>";
@@ -417,7 +417,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
             unset($_SESSION['planet_selected']);
 
             // Build a base
-            if ($planetinfo['ore'] >= $base_ore && $planetinfo['organics'] >= $base_organics && $planetinfo['goods'] >= $base_goods && $planetinfo['credits'] >= $base_credits)
+            if ($planetinfo['ore'] >= $bntreg->base_ore && $planetinfo['organics'] >= $bntreg->base_organics && $planetinfo['goods'] >= $bntreg->base_goods && $planetinfo['credits'] >= $bntreg->base_credits)
             {
                 // Check if the player has enough turns to create the base.
                 if ($playerinfo['turns'] <= 0)
@@ -427,14 +427,14 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 else
                 {
                     // Create The Base
-                    $update1 = $db->Execute("UPDATE {$db->prefix}planets SET base='Y', ore = ? - ?, organics = ? - ?, goods = ? - ?, credits = ? - ? WHERE planet_id = ?;", array($planetinfo['ore'], $base_ore, $planetinfo['organics'], $base_organics, $planetinfo['goods'], $base_goods, $planetinfo['credits'], $base_credits, $planet_id));
+                    $update1 = $db->Execute("UPDATE {$db->prefix}planets SET base='Y', ore = ? - ?, organics = ? - ?, goods = ? - ?, credits = ? - ? WHERE planet_id = ?;", array($planetinfo['ore'], $bntreg->base_ore, $planetinfo['organics'], $bntreg->base_organics, $planetinfo['goods'], $bntreg->base_goods, $planetinfo['credits'], $bntreg->base_credits, $planet_id));
                     Bnt\Db::logDbErrors($db, $update1, __LINE__, __FILE__);
 
                     // Update User Turns
                     $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array($playerinfo['ship_id']));
                     Bnt\Db::logDbErrors($db, $update1b, __LINE__, __FILE__);
 
-                    // Refresh Plant Info
+                    // Refresh Planet Info
                     $result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array($planet_id));
                     Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
                     $planetinfo = $result3->fields;
@@ -443,19 +443,19 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                     echo $langvars['l_planet_bbuild'] . "<br><br>";
 
                     // Calc Ownership and Notify User Of Results
-                    $ownership = Bnt\Ownership::calc($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
+                    $ownership = Bnt\Ownership::calc($db, $playerinfo['sector'], $bntreg->min_bases_to_own, $langvars);
                     if (!empty ($ownership))
                     {
-                        echo "$ownership<p>";
+                        echo $ownership . '<p>';
                     }
                 }
             }
             else
             {
-                $langvars['l_planet_baseinfo'] = str_replace("[base_credits]", $base_credits, $langvars['l_planet_baseinfo']);
-                $langvars['l_planet_baseinfo'] = str_replace("[base_ore]", $base_ore, $langvars['l_planet_baseinfo']);
-                $langvars['l_planet_baseinfo'] = str_replace("[base_organics]", $base_organics, $langvars['l_planet_baseinfo']);
-                $langvars['l_planet_baseinfo'] = str_replace("[base_goods]", $base_goods, $langvars['l_planet_baseinfo']);
+                $langvars['l_planet_baseinfo'] = str_replace("[base_credits]", $bntreg->base_credits, $langvars['l_planet_baseinfo']);
+                $langvars['l_planet_baseinfo'] = str_replace("[base_ore]", $bntreg->base_ore, $langvars['l_planet_baseinfo']);
+                $langvars['l_planet_baseinfo'] = str_replace("[base_organics]", $bntreg->base_organics, $langvars['l_planet_baseinfo']);
+                $langvars['l_planet_baseinfo'] = str_replace("[base_goods]", $bntreg->base_goods, $langvars['l_planet_baseinfo']);
                 echo $langvars['l_planet_baseinfo'] . "<br><br>";
             }
         }

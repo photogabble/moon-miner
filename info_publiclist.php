@@ -145,8 +145,6 @@ $info['STARVATION_DEATH_RATE'] = $bntreg->starvation_death_rate;
 $info['CORP_PLANET_TRANSFERS'] = ($bntreg->corp_planet_transfers ? "1" : "0");
 $info['MAX_TEAM_MEMBERS'] = $bntreg->max_team_members;
 
-$info['SERVERTIMEZONE'] = $bntreg->servertimezone;
-
 $info['ADMIN_MAIL'] = $bntreg->admin_mail;
 $info['LINK_FORUMS'] = $bntreg->link_forums;
 

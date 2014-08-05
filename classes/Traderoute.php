@@ -27,7 +27,7 @@ class Traderoute
     public static function traderouteEngage($db, $pdo_db, $lang, $j, $langvars)
     {
         global $playerinfo, $color_line1, $color_line2, $color_header;
-        global $engage, $dist, $servertimezone;
+        global $engage, $dist;
         global $color_line2;
         global $color_line1;
         global $traderoutes;
@@ -244,7 +244,7 @@ class Traderoute
         }
         else
         {
-            $dist = Traderoute::traderouteDistance($db, 'P', 'P', $sourceport, $destport, $traderoute['circuit']);
+            $dist = Traderoute::traderouteDistance($db, 'P', 'P', $sourceport, $destport, $playerinfo, $traderoute['circuit']);
         }
 
         // Check if player has enough turns
@@ -1405,7 +1405,7 @@ class Traderoute
         $playerinfo['turns']-= $dist['triptime'];
 
         $tdr_display_creds = number_format($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
-        Traderoute::traderouteResultsDisplaySummary($db, $pdo_db, $lang, $langvars, $tdr_display_creds);
+        Traderoute::traderouteResultsDisplaySummary($db, $pdo_db, $lang, $langvars, $tdr_display_creds, $dist, $playerinfo);
         // echo $j." -- ";
         if ($traderoute['circuit'] == 2)
         {
@@ -1426,10 +1426,8 @@ class Traderoute
         }
     }
 
-    public static function traderouteNew($db, $pdo_db, $lang, $langvars, $bntreg, $traderoute_id, $template)
+    public static function traderouteNew($db, $pdo_db, $lang, $langvars, $bntreg, $traderoute_id, $template, $num_traderoutes, $playerinfo, $color_line1, $color_line2, $color_header)
     {
-        global $playerinfo, $color_line1, $color_line2, $color_header;
-        global $num_traderoutes, $servertimezone;
         $langvars = \Bnt\Translate::load($pdo_db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
         $editroute = null;
 
@@ -1817,9 +1815,8 @@ class Traderoute
         die ();
     }
 
-    public static function traderouteCheckCompatible($db, $pdo_db, $lang, $langvars, $type1, $type2, $move, $circuit, $src, $dest)
+    public static function traderouteCheckCompatible($db, $pdo_db, $lang, $langvars, $type1, $type2, $move, $circuit, $src, $dest, $playerinfo)
     {
-        global $playerinfo, $servertimezone;
         $langvars = \Bnt\Translate::load($pdo_db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
         // Check circuit compatibility (we only use types 1 and 2 so block anything else)
@@ -1891,10 +1888,8 @@ class Traderoute
         }
     }
 
-    public static function traderouteDistance($db, $langvars, $type1, $type2, $start, $dest, $circuit, $sells = 'N')
+    public static function traderouteDistance($db, $langvars, $type1, $type2, $start, $dest, $circuit, $playerinfo, $sells = 'N')
     {
-        global $playerinfo, $servertimezone;
-
         $retvalue['triptime'] = 0;
         $retvalue['scooped1'] = 0;
         $retvalue['scooped2'] = 0;
@@ -2021,7 +2016,7 @@ class Traderoute
     public static function traderouteCreate($db, $pdo_db, $lang, $langvars, $bntreg, $template)
     {
         global $playerinfo;
-        global $num_traderoutes, $servertimezone;
+        global $num_traderoutes;
         global $ptype1;
         global $ptype2;
         global $port_id1;
@@ -2175,7 +2170,7 @@ class Traderoute
             Traderoute::traderouteDie($db, $pdo_db, $lang, $langvars, $bntreg, "You cannot create a traderoute into a special port!", $template);
         }
         // Check traderoute for src => dest
-        Traderoute::traderouteCheckCompatible($db, $pdo_db, $lang, $langvars, $ptype1, $ptype2, $move_type, $circuit_type, $source, $destination);
+        Traderoute::traderouteCheckCompatible($db, $pdo_db, $lang, $langvars, $ptype1, $ptype2, $move_type, $circuit_type, $source, $destination, $playerinfo);
 
         if ($ptype1 == 'port')
         {
@@ -2256,14 +2251,8 @@ class Traderoute
         Traderoute::traderouteDie($db, $pdo_db, $lang, $langvars, $bntreg, null, $template);
     }
 
-    public static function traderouteDelete($db, $lang, $langvars, $bntreg, $template)
+    public static function traderouteDelete($db, $lang, $langvars, $bntreg, $template, $playerinfo, $confirm, $num_traderoutes, $traderoute_id, $traderoutes)
     {
-        global $playerinfo;
-        global $confirm, $servertimezone;
-        global $num_traderoutes;
-        global $traderoute_id;
-        global $traderoutes;
-
         $query = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array($traderoute_id));
         \Bnt\Db::logDbErrors($db, $query, __LINE__, __FILE__);
 
@@ -2295,9 +2284,8 @@ class Traderoute
         }
     }
 
-    public static function traderouteSettings($db, $pdo_db, $lang, $langvars, $bntreg, $template)
+    public static function traderouteSettings($db, $pdo_db, $lang, $langvars, $bntreg, $template, $playerinfo)
     {
-        global $playerinfo, $servertimezone;
         $langvars = \Bnt\Translate::load($pdo_db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
         echo "<p><font size=3 color=blue><strong>" . $langvars['l_tdr_globalset'] . "</strong></font><p>";
@@ -2362,10 +2350,8 @@ class Traderoute
         Traderoute::traderouteDie($db, $pdo_db, $lang, $langvars, $bntreg, null, $template);
     }
 
-    public static function traderouteSetsettings($db, $pdo_db, $lang, $langvars, $bntreg, $template)
+    public static function traderouteSetsettings($db, $pdo_db, $lang, $langvars, $bntreg, $template, $playerinfo, $colonists, $fighters, $torps, $energy)
     {
-        global $playerinfo;
-        global $colonists, $servertimezone, $fighters, $torps, $energy;
         $langvars = \Bnt\Translate::load($pdo_db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
         empty ($colonists) ? $colonists = 'N' : $colonists = 'Y';
@@ -2448,9 +2434,8 @@ class Traderoute
         }
     }
 
-    public static function traderouteResultsDisplaySummary($db, $pdo_db, $lang, $langvars, $tdr_display_creds)
+    public static function traderouteResultsDisplaySummary($db, $pdo_db, $lang, $langvars, $tdr_display_creds, $dist, $playerinfo)
     {
-        global $dist, $playerinfo;
         $langvars = \Bnt\Translate::load($pdo_db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
         echo "\n<font size='3' color='white'><strong>" . $langvars['l_tdr_turnsused'] . " : <font style='color:#f00;'>$dist[triptime]</font></strong></font><br>";
