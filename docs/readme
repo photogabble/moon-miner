@@ -22,8 +22,8 @@ Requirements:
 - Apache version 2.2.22+ is supported, we have not determined a required minimum.
 - IIS is not supported, and BNT will likely not work correctly on it in future versions.
 - Development "Snapshots" are intended only for developers that are actively involved in the development process, and require additional effort to work (composer, etc)
-- PHP version 5.3.7 minimum is required, but PHP 5.3 is end of life and no longer supported by the PHP team. We strongly recommend using a current, supported version of PHP (5.4 or 5.5),
-but the game continues to work on 5.3.7 and above. (For Smarty, password_hash for login, directoryIterator, and many other features)
+- PHP version 5.5 is suggested. PHP 5.3 is end of life, and no longer supported by the PHP team. Despite those issues, it is possible to run BNT on 5.3.7 and above.
+(For Smarty, password_hash for login, directoryIterator, and many other features). Any version below 5.3.7 is not supported and is unlikely to work.
 
 Download:
     You can get the newest version at http://sourceforge.net/projects/blacknova/
