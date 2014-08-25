@@ -241,7 +241,7 @@ class XmlTemplateSystem
             $parent = $this->root;
         }
 
-        $count = (integer) count($nodeData);
+        $count = (int) count($nodeData);
         for ($i = 0; $i < $count; $i++)
         {
             $node = $parent->appendChild(new \DOMElement($nodeName));

@@ -317,7 +317,7 @@ $resl = $db->Execute("SELECT COUNT(*) as old FROM {$db->prefix}sessions WHERE ex
 Bnt\Db::logDbErrors($db, $resl, __LINE__, __FILE__);
 if ($resl instanceof ADORecordSet)
 {
-    $old_sessions = (integer) $resl->fields['old'];
+    $old_sessions = (int) $resl->fields['old'];
     if ($old_sessions >0)
     {
         echo "Found {$old_sessions} Old Sessions that needs to be removed.<br>\n";

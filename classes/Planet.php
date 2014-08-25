@@ -559,7 +559,7 @@ class Planet
             $self_tech = \Bnt\CalcLevels::avgTech($playerinfo);
             $target_tech = round(\Bnt\CalcLevels::avgTech($ownerinfo));
 
-            $roll = \Bnt\Rand::betterRand(0, (integer) $target_tech);
+            $roll = \Bnt\Rand::betterRand(0, (int) $target_tech);
             if ($roll > $self_tech)
             {
                 // Reset Planet Assets.

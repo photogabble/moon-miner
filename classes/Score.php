@@ -123,7 +123,7 @@ class Score
             $score = 0;
         }
 
-        $score = (integer) round(sqrt($score));
+        $score = (int) round(sqrt($score));
         $set_score_res = $db->Execute("UPDATE {$db->prefix}ships SET score=? WHERE ship_id=?", array($score, $ship_id));
         Db::logDbErrors($db, $set_score_res, __LINE__, __FILE__);
 

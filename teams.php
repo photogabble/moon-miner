@@ -33,7 +33,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 $testing = false; // set to false to get rid of password when creating new team
 
-// Typecast into integers (this also removes all non numbers)
+// Typecast into ints (this also removes all non numbers)
 $whichteam = null;
 if (array_key_exists('whichteam', $_REQUEST) == true)
 {

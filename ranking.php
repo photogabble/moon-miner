@@ -75,7 +75,7 @@ $rs = $db->SelectLimit("SELECT {$db->prefix}ships.ship_id, {$db->prefix}ships.em
 Bnt\Db::logDbErrors($db, $rs, __LINE__, __FILE__);
 if ($rs instanceof ADORecordSet)
 {
-    $variables['num_players'] = (integer) $rs->RecordCount();
+    $variables['num_players'] = (int) $rs->RecordCount();
 
     if ($variables['num_players'] > 0)
     {
