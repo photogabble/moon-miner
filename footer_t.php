@@ -23,11 +23,8 @@ if (Bnt\Db::isActive($pdo_db))
 {
     $stamp = date("Y-m-d H:i:s", time()); // Now (as seen by PHP)
     $since_stamp = date("Y-m-d H:i:s", time() - 5 * 60); // Five minutes ago
-    $sql = "SELECT COUNT(*) AS loggedin FROM {$pdo_db->prefix}ships WHERE {$pdo_db->prefix}ships.last_login BETWEEN timestamp '" . $since_stamp . "' AND timestamp '" . $stamp . "' AND email NOT LIKE '%@xenobe'";
-    $stmt = $pdo_db->query($sql);
-    Bnt\Db::logDbErrors($pdo_db, $sql, __LINE__, __FILE__);
-    $row = $stmt->fetchObject();
-    $online = $row->loggedin;
+    $players_gateway = new \Bnt\Players\PlayersGateway($pdo_db); // Build a player gateway object to handle the SQL calls
+    $online = $players_gateway->selectPlayersLoggedIn($since_stamp, $stamp); // Online is the (int) count of the numbers of players currently logged in via SQL select
 }
 
 if (isset ($bntreg))

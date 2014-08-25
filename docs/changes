@@ -1,3 +1,7 @@
+TheKabal (24 August 2014)
+--------------------------------------
+Create a Players Domain Entity, and split out a PlayersGateway to hold SQL calls related to Players, and finally add a selectPlayersLoggedIn method.
+
 TheKabal (15 July 2014)
 --------------------------------------
 Anywhere you are unconditionally including a class file, use require_once(). Anywhere you are conditionally
