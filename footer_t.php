@@ -17,7 +17,7 @@
 //
 // File: footer_t.php
 
-$online = (integer) 0;
+$online = (int) 0;
 
 if (Bnt\Db::isActive($pdo_db))
 {
@@ -27,25 +27,21 @@ if (Bnt\Db::isActive($pdo_db))
     $online = $players_gateway->selectPlayersLoggedIn($since_stamp, $stamp); // Online is the (int) count of the numbers of players currently logged in via SQL select
 }
 
+$elapsed = (int) 999; // Default value for elapsed, overridden with an actual value if its available
 if (isset ($bntreg))
 {
     if (property_exists($bntreg, 'bnttimer'))
     {
-        $bnttimer = $bntreg->bnttimer;
-        $bnttimer->stop();
-        $elapsed = $bnttimer->elapsed();
+        $bntreg->bnttimer->stop();
+        $elapsed = $bntreg->bnttimer->elapsed();
     }
-}
-else
-{
-    $elapsed = 999;
 }
 
 // Suppress the news ticker on the IGB and index pages
 $news_ticker = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF']) || preg_match("/new.php/i", $_SERVER['PHP_SELF'])));
 
 // Update counter
-$seconds_left = (integer) 0;
+$seconds_left = (int) 0;
 $display_update_ticker = false;
 if (Bnt\Db::isActive($pdo_db))
 {
