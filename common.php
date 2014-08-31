@@ -111,13 +111,8 @@ if (Bnt\Db::isActive($pdo_db))
     }
     else // The user has logged in, so use his preference from the database
     {
-        $sql = "SELECT lang FROM {$pdo_db->prefix}ships WHERE email =:email";
-        $stmt = $pdo_db->prepare($sql);
-        $stmt->bindParam(':email', $_SESSION['username']);
-        $res = $stmt->execute();
-        Bnt\Db::logDbErrors($pdo_db, $res, __LINE__, __FILE__);
-        $res = $stmt->fetch();
-        $playerinfo['lang'] = $res['lang'];
+        $players_gateway = new \Bnt\Players\PlayersGateway($pdo_db); // Build a player gateway object to handle the SQL calls
+        $playerinfo = $players_gateway->selectPlayerInfo($_SESSION['username']);
         $lang = $playerinfo['lang'];
     }
 }
