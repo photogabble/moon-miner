@@ -333,8 +333,10 @@ elseif ($sectorinfo['port_type'] == "special")
                 {
                     $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits - ? WHERE ship_id = ?;", array($bty['total_bounty'], $playerinfo['ship_id']));
                     Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
+
                     $resx = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0;", array($playerinfo['ship_id']));
                     Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
+
                     $langvars['l_port_bountypaid'] = str_replace("[here]", "<a href='port.php'>" . $langvars['l_here'] . "</a>", $langvars['l_port_bountypaid']);
                     echo $langvars['l_port_bountypaid'] . "<br>";
                     die();
