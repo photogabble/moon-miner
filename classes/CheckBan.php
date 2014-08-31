@@ -25,10 +25,10 @@ namespace Bnt;
 
 class CheckBan
 {
-    public static function isBanned($pdo_db, $lang, $langvars, $player_acc = false)
+    public static function isBanned($pdo_db, $lang, $langvars, $playerinfo = false)
     {
         // Check to see if we have valid player info.
-        if (is_bool($player_acc) && $player_acc == false)
+        if (is_bool($playerinfo) && $playerinfo == false)
         {
             // Nope we do not have valid player info so we return a Boolean false.
             // This needs to be a Boolean false not just a false.
@@ -39,8 +39,8 @@ class CheckBan
         $sql = "SELECT * FROM {$pdo_db->prefix}bans WHERE (ban_type = :ban_type AND ban_mask = :ban_mask1) OR (ban_mask = :ban_mask2)";
         $stmt = $pdo_db->prepare($sql);
         $stmt->bindValue(':ban_type', IP_BAN);
-        $stmt->bindParam(':ban_mask1', $player_acc['ip_address']);
-        $stmt->bindParam(':ban_mask2', $player_acc['ip_address']);
+        $stmt->bindParam(':ban_mask1', $playerinfo['ip_address']);
+        $stmt->bindParam(':ban_mask2', $playerinfo['ip_address']);
         $stmt->execute();
         $ipban_count = $stmt->rowCount();
         $ipbans_res = $stmt->fetch();
@@ -55,7 +55,7 @@ class CheckBan
         // Check for ID Watch, Ban, Lock, 24H Ban etc linked to the platyers ShipID.
         $sql = "SELECT * FROM {$pdo_db->prefix}bans WHERE ban_ship = :ban_ship";
         $stmt = $pdo_db->prepare($sql);
-        $stmt->bindParam(':ban_ship', $player_acc['ship_id']);
+        $stmt->bindParam(':ban_ship', $playerinfo['ship_id']);
         $stmt->execute();
         $idban_count = $stmt->rowCount();
         $idbans_res = $stmt->fetch();
@@ -81,9 +81,9 @@ class CheckBan
         $sql = "SELECT * FROM {$pdo_db->prefix}bans WHERE ban_type = :ban_type AND (ban_mask = :ban_mask1 OR ban_mask = :ban_mask2 OR ban_ship = :ban_ship)";
         $stmt = $pdo_db->prepare($sql);
         $stmt->bindValue(':ban_type', MULTI_BAN);
-        $stmt->bindParam(':ban_mask1', $player_acc['ip_address']);
+        $stmt->bindParam(':ban_mask1', $playerinfo['ip_address']);
         $stmt->bindParam(':ban_mask2', $_SERVER['REMOTE_ADDR']);
-        $stmt->bindParam(':ban_ship', $player_acc['ship_id']);
+        $stmt->bindParam(':ban_ship', $playerinfo['ship_id']);
         $stmt->execute();
         $multiban_count = $stmt->rowCount();
         $multiban_res = $stmt->fetch();
