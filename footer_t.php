@@ -88,7 +88,7 @@ if ($news_ticker_active == true)
 
     // SQL call that selects all of the news items between the start date beginning of day, and the end of day.
     $news_gateway = new \Bnt\News\NewsGateway($pdo_db); // Build a scheduler gateway object to handle the SQL calls
-    $row = $news_gateway->selectNewsToday(); // Last run is the (int) count of the numbers of players currently logged in via SQL select or false if DB is not active
+    $row = $news_gateway->selectNewsByDay(date('Y-m-d'));
 
     $news_ticker = array();
     if (count($row) == 0)

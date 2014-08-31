@@ -67,25 +67,12 @@ echo "    <td height=\"22\" width=\"27%\" bgcolor=\"#00001A\">&nbsp;</td>\n";
 echo "    <td height=\"22\" width=\"73%\" bgcolor=\"#00001A\" align=\"right\"><a href=\"news.php?startdate={$previousday}\">" . $langvars['l_news_prev'] . "</a> - <a href=\"news.php?startdate={$nextday}\">" . $langvars['l_news_next'] . "</a></td>\n";
 echo "  </tr>\n";
 
-//Select news for date range
-$res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array($startdate ." 00:00:00", $startdate ." 23:59:59"));
-Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
+// SQL call that selects all of the news items between the start date beginning of day, and the end of day.
+$news_gateway = new \Bnt\News\NewsGateway($pdo_db); // Build a scheduler gateway object to handle the SQL calls
+$row = $news_gateway->selectNewsByDay($startdate);
 
-//Check to see if there was any news to be shown
-if ($res->RecordCount() > 0)
-{
-    // Yes we do, now cycle through them.
-    while (!$res->EOF)
-    {
-        $row = $res->fields;
-        echo "  <tr>\n";
-        echo "    <td bgcolor=\"#003\" align=\"center\" style=\"vertical-align:text-top;\">{$row['headline']}</td>\n";
-        echo "    <td bgcolor=\"#003\" style=\"vertical-align:text-top;\"><p align=\"justify\">{$row['newstext']}</p><br></td>\n";
-        echo "  </tr>\n";
-        $res->MoveNext();
-    }
-}
-else
+$news_ticker = array();
+if (count($row) == 0)
 {
     // Nope none found.
     echo "  <tr>\n";
@@ -93,6 +80,17 @@ else
     echo "    <td bgcolor=\"#00001A\" align=\"right\">" . $langvars['l_news_none'] . "</td>\n";
     echo "  </tr>\n";
 }
+else
+{
+    foreach($row as $item)
+    {
+        echo "  <tr>\n";
+        echo "    <td bgcolor=\"#003\" align=\"center\" style=\"vertical-align:text-top;\">{$item['headline']}</td>\n";
+        echo "    <td bgcolor=\"#003\" style=\"vertical-align:text-top;\"><p align=\"justify\">{$item['newstext']}</p><br></td>\n";
+        echo "  </tr>\n";
+    }
+}
+
 echo "</table>\n";
 echo "<div style=\"height:16px;\"></div>\n";
 

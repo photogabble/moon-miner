@@ -28,13 +28,13 @@ class NewsGateway // Gateway for SQL calls related to Players
         $this->pdo_db = $pdo_db;
     }
 
-    public function selectNewsToday ()
+    public function selectNewsByDay($day)
     {
         // SQL call that selects all of the news items between the start date beginning of day, and the end of day.
         $sql = "SELECT * FROM {$this->pdo_db->prefix}news WHERE date > :start AND date < :end ORDER BY news_id";
         $stmt = $this->pdo_db->prepare($sql);
-        $stmt->bindValue(':start', date('Y/m/d') . ' 00:00:00');
-        $stmt->bindValue(':end', date('Y/m/d') . ' 23:59:59');
+        $stmt->bindValue(':start', $day . ' 00:00:00');
+        $stmt->bindValue(':end', $day . ' 23:59:59');
         $stmt->execute();
         \Bnt\Db::logDbErrors($this->pdo_db, $sql, __LINE__, __FILE__); // Log errors, if there are any
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
