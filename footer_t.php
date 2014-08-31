@@ -38,24 +38,26 @@ if (isset ($bntreg))
 }
 
 // Suppress the news ticker on the IGB and index pages
-$news_ticker = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF']) || preg_match("/new.php/i", $_SERVER['PHP_SELF'])));
+$news_ticker_active = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF']) || preg_match("/new.php/i", $_SERVER['PHP_SELF'])));
+
+// Suppress the news ticker if the database is not active
+if (!Bnt\Db::isActive($pdo_db))
+{
+    $news_ticker_active = false;
+}
 
 // Update counter
-$seconds_left = (int) 0;
-$display_update_ticker = false;
-if (Bnt\Db::isActive($pdo_db))
+$scheduler_gateway = new \Bnt\Scheduler\SchedulerGateway($pdo_db); // Build a scheduler gateway object to handle the SQL calls
+$last_run = $scheduler_gateway->selectSchedulerLastRun(); // Last run is the (int) count of the numbers of players currently logged in via SQL select or false if DB is not active
+if ($last_run !== false)
 {
-    $sql = "SELECT last_run FROM {$pdo_db->prefix}scheduler LIMIT 1";
-    $stmt = $pdo_db->query($sql);
-    $row = $stmt->fetchObject();
-    Bnt\Db::logDbErrors($pdo_db, $sql, __LINE__, __FILE__);
-
-    if (is_object($row))
-    {
-        $last_run = $row->last_run;
-        $seconds_left = ($bntreg->sched_ticks * 60) - (time() - $last_run);
-        $display_update_ticker = true;
-    }
+    $seconds_left = ($bntreg->sched_ticks * 60) - (time() - $last_run);
+    $display_update_ticker = true;
+}
+else
+{
+    $seconds_left = (int) 0;
+    $display_update_ticker = false;
 }
 // End update counter
 
@@ -72,49 +74,34 @@ else
     $sf_logo_height = "30";
 }
 
-if ($news_ticker == true)
+if ($news_ticker_active == true)
 {
     // Database driven language entries
-
     $langvars_temp = Bnt\Translate::load($pdo_db, $lang, array('news', 'common', 'footer', 'global_includes', 'logout'));
+
     // Use Array merge so that we do not clobber the langvars array, and only add to it the items needed for footer
     $langvars = array_merge($langvars, $langvars_temp);
 
     // Use Array unique so that we don't end up with duplicate lang array entries
     // This is resulting in an array with blank values for specific keys, so array_unique isn't entirely what we want
-//    $langvars = array_unique ($langvars);
+    // $langvars = array_unique ($langvars);
 
-    $startdate = date("Y/m/d");
+    // SQL call that selects all of the news items between the start date beginning of day, and the end of day.
+    $news_gateway = new \Bnt\News\NewsGateway($pdo_db); // Build a scheduler gateway object to handle the SQL calls
+    $row = $news_gateway->selectNewsToday(); // Last run is the (int) count of the numbers of players currently logged in via SQL select or false if DB is not active
 
     $news_ticker = array();
-
-    if (Bnt\Db::isActive($pdo_db))
+    if (count($row) == 0)
     {
-        // Needs to be put into the language table.
-        array_push($news_ticker, array('url' => null, 'text' => "News Network Down", 'type' => "error", 'delay' => 5));
+        array_push($news_ticker, array('url' => null, 'text' => $langvars['l_news_none'], 'type' => null, 'delay' => 5));
     }
     else
     {
-        $rs = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array($startdate ." 00:00:00", $startdate ." 23:59:59"));
-        Bnt\Db::logDbErrors($pdo_db, $rs, __LINE__, __FILE__);
-        if ($rs instanceof ADORecordSet)
+        foreach($row as $item)
         {
-            if ($rs->RecordCount() == 0)
-            {
-                array_push($news_ticker, array('url' => null, 'text' => $langvars['l_news_none'], 'type' => null, 'delay' => 5));
-            }
-            else
-            {
-                while (!$rs->EOF)
-                {
-                    $row = $rs->fields;
-                    $headline = addslashes($row['headline']);
-                    array_push($news_ticker, array('url' => "news.php", 'text' => $headline, 'type' => $row['news_type'], 'delay' => 5));
-                    $rs->MoveNext();
-                }
-                array_push($news_ticker, array('url'=>null, 'text' => "End of News", 'type' => null, 'delay' => 5));
-            }
+            array_push($news_ticker, array('url' => "news.php", 'text' => $item['headline'], 'type' => $item['news_type'], 'delay' => 5));
         }
+        array_push($news_ticker, array('url'=>null, 'text' => "End of News", 'type' => null, 'delay' => 5));
     }
     $news_ticker['container']    = "article";
     $template->addVariables("news", $news_ticker);
@@ -134,7 +121,6 @@ else
 }
 
 $mem_peak_usage = floor(memory_get_peak_usage() / 1024);
-
 $public_pages = array( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');
 $slash_position = mb_strrpos($_SERVER['PHP_SELF'], '/') + 1;
 $current_page = mb_substr($_SERVER['PHP_SELF'], $slash_position);

@@ -1,3 +1,7 @@
+TheKabal (31 August 2014)
+--------------------------------------
+Create a News & Scheduler Domain Entity, and split out a Gateway for each to hold SQL calls related to them.
+
 TheKabal (24 August 2014)
 --------------------------------------
 Create a Players Domain Entity, and split out a PlayersGateway to hold SQL calls related to Players, and finally add a selectPlayersLoggedIn method.
