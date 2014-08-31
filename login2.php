@@ -39,13 +39,17 @@ if (mb_strlen(trim($filtered_post_password)) === 0)
 
 if ($email !== null)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($email));
-    Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
-    if ($res)
+    $players_gateway = new \Bnt\Players\PlayersGateway($pdo_db); // Build a player gateway object to handle the SQL calls
+    $playerinfo = $players_gateway->selectPlayerInfo($email);
+    if ($playerinfo !== false)
     {
-        $playerfound = $res->RecordCount();
+        $playerfound = true;
     }
-    $playerinfo = $res->fields;
+    else
+    {
+        $playerfound = false;
+    }
+
     $lang = $playerinfo['lang'];
 }
 else
@@ -203,6 +207,7 @@ if ($playerfound)
 }
 else
 {
+    // TODO: Add handling to pass the email address to the new signup.
     $langvars['l_login_noone'] = str_replace("[here]", "<a href='new.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_login_noone']);
     echo "<strong>" . $langvars['l_login_noone'] . "</strong><br>";
 }

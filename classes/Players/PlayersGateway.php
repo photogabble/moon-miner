@@ -42,5 +42,19 @@ class PlayersGateway // Gateway for SQL calls related to Players
         $online = (int) $row->loggedin; // Set online variable to the int value of the loggedin count from SQL
         return $online;
     }
+
+    public function selectPlayerInfo($email)
+    {
+//        $sql = "SELECT lang, ip_address, password, ship_destroyed, ship_id, email, dev_escapepod FROM {$this->pdo_db->prefix}ships WHERE email = :email";
+        $sql = "SELECT * FROM {$this->pdo_db->prefix}ships WHERE email = :email";
+        $stmt = $this->pdo_db->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $res = $stmt->execute();
+        \Bnt\Db::logDbErrors($this->pdo_db, $sql, __LINE__, __FILE__); // Log any errors, if there are any
+
+        // A little magic here. If it couldn't select a user, the following call will return false - which is what we want for "no user found".
+        $playerinfo = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $playerinfo; // TODO: Eventually we want this to return a player object instead, for now, playerinfo array or false for no user found.
+    }
 }
 ?>
