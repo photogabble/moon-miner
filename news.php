@@ -28,15 +28,16 @@ if (!array_key_exists('lang', $_GET))
 else
 {
     $lang = $_GET['lang'];
-    $link = "?lang=" . $lang;
+    $link = '?lang=' . $lang;
 }
 
 // Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = Bnt\Translate::load($pdo_db, $lang, array('common', 'global_includes',
+                                'global_funcs', 'combat', 'footer', 'news'));
 $title = $langvars['l_news_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title);
 
-$startdate = date("Y/m/d");
+$startdate = date('Y/m/d');
 if (array_key_exists('startdate', $_GET) && ($_GET['startdate'] !== null))
 {
     // The date wasn't supplied so use today's date
@@ -44,11 +45,11 @@ if (array_key_exists('startdate', $_GET) && ($_GET['startdate'] !== null))
 }
 
 // Check and validate the date.
-$validformat = preg_match("/([0-9]{4})\/([0-9]{2})\/([0-9]{2})$/", $startdate, $regs);
+$validformat = preg_match('/([0-9]{4})\/([0-9]{2})\/([0-9]{2})$/', $startdate, $regs);
 if ($validformat !=1 || checkdate($regs[2], $regs[3], $regs[1]) == false)
 {
     // The date wasn't supplied so use today's date
-    $startdate = date("Y/m/d");
+    $startdate = date('Y/m/d');
 }
 
 $previousday = Bnt\News::previousDay($startdate);
@@ -85,8 +86,8 @@ else
     foreach($row as $item)
     {
         echo "  <tr>\n";
-        echo "    <td bgcolor=\"#003\" align=\"center\" style=\"vertical-align:text-top;\">{$item['headline']}</td>\n";
-        echo "    <td bgcolor=\"#003\" style=\"vertical-align:text-top;\"><p align=\"justify\">{$item['newstext']}</p><br></td>\n";
+        echo "    <td bgcolor=\"#003\" align=\"center\" style=\"vertical-align:text-top;\">" . $item['headline'] . "</td>\n";
+        echo "    <td bgcolor=\"#003\" style=\"vertical-align:text-top;\"><p align=\"justify\">" . $item['newstext'] . "</p><br></td>\n";
         echo "  </tr>\n";
     }
 }
@@ -96,11 +97,11 @@ echo "<div style=\"height:16px;\"></div>\n";
 
 if (empty ($_SESSION['username']))
 {
-    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace('[here]', "<a href='index.php" . $link . "'>" . $langvars['l_here'] . '</a>', $langvars['l_global_mlogin']);
 }
 else
 {
-    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace('[here]', "<a href='main.php" . $link . "'>" . $langvars['l_here'] . '</a>', $langvars['l_global_mmenu']);
 }
 
 Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);

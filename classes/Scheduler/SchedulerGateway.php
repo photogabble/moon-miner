@@ -28,7 +28,7 @@ class SchedulerGateway // Gateway for SQL calls related to Players
         $this->pdo_db = $pdo_db;
     }
 
-    public function selectSchedulerLastRun ()
+    public function selectSchedulerLastRun()
     {
         // It is possible to have this call run before the game is setup, so we need to test to ensure the db is active
         if (\Bnt\Db::isActive($this->pdo_db))
