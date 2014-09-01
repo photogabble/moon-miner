@@ -94,7 +94,6 @@ $sql = "INSERT INTO {$pdo_db->prefix}scheduler (run_once, ticks_full, sched_file
 $stmt = $pdo_db->prepare($sql);
 $stmt->bindParam(':ticks_full', $bntreg->sched_news);
 $stmt->bindParam(':sched_file', $sched_file);
-$stmt->bindParam(':last_run', $now);
 $resxx = $stmt->execute();
 $variables['update_news_results']['result'] = Bnt\Db::logDbErrors($pdo_db, $resxx, __LINE__, __FILE__);
 $variables['update_news_results']['sched'] = $bntreg->sched_news;
@@ -202,6 +201,8 @@ $stmt = $pdo_db->prepare($sql);
 $stmt->bindParam(':headline', $headline);
 $stmt->bindParam(':newstext', $newstext);
 $stmt->bindParam(':news_type', $news_type);
+$today = date("Y-m-d H:i:s");
+$stmt->bindParam(':date', $today);
 $resxx = $stmt->execute();
 $variables['first_news_results']['result'] = Bnt\Db::logDbErrors($pdo_db, $resxx, __LINE__, __FILE__);
 $local_table_timer->stop();
