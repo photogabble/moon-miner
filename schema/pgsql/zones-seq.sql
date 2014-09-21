@@ -1,0 +1,1 @@
+CREATE SEQUENCE bnt_zones_zone_id_seq;

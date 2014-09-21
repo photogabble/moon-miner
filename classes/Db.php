@@ -76,7 +76,14 @@ class Db
             // Attempt to connect to the database
             try
             {
-                $db = ADONewConnection('mysqli');
+                if ($db_type === 'postgres9')
+                {
+                    $db = ADONewConnection('postgres9');
+                }
+                else
+                {
+                    $db = ADONewConnection('mysqli');
+                }
 
                 // The data field name "data" violates SQL reserved words - switch it to SESSDATA
 
@@ -100,10 +107,19 @@ class Db
             catch (\Exception $e)
             {
                 // We need to display the error message onto the screen.
-                $err_msg = 'Blacknova Traders Error: Unable to connect to the ' . $db_type .
+                $err_msg = 'The Kabal Invasion - General error: Unable to connect to the ' . $db_type .
                            ' Database.<br> Database Error: '. $db->ErrorNo() .
                            ': '. $db->ErrorMsg() .'<br>\n';
                 die ($err_msg);
+            }
+
+            if ($db_type === 'postgres9')
+            {
+                $db->type = 'pgsql';
+            }
+            else
+            {
+                $db->type = 'mysql';
             }
 
             $db->prefix = $db_prefix;
@@ -115,12 +131,24 @@ class Db
             // Connect to database with pdo
             try
             {
-                // Include the charset when connecting
-                $pdo_db = new PDO("mysql:host=$db_host; port=$db_port; dbname=$db_name; charset=utf8mb4", $db_user, $db_pwd);
+                if ($db_type === 'postgres9')
+                {
+                    if ($db_port === null)
+                    {
+                        $db_port = '5432';
+                    }
+
+                    $pdo_db = new PDO("pgsql:host=$db_host; port=$db_port; dbname=$db_name;", $db_user, $db_pwd);
+                }
+                else
+                {
+                    // Include the charset when connecting
+                    $pdo_db = new PDO("mysql:host=$db_host; port=$db_port; dbname=$db_name; charset=utf8mb4", $db_user, $db_pwd);
+                }
             }
             catch (\PDOException $e)
             {
-                $err_msg = 'Blacknova Traders Error: Unable to connect to the ' . $db_type .
+                $err_msg = 'The Kabal Invasion - General error: Unable to connect to the ' . $db_type .
                            ' Database.<br> Database Error: '.
                            $e->getMessage() ."<br>\n";
                 die ($err_msg);
@@ -129,6 +157,16 @@ class Db
             // Disable emulated prepares so that we get true prepared statements
             // These are slightly slower, but also far safer in a number of cases that matter
             $pdo_db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+            if ($db_type === 'postgres9')
+            {
+                $pdo_db->type = 'pgsql';
+            }
+            else
+            {
+                $pdo_db->type = 'mysql';
+            }
+
             $pdo_db->prefix = $db_prefix;
             return $pdo_db;
         }
@@ -189,4 +227,4 @@ class Db
         }
     }
 }
-?>
+

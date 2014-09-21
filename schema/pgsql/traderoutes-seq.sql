@@ -1,0 +1,1 @@
+CREATE SEQUENCE bnt_traderoutes_traderoute_id_seq;

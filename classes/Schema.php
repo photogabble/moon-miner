@@ -21,13 +21,13 @@ namespace Bnt;
 
 class Schema
 {
-    public static function destroy($db, $db_prefix)
+    public static function destroy($db, $db_prefix, $dbtype)
     {
         // Need to set this or all hell breaks loose.
         $db->inactive = true;
 
         $i = 0;
-        $schema_files = new \DirectoryIterator('schema/mysql'); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
+        $schema_files = new \DirectoryIterator('schema/' . $dbtype);
         $destroy_table_results = array();
 
         foreach ($schema_files as $schema_filename)
@@ -35,7 +35,7 @@ class Schema
             $table_timer = new Timer;
             $table_timer->start(); // Start benchmarking
 
-            if ($schema_filename->isFile() && $schema_filename->getExtension() == 'sql')
+            if ($schema_filename->isFile() && $schema_filename->getExtension() == 'sql' && !strpos($schema_filename, '-seq'))
             {
                 // Routine to handle persistent database tables. If a SQL schema file starts with persist-, then it is a persistent table. Fix the name.
                 $persist_file = (mb_substr($schema_filename, 0, 8) === 'persist-');
@@ -78,11 +78,11 @@ class Schema
         return $destroy_table_results;
     }
 
-    public static function create($db, $db_prefix)
+    public static function create($db, $db_prefix, $dbtype)
     {
         $i = 0;
         define('PDO_SUCCESS', (string) '00000'); // PDO gives an error code of string 00000 if successful. Not extremely helpful.
-        $schema_files = new \DirectoryIterator('schema/mysql/'); // TODO: This is hardcoded for mysql right now, but needs to be extended to handle pgsql also
+        $schema_files = new \DirectoryIterator('schema/' . $dbtype);
 
         // New SQL Schema table creation
         $create_table_results = array();
@@ -106,7 +106,7 @@ class Schema
                 }
 
                 // Slurp the SQL call from schema, and turn it into an SQL string
-                $sql_query = file_get_contents('schema/mysql/' . $schema_filename);
+                $sql_query = file_get_contents('schema/' . $dbtype . '/' . $schema_filename);
 
                 // Replace the default prefix (bnt_) with the chosen table prefix from the game.
                 $sql_query = preg_replace('/bnt_/', $db_prefix, $sql_query);
@@ -138,4 +138,3 @@ class Schema
         return $create_table_results;
     }
 }
-?>

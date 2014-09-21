@@ -1,0 +1,1 @@
+CREATE SEQUENCE bnt_bounty_bounty_id_seq;

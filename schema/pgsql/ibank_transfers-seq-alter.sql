@@ -1,0 +1,1 @@
+ALTER SEQUENCE bnt_ibank_transfers_transfer_id_seq OWNED BY bnt_ibank_transfers.transfer_id;

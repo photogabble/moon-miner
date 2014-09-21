@@ -1,3 +1,8 @@
+TheKabal (21 September 2014)
+--------------------------------------
+Add support for Postgresql in create universe, db, and schema.
+Add table, sequence, and alter-sequence definitions for all tables.
+
 TheKabal (31 August 2014)
 --------------------------------------
 Create a News & Scheduler Domain Entity, and split out a Gateway for each to hold SQL calls related to them.
