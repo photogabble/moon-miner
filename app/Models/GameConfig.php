@@ -17,7 +17,9 @@
 //
 // File: classes/Reg.php
 
-namespace Bnt;
+namespace App\Models;
+
+use Bnt\Db;
 
 class Reg
 {
