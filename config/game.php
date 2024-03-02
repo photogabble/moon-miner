@@ -443,7 +443,7 @@ return [
     // Stop access on all Special Ports when you have a federation bounty on you.
     'bounty_all_special' => true,
     // Address for the forum link
-    'link_forums' => 'forums.blacknova.net',
+    'link_forums' => 'https://forums.blacknova.net/',
     // The title for the administrator
     'admin_name' => 'Game Admin',
     // The title for the administrators ship
