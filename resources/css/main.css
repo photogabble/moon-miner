@@ -5,11 +5,11 @@
 .headlines:hover { color:#36f; text-decoration:none}
 .map { background-color:#0000ff;  border:#555555 1px solid; color:#fff; float:left; height:20px; padding:0px; position:relative; width:20px}
 .map:hover { border:#fff 1px solid}
-.none { background-image:url('../../../images/space.png')}
+.none { background-image:url('/images/space.png')}
 .portcosts1 { background-color:#300030; border-style:none; color:#c0c0c0; font-size:1em; width:7em}
 .portcosts2 { background-color:#400040; border-style:none; color:#c0c0c0; font-size:1em; width:7em}
 .rank_dev_text { color:#f00; font-size:0.8em; text-decoration:none; vertical-align:middle}
-.un { background-image:url('../../../images/uspace.png'); opacity:0.5}
+.un { background-image:url('/images/uspace.png'); opacity:0.5}
 .wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -4em}
 a:active { color: #f00}
 a.dis { color:silver; font-size: 8pt; font-weight:bold; text-decoration:none}
@@ -19,8 +19,8 @@ a:link { color: #0f0}
 a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}
 a.new_link:hover { color:#36f; font-size: 8pt; font-weight:bold}
 a:visited { color: #0f0}
-body { background-color:#000; background-image: url('../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
-body.error { background: url(../images/error.jpg) no-repeat center center fixed; background-size: cover}
+body { background-color:#000; background-image: url('/images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
+body.error { background: url(/images/error.jpg) no-repeat center center fixed; background-size: cover}
 center.term { background-color: #000; border-color:#0f0; color: #0f0; font-size:0.8em}
 div.mnu { color:white; font-size: 8pt; font-weight:bold; text-decoration:none}
 div.navigation { display:table; margin: 0 auto}
