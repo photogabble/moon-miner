@@ -1,6 +1,6 @@
 <?php
 // Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
+// Copyright (C) 2001-2024 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as
@@ -15,67 +15,43 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/Reg.php
+// File: App/Models/GameConfig.php
 
 namespace App\Models;
 
-use Bnt\Db;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
-class Reg
+/**
+ * @property int $id
+ * @property string $section
+ * @property string $name
+ * @property string $category
+ * @property string $type
+ * @property string $value
+ */
+class GameConfig extends Model
 {
-    public function __construct($db)
+    protected $table = 'game_config';
+
+    protected $fillable = ['key', 'type', 'value'];
+
+    public $timestamps = false;
+
+    public static function findByKey(string $key): mixed
     {
-        // Get the config_values from the DB - This is a pdo operation
-        $stmt = "SELECT name,value,type FROM {$db->prefix}gameconfig";
-        $result = $db->query($stmt);
-        Db::logDbErrors($db, $stmt, __LINE__, __FILE__);
-//        $no_langs_yet = true;
+        /** @var GameConfig $found */
+        if ($found = GameConfig::query()
+            ->where('key', $key)
+            ->first()) {
 
-        if ($result !== false) // If the database is not live, this will give false, and db calls will fail silently
-        {
-            $big_array = $result->fetchAll();
-            Db::logDbErrors($db, 'fetchAll from gameconfig', __LINE__, __FILE__);
-            if (!empty ($big_array))
-            {
-                foreach ($big_array as $row)
-                {
-                    settype($row['value'], $row['type']);
-                    $this->$row['name'] = $row['value'];
-                }
-
-                return $this;
-            }
-            else
-            {
-                // Slurp in config variables from the ini file directly
-                $ini_file = 'config/classic_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
-                $ini_keys = parse_ini_file($ini_file, true);
-                foreach ($ini_keys as $config_category => $config_line)
-                {
-                    foreach ($config_line as $config_key => $config_value)
-                    {
-                        $this->$config_key = $config_value;
-                    }
-                }
-
-                return $this;
-            }
+            /** @var mixed $value */
+            $value = $found->value;
+            settype($value, $found->type);
+            return $value;
         }
-        else
-        {
-            // Slurp in config variables from the ini file directly
-            $ini_file = 'config/classic_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
-            $ini_keys = parse_ini_file($ini_file, true);
-            foreach ($ini_keys as $config_category => $config_line)
-            {
-                foreach ($config_line as $config_key => $config_value)
-                {
-                    $this->$config_key = $config_value;
-                }
-            }
 
-            return $this;
-        }
+        return null;
     }
 }
-?>

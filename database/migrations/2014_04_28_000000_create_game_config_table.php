@@ -1,9 +1,28 @@
-CREATE TABLE IF NOT EXISTS bnt_gameconfig (
-  config_id int(5) NOT NULL AUTO_INCREMENT,
-  section varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'game',
-  `name` varchar(75) COLLATE utf8mb4_unicode_ci NOT NULL,
-  category varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  type varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (config_id)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('game_config', function (Blueprint $table) {
+            $table->string('key')->unique();
+            $table->string('type', 8);
+            $table->string('value');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('game_config');
+    }
+};
