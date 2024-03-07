@@ -1,10 +1,56 @@
-CREATE TABLE IF NOT EXISTS bnt_bans (
-  ban_id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  ban_type int(3) unsigned NOT NULL DEFAULT '0',
-  ban_mask varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  ban_ship int(10) unsigned DEFAULT NULL,
-  ban_date datetime DEFAULT NULL,
-  public_info text COLLATE utf8mb4_unicode_ci,
-  admin_info text COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (ban_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
+<?php declare(strict_types=1);
+/**
+ * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ *
+ * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('bans', function (Blueprint $table) {
+            $table->id(); // ban_id
+            $table->timestamps();
+
+            $table->unsignedInteger('type')->default(0);
+            $table->string('mask', 16)->nullable()->default(null);
+            $table->unsignedInteger('ship')->nullable()->default(null);
+            $table->text('public_info');
+            $table->text('admin_info');
+
+            // TODO: Add Foreign Keys
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('bans');
+    }
+};

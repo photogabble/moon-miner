@@ -1,27 +1,81 @@
-CREATE TABLE IF NOT EXISTS bnt_planets (
-  planet_id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  sector_id int(10) unsigned NOT NULL DEFAULT '0',
-  `name` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  organics int(20) NOT NULL DEFAULT '0',
-  ore int(20) NOT NULL DEFAULT '0',
-  goods int(20) NOT NULL DEFAULT '0',
-  energy int(20) NOT NULL DEFAULT '0',
-  colonists int(20) NOT NULL DEFAULT '0',
-  credits int(20) NOT NULL DEFAULT '0',
-  fighters int(20) NOT NULL DEFAULT '0',
-  torps int(20) NOT NULL DEFAULT '0',
-  `owner` int(10) unsigned NOT NULL DEFAULT '0',
-  corp int(10) unsigned NOT NULL DEFAULT '0',
-  base varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'N',
-  sells varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'N',
-  prod_organics int(11) NOT NULL DEFAULT '20',
-  prod_ore int(11) NOT NULL DEFAULT '0',
-  prod_goods int(11) NOT NULL DEFAULT '0',
-  prod_energy int(11) NOT NULL DEFAULT '0',
-  prod_fighters int(11) NOT NULL DEFAULT '0',
-  prod_torp int(11) NOT NULL DEFAULT '0',
-  defeated varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'N',
-  PRIMARY KEY (planet_id),
-  KEY bnt_owner (`owner`),
-  KEY bnt_corp (corp)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
+<?php declare(strict_types=1);
+/**
+ * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ *
+ * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('planets', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
+            $table->unsignedBigInteger('system_id');
+            $table->string('name', 15)->nullable()->default(null);
+
+            $table->integer('organics')->default(0);
+            $table->integer('ore')->default(0);
+            $table->integer('goods')->default(0);
+            $table->integer('energy')->default(0);
+            $table->integer('colonists')->default(0);
+            $table->integer('credits')->default(0);
+            $table->integer('fighters')->default(0);
+            $table->integer('torps')->default(0);
+
+            $table->unsignedBigInteger('owner_id')->nullable()->default(null);
+            $table->unsignedBigInteger('team_id')->nullable()->default(null);
+
+            $table->boolean('base')->default(false);
+            $table->boolean('sells')->default(false);
+            $table->integer('prod_organics')->default(0);
+            $table->integer('prod_ore')->default(0);
+            $table->integer('prod_goods')->default(0);
+            $table->integer('prod_energy')->default(0);
+            $table->integer('prod_fighters')->default(0);
+            $table->integer('prod_torp')->default(0);
+
+            $table->boolean('defeated')->default(false);
+
+            $table->foreign('system_id')
+                ->references('id')
+                ->on('systems')
+                ->onDelete('cascade');
+
+            // TODO: Add foreign keys for teams and owner once used
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('planets');
+    }
+};
