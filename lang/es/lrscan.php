@@ -1,0 +1,15 @@
+<?php return [
+    "l_lrs_title" => "Escaneo de Largo Alcance",
+    "l_lrs_nofull" => "Tus escáners no poseen la capacidad de realizar escaneos de largo alcance.",
+    "l_lrs_noturns" => "Necesitas al menos [fullscan_cost] turno(s) para realizar un escaneo de largo alcance.",
+    "l_lrs_used" => "Usado",
+    "l_lrs_turns" => "turno(s)",
+    "l_lrs_left" => "restantes",
+    "l_lrs_reach" => "Las siguientes localizaciones pueden ser alcanzadas desde el sector [sector]:",
+    "l_lrs_links" => "Enlaces",
+    "l_lrs_ships" => "Naves",
+    "l_lrs_click" => "Pulsa en los enlaces para moverte hacia ese sector.",
+    "l_lrs_cantscan" => "¡No puede escanear el sector desde el sector actual!",
+    "l_lrs_zero" => "¡El sector 0 está demasiado abarrotado para escanear por naves!",
+    "l_lrs_moveto" => "para mover hacia el sector",
+];

@@ -1,0 +1,15 @@
+<?php return [
+    "l_chm_youhitsomemines" => "Du hast [chm_roll] Minen getroffen!",
+    "l_chm_hehitminesinsector" => "[chm_playerinfo_character_name] hat [chm_roll] Minen im Sektor [chm_sector] getroffen.",
+    "l_chm_youlostminedeflectors" => "Du hast [chm_roll] Minendeflektoren verloren.",
+    "l_chm_youlostallminedeflectors" => "Du hat alle Minendeflektoren verloren.",
+    "l_chm_youhadnominedeflectors" => "Du hast keine Minendeflektoren.",
+    "l_chm_yourshieldshitforminesdmg" => "Dein Schiff wurde von [chm_mines_left] getroffen und besch&auml;digt.",
+    "l_chm_yourshieldsaredown" => "Deine Schilde sind unten!",
+    "l_chm_youlostallyourshields" => "Du hast alle deine Schilde verloren!",
+    "l_chm_yourarmorhitforminesdmg" => "Deine Panzerung ist durch [chm_mines_left] besch&auml;digt worden.",
+    "l_chm_yourhullisbreached" => "Deine H&uuml;lle ist gebrochen!",
+    "l_chm_hewasdestroyedbyyourmines" => "[chm_playerinfo_character_name] wurde zerst&ouml;rt durch deine Minen im Sektor [chm_sector].",
+    "l_chm_yourshiphasbeendestroyed" => "Dein Schiff wurde zerst&ouml;rt!",
+    "l_chm_luckescapepod" => "Zum Gl&uuml;ck hat du eine Fluchtkapsel!",
+];

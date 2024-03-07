@@ -1,0 +1,15 @@
+<?php return [
+    "l_mines_title" => "Déployer des intercepteurs & mines",
+    "l_mines_noturn" => "Vous avez besoin d'au moins un tour pour déployer des défenses de secteur.",
+    "l_mines_nopermit" => "Le déploiement de défenses dans ce secteur n'est pas permis.",
+    "l_mines_nodeploy" => "Vous ne pouvez déployer ici. Un autre vaisseau ou alliance a déjà des défenses dans ce secteur.",
+    "l_mines_info1" => "Vous êtes présentement dans le secteur [sector]. Il y a [mines] mines et [fighters] intercepteurs ici.",
+    "l_mines_info2" => "Vous avez [mines] mines et [fighters] intercepteurs disponibles",
+    "l_mines_deploy" => "Déployer",
+    "l_mines_att" => "Attaque",
+    "l_mines_toll" => "Taxe",
+    "l_mines_notorps" => "Vous n'avez pas suffisament de torpilles.",
+    "l_mines_nofighters" => "Vous n'avez pas suffisament d'intercepteurs",
+    "l_mines_dmines" => "Vous avez déployé [mines] mines.",
+    "l_mines_dfighter" => "Vous avez déployé [fighters] intercepteurs en mode [mode].",
+];

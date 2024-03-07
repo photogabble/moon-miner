@@ -1,0 +1,15 @@
+<?php return [
+    "l_lrs_title" => "Sonde longue distance",
+    "l_lrs_nofull" => "Vos sondeurs ne possèdent aucune fonction longue distance.",
+    "l_lrs_noturns" => "Vous avez besoin d'au moins [fullscan_cost] tour(s) pour performer un sondage complet.",
+    "l_lrs_used" => "Vous avez utilisé",
+    "l_lrs_turns" => "tour(s)",
+    "l_lrs_left" => "restant",
+    "l_lrs_reach" => "Les locations suivantes peuvent être atteinte à partir du secteur [sector]:",
+    "l_lrs_links" => "Liens",
+    "l_lrs_ships" => "Vaisseaux",
+    "l_lrs_click" => "Cliquez sur un des liens pour vous déplacer vers ce secteur.",
+    "l_lrs_cantscan" => "Vous ne pouvez sonder ce secteur à partir du secteur courant!",
+    "l_lrs_zero" => "Le secteur 0 montre beaucoup trop d'activité pour isoler les vaisseaux!",
+    "l_lrs_moveto" => "pour vous déplacer vers le secteur",
+];

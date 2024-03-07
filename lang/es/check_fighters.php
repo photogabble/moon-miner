@@ -1,0 +1,15 @@
+<?php return [
+    "l_chf_youretreatback" => "Regresas a tu localización anterior",
+    "l_chf_notenoughcreditstoll" => "No tienes suficientes créditos para pagar el peaje.",
+    "l_chf_movefailed" => "Movimiento fallido.",
+    "l_chf_youpaidsometoll" => "Has pagado [chf_tollstring] créditos por el peaje.",
+    "l_chf_thefightersdetectyou" => "¡Los cazas te han detectado!",
+    "l_chf_therearetotalfightersindest" => "Hay un total de [chf_total_sector_fighters] cazas en tu sector de destino.",
+    "l_chf_creditsdemanded" => "Piden [chf_number_fighterstoll] créditos para entrar en este sector.",
+    "l_chf_youcan" => "You can",
+    "l_chf_youcanretreat" => "[retreat] - Te costará un turno extra.",
+    "l_chf_inputpay" => "[pay] - el peaje y entrar sin correr riesgo por los cazas.",
+    "l_chf_inputfight" => "[fight] - debes derrotar a todos los cazas para entrar en el sector.",
+    "l_chf_inputcloak" => "[cloak] - Usar tu dispositivo de ocultación e intentar evitar a los cazas.",
+    "l_chf_go" => "Adelante",
+];

@@ -1,0 +1,15 @@
+<?php return [
+    "l_chf_youretreatback" => "You retreat back to your previous location",
+    "l_chf_notenoughcreditstoll" => "You do not have enough credits to pay the toll.",
+    "l_chf_movefailed" => "Move failed.",
+    "l_chf_youpaidsometoll" => "You paid [chf_tollstring] credits for the toll.",
+    "l_chf_thefightersdetectyou" => "The fighters detect you!",
+    "l_chf_therearetotalfightersindest" => "There are [chf_total_sector_fighters] fighters in your destination sector.",
+    "l_chf_creditsdemanded" => "They demand [chf_number_fighterstoll] credits to enter this sector.",
+    "l_chf_youcan" => "You can",
+    "l_chf_youcanretreat" => "[retreat] - Will cost an extra turn.",
+    "l_chf_inputpay" => "[pay] - Pay the toll and enter without harm from the fighters.",
+    "l_chf_inputfight" => "[fight] - you must defeat all the fighters to enter the sector.",
+    "l_chf_inputcloak" => "[cloak] - Use your cloaking device and try to avoid the fighters.",
+    "l_chf_go" => "Go",
+];

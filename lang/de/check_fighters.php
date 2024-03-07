@@ -1,0 +1,15 @@
+<?php return [
+    "l_chf_youretreatback" => "Du ziehst dich zu deiner ersten Position zur&uuml;ck",
+    "l_chf_notenoughcreditstoll" => "Du hast nicht gen&uuml;gend Credits um die Abgabe zu bezahlen.",
+    "l_chf_movefailed" => "Zug fehlgeschlagen.",
+    "l_chf_youpaidsometoll" => "Du bezahlst [chf_tollstring] Credits f&uuml;r die Abgabe.",
+    "l_chf_thefightersdetectyou" => "Die Fighter haben dich entdeckt!",
+    "l_chf_therearetotalfightersindest" => "Es sind [chf_total_sector_fighters] Fighter in Deinem geforderten Sektor.",
+    "l_chf_creditsdemanded" => "Sie verlangen [chf_number_fighterstoll] Credits um diesen Sektor einzunehmen.",
+    "l_chf_youcan" => "You can",
+    "l_chf_youcanretreat" => "[retreat] - Das wird einen zus&auml;tzlichen Zug kosten.",
+    "l_chf_inputpay" => "[pay] - die Abgabe ohne den Schaden von den Fightern zu erleiden.",
+    "l_chf_inputfight" => "[fight] - Du musst alle Fighter entsenden um den Sektor einzunehmen.",
+    "l_chf_inputcloak" => "[cloak] - Benutze deine Tarnungseinrichtung und versuche die Fighter zu umgehen.",
+    "l_chf_go" => "Gehe",
+];

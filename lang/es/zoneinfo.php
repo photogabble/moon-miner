@@ -1,0 +1,16 @@
+<?php return [
+    "l_zi_title" => "Información de la Zona",
+    "l_zi_nexist" => "¡Esta sección de espacio no existe!",
+    "l_zi_feds" => "Federación",
+    "l_zi_traders" => "La Coalición de Comercio Libre",
+    "l_zi_nobody" => "Nadie",
+    "l_zi_war" => "Espacio en concurso",
+    "l_zi_allow" => "Permitido",
+    "l_zi_notallow" => "No permitido",
+    "l_zi_limit" => "Limitado al propietario y aliados",
+    "l_zi_ul" => "ilimitado",
+    "l_zi_control" => "Tienes el control de esta zona",
+    "l_zi_tochange" => "para cambiar sus leyes.",
+    "l_zi_owner" => "Propietario de la zona",
+    "l_zi_maxhull" => "Máximo promedio de nivel tecnológico permitido",
+];

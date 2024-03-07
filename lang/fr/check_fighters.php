@@ -1,0 +1,15 @@
+<?php return [
+    "l_chf_youretreatback" => "Vous battez en retraite jusqu'à votre position précédente",
+    "l_chf_notenoughcreditstoll" => "Vous n'avez pas suffisament de crédits pour payer la taxe.",
+    "l_chf_movefailed" => "Le déplacement a échoué.",
+    "l_chf_youpaidsometoll" => "Vous payez [chf_tollstring] crédits pour la taxe.",
+    "l_chf_thefightersdetectyou" => "Les intercepteurs vous détectent!",
+    "l_chf_therearetotalfightersindest" => "Il y a [chf_total_sector_fighters] intercepteurs dans votre secteur de destination.",
+    "l_chf_creditsdemanded" => "Ils demandent [chf_number_fighterstoll] crédits pour entrer dans ce secteur.",
+    "l_chf_youcan" => "You can",
+    "l_chf_youcanretreat" => "You can [retreat] - Ceci vous coûtera un tour.",
+    "l_chf_inputpay" => "[pay] - et entrer dans le secteur.",
+    "l_chf_inputfight" => "[fight] - Vous devez détruire tous les intercepteurs pour entrer dans le secteur.",
+    "l_chf_inputcloak" => "[cloak] - Utiliser votre camouflage pour essayer de passer les intercepteurs.",
+    "l_chf_go" => "Aller",
+];

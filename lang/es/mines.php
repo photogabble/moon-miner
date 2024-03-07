@@ -1,0 +1,15 @@
+<?php return [
+    "l_mines_title" => "Instalar Minas de sector y Cazas",
+    "l_mines_noturn" => "Necesitas al menos un turno para instalar defensas de sector.",
+    "l_mines_nopermit" => "No está permitido instalar Minas y Cazas en este sector.",
+    "l_mines_nodeploy" => "No puedes instalarlo aquí. Otra nave o Alianza tiene minas o cazas en este sector.",
+    "l_mines_info1" => "Actualmente estás en el sector [sector]. Hay [mines] minas y [fighters] cazas aquí.",
+    "l_mines_info2" => "Tienes [mines] minas y [fighters] cazas disponibles para instalar",
+    "l_mines_deploy" => "Instalar",
+    "l_mines_att" => "Atacar",
+    "l_mines_toll" => "Peaje",
+    "l_mines_notorps" => "No tienes suficientes torpedos.",
+    "l_mines_nofighters" => "No tienes suficientes cazas",
+    "l_mines_dmines" => "Instaladas [mines] minas.",
+    "l_mines_dfighter" => "Instalados [fighters] cazas en modo [mode].",
+];

@@ -1,0 +1,16 @@
+<?php return [
+    "l_zi_title" => "Zonen Information",
+    "l_zi_nexist" => "Dieser Raumsektor existiert nicht!",
+    "l_zi_feds" => "F&ouml;deration",
+    "l_zi_traders" => "The Freihandels-Koalition",
+    "l_zi_nobody" => "Niemand",
+    "l_zi_war" => "Umstrittener Raum",
+    "l_zi_allow" => "Erlaubt",
+    "l_zi_notallow" => "Nicht erlaubt",
+    "l_zi_limit" => "Zugang nur f&uuml;r Besitzer und Alliierte",
+    "l_zi_ul" => "Unbegrenzt",
+    "l_zi_control" => "Du kontrollierst diese Zone",
+    "l_zi_tochange" => "um die Gesetzte zu &auml;ndern.",
+    "l_zi_owner" => "Zonen Eigent&uuml;mer",
+    "l_zi_maxhull" => "Maximal erlaubter durchschnittlicher Technikstand",
+];

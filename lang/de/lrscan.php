@@ -1,0 +1,15 @@
+<?php return [
+    "l_lrs_title" => "Long Range Scan",
+    "l_lrs_nofull" => "Deine Scanner haben keine Long Range Scan F&auml;higkeiten.",
+    "l_lrs_noturns" => "Du brauchst [fullscan_cost] Z&uuml;ge f&uuml;r einen Long Range Scan.",
+    "l_lrs_used" => "Brauchte",
+    "l_lrs_turns" => "Z&uuml;ge",
+    "l_lrs_left" => "&uuml;brig",
+    "l_lrs_reach" => "Die folgenden Orte k&ouml;nnen von Sektor [sector] erreicht werden:",
+    "l_lrs_links" => "Links",
+    "l_lrs_ships" => "Schiffe",
+    "l_lrs_click" => "Auf einen Links um zu diesem Sektor zu reisen.",
+    "l_lrs_cantscan" => "Kann vom derzeitigen Sektor nicht scannen!",
+    "l_lrs_zero" => "Sector 0 kann nicht auf Schiffe gescannt werden!",
+    "l_lrs_moveto" => "um zu Sektor zu reisen",
+];
