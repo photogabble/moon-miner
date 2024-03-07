@@ -36,7 +36,7 @@ class Languages
         /** @var SplFileInfo $fileInfo */
         foreach ($dir as $fileInfo) {
             if ($fileInfo->isDir() && !$fileInfo->isDot()) {
-                $langList[] = [
+                $langList[$fileInfo->getFilename()] = [
                     'name' => __('regional.local_lang_name', [], $fileInfo->getFilename()),
                     'flag' => __('regional.local_lang_flag', [], $fileInfo->getFilename()),
                 ];
