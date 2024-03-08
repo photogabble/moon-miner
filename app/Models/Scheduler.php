@@ -17,7 +17,7 @@
 //
 // File: classes/Scheduler/SchedulerGateway.php
 
-namespace Bnt\Scheduler; // Domain Entity organization pattern, Players objects
+namespace App\Models; // Domain Entity organization pattern, Players objects
 
 class SchedulerGateway // Gateway for SQL calls related to Players
 {
