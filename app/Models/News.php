@@ -17,7 +17,7 @@
 //
 // File: classes/News/NewsGateway.php
 
-namespace Bnt\News; // Domain Entity organization pattern, Players objects
+namespace App\Models; // Domain Entity organization pattern, Players objects
 
 class NewsGateway // Gateway for SQL calls related to Players
 {
