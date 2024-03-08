@@ -1,6 +1,8 @@
-{*
-    Blacknova Traders - A web-based massively multiplayer space combat and trading game
-    Copyright (C) 2001-2014 Ron Harwood and the BNT development team.
+{{--
+    Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+
+    @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+    @license GNU AGPL version 3.0 or (at your option) any later version.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -15,48 +17,71 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    File: index.tpl
-*}
+    File: auth/register.blade.php
+--}}
 
-{extends file="layout.tpl"}
-{block name=title}{$langvars['l_welcome_bnt']}{/block}
+@extends('layouts.layout', ['body_class' => 'index', 'include_ckeditor' => false, 'news' => null, 'suppress_logo' => false, 'footer_show_debug' => true, 'update_ticker' => null, 'players_online' => 1])
 
-{block name=body}
-<div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="templates/{$variables['template']}/images/header1.png" alt="{$langvars['l_bnt']}"></div>
+@section('title', __('index.l_welcome_bnt'))
 
-<div class="index-header-text">{$langvars['l_bnt']}</div>
-<br>
-<div class="index-welcome">
-<h1 style='text-align:center'>{$langvars['l_new_title']}</h1>
-<form accept-charset="utf-8" action="new2.php{$variables['link']}" method="post">
-    <dl class='twocolumn-form'>
-        <dt style='padding:3px'><label for='username'>{$langvars['l_login_email']}:</label></dt>
-        <dd style='padding:3px'><input type='email' id='username' name='username' size='20' maxlength='40' value='' placeholder='someone@example.com' style='width:200px'></dd>
-        <dt style='padding:3px'><label for='shipname'>{$langvars['l_new_shipname']}:</label></dt>
-        <dd style='padding:3px'><input type='text' id='shipname' name='shipname' size='20' maxlength='20' value='' style='width:200px'></dd>
-        <dt style='padding:3px'><label for='character'>{$langvars['l_new_pname']}:</label></dt>
-        <dd style='padding:3px'><input type='text' id='character' name='character' size='20' maxlength='20' value='' style='width:200px'></dd>
-        <dt style='padding:3px'><label for='password'>{$langvars['l_login_pw']}:</label></dt>
-        <dd style='padding:3px'><input type='password' id='password' name='password' size='20' maxlength='20' value='' style='width:200px'></dd>
-        <dt style='padding:3px'><label for='newlang'>{$langvars['l_opt_lang']}:</label></dt>
-        <dd style='padding:3px'><select name=newlang>
-        {for $i=0 to count($variables['lang_name']) -1}
-            {if $variables['lang_file'][$i] == $variables['selected_lang']}
-                <option value='{$variables['lang_file'][$i]}' selected>{$variables['lang_name'][$i]}</option>
-            {else}
-                <option value='{$variables['lang_file'][$i]}'>{$variables['lang_name'][$i]}</option>
-            {/if}
-        {/for}
-        </select></dd>
-    </dl>
-<br style="clear:both">
-<div style="text-align:center">
-<span class="button green"><a class="nocolor" href="#" onclick="document.forms[0].submit();return false;"><span class="shine"></span>{$langvars['l_submit']}</a></span>
-<span class="button red"><a class="nocolor" href="#" onclick="document.forms[0].reset();return false;"><span class="shine"></span>{$langvars['l_reset']}</a></span>
-<div style="width: 0; height: 0; overflow: hidden;"><input type="submit" value="{$langvars['l_submit']}"></div> 
-</div>
-</form>
-<br>
-        {$langvars['l_new_info']}<br></div>
-<br>
-{/block}
+@section('content')
+
+    <x-header />
+
+    <br>
+    <div class="index-welcome">
+        <h1 style='text-align:center'>{{ __('new.l_new_title') }}</h1>
+        <form accept-charset="utf-8" method="post">
+            @csrf
+
+            <div>
+                <x-input-label for="email" :value="__('login.l_login_email')" />
+                <x-text-input id="email" type="email" name="email" placeholder='someone@example.com' :value="old('email')" required autofocus autocomplete="email" />
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+
+            <div>
+                <x-input-label for="ship_name" :value="__('new.l_new_shipname')" />
+                <x-text-input id="ship_name" type="text" name="ship_name" :value="old('ship_name')" required />
+                <x-input-error :messages="$errors->get('ship_name')" class="mt-2" />
+            </div>
+
+            <div>
+                <x-input-label for="character_name" :value="__('new.l_new_pname')" />
+                <x-text-input id="character_name" type="text" name="character_name" :value="old('character_name')" required />
+                <x-input-error :messages="$errors->get('character_name')" class="mt-2" />
+            </div>
+
+            <div>
+                <x-input-label for="password" :value="__('login.l_login_pw')" />
+                <x-text-input id="password" type="password" name="password" required autocomplete="new-password" />
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div>
+
+            <div>
+                <x-input-label for="password_confirmation" :value="__('login.l_login_pw_confirm')" />
+                <x-text-input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            </div>
+
+            <div>
+                <x-input-label for="locale" :value="__('options.l_opt_lang')" />
+                <select name="locale">
+                    @foreach(\App\Helpers\Languages::listAvailable() as $id => $lang)
+                        <option value='{{ $id }}' @if(!old('locale') && app()->getLocale() === $id || old('locale') === $id) selected @endif>{{ $lang['name'] }}</option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('locale')" class="mt-2" />
+            </div>
+
+            <br style="clear:both">
+            <div style="text-align:center">
+                <button class="button green"><span class="shine"></span>{{ __('common.l_submit') }}</button>
+                <button type="reset" class="button red"><span class="shine"></span>{{ __('common.l_reset') }}</button>
+            </div>
+        </form>
+        <br>
+        {{ __('new.l_new_info') }}<br></div>
+    <br>
+@endsection
+
