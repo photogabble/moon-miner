@@ -1,103 +1,54 @@
-{*
-    Blacknova Traders - A web-based massively multiplayer space combat and trading game
-    Copyright (C) 2001-2014 Ron Harwood and the BNT development team.
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation, either version 3 of the
-    License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-    File: footer.tpl
-*}
-<!-- START OF FOOTER -->
 <div class="footer">
-{if isset($news)}
-<br>
-<script type="text/javascript" src="{$template_dir}/javascript/newsticker.js.php"></script>
-<p id="news_ticker" class="faderlines" style="width:602px; margin:auto; text-align:center;">{$langvars['l_news_broken']}</p>
-<script>
-// News Ticker Constructor.
-news = new newsTicker();
+    @if($news)
+        <news-ticker interval="5" items="{{json_encode($news)}}"></news-ticker>
+    @endif
+    <br>
 
-// I have put in some safaty precautions, but just in case always check the return value from initTicker().
-if (news.initTicker("news_ticker") == true)
-{
-    // Set the width of the Ticker (in pixles)
-    news.Width(500);
+    {{-- Items to the left (SF logo) and to the right (mem, copyright, news) --}}
+    @if(!$suppress_logo)
+        <p style='float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" width="{$variables['sf_logo_width']}" height="{$variables['sf_logo_height']}" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></p>
+    @endif
+    <p style="font-size:smaller; float:right; text-align:right"><a class="new_link" href="news.php">{{ __('global_includes.l_local_news') }}</a>
+        <br>&copy; 2000-{{ date('Y') }} Ron Harwood &amp; the BNT Dev team
 
-    // Sets the Interval/Update Time in seconds.
-    news.Interval(5);
+        @if($footer_show_debug)
+            <br>{{ render_time_seconds() }} {{ __('footer.l_seconds') }} {{ __('footer.l_time_gen_page') }} / {{ mem_peak_usage() }}{{ __('footer.l_peak_mem') }}
+        @endif
+    </p>
 
-    // I have decided on adding single news articles at a time due to it makes it more easier to add when using PHP or XSL.
-    // We can supply the information by either of the following ways:
-    // 1: Supply the information from a Database and inserting it with PHP.
-    // 2: Supply the information from a Database and convert it into XML (for formatting) and have the XSLT Stylesheet extract the information and insert it.
-{* Cycle through the player list *}
-{foreach $news as $article}
-    news.addArticle('{$article['url']}', '{$article['text']}', '{$article['type']}', {$article['delay']});
-{/foreach}
+    <p style="text-align:center;">
+        {{-- Handle the Servers Update Ticker here  --}}
+        @if($update_ticker && $update_ticker['display'] === true)
+            <script type='text/javascript' src='/javascript/updateticker.js'></script>
+            <script>
+                const seconds = {{ $update_ticker['seconds_left'] }};
+                const nextInterval = new Date().getTime();
+                const maxTicks = ({{ $update_ticker['sched_ticks'] }} * 60);
+                const l_running_update = '{{ __('footer.l_running_update') }}';
+                const l_footer_until_update = '{{ __('footer.l_footer_until_update') }}';
 
-    // Starts the Ticker.
-    news.startTicker();
+                setTimeout("NextUpdate();", 100);
+            </script>
+            <span id=update_ticker>{{ __('footer.l_please_wait') }}</span>
+        @endif
 
-    // If for some reason you need to stop the Ticker use the following line.
-    // news.stopTicker();
-}
-</script>
+        <update-ticker
+            remainder="10"
+            max="{{ $update_ticker['sched_ticks'] * 60 }}"
+            l-running-update="{{ __('footer.l_running_update') }}"
+            l-until-update="{{ __('footer.l_footer_until_update') }}"
+        >{{ __('footer.l_please_wait') }}</update-ticker>
 
-{/if}
-<br>
+        {{-- End of Servers Update Ticker --}}
 
-{* Items to the left (SF logo) and to the right (mem, copyright, news) *}
-{if $variables['suppress_logo'] == false}
-    <p style='float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" width="{$variables['sf_logo_width']}" height="{$variables['sf_logo_height']}" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></p>
-{/if}
-    <p style="font-size:smaller; float:right; text-align:right"><a class="new_link" href="news.php{$variables['sf_logo_link']}">{$langvars['l_local_news']}</a>
-    <br>&copy; 2000-{$variables['cur_year']} Ron Harwood &amp; the BNT Dev team
+        <br>
+        {{-- Handle the Online Players Counter --}}
+        @if($players_online === 1)
+            {{ __('footer.l_footer_one_player_on') }}
+        @else
+            {{ __('footer.l_footer_players_on_1') }} {{ $players_online }} {{ __('footer.l_footer_players_on_2') }}
+        @endif
+    </p>
+    {{-- End of Online Players Counter --}}
 
-{if isset($variables['footer_show_debug']) && $variables['footer_show_debug'] == true}
-    <br>{$variables['elapsed']} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']}{$langvars['l_peak_mem']}
-{/if}
-</p>
-
-<p style="text-align:center;">
-
-{* Handle the Servers Update Ticker here *}
-{if isset($variables['update_ticker']['display']) && $variables['update_ticker']['display'] == true}
-    <script type='text/javascript' src='{$template_dir}/javascript/updateticker.js.php'></script>
-    <script>
-        var seconds = {$variables['update_ticker']['seconds_left']};
-        var nextInterval = new Date().getTime();
-        var maxTicks = ({$variables['update_ticker']['sched_ticks']} * 60);
-        var l_running_update = '{$langvars['l_running_update']}';
-        var l_footer_until_update = '{$langvars['l_footer_until_update']}';
-
-        setTimeout("NextUpdate();", 100);
-    </script>
-    <span id=update_ticker>{$langvars['l_please_wait']}</span>
-{/if}
-
-{* End of Servers Update Ticker *}
-
-<br>
-{* Handle the Online Players Counter *}
-{if isset($variables['players_online']) && $variables['players_online'] == 1}
-{$langvars['l_footer_one_player_on']}
-{else}
-{$langvars['l_footer_players_on_1']} {$variables['players_online']} {$langvars['l_footer_players_on_2']}
-{/if}
-</p>
-{* End of Online Players Counter *}
-
-<!-- END OF FOOTER -->
-    </div>
-  </body>
-</html>
+</div>
