@@ -1,6 +1,8 @@
 {{--
-    Blacknova Traders - A web-based massively multiplayer space combat and trading game
-    Copyright (C) 2001-2024 Ron Harwood and the BNT development team.
+    Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+
+    @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+    @license GNU AGPL version 3.0 or (at your option) any later version.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -23,20 +25,14 @@
 @section('title', __('index.l_welcome_bnt'))
 
 @section('content')
-    <div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="/images/header1.png" alt="{$langvars['l_bnt']}"></div>
 
-    <div class="index-flags">
-        @foreach(\App\Helpers\Languages::listAvailable() as $id => $lang)
-            <a href="index.php?lang={{ $id }}"><img width="24" height="16" src="/images/flags/{{ $lang['flag'] }}.png" alt="{{ $lang['name'] }}"></a>
-        @endforeach
-    </div>
+    <x-header />
 
-    <div class="index-header-text">{{ __('index.l_bnt') }}</div>
     <br>
     <h2 style="display:none">{{ __('index.l_navigation') }}</h2>
     <div class="navigation" role="navigation">
         <ul class="navigation">
-            <li class="navigation"><a href="new.php"><span class="button blue"><span class="shine"></span>{{ __('index.l_new_player') }}</span></a></li>
+            <li class="navigation"><a href="{{ route('register') }}"><span class="button blue"><span class="shine"></span>{{ __('index.l_new_player') }}</span></a></li>
             <li class="navigation"><a href="#"><span class="button gray"><span class="shine"></span>{{ __('login.l_login_emailus') }}</span></a></li>
             <li class="navigation"><a href="ranking.php"><span class="button purple"><span class="shine"></span>{{ __('main.l_rankings') }}</span></a></li>
             <li class="navigation"><a href="faq.php"><span class="button brown"><span class="shine"></span>{{ __('main.l_faq') }}</span></a></li>
