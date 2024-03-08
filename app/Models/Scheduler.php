@@ -1,51 +1,74 @@
-<?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: classes/Scheduler/SchedulerGateway.php
+<?php declare(strict_types=1);
+/**
+ * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ *
+ * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-namespace App\Models; // Domain Entity organization pattern, Players objects
+namespace App\Models;
 
-class SchedulerGateway // Gateway for SQL calls related to Players
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property string $class_name
+ * @property Carbon $last_run_at
+ * @property Carbon $next_run_after
+ */
+class Scheduler extends Model
 {
-    protected $pdo_db; // This will hold a protected version of the pdo_db variable
+    use HasFactory;
 
-    public function __construct(\PDO $pdo_db) // Create the this->pdo_db object
+    protected $fillable = [
+        'class_name',
+        'last_run_at',
+        'next_run_after',
+        'multiplier'
+    ];
+
+    protected $casts = [
+        'next_run_after' => 'datetime',
+        'last_run_at' => 'datetime'
+    ];
+
+    public static function selectSchedulerLastRun(): ?Carbon
     {
-        $this->pdo_db = $pdo_db;
+        /** @var Scheduler|null $last */
+        $last = Scheduler::query()
+            ->orderBy('last_run_at', 'DESC')
+            ->first();
+
+        return (is_null($last))
+            ? null
+            : $last->last_run_at;
     }
 
-    public function selectSchedulerLastRun()
+    public static function nextRun(): ?Carbon
     {
-        // It is possible to have this call run before the game is setup, so we need to test to ensure the db is active
-        if (\Bnt\Db::isActive($this->pdo_db))
-        {
-            // SQL call that selects the last run of the scheduler, and only one record
-            $sql = "SELECT last_run FROM {$this->pdo_db->prefix}scheduler LIMIT 1";
-            $stmt = $this->pdo_db->query($sql); // Query the pdo DB using this SQL call
-            $row = $stmt->fetchObject();
-            \Bnt\Db::logDbErrors($this->pdo_db, $sql, __LINE__, __FILE__); // Log any errors, if there are any
+        /** @var Scheduler|null $last */
+        $last = Scheduler::query()
+            ->orderBy('next_run_after', 'DESC')
+            ->first();
 
-            if (is_object($row))
-            {
-                return (int) $row->last_run; // Return the int value of the last scheduler run
-            }
-        }
-
-        return false; // If anything goes wrong, db not active, etc, return false
+        return (is_null($last))
+            ? null
+            : $last->next_run_after;
     }
 }
-?>
