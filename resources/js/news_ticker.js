@@ -1,236 +1,66 @@
-function newsTicker(inst)
-{
-// Private / Protected Variables
-    var welcome                 = "<span style=\"color:#fff;\">Loading News, Please wait...</span>";
-    var title                   = "News Ticker";
-    var instance                = Math.random() *1000000;
-    var article                 = [];
-    var intervalId              = [];
-    var tickerHeight            = [];
-    var tickerWidth             = [];
-    var intervalSec             = [];
-    var nextInterval            = [];
-    var initialized             = [];
-    var started                 = [];
-    var ticketArticle           = [];
-    var element                 = [];
-
-// Public Variables
-
-// Public Functions
-    this.initTicker = function (container)
-    {
-        if (document.getElementById(container) == null)
-        {
-            errMSG        = "TICKER ERROR: Container '" + container + "' does not exist!\n";
-            errMSG        += "\n";
-            errMSG        += "Please use instance.Container('container name');\n";
-            errMSG        += "container must be a valid Container name and must not contain spaces.\n";
-            errMSG        += "\n";
-            errMSG        += "For more information, Please read the documentation.\n";
-            window.alert (errMSG);
-
-            return false;
+const template = document.createElement('template');
+template.innerHTML = `
+    <style>
+        p {
+            margin-left:auto;
+            margin-right:auto;
+            border:#fff solid 1px;
+            text-align:center;
+            background-color:#400040;
+            color:#fff;
+            padding:0;
+            border-spacing:0;
+            width:600px
         }
+        a {
+        color:#fff;
+        }
+    </style>
+    <p>
+        <span>Loading News, Please wait...</span>
+    </p>
+`;
 
-        // Default Settings DO NOT CHANGE THESE VALUES.
-        article[instance]               = 0;
-        intervalId[instance]            = null;
-        tickerHeight[instance]          = '18px';
-        tickerWidth[instance]           = '500px';
-        intervalSec[instance]           = 5;
-        nextInterval[instance]          = 0;
-        initialized[instance]           = false;
-        started[instance]               = false;
-        ticketArticle[instance]         = [];
-        element[instance]               = null;
-
-        element[instance]               = document.getElementById(container);
-        element[instance].height        = parseInt(tickerHeight[instance]) +"px";
-        element[instance].width         = parseInt(tickerWidth[instance]) +"px";
-        element[instance].title         = title;
-        this.output("<div style='color:#FF0000; font-weight:bold;'>Ticker Not Started!</div>");
-
-        // Clear Articles.
-        this.clearArticles();
-        initialized[instance]            = true;
-
-        return true;
+export class NewsTicker extends HTMLElement {
+    constructor() {
+        super();
+        this._shadowRoot = this.attachShadow({ 'mode': 'open' });
+        this._shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
-    this.startTicker = function ()
-    {
-        var self = this;
-        if (initialized[instance] == false)
-        {
-            this.output("<div style='color:#FF0000; font-weight:bold;'>Error: Ticker Not Initialized!</div>");
-            started[instance] = false;
-
-            return false;
-        }
-        else if (element[instance] && intervalId[instance] == null)
-        {
-            started[instance] = true;
-            article[instance] = 0;
-            this.getArticle();
-//            intervalId[instance] = setInterval(function () { self.getArticle();}, (ticketArticle[instance].DELAY[article[instance]] * 1000));
-//            intervalId[instance] = setInterval(function () { self.getArticle();}, (intervalSec[instance] * 1000));
-            intervalId[instance] = setInterval(function () { self.getArticle();}, (100));
-        }
+    get interval() {
+        return Number(this.getAttribute('interval') ?? 5) * 1000;
     }
 
-    this.stopTicker = function ()
-    {
-        if (intervalId[instance] != null)
-        {
-            clearInterval(intervalId[instance]);
-            intervalId[instance] = null;
-            article[instance] = 0;
-        }
+    get items() {
+        const items = this.getAttribute('items');
+        return items ? JSON.parse(items) : [];
     }
 
-    this.addArticle = function (url, text, type, delay)
-    {
-        // Put back in < and > in the text.
-        // we had to have output-escaping enabled to be XHTML 1.1 compliant.
-        if (text != null)
-            text = text.replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
+    connectedCallback() {
+        const items = this.items;
+        let idx = 0;
 
-        if (url != null)
-            url = url.replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
+        setInterval(() => {
+            const item = items[idx];
+            this.$span = this._shadowRoot.querySelector('span');
 
-        ticketArticle[instance].URL[ticketArticle[instance].NUM]    = url;
-        ticketArticle[instance].TEXT[ticketArticle[instance].NUM]    = text;
-        ticketArticle[instance].TYPE[ticketArticle[instance].NUM]    = type;
-        ticketArticle[instance].DELAY[ticketArticle[instance].NUM]    = delay;
-        ticketArticle[instance].NUM ++;
-    }
-
-    this.Width = function (width)
-    {
-        if (typeof width == "undefined")
-        {
-            return parseInt(tickerWidth[instance]);
-        }
-
-        if (started[instance] == false)
-        {
-            if (typeof width != "undefined")
-            {
-                tickerWidth[instance] = parseInt(width) +"px";
-                element[instance].width = tickerWidth[instance];
-
-                return true;
+            if (item.url === null) {
+                this.$span.innerHTML = item.text;
+            } else {
+                let $link = document.createElement('a');
+                $link.href = item.url;
+                $link.innerHTML = item.text;
+                this.$span.replaceChildren($link);
             }
-        }
-        else
-        {
-            return false;
-        }
-    }
 
-    this.Interval = function (interval)
-    {
-        if (typeof interval == "undefined")
-        {
-            return intervalSec[instance];
-        }
-
-        if (started == false)
-        {
-            if (typeof interval != "undefined")
-            {
-                intervalSec[instance] = (interval);
-
-                return true;
+            if (items.length > 1) {
+                if (idx < items.length - 1) {
+                    idx++
+                } else if (idx === items.length - 1) {
+                    idx = 0;
+                }
             }
-        }
-        else
-        {
-            return false;
-        }
+        }, this.interval);
     }
-
-    this.clearArticles = function ()
-    {
-        ticketArticle[instance].URL        = [];
-        ticketArticle[instance].TEXT    = [];
-        ticketArticle[instance].TYPE    = [];
-        ticketArticle[instance].DELAY    = [];
-        ticketArticle[instance].NUM        = 0;
-    }
-
-    this.getArticle = function ()
-    {
-        var instant = this;
-        var date = new Date();
-
-        if (nextInterval[instance] <= 0)
-        {
-            nextInterval[instance] = date.getTime() + 1000;
-            this.output(welcome);
-
-            return true;
-        }
-        else if (nextInterval[instance] <= date.getTime())
-        {
-            nextInterval[instance] = date.getTime() + (ticketArticle[instance].DELAY[article[instance]]*1000);
-            if (ticketArticle[instance].TEXT == null || ticketArticle[instance].NUM == 0)
-            {
-                this.output("<div style='color:#FF0000; font-weight:bold;'>Error: No News Loaded!</div>");
-                instant.stopTicker();
-
-                //document.write ("Ret: False<br>\n");
-                return false;
-            }
-            else if(ticketArticle[instance].URL[article[instance]] == null || ticketArticle[instance].URL[article[instance]].length ==0)
-            {
-                this.output(ticketArticle[instance].TEXT[article[instance]]);
-                this.nextArticle();
-
-                return true;
-            }
-            else
-            {
-                this.output("<a class='headlines' href='" + ticketArticle[instance].URL[article[instance]] + "'>" + ticketArticle[instance].TEXT[article[instance]] + "</" + "a>");
-                this.nextArticle();
-
-                return true;
-            }
-        }
-    }
-
-    this.nextArticle = function ()
-    {
-        if (article[instance] < (ticketArticle[instance].NUM-1))
-        {
-            article[instance]++;
-        }
-        else
-        {
-            article[instance] = 0;
-        }
-    }
-
-    this.output = function (data)
-    {
-        if (typeof data != "undefined")
-        {
-            element[instance].innerHTML        = data
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    this.DEBUGGER = function (msg)
-    {
-        document.write("<div style='font-size:12px; color:#FF0000;'>DEBUGGER: " + msg +"</div>\n");
-    }
-
-//Private / Protected Functions
-
 }
