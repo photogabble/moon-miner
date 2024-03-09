@@ -17,7 +17,9 @@
 //
 // File: classes/PlayerLog.php
 
-namespace Bnt;
+namespace App\Models;
+
+use Bnt\Db;
 
 class PlayerLog
 {
