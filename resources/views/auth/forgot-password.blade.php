@@ -24,36 +24,23 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
+    <x-header />
 
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+    <br>
+
+    <form method="POST" action="{{ route('password.email') }}">
+        @csrf
 
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
+            <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('options.l_opt_newpass')" />
-            <x-text-input id="password" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('options.l_opt_newpagain')" />
-            <x-text-input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div>
+        <div class="flex items-center justify-end mt-4">
             <button type="submit">
-                {{ __('options.l_opt_save') }}
+                {{ __('Email Password Reset Link') }}
             </button>
         </div>
     </form>
