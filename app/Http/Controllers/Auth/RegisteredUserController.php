@@ -70,12 +70,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // When adding a new player to the database
-
+        /** @var User $user */
         $user = User::create([
             'name' => $request->get('character_name'),
             'locale' => $request->get('locale', config('app.locale')),
-            'turns' => config('game.max_turns'),
+            'turns' => config('game.start_turns'),
 
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
@@ -87,27 +86,32 @@ class RegisteredUserController extends Controller
         $ship->owner_id = $user->id;
         $ship->name = $request->get('ship_name');
         $ship->ship_destroyed = false;
-        $ship->armor_pts = 10;
-        $ship->ship_energy = 100;
-        $ship->ship_fighters = 10;
+        $ship->armor_pts = config('game.start_armor');
+        $ship->ship_energy = config('game.start_energy');
+        $ship->ship_fighters = config('game.start_fighters');
         $ship->on_planet = false;
-        $ship->dev_warpedit = 0;
-        $ship->dev_genesis = 0;
-        $ship->dev_beacon = 0;
-        $ship->dev_emerwarp = 0;
-        $ship->dev_escapepod = false;
-        $ship->dev_fuelscoop = false;
-        $ship->dev_minedeflector = 0;
+
+        $ship->dev_warpedit = config('game.start_editors');
+        $ship->dev_genesis = config('game.start_genesis');
+        $ship->dev_beacon = config('game.start_beacon');
+        $ship->dev_emerwarp = config('game.start_emerwarp');
+        $ship->dev_escapepod = config('game.start_escape_pod');
+        $ship->dev_fuelscoop = config('game.start_scoop');
+        $ship->dev_lssd = config('game.start_lssd');
+        $ship->dev_minedeflector = config('game.start_minedeflectors');
+
         $ship->trade_colonists = true;
         $ship->trade_fighters = false;
         $ship->trade_torps = false;
         $ship->trade_energy = true;
         $ship->cleared_defenses = null;
-        $ship->dev_lssd = false;
         $ship->system_id = 1;
         $ship->save();
 
         $user->ship()->associate($ship);
+
+        $user->ship_id = $ship->id;
+        $user->save();
 
         // TODO listen to Login event and update 'last_login' => Carbon::now(),
 
