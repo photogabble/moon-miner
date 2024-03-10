@@ -40,11 +40,12 @@ use Carbon\Carbon;
  *
  * @property int $id
  * @property int $ship_id
+ * @property string $name
  *
  * @property-read Collection<PlayerLog> $logEntries
  * @property-read Ship|null $ship
  * @property-read Collection<Ship> $ships
- *
+ * @property-read Collection<Bounty> $bounties
  */
 class User extends Authenticatable
 {
@@ -125,5 +126,10 @@ class User extends Authenticatable
     public function wallet(WalletType $type = WalletType::Personal): ?Wallet
     {
         return $this->wallets()->where('type', $type)->first();
+    }
+
+    public function bounties(): HasMany
+    {
+        return $this->hasMany(Bounty::class, 'bounty_on');
     }
 }
