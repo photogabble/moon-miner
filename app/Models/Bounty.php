@@ -1,82 +1,85 @@
-<?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: classes/Bounty.php
+<?php declare(strict_types=1);
+/**
+ * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ *
+ * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-namespace Bnt;
+namespace App\Models;
 
-class Bounty
+use Exception;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Types\LogType;
+
+/**
+ * @property int $amount
+ * @property int $bounty_on
+ * @property int|null $placed_by
+ *
+ * @property-read User $bountyOn
+ * @property-read User $placedBy
+ */
+class Bounty extends Model
 {
-    public static function cancel($db, $bounty_on)
+    public function bountyOn(): BelongsTo
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id", array($bounty_on));
-        Db::logDbErrors($db, $res, __LINE__, __FILE__);
-        if ($res)
-        {
-            while (!$res->EOF)
-            {
-                $bountydetails = $res->fields;
-                if ($bountydetails['placed_by'] != 0)
-                {
-                    $update_creds_res = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array($bountydetails['amount'], $bountydetails['placed_by']));
-                    Db::logDbErrors($db, $update_creds_res, __LINE__, __FILE__);
-                    PlayerLog::writeLog($db, $bountydetails['placed_by'], LOG_BOUNTY_CANCELLED, "$bountydetails[amount]|$bountydetails[character_name]");
-                }
-
-                 $delete_bounty_res = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bountydetails['bounty_id']));
-                 Db::logDbErrors($db, $delete_bounty_res, __LINE__, __FILE__);
-                 $res->MoveNext();
-            }
-        }
+        return $this->belongsTo(User::class, 'bounty_on');
     }
 
-    public static function collect($db, $langvars, $attacker, $bounty_on)
+    public function placedBy(): BelongsTo
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array($bounty_on));
-        Db::logDbErrors($db, $res, __LINE__, __FILE__);
+        return $this->belongsTo(User::class, 'placed_by');
+    }
 
-        if ($res)
-        {
-            while (!$res->EOF)
-            {
-                $bountydetails = $res->fields;
-                if ($res->fields['placed_by'] == 0)
-                {
-                    $placed = $langvars['l_by_thefeds'];
-                }
-                else
-                {
-                    $pl_bounty_res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array($bountydetails['placed_by']));
-                    Db::logDbErrors($db, $pl_bounty_res, __LINE__, __FILE__);
-                    $placed = $pl_bounty_res->fields['character_name'];
-                }
+    public function cancel() : void
+    {
+        if ($placedBy = $this->placedBy) {
+            $characterName = $this->bountyOn->name;
+            PlayerLog::writeLog($this->placed_by, LogType::LOG_BOUNTY_CANCELLED, "$this->amount|$characterName");
 
-                $update_creds_res = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array($bountydetails['amount'], $attacker));
-                Db::logDbErrors($db, $update_creds_res, __LINE__, __FILE__);
-                $delete_bounty_res = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bountydetails['bounty_id']));
-                Db::logDbErrors($db, $delete_bounty_res, __LINE__, __FILE__);
-
-                PlayerLog::writeLog($db, $attacker, LOG_BOUNTY_CLAIMED, "$bountydetails[amount]|$bountydetails[character_name]|$placed");
-                PlayerLog::writeLog($db, $bountydetails['placed_by'], LOG_BOUNTY_PAID, "$bountydetails[amount]|$bountydetails[character_name]");
-                $res->MoveNext();
-            }
+            $placedBy->wallet()->credit($this->amount, "Bounty refund");
         }
-        $delete_bounty_on_res = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ?", array($bounty_on));
-        Db::logDbErrors($db, $delete_bounty_on_res, __LINE__, __FILE__);
+
+        $this->delete();
+    }
+
+    public function collect(User $attacker): void
+    {
+        if ($attacker->id === $this->bounty_on) {
+            throw new Exception("Can't collect bounty on self");
+        }
+
+        $characterName = $this->bountyOn->name;
+
+        if (is_null($this->placed_by)) {
+            $placed = __('bounty.l_by_thefeds');
+        } else {
+            $placed = $this->placedBy->name;
+            PlayerLog::writeLog($this->placed_by, LogType::LOG_BOUNTY_PAID, "$this->amount|$characterName|");
+        }
+
+        // TODO: lang
+        $attacker->wallet()->credit($this->amount, 'Bounty paid on ' . $characterName);
+        PlayerLog::writeLog($attacker->id, LogType::LOG_BOUNTY_CLAIMED, "$this->amount|$characterName|$placed");
+
+        $this->delete();
     }
 }
-?>
