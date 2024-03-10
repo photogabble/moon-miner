@@ -1,39 +1,64 @@
-<?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: classes/PlayerLog.php
+<?php declare(strict_types=1);
+/**
+ * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ *
+ * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 namespace App\Models;
 
-use Bnt\Db;
+use App\Types\LogType;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PlayerLog
+class PlayerLog extends Model
 {
-    public static function writeLog($db, $sid, $log_type, $data = null)
-    {
-        $data = addslashes($data);
-        $stamp = date('Y-m-d H:i:s'); // Now (as seen by PHP)
+    protected $fillable = [
+        'user_id',
+        'type',
+        'data',
+    ];
 
-        // Write log_entry to the player's log - identified by player's ship_id - sid.
-        if ($sid != null && !empty($log_type))
-        {
-            $res = $db->Execute("INSERT INTO {$db->prefix}logs (ship_id, type, time, data) VALUES (?, ?, ?, ?)", array($sid, $log_type, $stamp, $data));
-            Db::logDbErrors($db, $res, __LINE__, __FILE__);
-        }
+    protected $casts = [
+        'type' => LogType::class,
+    ];
+
+    public function selectLogsInfo(int $user_id, string $startdate): Collection
+    {
+        return PlayerLog::where('user_id', $user_id)
+            ->where('created_at', 'LIKE', "$startdate%")
+            ->get();
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public static function writeLog(int $user_id, LogType $log_type, ?string $data = null): void
+    {
+        static::query()
+            ->create([
+                'user_id' => $user_id,
+                'type' => $log_type,
+                'data' => (!is_null($data)) ? addslashes($data) : '',
+            ]);
     }
 }
-?>
