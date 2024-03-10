@@ -32,18 +32,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bank_accounts', function (Blueprint $table) {
+        Schema::create('wallets', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
             $table->unsignedBigInteger('user_id');
-
             $table->integer('balance')->default(0);
-            $table->integer('loan')->default(0);
+            $table->char('type', 1);
 
-            $table->dateTime('loaned_on')->nullable()->default(null); // loantime
+            // Only one of each type per player
+            $table->unique(['user_id', 'type']);
 
-            // TODO: Foreign Key
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -52,6 +55,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bank_accounts');
+        Schema::dropIfExists('wallets');
     }
 };

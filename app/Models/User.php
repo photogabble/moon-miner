@@ -23,6 +23,7 @@
 
 namespace App\Models;
 
+use App\Types\WalletType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -114,5 +115,15 @@ class User extends Authenticatable
     public function logEntries(): HasMany
     {
         return $this->hasMany(PlayerLog::class);
+    }
+
+    public function wallets(): HasMany
+    {
+        return $this->hasMany(Wallet::class);
+    }
+
+    public function wallet(WalletType $type = WalletType::Personal): ?Wallet
+    {
+        return $this->wallets()->where('type', $type)->first();
     }
 }

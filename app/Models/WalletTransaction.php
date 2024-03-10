@@ -21,37 +21,44 @@
  *
  */
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Models;
 
-return new class extends Migration
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+/**
+ * @property int $id
+ * @property int $wallet_id
+ * @property int|null $origin_wallet_id
+ * @property int|null $debit
+ * @property int|null $credit
+ * @property int $balance
+ * @property string|null $description
+ *
+ * @property-read Wallet $wallet
+ * @property-read int $transaction_amount
+ */
+class WalletTransaction extends Model
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+
+    public function wallet(): BelongsTo
     {
-        Schema::create('bank_transfers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-
-            $table->unsignedBigInteger( 'source_id');
-            $table->unsignedBigInteger( 'dest_id');
-
-            $table->unsignedInteger('amount');
-
-            $table->index(['source_id', 'dest_id']);
-
-            // Todo Foreign Keys
-        });
+        return $this->belongsTo(Wallet::class);
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function getTransactionAmountAttribute(): int
     {
-        Schema::dropIfExists('bank_transfers');
+        return $this->credit ?: -($this->debit);
     }
-};
+
+    public function save(array $options = []): bool
+    {
+        $this->balance = $this->wallet->balance + $this->transaction_amount;
+
+        if (!parent::save($options)) return false;
+
+        $this->wallet->balance = $this->balance;
+        return $this->wallet->save();
+    }
+
+}
