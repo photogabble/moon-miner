@@ -1,60 +1,118 @@
-<?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: classes/Players/PlayersGateway.php
+<?php declare(strict_types=1);
+/**
+ * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ *
+ * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-namespace Bnt\Players; // Domain Entity organization pattern, Players objects
+namespace App\Models;
 
-class PlayersGateway // Gateway for SQL calls related to Players
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Mchev\Banhammer\Traits\Bannable;
+use Laravel\Sanctum\HasApiTokens;
+use Carbon\Carbon;
+
+/**
+ * This User class has been refactored from the legacy
+ * classes/Players/PlayersGateway.php file.
+ *
+ * @property int $id
+ * @property int $ship_id
+ *
+ * @property-read Collection<PlayerLog> $logEntries
+ * @property-read Ship|null $ship
+ * @property-read Collection<Ship> $ships
+ *
+ */
+class User extends Authenticatable
 {
-    protected $pdo_db; // This will hold a protected version of the pdo_db variable
+    use HasApiTokens, HasFactory, Notifiable, Bannable;
 
-    public function __construct(\PDO $pdo_db) // Create the this->pdo_db object
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Active players are those who have been active within the past five minutes.
+     * @return int
+     */
+    public static function activePlayerCount(): int
     {
-        $this->pdo_db = $pdo_db;
+        return User::query()
+            ->whereBetween('last_login', [
+                Carbon::now()->subMinutes(5),
+                Carbon::now()
+            ])->count();
     }
 
-    public function selectPlayersLoggedIn($since_stamp, $stamp)
+    /**
+     * Players can own more than one ship.
+     * @return HasMany
+     */
+    public function ships(): HasMany
     {
-        // SQL call that selected the number (count) of logged in ships (should be players)
-        // where last login time is between the since_stamp, and the current timestamp ($stamp)
-        // But it excludes xenobes.
-        $sql = "SELECT COUNT(*) AS loggedin FROM {$this->pdo_db->prefix}ships " .
-               "WHERE {$this->pdo_db->prefix}ships.last_login BETWEEN timestamp '"
-               . $since_stamp . "' AND timestamp '" . $stamp . "' AND email NOT LIKE '%@xenobe'";
-        $stmt = $this->pdo_db->query($sql); // Query the pdo DB using this SQL call
-        \Bnt\Db::logDbErrors($this->pdo_db, $sql, __LINE__, __FILE__); // Log any errors, if there are any
-        $row = $stmt->fetchObject(); // Fetch the associated object from the select
-        $online = (int) $row->loggedin; // Set online variable to the int value of the loggedin count from SQL
-        return $online;
+        return $this->hasMany(Ship::class, 'owner_id');
     }
 
-    public function selectPlayerInfo($email)
+    /**
+     * The ship that this player is currently flying.
+     * @return BelongsTo
+     */
+    public function ship(): BelongsTo
     {
-//        $sql = "SELECT lang, ip_address, password, ship_destroyed, ship_id, email, dev_escapepod FROM {$this->pdo_db->prefix}ships WHERE email = :email";
-        $sql = "SELECT * FROM {$this->pdo_db->prefix}ships WHERE email = :email";
-        $stmt = $this->pdo_db->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $res = $stmt->execute();
-        \Bnt\Db::logDbErrors($this->pdo_db, $sql, __LINE__, __FILE__); // Log any errors, if there are any
+        return $this->belongsTo(Ship::class);
+    }
 
-        // A little magic here. If it couldn't select a user, the following call will return false - which is what we want for "no user found".
-        $playerinfo = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $playerinfo; // TODO: Eventually we want this to return a player object instead, for now, playerinfo array or false for no user found.
+    public function logEntries(): HasMany
+    {
+        return $this->hasMany(PlayerLog::class);
     }
 }
-?>
