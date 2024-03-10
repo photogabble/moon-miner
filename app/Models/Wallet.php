@@ -24,14 +24,16 @@
 namespace App\Models;
 
 use App\Types\WalletType;
+use Illuminate\Support\Carbon;
 use App\Exceptions\WalletException;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * @property int $user_id
  * @property int $balance
  * @property WalletType $type

@@ -23,6 +23,7 @@
 
 namespace App\Actions\Banking;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Types\WalletType;
@@ -39,8 +40,6 @@ class Loan
      * This is the refactored result of Ibank::ibankBorrow.
      * Players can only have one loan at a time with each loan being capped as a percentage
      * of their score squared.
-     *
-     * Loans must be repaid
      *
      * @param int $amount
      * @return void
@@ -93,5 +92,22 @@ class Loan
 
         $loan->refresh();
         if ($loan->balance === 0) $loan->delete();
+    }
+
+    /**
+     * This is the refactored result of the legacy Ibank::isLoanPending method.
+     *
+     * Loans must be repaid within a certain timeframe otherwise the player is
+     * banned from visiting special ports until the loan is paid in full.
+     *
+     * @return bool
+     */
+    public function isOverdue(): bool
+    {
+        if (!$loan = $this->user->wallet(WalletType::Loan)) {
+            return false;
+        }
+
+        return $loan->created_at->diffInMinutes(Carbon::now()) > setting('game.ibank_lrate');
     }
 }

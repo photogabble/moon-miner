@@ -25,6 +25,7 @@ namespace Tests\Feature\Wallet;
 
 use App\Types\WalletType;
 use App\Actions\Banking\Loan;
+use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use Tests\TestCase;
@@ -49,6 +50,8 @@ class LoanTest extends TestCase
 
         $this->assertEquals($initialBalance + $loanAmount, $user->wallet()->balance);
         $this->assertEquals($loanAmount * -1, $user->wallet(WalletType::Loan)->balance);
+
+        $this->assertFalse($action->isOverdue());
     }
 
     public function test_repayment_reduces_loan_amount(): void
@@ -79,5 +82,21 @@ class LoanTest extends TestCase
         $action->repay(1000 + $action->getBorrowingFee(1000));
 
         $this->assertNull($user->wallet(WalletType::Loan));
+    }
+
+    public function test_loans_can_go_overdue(): void
+    {
+        $user = User::factory()->create();
+
+        $action = new Loan($user);
+        $action->borrow(1000);
+
+        $this->assertFalse($action->isOverdue());
+
+        Carbon::setTestNow(Carbon::now()->addYear());
+
+        $this->assertTrue($action->isOverdue());
+
+        Carbon::setTestNow();
     }
 }
