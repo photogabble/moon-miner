@@ -19,6 +19,8 @@
 
 namespace Bnt;
 
+use App\Models\PlayerLog;
+
 class Toll
 {
     public static function distribute($db, $sector, $toll, $total_fighters)

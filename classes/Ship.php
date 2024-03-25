@@ -19,6 +19,8 @@
 
 namespace Bnt;
 
+use App\Models\PlayerLog;
+
 class Ship
 {
     public static function isDestroyed($pdo_db, $lang, $bntreg, $langvars, $template, $playerinfo)

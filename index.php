@@ -52,7 +52,7 @@ $variables['admin_mail'] = $bntreg->admin_mail;
 $variables['body_class'] = 'index';
 
 // Get list of available languages
-$variables['list_of_langs'] = Bnt\Languages::listAvailable($pdo_db, $lang);
+$variables['list_of_langs'] = \App\Actions\Languages::listAvailable($pdo_db, $lang);
 
 // Temporarily set the template to the default template until we have a user option
 $variables['template'] = $bntreg->default_template;

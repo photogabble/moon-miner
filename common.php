@@ -75,7 +75,7 @@ $pdo_db = $pdo_db->initDb('pdo');                  // Connect to db using pdo
 $db = new Bnt\Db;
 $db = $db->initDb('adodb');                        // Connect to db using adodb also - for now - to be eliminated!
 
-$bntreg = new Bnt\Reg($pdo_db);                    // BNT Registry object -  passing config variables via classes
+$bntreg = new \App\Models\Reg($pdo_db);                    // BNT Registry object -  passing config variables via classes
 $bntreg->bnttimer = new Bnt\Timer;                 // Create a benchmark timer to get benchmarking data for everything
 $bntreg->bnttimer->start();                        // Start benchmarking immediately
 $langvars = null;                                  // Language variables in every page, set them to a null value first
@@ -111,7 +111,7 @@ if (Bnt\Db::isActive($pdo_db))
     }
     else // The user has logged in, so use his preference from the database
     {
-        $players_gateway = new \Bnt\Players\PlayersGateway($pdo_db); // Build a player gateway object to handle the SQL calls
+        $players_gateway = new \App\Models\PlayersGateway($pdo_db); // Build a player gateway object to handle the SQL calls
         $playerinfo = $players_gateway->selectPlayerInfo($_SESSION['username']);
         $lang = $playerinfo['lang'];
     }

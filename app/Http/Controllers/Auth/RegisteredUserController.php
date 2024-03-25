@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 /**
- * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
  *
- * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
  *
  * @license GNU AGPL version 3.0 or (at your option) any later version.
  *
@@ -24,6 +26,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Helpers\Languages;
+use App\Actions\SpawnStarterShip;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Ship;
@@ -70,7 +73,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        /** @var User $user */
+        /**
+         * The UserObserver will create a new Ship record for this User and
+         * handle any other housekeeping tasks required for new User creation.
+         * @var User $user
+         */
         $user = User::create([
             'name' => $request->get('character_name'),
             'locale' => $request->get('locale', config('app.locale')),
@@ -80,38 +87,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->get('password')),
         ]);
 
-        // Create Ship
-        // TODO: Create Ship Enum and have this largely placed there
-        $ship = new Ship();
-        $ship->owner_id = $user->id;
-        $ship->name = $request->get('ship_name');
-        $ship->ship_destroyed = false;
-        $ship->armor_pts = config('game.start_armor');
-        $ship->ship_energy = config('game.start_energy');
-        $ship->ship_fighters = config('game.start_fighters');
-        $ship->on_planet = false;
-
-        $ship->dev_warpedit = config('game.start_editors');
-        $ship->dev_genesis = config('game.start_genesis');
-        $ship->dev_beacon = config('game.start_beacon');
-        $ship->dev_emerwarp = config('game.start_emerwarp');
-        $ship->dev_escapepod = config('game.start_escape_pod');
-        $ship->dev_fuelscoop = config('game.start_scoop');
-        $ship->dev_lssd = config('game.start_lssd');
-        $ship->dev_minedeflector = config('game.start_minedeflectors');
-
-        $ship->trade_colonists = true;
-        $ship->trade_fighters = false;
-        $ship->trade_torps = false;
-        $ship->trade_energy = true;
-        $ship->cleared_defenses = null;
-        $ship->system_id = 1;
-        $ship->save();
-
-        $user->ship()->associate($ship);
-
-        $user->ship_id = $ship->id;
-        $user->save();
+        (new SpawnStarterShip($user))->spawn($request->get('ship_name'));
 
         // TODO listen to Login event and update 'last_login' => Carbon::now(),
 

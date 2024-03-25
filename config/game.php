@@ -1,24 +1,46 @@
-<?php
-
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright 2001-2024 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or at your option any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: config/game.php
+<?php declare(strict_types=1);
+/**
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
+ *
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Game Map Settings
+    |--------------------------------------------------------------------------
+    |
+    | These settings determine how the game map is generated.
+    |
+    */
+
+    // The game map is square, when converting polar coordinates into (x,y)
+    // this is the bounding box for that translation.
+    'map_size' => 4000,
+
+    // The resulting map is split into a grid of sectors, systems belong to
+    // a sector.
+    'sector_size' => 100,
 
     /*
     |--------------------------------------------------------------------------
@@ -63,7 +85,7 @@ return [
     'start_energy' => 100,
     // The number of turns all players are given at the start of the game
     'start_turns' => 1200,
-    // Do ships start with a LSSD ?
+    // Do ships start with a LSSD?
     'start_lssd' => false,
     // Starting warp editors
     'start_editors' => 0,
@@ -144,6 +166,16 @@ return [
     'colonist_reproduction_rate' => 0.0005,
     // The interest rate offered by the IGB
     'interest_rate' => 1.0005,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Doomsday Population Trigger
+    |--------------------------------------------------------------------------
+    |
+    | Number of colonists a planet needs before being affected by the apocalypse
+    |
+    */
+    'doomsday_value' => 90000000,
 
     /*
     |--------------------------------------------------------------------------
@@ -380,6 +412,17 @@ return [
     'xen_planets' => 5,
 
     /*
+     |--------------------------------------------------------------------------
+     | Player Max Turns
+     |--------------------------------------------------------------------------
+     |
+     | The maximum number of turns a player can receive. All new players begin
+     | with this value.
+     |
+     */
+    'max_turns' => 2500,
+
+    /*
     |--------------------------------------------------------------------------
     | Misc Settings
     |--------------------------------------------------------------------------
@@ -393,7 +436,7 @@ return [
     // Max hull size before EWD degrades
     'ewd_maxhullsize' => 15,
     // Number of sectors you'd like your universe to have
-    'sector_max' => 1000,
+    'sector_max' => 4500,
     // Maximum number of links in a sector
     'link_max' => 10,
     // This increases the distance between sectors, which increases the cost of realspace movement

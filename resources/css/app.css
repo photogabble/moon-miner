@@ -1,0 +1,36 @@
+@import "bnt_classic/bnt-prime.css";
+@import "bnt_classic/main.css";
+@import "bnt_classic/create_universe.css";
+@import "bnt_classic/device.css";
+@import "bnt_classic/error.css";
+@import "bnt_classic/faq.css";
+@import "bnt_classic/igb.css";
+@import "bnt_classic/log.css";
+@import "bnt_classic/options.css";
+@import "bnt_classic/port.css";
+@import "bnt_classic/zoneinfo.css";
+@import "bnt_classic/index.css";
+
+.two-column div {
+    display: grid;
+    grid-template-areas: "label input" "error error";
+    grid-template-columns: 1fr 1fr;
+    gap: 0 40px;
+    padding: 5px 30%;
+}
+
+.two-column div ul {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    column-span: all;
+    grid-area: error;
+}
+
+.two-column label {
+    text-align: right;
+}
+
+.two-column div:last-child {
+    display: block;
+}

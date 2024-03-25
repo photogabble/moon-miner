@@ -173,7 +173,7 @@ class Xenobe
             \Bnt\Db::logDbErrors($db, $trade_result, __LINE__, __FILE__);
             $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore = port_ore - ?, port_organics = port_organics + ?, port_goods = port_goods + ? WHERE sector_id = ?;", array($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
             \Bnt\Db::logDbErrors($db, $trade_result2, __LINE__, __FILE__);
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
         }
 
         if ($sectorinfo['port_type'] == "organics") // Port organics
@@ -206,7 +206,7 @@ class Xenobe
             \Bnt\Db::logDbErrors($db, $trade_result, __LINE__, __FILE__);
             $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore = port_ore + ?, port_organics = port_organics - ?, port_goods = port_goods + ? WHERE sector_id = ?;", array($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
             \Bnt\Db::logDbErrors($db, $trade_result2, __LINE__, __FILE__);
-            \Bnt\PlayerLog::writeLog($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
         }
 
         if ($sectorinfo['port_type']=="goods") // Port goods
@@ -239,7 +239,7 @@ class Xenobe
             \Bnt\Db::logDbErrors($db, $trade_result, __LINE__, __FILE__);
             $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore + ?, port_organics = port_organics + ?, port_goods = port_goods - ? WHERE sector_id = ?;", array($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
             \Bnt\Db::logDbErrors($db, $trade_result2, __LINE__, __FILE__);
-            \Bnt\PlayerLog::writeLog($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost");
         }
     }
 
@@ -524,7 +524,7 @@ class Xenobe
 
         if (!$attackerarmor > 0) // Check if attackers ship destroyed
         {
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
             \Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
             $xenobeisdead = 1;
 
@@ -537,7 +537,7 @@ class Xenobe
             $fighters_lost = $planetinfo['fighters'] - $targetfighters;
 
             // Log attack to planet owner
-            \Bnt\PlayerLog::writeLog($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
+            \App\Models\PlayerLog::writeLog($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
 
             // Update planet
             $resi = $db->Execute("UPDATE {$db->prefix}planets SET energy=?, fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array($planetinfo['energy'], $fighters_lost, $targettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
@@ -548,7 +548,7 @@ class Xenobe
             $armor_lost = $playerinfo['armor_pts'] - $attackerarmor;
             $fighters_lost = $playerinfo['ship_fighters'] - $attackerfighters;
             $target_fighters_lost = $planetinfo['ship_fighters'] - $targetfighters;
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
 
             // Update attackers
             $resj = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, torps=torps-?, armor_pts=armor_pts-? WHERE ship_id=?", array($playerinfo['ship_energy'], $fighters_lost, $attackertorps, $armor_lost, $playerinfo['ship_id']));
@@ -583,10 +583,10 @@ class Xenobe
             if ($shipsonplanet == 0 && $xenobeisdead < 1)
             {
                 // Must have killed all ships on the planet
-                \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Defeated all ships on planet $planetinfo[name]");
+                \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Defeated all ships on planet $planetinfo[name]");
 
                 // Log attack to planet owner
-                \Bnt\PlayerLog::writeLog($db, $planetinfo['owner'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                \App\Models\PlayerLog::writeLog($db, $planetinfo['owner'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
 
                 // Update planet
                 $resl = $db->Execute("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array($planetinfo['planet_id']));
@@ -597,9 +597,9 @@ class Xenobe
             else
             {
                 // Must have died trying
-                \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "We were KILLED by ships defending planet $planetinfo[name]");
+                \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "We were KILLED by ships defending planet $planetinfo[name]");
                 // Log attack to planet owner
-                \Bnt\PlayerLog::writeLog($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|0|0|0|0|0");
+                \App\Models\PlayerLog::writeLog($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|0|0|0|0|0");
                 // No salvage for planet because it went to the ship that won
             }
         }
@@ -650,7 +650,7 @@ class Xenobe
         $zonerow = $zoneres->fields;
         if ($zonerow['allow_attack'] == "N")                        //  Dest link must allow attacking
         {
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Attack failed, you are in a sector that prohibits attacks.");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Attack failed, you are in a sector that prohibits attacks.");
 
             return;
         }
@@ -658,7 +658,7 @@ class Xenobe
         // Use emergency warp device
         if ($targetinfo['dev_emerwarp'] > 0)
         {
-            \Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "Xenobe $playerinfo[character_name]");
+            \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "Xenobe $playerinfo[character_name]");
             $dest_sector = \Bnt\Rand::betterRand(0, $sector_max);
             $result_warp = $db->Execute("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array($dest_sector, $targetinfo['ship_id']));
             \Bnt\Db::logDbErrors($db, $result_warp, __LINE__, __FILE__);
@@ -967,12 +967,12 @@ class Xenobe
                 $rating=round($targetinfo['rating'] / 2);
                 $resc = $db->Execute("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, computer = 0, sensors = 0, beams = 0, torp_launchers = 0, torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_ore = 0, ship_organics = 0, ship_energy = 1000, ship_colonists = 0, ship_goods = 0, ship_fighters = 100, ship_damage = 0, on_planet='N', planet_id = 0, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, ship_destroyed = 'N', rating = ?, dev_lssd='N' WHERE ship_id = ?;", array($rating, $targetinfo['ship_id']));
                 \Bnt\Db::logDbErrors($db, $resc, __LINE__, __FILE__);
-                \Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|Y");
+                \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|Y");
             }
             else
             // Target had no pod
             {
-                \Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|N");
+                \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|N");
                 \Bnt\Character::kill($db, $targetinfo['ship_id'], $langvars, $bntreg, false);
             }
 
@@ -1032,7 +1032,7 @@ class Xenobe
                 $ship_value = $upgrade_cost * (round(pow($upgrade_factor, $targetinfo['hull']))+round(pow($upgrade_factor, $targetinfo['engines']))+round(pow($upgrade_factor, $targetinfo['power']))+round(pow($upgrade_factor, $targetinfo['computer']))+round(pow($upgrade_factor, $targetinfo['sensors']))+round(pow($upgrade_factor, $targetinfo['beams']))+round(pow($upgrade_factor, $targetinfo['torp_launchers']))+round(pow($upgrade_factor, $targetinfo['shields']))+round(pow($upgrade_factor, $targetinfo['armor']))+round(pow($upgrade_factor, $targetinfo['cloak'])));
                 $ship_salvage_rate = \Bnt\Rand::betterRand(10, 20);
                 $ship_salvage = $ship_value * $ship_salvage_rate / 100;
-                \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
+                \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
                 $resd = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, credits = credits + ? WHERE ship_id = ?;", array($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $playerinfo['ship_id']));
                 \Bnt\Db::logDbErrors($db, $resd, __LINE__, __FILE__);
                 $armor_lost = $playerinfo['armor_pts'] - $attackerarmor;
@@ -1054,8 +1054,8 @@ class Xenobe
             $target_armor_lost = $targetinfo['armor_pts'] - $targetarmor;
             $target_fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
             $target_energy = $targetinfo['ship_energy'];
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Attack failed, $targetinfo[character_name] survived.");
-            \Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Attack failed, $targetinfo[character_name] survived.");
+            \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
             $resf = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, torps = torps - ? , armor_pts = armor_pts - ?, rating=rating - ? WHERE ship_id = ?;", array($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo[ship_id]));
             \Bnt\Db::logDbErrors($db, $resf, __LINE__, __FILE__);
             $resg = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, armor_pts=armor_pts - ?, torps=torps - ?, rating = ? WHERE ship_id = ?;", array($target_energy, $target_fighters_lost, $target_armor_lost, $targettorpnum, $target_rating_change, $targetinfo['ship_id']));
@@ -1065,7 +1065,7 @@ class Xenobe
         // Attacker ship destroyed
         if (!$attackerarmor > 0)
         {
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "$targetinfo[character_name] destroyed your ship!");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "$targetinfo[character_name] destroyed your ship!");
             \Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
             $xenobeisdead = 1;
             if ($targetarmor > 0)
@@ -1124,8 +1124,8 @@ class Xenobe
                 $ship_value = $upgrade_cost*(round(pow($upgrade_factor, $playerinfo['hull']))+round(pow($upgrade_factor, $playerinfo['engines']))+round(pow($upgrade_factor, $playerinfo['power']))+round(pow($upgrade_factor, $playerinfo['computer']))+round(pow($upgrade_factor, $playerinfo['sensors']))+round(pow($upgrade_factor, $playerinfo['beams']))+round(pow($upgrade_factor, $playerinfo['torp_launchers']))+round(pow($upgrade_factor, $playerinfo['shields']))+round(pow($upgrade_factor, $playerinfo['armor']))+round(pow($upgrade_factor, $playerinfo['cloak'])));
                 $ship_salvage_rate = \Bnt\Rand::betterRand(10, 20);
                 $ship_salvage = $ship_value * $ship_salvage_rate / 100;
-                \Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
-                \Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
+                \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
+                \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
                 $resh = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, credits = credits + ? WHERE ship_id = ?;", array($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $targetinfo['ship_id']));
                 \Bnt\Db::logDbErrors($db, $resh, __LINE__, __FILE__);
                 $armor_lost = $targetinfo['armor_pts'] - $targetarmor;
@@ -1180,7 +1180,7 @@ class Xenobe
 
             if ($total_sector_fighters > 0 || $total_sector_mines > 0 || ($total_sector_fighters > 0 && $total_sector_mines > 0)) // Dest link has defenses so lets attack them
             {
-                \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines.");
+                \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines.");
                 $targetfighters = $total_sector_fighters;
                 $playerbeams = \Bnt\CalcLevels::beams($playerinfo['beams'], $level_factor);
                 if ($playerbeams > $playerinfo['ship_energy'])
@@ -1432,7 +1432,7 @@ class Xenobe
                 if ($zonerow['allow_attack'] == "Y")
                 {
                     $targetlink = $wormto;
-                    \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Used a wormhole to warp to a zone where attacks are allowed.");
+                    \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Used a wormhole to warp to a zone where attacks are allowed.");
                 }
                 $wormto++;
                 $wormto++;
@@ -1482,7 +1482,7 @@ class Xenobe
                 }
                 else
                 {
-                    \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Move failed, the sector is defended by $total_sector_fighters fighters and $total_sector_mines mines.");
+                    \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Move failed, the sector is defended by $total_sector_fighters fighters and $total_sector_mines mines.");
 
                     return;
                 }
@@ -1497,12 +1497,12 @@ class Xenobe
             if (!$move_result)
             {
                 $error = $db->ErrorMsg();
-                \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Move failed with error: $error ");
+                \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Move failed with error: $error ");
             }
         }
         else
         {
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Move failed due to lack of target link."); // We have no target link for some reason
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Move failed due to lack of target link."); // We have no target link for some reason
             $targetlink = $playerinfo['sector'];         // Reset target link so it is not zero
         }
     }
@@ -1542,7 +1542,7 @@ class Xenobe
         // Make sure we have a target
         if (!$targetinfo)
         {
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Hunt Failed: No Target ");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Hunt Failed: No Target ");
 
             return;
         }
@@ -1562,11 +1562,11 @@ class Xenobe
             $stamp = date("Y-m-d H:i:s");
             $move_result = $db->Execute("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array($stamp, $targetinfo['sector'], $playerinfo['ship_id']));
             \Bnt\Db::logDbErrors($db, $move_result, __LINE__, __FILE__);
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
             if (!$move_result)
             {
                 $error = $db->ErrorMsg();
-                \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Move failed with error: $error ");
+                \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Move failed with error: $error ");
 
                 return;
             }
@@ -1614,7 +1614,7 @@ class Xenobe
                 return; // Sector defenses killed the Xenobe
             }
 
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe launching an attack on $targetinfo[character_name]."); // Attack the target
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe launching an attack on $targetinfo[character_name]."); // Attack the target
 
             if ($targetinfo['planet_id'] > 0) // Is player target on a planet?
             {
@@ -1627,7 +1627,7 @@ class Xenobe
         }
         else
         {
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe hunt failed, target $targetinfo[character_name] was in a no attack zone (sector $targetinfo[sector]).");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe hunt failed, target $targetinfo[character_name] was in a no attack zone (sector $targetinfo[sector]).");
         }
     }
 
@@ -1698,7 +1698,7 @@ class Xenobe
         \Bnt\Db::logDbErrors($db, $resg, __LINE__, __FILE__);
         if (!$gene == null || !$gena == null || !$genf == null || !$gent == null)
         {
-            \Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe $gene $gena $genf $gent and has been updated.");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe $gene $gena $genf $gent and has been updated.");
         }
     }
 }

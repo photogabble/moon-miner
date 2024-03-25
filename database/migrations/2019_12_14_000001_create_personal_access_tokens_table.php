@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 /**
- * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
  *
- * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
  *
  * @license GNU AGPL version 3.0 or (at your option) any later version.
  *
@@ -20,7 +22,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

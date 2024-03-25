@@ -87,7 +87,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         // You are hit. Tell the player and put it in the log
         $langvars['l_chm_youhitsomemines'] = str_replace("[chm_roll]", $roll, $langvars['l_chm_youhitsomemines']);
         echo $langvars['l_chm_youhitsomemines'] . "<br>";
-        Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_HIT_MINES, "$roll|$sector");
+        \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_HIT_MINES, "$roll|$sector");
 
         // Tell the owner that his mines where hit
         $langvars['l_chm_hehitminesinsector'] = str_replace("[chm_playerinfo_character_name]", $playerinfo['character_name'], $langvars['l_chm_hehitminesinsector']);
@@ -153,7 +153,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 {
                     // BOOM
                     $pod = $playerinfo['dev_escapepod'];
-                    Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
+                    \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
                     $langvars['l_chm_hewasdestroyedbyyourmines'] = str_replace("[chm_playerinfo_character_name]", $playerinfo['character_name'], $langvars['l_chm_hewasdestroyedbyyourmines']);
                     $langvars['l_chm_hewasdestroyedbyyourmines'] = str_replace("[chm_sector]", $sector, $langvars['l_chm_hewasdestroyedbyyourmines']);
                     Bnt\SectorDefense::messageDefenseOwner($db, $sector, $langvars['l_chm_hewasdestroyedbyyourmines']);
@@ -166,12 +166,12 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                         echo $langvars['l_chm_luckescapepod'] . "<br><br>";
                         $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, sensors=0, computer=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=?, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, on_planet='N', rating=?, cleared_defences=' ', dev_lssd='N' WHERE ship_id=?", array($bntreg->start_energy, $rating, $playerinfo['ship_id']));
                         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
-                        Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
+                        \App\Models\Bounty::cancel($db, $playerinfo['ship_id']);
                     }
                     else
                     {
                         // Or they lose!
-                        Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
+                        \App\Models\Bounty::cancel($db, $playerinfo['ship_id']);
                         Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
                     }
                 }

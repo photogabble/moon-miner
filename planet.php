@@ -667,13 +667,13 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 // If scan fails - inform both player and target.
                 echo $langvars['l_planet_noscan'] . "<br><br>";
                 Bnt\Text::gotoMain($db, $lang, $langvars);
-                Bnt\PlayerLog::writeLog($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                \App\Models\PlayerLog::writeLog($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
                 die();
             }
             else
             {
-                Bnt\PlayerLog::writeLog($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                \App\Models\PlayerLog::writeLog($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 // Scramble results by scan error factor.
                 $sc_error = Bnt\Scan::error($playerinfo['sensors'], $ownerinfo['cloak'], $scan_error_factor);
                 if (empty ($planetinfo['name']))
@@ -886,7 +886,7 @@ if (!is_bool($planetinfo) && $planetinfo != false)
                 $planetowner = $langvars['l_planet_noone'];
             }
 
-            Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
+            \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
         }
         elseif ($command == "capture" &&  ($planetinfo['owner'] == 0 || $planetinfo['defeated'] == 'Y'))
         {

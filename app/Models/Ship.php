@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 /**
- * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
  *
- * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
  *
  * @license GNU AGPL version 3.0 or (at your option) any later version.
  *
@@ -54,17 +56,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $armor_pts
  * @property int $cloak
  * @property int $credits
+ *
  * @property int $system_id
+ * @property int|null $waypoint_id
+ *
  * @property int $ship_ore
  * @property int $ship_organics
  * @property int $ship_goods
  * @property int $ship_energy
  * @property int $ship_colonists
  * @property int $ship_fighters
+ *
  * @property int $ship_damage
  * @property int $turns
  *
  * @property bool $on_planet
+ * @property bool $is_docked replaces on_planet
  *
  * @property int $dev_warpedit
  * @property int $dev_genesis

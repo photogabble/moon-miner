@@ -16,11 +16,9 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-    File: auth/register.blade.php
 --}}
 
-@extends('layouts.layout', ['body_class' => 'index', 'include_ckeditor' => false, 'news' => null, 'suppress_logo' => false, 'footer_show_debug' => true, 'update_ticker' => null, 'players_online' => 1])
+@extends('layouts.layout', ['body_class' => 'index', 'include_ckeditor' => false])
 
 @section('title', __('index.l_welcome_bnt'))
 
@@ -31,7 +29,7 @@
     <br>
     <div class="index-welcome">
         <h1 style='text-align:center'>{{ __('new.l_new_title') }}</h1>
-        <form accept-charset="utf-8" method="post">
+        <form class="two-column" method="post">
             @csrf
 
             <div>
@@ -66,7 +64,7 @@
 
             <div>
                 <x-input-label for="locale" :value="__('options.l_opt_lang')" />
-                <select name="locale">
+                <select id="locale" name="locale">
                     @foreach(\App\Helpers\Languages::listAvailable() as $id => $lang)
                         <option value='{{ $id }}' @if(!old('locale') && app()->getLocale() === $id || old('locale') === $id) selected @endif>{{ $lang['name'] }}</option>
                     @endforeach

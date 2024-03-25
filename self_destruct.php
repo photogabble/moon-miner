@@ -58,9 +58,9 @@ elseif ($sure == 2)
     $langvars['l_die_please'] = str_replace("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
     echo $langvars['l_die_please'] . "<br>";
     Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, true);
-    Bnt\Bounty::cancel($db, $playerinfo['ship_id']);
+    \App\Models\Bounty::cancel($db, $playerinfo['ship_id']);
     Bnt\AdminLog::writeLog($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|" . $_SERVER['REMOTE_ADDR'] . "");
-    Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_HARAKIRI, $_SERVER['REMOTE_ADDR']);
+    \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_HARAKIRI, $_SERVER['REMOTE_ADDR']);
     echo "Due to nobody looking after your Planets, all your Planets have reduced into dust and ruble. Your Planets are no more.<br>\n";
 }
 else

@@ -27,7 +27,7 @@ $body_class = 'options';
 $langvars = Bnt\Translate::load($pdo_db, $lang, array('options', 'common', 'global_includes', 'global_funcs', 'footer'));
 $title = $langvars['l_opt_title'];
 Bnt\Header::display($pdo_db, $lang, $template, $title, $body_class);
-$players_gateway = new \Bnt\Players\PlayersGateway($pdo_db); // Build a player gateway object to handle the SQL calls
+$players_gateway = new \App\Models\PlayersGateway($pdo_db); // Build a player gateway object to handle the SQL calls
 $playerinfo = $players_gateway->selectPlayerInfo($_SESSION['username']);
 
 echo "<body class='options'>\n";

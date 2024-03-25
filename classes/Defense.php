@@ -19,6 +19,8 @@
 
 namespace Bnt;
 
+use App\Models\PlayerLog;
+
 class Defense
 {
     public static function defenceVsDefence($db, $ship_id, $langvars)

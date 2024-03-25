@@ -131,7 +131,7 @@ else
             array($playerinfo['ship_id'])
         );
         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
-        Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_OUTMAN, "$playerinfo[character_name]");
+        \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_OUTMAN, "$playerinfo[character_name]");
     }
     elseif ($roll > $success)
     {
@@ -143,7 +143,7 @@ else
             array($playerinfo['ship_id'])
         );
         Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
-        Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_OUTSCAN, "$playerinfo[character_name]");
+        \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_OUTSCAN, "$playerinfo[character_name]");
     }
     else
     {
@@ -172,7 +172,7 @@ else
                 array($rating_change, $playerinfo['ship_id'])
             );
             Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
-            Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "$playerinfo[character_name]");
+            \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "$playerinfo[character_name]");
             $result_warp = $db->Execute(
                 "UPDATE {$db->prefix}ships SET sector = $dest_sector, " .
                 "dev_emerwarp = dev_emerwarp - 1, cleared_defences = ' ' " .
@@ -180,7 +180,7 @@ else
                 array($targetinfo['ship_id'])
             );
             Bnt\Db::logDbErrors($db, $result_warp, __LINE__, __FILE__);
-            Bnt\LogMove::writeLog($db, $targetinfo['ship_id'], $dest_sector);
+            \App\Models\LogMove::writeLog($db, $targetinfo['ship_id'], $dest_sector);
             echo $langvars['l_att_ewd'] . "<br><br>";
         }
         else
@@ -217,7 +217,7 @@ else
                         array($playerinfo['ship_id'], 0 ,$bounty)
                     );
                     Bnt\Db::logDbErrors($db, $insert, __LINE__, __FILE__);
-                    Bnt\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_BOUNTY_FEDBOUNTY, "$bounty");
+                    \App\Models\PlayerLog::writeLog($db, $playerinfo['ship_id'], LOG_BOUNTY_FEDBOUNTY, "$bounty");
                     echo "<div style='color:#f00;'>" . $langvars['l_by_fedbounty2'] . "</div>\n";
                     echo "<br>\n";
                 }
@@ -225,7 +225,7 @@ else
 
             if ($targetinfo['dev_emerwarp'] > 0)
             {
-                Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_EWDFAIL, $playerinfo['character_name']);
+                \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_EWDFAIL, $playerinfo['character_name']);
             }
             $targetenergy = $targetinfo['ship_energy'];
             $playerenergy = $playerinfo['ship_energy'];
@@ -620,15 +620,15 @@ else
                         array($bntreg->start_energy, $rating, $targetinfo['ship_id'])
                     );
                     Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
-                    Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
-                    Bnt\Bounty::collect($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
+                    \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
+                    \App\Models\Bounty::collect($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     Bnt\AdminLog::writeLog($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
                 }
                 else
                 {
-                    Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
+                    \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
                     Bnt\Character::kill($db, $targetinfo['ship_id'], $langvars, $bntreg, false);
-                    Bnt\Bounty::collect($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
+                    \App\Models\Bounty::collect($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     Bnt\AdminLog::writeLog($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
                 }
 
@@ -652,8 +652,8 @@ else
                         if ($rating_change > 0)
                         {
                             $rating_change = 0 - $rating_change;
-                            Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-                            Bnt\Bounty::collect($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
+                            \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
+                            \App\Models\Bounty::collect($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
                             Bnt\Character::kill($db, $targetinfo['ship_id'], $langvars, $bntreg, false);
 
                             Bnt\AdminLog::writeLog($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
@@ -749,7 +749,7 @@ else
                 $fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
                 $energy = $targetinfo['ship_energy'];
 
-                Bnt\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$armor_lost|$fighters_lost");
+                \App\Models\PlayerLog::writeLog($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$armor_lost|$fighters_lost");
                 $update4 = $db->Execute(
                     "UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, armor_pts = armor_pts - ?, " .
                     "torps = torps - ? WHERE ship_id = ?;",
@@ -787,13 +787,13 @@ else
                         array($bntreg->start_energy, $rating, $playerinfo['ship_id'])
                     );
                     Bnt\Db::logDbErrors($db, $resx, __LINE__, __FILE__);
-                    Bnt\Bounty::collect($db, $langvars, $targetinfo['ship_id'], $playerinfo['ship_id']);
+                    \App\Models\Bounty::collect($db, $langvars, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
                 else
                 {
                     echo "Didnt have pod?! $playerinfo[dev_escapepod]<br>";
                     Bnt\Character::kill($db, $playerinfo['ship_id'], $langvars, $bntreg, false);
-                    Bnt\Bounty::collect($db, $langvars, $targetinfo['ship_id'], $playerinfo['ship_id']);
+                    \App\Models\Bounty::collect($db, $langvars, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
 
                 if ($targetarmor > 0)

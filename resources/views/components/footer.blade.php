@@ -19,25 +19,13 @@
     <p style="text-align:center;">
         {{-- Handle the Servers Update Ticker here  --}}
         @if($update_ticker && $update_ticker['display'] === true)
-            <script type='text/javascript' src='/javascript/updateticker.js'></script>
-            <script>
-                const seconds = {{ $update_ticker['seconds_left'] }};
-                const nextInterval = new Date().getTime();
-                const maxTicks = ({{ $update_ticker['sched_ticks'] }} * 60);
-                const l_running_update = '{{ __('footer.l_running_update') }}';
-                const l_footer_until_update = '{{ __('footer.l_footer_until_update') }}';
-
-                setTimeout("NextUpdate();", 100);
-            </script>
-            <span id=update_ticker>{{ __('footer.l_please_wait') }}</span>
+            <update-ticker
+                remainder="{{ $update_ticker['seconds_left'] }}"
+                max="{{ $update_ticker['sched_ticks'] * 60 }}"
+                l-running-update="{{ __('footer.l_running_update') }}"
+                l-until-update="{{ __('footer.l_footer_until_update') }}"
+            >{{ __('footer.l_please_wait') }}</update-ticker>
         @endif
-
-        <update-ticker
-            remainder="10"
-            max="{{ $update_ticker['sched_ticks'] * 60 }}"
-            l-running-update="{{ __('footer.l_running_update') }}"
-            l-until-update="{{ __('footer.l_footer_until_update') }}"
-        >{{ __('footer.l_please_wait') }}</update-ticker>
 
         {{-- End of Servers Update Ticker --}}
 

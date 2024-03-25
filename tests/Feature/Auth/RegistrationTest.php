@@ -21,36 +21,38 @@
  *
  */
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace Tests\Feature\Auth;
 
-return new class extends Migration
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class RegistrationTest extends TestCase
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    use RefreshDatabase;
+
+    public function test_registration_screen_can_be_rendered(): void
     {
-        Schema::create('bans', function (Blueprint $table) {
-            $table->id(); // ban_id
-            $table->timestamps();
+        $response = $this->get('/register');
 
-            $table->unsignedInteger('type')->default(0);
-            $table->string('mask', 16)->nullable()->default(null);
-            $table->unsignedInteger('ship')->nullable()->default(null);
-            $table->text('public_info');
-            $table->text('admin_info');
-
-            // TODO: Add Foreign Keys
-        });
+        $response->assertStatus(200);
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function test_new_users_can_register(): void
     {
-        Schema::dropIfExists('bans');
+        $response = $this->post('/register', [
+            'character_name' => 'Smeg Head',
+            'ship_name' => 'Starbug',
+
+            'email' => 'test@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+
+        $this->assertDatabaseCount('users', 1);
+        $this->assertDatabaseHas('ships', ['owner_id' => 1]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(RouteServiceProvider::HOME);
     }
-};
+}

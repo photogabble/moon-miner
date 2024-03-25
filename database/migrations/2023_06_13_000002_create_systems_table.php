@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 /**
- * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
  *
- * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
  *
  * @license GNU AGPL version 3.0 or (at your option) any later version.
  *
@@ -20,7 +22,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -38,7 +39,12 @@ return new class extends Migration
 
             $table->string('name', 30)->nullable()->default(null);
 
+            // Galactic Map Position
+            $table->decimal('angle');
+            $table->decimal('distance');
+
             $table->unsignedBigInteger('zone_id')->nullable()->default(null);
+            $table->unsignedBigInteger('sector_id');
 
             // TODO: Move ports to being waypoint with a port trait
             $table->string('port_type', 8)->default('none');
@@ -49,12 +55,17 @@ return new class extends Migration
 
             // Sector Beacons are able to be set by owners of a sectors zone.
             $table->string('beacon', 50)->nullable()->default(null);
-            $table->decimal('angle1')->default(0);
-            $table->decimal('angle2')->default(0);
-            $table->integer('distance')->default(0);
+//            $table->decimal('angle1')->default(0);
+//            $table->decimal('angle2')->default(0);
+//            $table->integer('distance')->default(0);
             $table->integer('fighters')->default(0);
 
             $table->index('port_type');
+
+            $table->foreign('sector_id')
+                ->references('id')
+                ->on('sectors')
+                ->onDelete('cascade');
 
             $table->foreign('zone_id')
                 ->references('id')

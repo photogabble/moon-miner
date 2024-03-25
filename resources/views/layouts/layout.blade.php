@@ -30,14 +30,12 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- Styles -->
-    @vite("resources/css/app.css")
+    @vite('resources/css/app.css')
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu">
 
     <title>@yield('title')</title>
-    @if($include_ckeditor)
-        <script src="/javascript/ckeditor/ckeditor.js"></script>
-    @endif
-    <script async src="/javascript/framebuster.js.php"></script>
+
+    @vite('resources/js/app.js')
 </head>
 <!-- END OF HEADER -->
 

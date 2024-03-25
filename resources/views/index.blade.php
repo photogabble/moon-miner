@@ -20,7 +20,7 @@
     File: index.blade.php
 --}}
 
-@extends('layouts.layout', ['body_class' => 'index', 'include_ckeditor' => false, 'news' => null, 'suppress_logo' => false, 'footer_show_debug' => true, 'update_ticker' => null, 'players_online' => 1])
+@extends('layouts.layout', ['body_class' => 'index', 'include_ckeditor' => false])
 
 @section('title', __('index.l_welcome_bnt'))
 
@@ -43,18 +43,33 @@
     <div class="index-welcome">
         <h1 class="index-h1">{{ __('index.l_welcome_bnt') }}</h1>
         <p>{{ __('index.l_bnt_description') }}<br></p>
-        <form accept-charset="utf-8" action="login2.php" method="post">
-            <dl class="twocolumn-form">
-                <dt><label for="email">{{ __('login.l_login_email') }}</label></dt>
-                <dd><input type="email" id="email" name="email" size="20" maxlength="40" placeholder="someone@example.com"></dd>
-                <dt><label for="pass">{{ __('login.l_login_pw') }}:</label></dt>
-                <dd><input type="password" id="pass" name="pass" size="20" maxlength="20"></dd>
-            </dl>
-            <br style="clear:both">
-            <div style="text-align:center">{{ __('login.l_login_forgotpw') }}</div><br>
+
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <form class="two-column" method="POST" action="{{ route('login') }}">
+            @csrf
+
+            <!-- Email Address -->
+            <div>
+                <x-input-label for="email" :value="__('login.l_login_email')" />
+                <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-input-error :messages="$errors->get('email')" />
+            </div>
+
+            <!-- Password -->
+            <div class="mt-4">
+                <x-input-label for="password" :value="__('login.l_login_pw')" />
+                <x-text-input id="password" type="password" name="password" required autocomplete="current-password" />
+                <x-input-error :messages="$errors->get('password')" />
+            </div>
+
+            <br/>
+
             <div style="text-align:center">
-                <span class="button green"><a class="nocolor" href="#" onclick="document.forms[0].submit();return false;"><span class="shine"></span>{{ __('login.l_login_title') }}</a></span>
-                <div style="width: 0; height: 0; overflow: hidden;"><input type="submit" value="{{ __('login.l_login_title') }}"></div>
+                <button class="button green">
+                    {{ __('login.l_login_title') }}
+                </button>
             </div>
         </form>
         <br>

@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 /**
- * Blacknova Traders, a Free & Opensource (FOSS), web-based 4X space/strategy game.
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
  *
- * @copyright 2024 Simon Dann, Ron Harwood and the BNT development team
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
  *
  * @license GNU AGPL version 3.0 or (at your option) any later version.
  *
@@ -56,7 +58,7 @@ return new class extends Migration
             $table->unsignedInteger('armor')->default(0);
             $table->unsignedInteger('armor_pts')->default(0);
             $table->unsignedInteger('cloak')->default(0);
-            $table->unsignedBigInteger('system_id')->default(0);
+
             $table->unsignedInteger('ship_ore')->default(0);
             $table->unsignedInteger('ship_organics')->default(0);
             $table->unsignedInteger('ship_goods')->default(0);
@@ -70,6 +72,10 @@ return new class extends Migration
 
             // If planet_id not null and on_planet is false then ship is in orbit
             // TODO: When implementing waypoints, these will become waypoint_id and is_docked
+            $table->unsignedBigInteger('system_id');
+            $table->unsignedBigInteger('waypoint_id')->nullable();
+            $table->boolean('is_docked')->default(false);
+
             $table->unsignedBigInteger('planet_id')->nullable();
             $table->boolean('on_planet')->default(false);
 

@@ -44,7 +44,7 @@ while (!$res->EOF)
         $starvation = floor($row['colonists'] * $starvation_death_rate);
         if ($row['owner'] && $starvation >= 1)
         {
-            Bnt\PlayerLog::writeLog($db, $row['owner'], LOG_STARVATION, "$row[sector_id]|$starvation");
+            \App\Models\PlayerLog::writeLog($db, $row['owner'], LOG_STARVATION, "$row[sector_id]|$starvation");
         }
     }
     else

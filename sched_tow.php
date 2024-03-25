@@ -41,8 +41,8 @@ do
             echo " to sector $newsector.<br>";
             $query = $db->Execute("UPDATE {$db->prefix}ships SET sector = ?, cleared_defences=' ' WHERE ship_id=?", array($newsector, $row['ship_id']));
             Bnt\Db::logDbErrors($db, $query, __LINE__, __FILE__);
-            Bnt\PlayerLog::writeLog($db, $row['ship_id'], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
-            Bnt\LogMove::writeLog($db, $row['ship_id'], $newsector);
+            \App\Models\PlayerLog::writeLog($db, $row['ship_id'], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
+            \App\Models\LogMove::writeLog($db, $row['ship_id'], $newsector);
             $res->MoveNext();
         }
     }
