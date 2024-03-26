@@ -23,6 +23,7 @@
  *
  */
 
+use App\Types\UserType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -41,6 +42,8 @@ return new class extends Migration
 
             // If null then the player has died in space
             $table->unsignedBigInteger('ship_id')->nullable();
+
+            $table->enum('type', array_from_enum(UserType::cases()))->default(UserType::Player);
 
             $table->string('name', 20);
             $table->string('email')->unique();

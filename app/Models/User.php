@@ -25,6 +25,7 @@
 
 namespace App\Models;
 
+use App\Types\UserType;
 use App\Types\WalletType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
@@ -49,6 +50,7 @@ use Carbon\Carbon;
  * @property int $score
  * @property int $rank
  * @property Carbon $last_login
+ * @property UserType $type
  *
  * @property-read Collection<PlayerLog> $logEntries
  * @property-read Ship|null $ship
@@ -91,6 +93,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'last_login' => 'datetime',
+        'type' => UserType::class,
     ];
 
     /**
