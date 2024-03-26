@@ -26,6 +26,7 @@
 namespace App\Models;
 
 use App\Types\WalletType;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,11 +44,18 @@ use Carbon\Carbon;
  * @property int $id
  * @property int $ship_id
  * @property string $name
+ * @property int $turns
+ * @property int $turns_used
+ * @property int $score
+ * @property int $rank
+ * @property Carbon $last_login
  *
  * @property-read Collection<PlayerLog> $logEntries
  * @property-read Ship|null $ship
  * @property-read Collection<Ship> $ships
  * @property-read Collection<Bounty> $bounties
+ *
+ * @property-read float $efficiency
  */
 class User extends Authenticatable
 {
@@ -82,6 +90,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'last_login' => 'datetime',
     ];
 
     /**
@@ -125,7 +134,7 @@ class User extends Authenticatable
         return $this->hasMany(Wallet::class);
     }
 
-    public function wallet(WalletType $type = WalletType::Personal): ?Wallet
+    public function wallet(WalletType $type = WalletType::Personal): Wallet|Model|null
     {
         return $this->wallets()->where('type', $type)->first();
     }
@@ -133,5 +142,39 @@ class User extends Authenticatable
     public function bounties(): HasMany
     {
         return $this->hasMany(Bounty::class, 'bounty_on');
+    }
+
+    /**
+     * Returns the players insignia.
+     * Refactored from Bnt\Character::getInsignia
+     * @return string
+     */
+    public function insignia(): string
+    {
+        for ($estimated_rank = 0; $estimated_rank < 20; $estimated_rank++)
+        {
+            $value = pow(2, $estimated_rank * 2);
+            $value *= (500 * 2);
+            if ($this->score <= $value)
+            {
+                // Ok we have found our Insignia, now set and break out of the for loop.
+                return __('global_includes.l_insignia_' . $estimated_rank);
+            }
+        }
+
+        // Hmm, player has out-ranked the highest rank, so just return that.
+        return __('global_includes.l_insignia_l_insignia_19');
+    }
+
+    /**
+     * Calculate players efficiency if not done so via query.
+     * @param float|int|null $attribute
+     * @return float
+     */
+    public function getEfficiencyAttribute(float|int|null $attribute): float {
+        if (!is_null($attribute)) return (float)$attribute;
+
+        if ($this->turns_used < 150) return 0.0;
+        return round($this->score/$this->turns_used);
     }
 }
