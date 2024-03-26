@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+
+Route::middleware('guest')->get('/', function () {
     return view('index');
-})->name('login');
+})->name('home');
 
 Route::get('/map', function () {
     $size = setting('game.map_size');
@@ -127,4 +128,10 @@ Route::get('/map', function () {
     imagedestroy($image);
 
     return response($buffer, 200)->header('Content-type', 'image/png');
+});
+
+Route::view('ranking', 'ranking')->name('ranking');
+
+Route::middleware('auth')->group(function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 });
