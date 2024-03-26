@@ -58,6 +58,8 @@ return new class extends Migration
 
             $table->unsignedInteger('credits')->default(1000);
 
+            $table->unsignedInteger('rank')->default(0);
+
             $table->rememberToken();
             $table->timestamps();
         });
