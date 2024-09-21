@@ -35,7 +35,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Mchev\Banhammer\Traits\Bannable;
-use Laravel\Sanctum\HasApiTokens;
 use Carbon\Carbon;
 
 /**
@@ -61,7 +60,8 @@ use Carbon\Carbon;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Bannable;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable, Bannable;
 
     /**
      * The attributes that are mass assignable.
@@ -87,14 +87,17 @@ class User extends Authenticatable
     /**
      * The attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-        'last_login' => 'datetime',
-        'type' => UserType::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'last_login' => 'datetime',
+            'type' => UserType::class,
+        ];
+    }
 
     /**
      * Active players are those who have been active within the past five minutes.

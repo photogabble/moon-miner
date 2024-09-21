@@ -27,9 +27,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
 
-class Controller extends BaseController
+abstract class Controller
 {
+    // TODO: maybe only use these in controllers that actually make use of their methods?
     use AuthorizesRequests, ValidatesRequests;
 }

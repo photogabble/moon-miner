@@ -33,6 +33,8 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+// TODO: remove with laravel 11?
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
