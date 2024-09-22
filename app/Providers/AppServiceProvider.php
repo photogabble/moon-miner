@@ -26,8 +26,12 @@
 namespace App\Providers;
 
 use App\Generators\Galaxy;
+use App\Helpers\LocalisationScript;
+use Illuminate\Support\Facades\File;
 use App\Helpers\PerlinNoiseGenerator;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Finder\SplFileInfo;
+use Illuminate\View\Compilers\BladeCompiler;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +46,14 @@ class AppServiceProvider extends ServiceProvider
                 setting('game.sector_max')
             );
         });
+
+        if ($this->app->resolved('blade.compiler')) {
+            $this->registerDirective($this->app['blade.compiler']);
+        } else {
+            $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
+                $this->registerDirective($bladeCompiler);
+            });
+        }
     }
 
     /**
@@ -50,5 +62,36 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    protected function registerDirective(BladeCompiler $bladeCompiler)
+    {
+        $bladeCompiler->directive('localisation', function () {
+            $translation = $this->translations(app()->getLocale());
+            $output = new LocalisationScript($translation);
+
+            return (string) $output;
+        });
+    }
+
+    protected function translations(string $locale): array
+    {
+        $translationFiles = File::files(base_path("lang/{$locale}"));
+
+        return collect($translationFiles)
+            ->map(function (SplFileInfo $file) {
+                $ext = $file->getExtension();
+                if ($ext === 'json') {
+                    $data = json_decode(File::get($file->getPathname()));
+                } else if ($ext === 'php') {
+                    $data = require($file);
+                } else {
+                    $data = [];
+                }
+
+                return [$file->getFilenameWithoutExtension() => $data];
+            })
+            ->collapse()
+            ->toArray();
     }
 }
