@@ -2,11 +2,28 @@
 
 use App\Models\Sector;
 use App\Models\Waypoints\Star;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-Route::middleware('guest')->get('/', function () {
-    return view('index');
-})->name('home');
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/explore', function () {
+    return Inertia::render('Explore');
+})->name('explore');
 
 Route::get('/map', function () {
     $size = setting('game.map_size');
@@ -118,8 +135,8 @@ Route::get('/map', function () {
     return response($buffer, 200)->header('Content-type', 'image/png');
 });
 
-Route::view('ranking', 'ranking')->name('ranking');
-
 Route::middleware('auth')->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

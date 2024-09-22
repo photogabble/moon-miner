@@ -29,6 +29,7 @@ use App\Generators\Galaxy;
 use App\Helpers\LocalisationScript;
 use Illuminate\Support\Facades\File;
 use App\Helpers\PerlinNoiseGenerator;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Finder\SplFileInfo;
 use Illuminate\View\Compilers\BladeCompiler;
@@ -61,7 +62,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Vite::prefetch(concurrency: 3);
     }
 
     protected function registerDirective(BladeCompiler $bladeCompiler)

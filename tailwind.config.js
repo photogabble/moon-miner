@@ -7,6 +7,7 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './resources/js/**/*.vue',
     ],
 
     theme: {
@@ -16,6 +17,9 @@ export default {
                 'ui-grey-900': '#262626',
                 'ui-yellow': '#ffcd4b',
                 'ui-salmon': '#ff7b55',
+            },
+            fontFamily: {
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
         },
     },
