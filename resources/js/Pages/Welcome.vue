@@ -2,6 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Terminal from "@/Components/Atoms/Terminal.vue";
+import MainPanel from "@/Components/Atoms/MainPanel.vue";
 
 defineProps<{
     canLogin?: boolean;
@@ -29,14 +30,14 @@ defineProps<{
             </div>
         </template>
 
-        <div class="overflow-hidden flex flex-row items-center justify-center h-20 flex-grow border border-ui-orange-500/50 relative">
+        <main-panel class="relative" centered>
             <div class="scanlines w-full h-full z-10"/>
 
             <terminal class="absolute top-2 left-2 z-0" />
             <div class="z-20 border border-ui-orange-500 p-2 border-x-8">
                 &rarr;&nbsp;<Link :href="route('login')" class="text-white hover:underline">{{ __('login.l_login_title')}}</Link>&nbsp;// <Link :href="route('register')" class="text-white hover:underline">{{ __('index.l_new_player') }}</Link> &larr;
             </div>
-        </div>
+        </main-panel>
     </guest-layout>
 </template>
 
