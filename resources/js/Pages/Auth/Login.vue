@@ -93,22 +93,19 @@ const submit = () => {
                     <input-error class="mt-2" :message="form.errors.password" />
                 </div>
 
-                <div class="block mt-4">
+                <div class="block mt-4 text-sm flex justify-between">
                     <label class="flex items-center">
                         <Checkbox name="remember" v-model:checked="form.remember" />
-                        <span class="ms-2 text-sm text-gray-600">Remember me</span>
+                        <span class="ms-2">Remember me</span>
                     </label>
-                </div>
-
-                <div class="flex items-center justify-end mt-4">
                     <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm hover:text-white">
-                    Forgot your password?
+                        Forgot your password?
                     </Link>
-
-                    <primary-button class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        {{ __('login.l_login_title') }}
-                    </primary-button>
                 </div>
+
+                <primary-button class="w-full" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    {{ __('login.l_login_title') }}
+                </primary-button>
             </form>
         </main-panel>
     </guest-layout>
