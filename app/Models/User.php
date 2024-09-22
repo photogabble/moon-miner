@@ -27,6 +27,7 @@ namespace App\Models;
 
 use App\Types\UserType;
 use App\Types\WalletType;
+use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,6 +37,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Mchev\Banhammer\Traits\Bannable;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
 /**
  * This User class has been refactored from the legacy
@@ -58,6 +60,7 @@ use Carbon\Carbon;
  *
  * @property-read float $efficiency
  */
+#[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
