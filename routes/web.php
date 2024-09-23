@@ -1,4 +1,27 @@
 <?php
+/**
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
+ *
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 use App\Models\Sector;
 use App\Models\Waypoints\Star;
@@ -16,7 +39,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard', function (\Illuminate\Http\Request $request) {
+    /** @var \App\Models\User $user */
+    $user = $request->user();
+    $user->load(['ship', 'currentEncounter']);
+
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -140,3 +167,24 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('debug/spawn-encounter', function(\Illuminate\Http\Request $request) {
+    $encounter = new \App\Models\Encounters\Dialogue([
+        'state' => [
+            'title' => 'New Spawn ' . App\Models\Encounter::count(),
+            'messages' => ['Hello world', 'This is <white>another</white> paragraph...'],
+        ],
+        'system_id' => 1,
+    ]);
+
+    $request->user()->encounters()->save($encounter);
+
+    return redirect()->back();
+})->name('debug.spawn-encounter');
+
+Route::post('encounter/{encounter}/{action}', function (\App\Models\Encounter $encounter, string $action){
+    $encounter->do($action);
+    return redirect()->back();
+})->name('encounter.execute');
+
+require __DIR__.'/auth.php';
