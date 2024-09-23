@@ -23,60 +23,64 @@
  *
  */
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class AuthenticatedSessionController extends Controller
+class ProfileController extends Controller
 {
     /**
-     * Display the login view.
+     * Display the user's profile form.
      */
-    public function create(): Response
+    public function edit(Request $request): Response
     {
-        return Inertia::render('Auth/Login', [
-            'canResetPassword' => Route::has('password.request'),
+        return Inertia::render('Profile/Edit', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Update the user's profile information.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->user()->fill($request->validated());
 
-        $request->session()->regenerate();
-
-        if ($request->user()->isBanned()) {
-            Auth::logout();
-            // TODO: make this work with inertia.js
-            return redirect('/')->with(['alert' => 'Your account has been banned.']);
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
         }
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $request->user()->save();
+
+        return Redirect::route('profile.edit');
     }
 
     /**
-     * Destroy an authenticated session.
+     * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return redirect('/')
-            ->with('info', 'You have been successfully logged out');
+        return Redirect::to('/');
     }
 }
