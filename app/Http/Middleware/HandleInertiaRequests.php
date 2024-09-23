@@ -25,9 +25,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Cache;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -53,10 +56,21 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => new UserResource($user),
+            ],
+            'config' => [
+                'allow_navcomp' => config('game.allow_navcomp'),
+                'max_sectors' => config('game.sector_size'),
+            ],
+            'stats' => [
+                'total_players' => Cache::remember('users.total', 300, function (){
+                    return User::query()->count();
+                }),
+                'players_online' => 0, // TODO User::loggedInCount()
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
