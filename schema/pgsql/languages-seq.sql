@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_languages_lang_id_seq;

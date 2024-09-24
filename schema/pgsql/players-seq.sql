@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_players_player_id_seq;

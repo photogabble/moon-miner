@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_universe_sector_id_seq;

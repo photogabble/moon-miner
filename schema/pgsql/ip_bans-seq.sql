@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_ip_bans_ban_id_seq;

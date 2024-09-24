@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_ships_ship_id_seq;

@@ -1,1 +1,0 @@
-ALTER SEQUENCE bnt_characters_character_id_seq OWNED BY bnt_characters.character_id;

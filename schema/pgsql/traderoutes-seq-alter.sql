@@ -1,1 +1,0 @@
-ALTER SEQUENCE bnt_traderoutes_traderoute_id_seq OWNED BY bnt_traderoutes.traderoute_id;

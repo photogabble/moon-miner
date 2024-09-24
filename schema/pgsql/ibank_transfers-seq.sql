@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_ibank_transfers_transfer_id_seq;

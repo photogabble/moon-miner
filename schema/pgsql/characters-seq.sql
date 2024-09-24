@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_characters_character_id_seq;

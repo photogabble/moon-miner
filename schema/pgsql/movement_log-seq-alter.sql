@@ -1,1 +1,0 @@
-ALTER SEQUENCE bnt_movement_log_event_id_seq OWNED BY bnt_movement_log.event_id;

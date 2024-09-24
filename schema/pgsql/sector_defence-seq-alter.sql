@@ -1,1 +1,0 @@
-ALTER SEQUENCE bnt_sector_defence_defence_id_seq OWNED BY bnt_sector_defence.defence_id;

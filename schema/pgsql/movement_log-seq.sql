@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_movement_log_event_id_seq;

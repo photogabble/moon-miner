@@ -1,1 +1,0 @@
-CREATE SEQUENCE bnt_links_link_id_seq;
