@@ -56,11 +56,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        /** @var User $user */
         $user = $request->user();
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => new UserResource($user),
+                'user' => $user ? new UserResource($user) : null,
+                'online' => is_null($user) === false,
             ],
             'config' => [
                 'allow_navcomp' => config('game.allow_navcomp'),
