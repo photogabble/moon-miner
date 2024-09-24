@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @property-read System[]|Collection $sectors
  * @property-read User|Team $owner
+ * @property string $name
  * @property bool $is_team_zone
  * @property int $owner_id
  * @property ZonePermission $allow_beacon
