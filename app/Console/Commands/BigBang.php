@@ -29,7 +29,7 @@ use Throwable;
 use App\Helpers\Languages;
 use App\Types\InstallConfig;
 use Illuminate\Console\Command;
-use App\Helpers\ExecutionTimer;
+use App\Helpers\Timer;
 use Illuminate\Support\Facades\Log;
 
 class BigBang extends Command
@@ -84,7 +84,7 @@ class BigBang extends Command
 
         foreach($this->stages as $stage) {
             try {
-                $this->components->task($stage, fn() => (new $stage(new ExecutionTimer, $logger))->execute($this->output, $this->installConfig));
+                $this->components->task($stage, fn() => (new $stage(new Timer, $logger))->execute($this->output, $this->installConfig));
             } catch (Throwable $exception) {
                 $this->error($exception->getMessage());
                 $this->call('migrate:reset');
