@@ -24,15 +24,16 @@
  */
 
 
-namespace Database\Seeders;
+namespace App\Installer;
 
 use App\Models\Sector;
+use App\Types\InstallConfig;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Seeder;
+use Illuminate\Console\OutputStyle;
 
-class SectorSeeder extends Seeder
+class CreateSectors extends Step implements InstallStep
 {
-    public function run(): void
+    public function execute(OutputStyle $output, InstallConfig $config): int
     {
         // Total sectors is this value squared.
         $sectorsInAxis = setting('game.map_size') / setting('game.sector_size');
@@ -63,5 +64,7 @@ class SectorSeeder extends Seeder
         }
 
         DB::commit();
+
+        return 0;
     }
 }
