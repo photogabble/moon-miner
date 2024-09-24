@@ -25,9 +25,12 @@
 
 namespace App\Console\Commands;
 
+use Throwable;
 use App\Helpers\Languages;
 use App\Types\InstallConfig;
 use Illuminate\Console\Command;
+use App\Helpers\ExecutionTimer;
+use Illuminate\Support\Facades\Log;
 
 class BigBang extends Command
 {
@@ -45,15 +48,16 @@ class BigBang extends Command
      */
     protected $description = 'Command Line Installer';
 
+    private array $stages = [
+
+    ];
+
     public function __construct(private InstallConfig $installConfig)
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public function handle(): int
     {
         $lang = $this->choice('Please select your language', array_map(function ($item) {
             return $item['name'];
@@ -65,6 +69,32 @@ class BigBang extends Command
         $this->line(__('create_universe.l_cu_allow_create'));
 
         if ($this->configureInstall() !== 0) return 1;
+
+        // Fresh Migration
+        if (!$this->option('force')) {
+            if (!$this->confirm(__('create_universe.l_cu_table_drop_warn'))) return 1;
+        }
+        $this->call('migrate:fresh');
+
+        // TODO: persist InstallConfig values so they can be displayed
+
+        $this->components->info('Running Install Stages');
+
+        $logger = Log::channel('install');
+
+        foreach($this->stages as $stage) {
+            try {
+                $this->components->task($stage, fn() => (new $stage(new ExecutionTimer, $logger))->execute($this->output, $this->installConfig));
+            } catch (Throwable $exception) {
+                $this->error($exception->getMessage());
+                $this->call('migrate:reset');
+                return 1;
+            }
+        }
+
+        $this->line(__('create_universe.l_cu_congrats_success'));
+
+        return 0;
     }
 
     private function configureInstall(): int
