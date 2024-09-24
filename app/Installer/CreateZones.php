@@ -54,7 +54,7 @@ class CreateZones extends Step implements InstallStep
         $zone->allow_warpedit = ZonePermission::Deny;
         $zone->allow_planet = ZonePermission::Deny;
         $zone->allow_defenses = ZonePermission::Deny;
-        $zone->max_hull = config('game.max_fed_hull');
+        $zone->max_hull = config('game.fed_max_hull');
         $zone->save();
 
         $this->logger->info(__('create_universe.l_cu_setup_fedspace', ['elapsed' => $this->timer->sample()]));
