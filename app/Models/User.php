@@ -30,6 +30,7 @@ use App\Types\WalletType;
 use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,6 +58,8 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
  * @property-read Ship|null $ship
  * @property-read Collection<Ship> $ships
  * @property-read Collection<Bounty> $bounties
+ * @property-read Collection<Encounter> $encounters
+ * @property-read Collection<Wallet>|HasMany $wallets
  *
  * @property-read float $efficiency
  */
@@ -151,6 +154,34 @@ class User extends Authenticatable
     public function bounties(): HasMany
     {
         return $this->hasMany(Bounty::class, 'bounty_on');
+    }
+
+    public function encounters(): HasMany
+    {
+        return $this->hasMany(Encounter::class);
+    }
+
+    /**
+     * Players might have multiple Encounters which need to be dealt with one after the other,
+     * for example Hostile followed by Death.
+     * @return HasOne
+     */
+    public function currentEncounter(): HasOne
+    {
+        return $this->hasOne(Encounter::class)
+            ->whereNull('completed_at')
+            ->oldest();
+    }
+
+    /**
+     * @return Collection<Encounter>
+     */
+    public function pendingEncounters(): Collection
+    {
+        return $this->encounters()
+            ->whereNull('completed_at')
+            ->orderBy('id', 'ASC')
+            ->get();
     }
 
     /**
