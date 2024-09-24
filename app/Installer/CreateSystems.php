@@ -23,16 +23,16 @@
  *
  */
 
-
-namespace Database\Seeders;
+namespace App\Installer;
 
 use App\Models\System;
 use App\Models\Sector;
 use App\Generators\Galaxy;
 use App\Types\SpectralType;
+use App\Types\InstallConfig;
 use App\Models\Waypoints\Star;
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Console\OutputStyle;
 
 /**
  * Generate and Persist Solar Systems
@@ -42,10 +42,16 @@ use Illuminate\Support\Facades\DB;
  * Once the map has been persisted and jump gates seeded between systems it will then be possible to
  * seed several empire home worlds and begin naming systems as they drunk-walk from system to system.
  */
-class SystemSeeder extends Seeder
+class CreateSystems extends Step implements InstallStep
 {
-    public function run(Galaxy $galaxy): void
+
+    /**
+     * @throws \Exception
+     */
+    public function execute(OutputStyle $output, InstallConfig $config): int
     {
+        $galaxy = app(Galaxy::class);
+
         /** @var []Sector $sectorMap */
         $sectorMap = Sector::all()->reduce(function(array $map, Sector $sector) {
             $map[$sector->hash] = $sector;
@@ -66,7 +72,7 @@ class SystemSeeder extends Seeder
                 ->toSectorHash();
 
             if (!isset($sectorMap[$sectorHash])){
-                $this->command->getOutput()->writeLn('Unable to find sector for (' . $star->toCartesian()->x. ',' . $star->toCartesian()->y .') with hash ['.$sectorHash.']');
+                $output->writeLn('<error>[!]</error> Unable to find sector for (' . $star->toCartesian()->x. ',' . $star->toCartesian()->y .') with hash ['.$sectorHash.']');
                 continue;
             }
 
@@ -90,6 +96,8 @@ class SystemSeeder extends Seeder
             $sector->updateSystemCount();
         }
         DB::commit();
+
+        return 0;
     }
 
     private function generateSolarSystem(System $system): void
