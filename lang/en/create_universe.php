@@ -20,7 +20,7 @@
     "l_cu_num_loops" => "Number of loops",
     "l_cu_percent_unowned" => "Percent of sectors with unowned planets",
     "l_cu_submit_settings" => "Submit settings",
-    "l_cu_confirm_settings" => "Create Universe - Confirmation. So you would like your [sector_max] sector universe to have the following?",
+    "l_cu_confirm_settings" => "Create Universe - Confirmation. So you would like your :max_sectors sector universe to have the following?",
     "l_cu_fedsec_smaller" => "The number of Federation sectors must be smaller than the size of the universe!",
     "l_cu_special_ports" => "Special ports",
     "l_cu_ore_ports" => "Ore ports",
