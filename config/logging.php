@@ -80,6 +80,12 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'install' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/install.log'),
+            'replace_placeholders' => true,
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
