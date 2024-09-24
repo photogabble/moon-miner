@@ -31,6 +31,8 @@ use App\Types\InstallConfig;
 use App\Installer\CreateZones;
 use Illuminate\Console\Command;
 use App\Helpers\Timer;
+use App\Installer\CreateSectors;
+use App\Installer\CreateSystems;
 use Illuminate\Support\Facades\Log;
 
 class BigBang extends Command
@@ -51,6 +53,8 @@ class BigBang extends Command
 
     private array $stages = [
         CreateZones::class, // 60, came from second half of 60.php
+        CreateSectors::class,
+        CreateSystems::class, // 65, came from first half of 60.php
     ];
 
     public function __construct(private InstallConfig $installConfig)
