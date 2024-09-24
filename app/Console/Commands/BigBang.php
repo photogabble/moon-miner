@@ -28,6 +28,7 @@ namespace App\Console\Commands;
 use Throwable;
 use App\Helpers\Languages;
 use App\Types\InstallConfig;
+use App\Installer\CreateZones;
 use Illuminate\Console\Command;
 use App\Helpers\Timer;
 use Illuminate\Support\Facades\Log;
@@ -49,7 +50,7 @@ class BigBang extends Command
     protected $description = 'Command Line Installer';
 
     private array $stages = [
-
+        CreateZones::class, // 60, came from second half of 60.php
     ];
 
     public function __construct(private InstallConfig $installConfig)
