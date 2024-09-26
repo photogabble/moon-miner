@@ -68,6 +68,12 @@ use Parental\HasParent;
  *   classic game the player can place buy/sell limits
  * - Space Dock, enables construction and maintenance of additional ships
  *
+ * @property int $prod_ore
+ * @property int $prod_organics
+ * @property int $prod_goods
+ * @property int $prod_energy
+ * @property int $prod_fighters
+ * @property int $prod_torp
  * @property CelestialPropertiesModel $properties
  */
 final class Planet extends Waypoint
