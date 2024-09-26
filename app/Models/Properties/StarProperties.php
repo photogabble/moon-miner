@@ -139,7 +139,7 @@ final class StarProperties extends ModelProperties
             $rgb['b'] = 138.5177312231 * log($tmpKelvin - 10) - 305.0447927307;
         }
 
-        return array_map(function($channel) {
+        return array_map(function ($channel) {
             if ($channel > 255) return 255;
             if ($channel < 0) return 0;
 
@@ -157,8 +157,8 @@ final class StarProperties extends ModelProperties
     public function habitableZone(): Range
     {
         return new Range(
-            round(sqrt($this->luminosity/1.1), 3),
-            round(sqrt($this->luminosity/0.53), 3)
+            round(sqrt($this->luminosity / 1.1), 3),
+            round(sqrt($this->luminosity / 0.53), 3)
         );
     }
 
@@ -199,7 +199,7 @@ final class StarProperties extends ModelProperties
      */
     public function earthLikeLife(): bool
     {
-        if ($this->mass >=0.5 && $this->mass <=1.4) {
+        if ($this->mass >= 0.5 && $this->mass <= 1.4) {
             return $this->age >= 3.5;
         }
 
@@ -243,28 +243,76 @@ final class StarProperties extends ModelProperties
         $this->mass = $classification->massRange()->rand();
 
         if ($this->mass < 0.43) {
-            $this->luminosity = 0.23*pow($this->mass, 2.3);
+            $this->luminosity = 0.23 * pow($this->mass, 2.3);
         } else if ($this->mass < 2) {
             $this->luminosity = pow($this->mass, 4);
         } else {
-            $this->luminosity = 1.4*pow($this->mass,3.5);
+            $this->luminosity = 1.4 * pow($this->mass, 3.5);
         }
 
-        $this->lifetime = (float) ($this->mass / $this->luminosity) * 10;
+        $this->lifetime = (float)($this->mass / $this->luminosity) * 10;
 
-        $this->age = (float) (new Range(0.0, $this->lifetime))->rand();
+        $this->age = (float)(new Range(0.0, $this->lifetime))->rand();
 
         // White Dwarfs are a special case
         $this->radius = $this->spectralType === SpectralType::D
-            ? pow($this->mass,-(1/3))
-            : ($this->mass < 1.0 ? pow($this->mass,0.8) : pow($this->mass,0.57));
+            ? pow($this->mass, -(1 / 3))
+            : ($this->mass < 1.0 ? pow($this->mass, 0.8) : pow($this->mass, 0.57));
 
-        $this->density = $this->mass / pow($this->radius,3);
+        $this->density = $this->mass / pow($this->radius, 3);
 
         // TODO White dwarf types:
         // https://www.frontiersin.org/articles/10.3389/fspas.2021.799210/full#h6
         // https://www.tat.physik.uni-tuebingen.de/~kley/lehre/studsemi/WZ/rpv53i7p837.pdf
         // https://www.aanda.org/articles/aa/pdf/2005/38/aa2996-05.pdf
-        $this->temperatureK = pow($this->luminosity/pow($this->radius,2),0.25)*5776;
+        $this->temperatureK = pow($this->luminosity / pow($this->radius, 2), 0.25) * 5776;
+    }
+
+    /**
+     * Returns an array of stable orbits for Stars properties.
+     *
+     * Generation of these orbits is based upon Artifexian's "How to Create a Classical Planetary System" YouTube video.
+     * @see https://www.youtube.com/watch?v=J5xU-8Kb63Y
+     * @param int|null $count
+     * @return array<float>
+     */
+    public function generateOrbits(int|null $count = null): array
+    {
+        $orbits = [];
+        $range = $this->orbitalRange();
+        $frostLine = $this->frostLine();
+
+        // For a stable orbit, each orbit should be spaced between 1.4-2AU
+        $orbitalRange = new Range(1.4, 2.0);
+
+        // Outer orbits
+        // First planet will generate between 1-1.2AU away from the frost line.
+        $distance = $frostLine + (new Range(1, 1.2))->rand();
+
+        while ($distance < $range->max) {
+            $orbits[] = $distance;
+            $distance += $orbitalRange->rand();
+        }
+
+        // Inner orbits
+        $distance = $frostLine - $orbitalRange->rand();
+
+        while ($distance > $range->min) {
+            $orbits[] = $distance;
+            $distance -= $orbitalRange->rand();
+        }
+
+        if (!is_null($count)) {
+            while (count($orbits) > $count) {
+                shuffle($orbits);
+                array_pop($orbits);
+            }
+        }
+
+        sort($orbits);
+
+        // TODO: check no orbits are within 0.15AU of each other, any closer and they will be unstable
+
+        return $orbits;
     }
 }
