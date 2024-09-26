@@ -50,6 +50,8 @@ class CreateSystems extends Step implements InstallStep
      */
     public function execute(OutputStyle $output, InstallConfig $config): int
     {
+        $this->timer->start();
+
         $galaxy = app(Galaxy::class);
 
         /** @var []Sector $sectorMap */
