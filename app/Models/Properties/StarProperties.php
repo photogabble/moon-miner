@@ -186,7 +186,7 @@ final class StarProperties extends ModelProperties
     {
         return new Range(
             sqrt($this->luminosity) / 10,
-            400 * $this->mass
+            40 * $this->mass
         );
     }
 
