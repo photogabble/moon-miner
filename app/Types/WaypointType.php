@@ -66,6 +66,6 @@ enum WaypointType: string
     // Ice fields can orbit a Star
     case Ice = 'Ice';
 
-    // Warp gates can orbit a Star
+    // Warp gates can orbit a Star or a Planet
     case WarpGate = WarpGate::class;
 }
