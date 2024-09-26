@@ -25,7 +25,7 @@
 
 namespace App\Types;
 
-// TODO: make use of different planet types in the CelestialProperties in order to generate planet properties
+// TODO: (#2) make use of different planet types in the CelestialProperties in order to generate planet properties
 
 enum PlanetType: string
 {
