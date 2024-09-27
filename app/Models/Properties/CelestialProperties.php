@@ -65,7 +65,7 @@ final class CelestialProperties extends ModelProperties
         $this->orbitPeriod = $attributes['orbitPeriod'] ?? 0.0;
         $this->orbitRadius = $attributes['orbitRadius'] ?? 0;
         $this->pressure = $attributes['pressure'] ?? 'Unknown';
-        $this->radius = $attributes['radius'] ?? 0.0;
+        $this->radius = $attributes['radius'] ?? 0;
         $this->surfaceGravity = $attributes['surfaceGravity'] ?? 0.0;
         $this->temperature = $attributes['temperature'] ?? 0.0;
     }
