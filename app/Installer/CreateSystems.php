@@ -117,21 +117,5 @@ class CreateSystems extends Step implements InstallStep
         $star->properties->generate($type);
 
         $system->waypoints()->save($star);
-
-        // Use https://www.1728.org/kepler3a.htm for calculating orbital period of planets
-        // based upon distance from star.
-
-        // 1. Begin at the frost line
-        // 2. Select a random number between 1.4 and 2.0, multiply previous planets distance by that, this is the
-        //    next stable orbit from the star.
-        // 3. Continue until you have orbits all the way out to the outer limit
-        // 4. Do the same for inner orbits, but dividing by between 1.4 and 2.0 down to the inner limit.
-        // 5. loop through the list of orbital shells and populate them at random with a new Planet, the
-        //    type of planet will be determined by how far away it is from the star
-
-
-        // eccentricity for inner system planets should be kept to 0.0x to 0.00x, can be larger for far out planets
-        // inclination for inner system planets should be kept < 15, can be larger for far out planets
-
     }
 }

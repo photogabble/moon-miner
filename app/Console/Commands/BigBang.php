@@ -33,6 +33,7 @@ use Illuminate\Console\Command;
 use App\Helpers\Timer;
 use App\Installer\CreateSectors;
 use App\Installer\CreateSystems;
+use App\Installer\CreatePlanets;
 use Illuminate\Support\Facades\Log;
 
 class BigBang extends Command
@@ -55,6 +56,7 @@ class BigBang extends Command
         CreateZones::class, // 60, came from second half of 60.php
         CreateSectors::class,
         CreateSystems::class, // 65, came from first half of 60.php
+        CreatePlanets::class, // 70
     ];
 
     public function __construct(private InstallConfig $installConfig)

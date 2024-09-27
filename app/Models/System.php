@@ -96,6 +96,17 @@ class System extends Model implements ToCartesian, Insertable
         return $this->hasMany(Waypoint::class);
     }
 
+    /**
+     * @param WaypointType $type
+     * @return Collection<Waypoint>
+     */
+    public function waypointsOfType(WaypointType $type): Collection
+    {
+        return $this->waypoints()
+            ->where('type', $type)
+            ->get();
+    }
+
     public function defenses(): HasMany
     {
         return $this->hasMany(SectorDefense::class, 'sector_id');
