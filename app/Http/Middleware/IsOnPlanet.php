@@ -43,7 +43,7 @@ class IsOnPlanet
         $user = $request->user();
 
         if ($user->ship->onPlanet()) return $next($request);
-        if ($user->ship->inSpace()) redirect()->route('dashboard');
+        if ($user->ship->inSpace()) redirect()->route('navicom');
         if ($user->ship->isDocked()) {
             // TODO redirect to dock dashboard
         }

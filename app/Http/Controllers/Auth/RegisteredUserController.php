@@ -62,12 +62,10 @@ class RegisteredUserController extends Controller
 
         (new SpawnStarterShip($user))->spawn($request->get('ship_name'));
 
-        // TODO listen to Login event and update 'last_login' => Carbon::now(),
-
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('navicom', absolute: false));
     }
 }

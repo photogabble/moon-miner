@@ -62,7 +62,7 @@ class AuthenticatedSessionController extends Controller
             return redirect('/')->with(['alert' => 'Your account has been banned.']);
         }
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('navicom', absolute: false));
     }
 
     /**
