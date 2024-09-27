@@ -28,6 +28,7 @@ namespace App\Models;
 use App\Types\WaypointType;
 use App\Types\QuadTree\Insertable;
 use App\Models\Traits\HasPolarCoordinates;
+use App\Models\Properties\ModelProperties;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,6 +59,7 @@ use Parental\HasChildren;
  * @property float $inclination
  * @property WaypointType $type
  * @property string $name
+ * @property ModelProperties $properties
  *
  * @property-read Collection<Waypoint> $orbitals
  * @property-read User|null $owner
@@ -72,10 +74,18 @@ class Waypoint extends Model implements ToCartesian, Insertable
         'system_id'
     ];
 
-    protected $casts = [
-        'type' => WaypointType::class, // TODO should this just be traits?
-        'properties' => 'json',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'type' => WaypointType::class, // TODO should this just be traits?
+            'properties' => 'json',
+        ];
+    }
+
+    public function primary(): BelongsTo
+    {
+        return $this->belongsTo(Waypoint::class, 'system_id');
+    }
 
     public function system(): BelongsTo
     {

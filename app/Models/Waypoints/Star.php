@@ -26,6 +26,7 @@
 namespace App\Models\Waypoints;
 
 use App\Models\Waypoint;
+use App\Types\WaypointType;
 use App\Casts\StarProperties;
 use App\Models\Properties\StarProperties as StarPropertiesModel;
 use Parental\HasParent;
@@ -48,7 +49,11 @@ final class Star extends Waypoint
         'name' => 'Star',
     ];
 
-    protected $casts = [
-        'properties' => StarProperties::class
-    ];
+    protected function casts(): array
+    {
+        return [
+            ...parent::casts(),
+            'properties' => StarProperties::class
+        ];
+    }
 }

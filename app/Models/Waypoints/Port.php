@@ -53,7 +53,11 @@ final class Port extends Waypoint
         'name' => 'Port',
     ];
 
-    protected $casts = [
-        'properties' => PortProperties::class
-    ];
+    protected function casts(): array
+    {
+        return [
+            ...parent::casts(),
+            'properties' => PortProperties::class
+        ];
+    }
 }

@@ -42,7 +42,11 @@ final class WarpGate extends Waypoint
         'name' => 'WarpGate',
     ];
 
-    protected $casts = [
-        'properties' => WarpGateProperties::class
-    ];
+    protected function casts(): array
+    {
+        return [
+            ...parent::casts(),
+            'properties' => WarpGateProperties::class
+        ];
+    }
 }

@@ -84,7 +84,12 @@ final class Planet extends Waypoint
         'name' => 'Planet',
     ];
 
-    protected $casts = [
-        'properties' => CelestialProperties::class
-    ];
+    protected function casts(): array
+    {
+        return [
+            ...parent::casts(),
+            'properties' => CelestialProperties::class
+        ];
+    }
+
 }
