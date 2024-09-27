@@ -25,6 +25,8 @@
 
 namespace App\Models;
 
+use App\Types\WaypointType;
+use Illuminate\Support\Facades\DB;
 use App\Types\Geometry\Point;
 use App\Types\QuadTree\Insertable;
 use Illuminate\Database\Eloquent\Model;
@@ -65,6 +67,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * when needing to flag one or all of the below values:
  * @property bool $has_visited
  * @property bool $is_current_sector
+ * @property bool $has_danger
  */
 class System extends Model implements ToCartesian, Insertable
 {
@@ -212,8 +215,8 @@ class System extends Model implements ToCartesian, Insertable
         return System::query()
             ->select([
                 'systems.*',
-                \DB::raw("(SELECT COUNT(id) FROM movement_logs WHERE `movement_logs`.`sector_id` = `systems`.`id` AND `movement_logs`.`user_id` = $user->id) > 0 as has_visited"),
-                \DB::raw("(SELECT COUNT(id) FROM ships WHERE `ships`.`sector_id` = `systems`.`id` AND `ships`.`id` = $user->ship_id) > 0 as is_current_sector"),
+                DB::raw("(SELECT COUNT(id) FROM movement_logs WHERE `movement_logs`.`sector_id` = `systems`.`id` AND `movement_logs`.`user_id` = $user->id) > 0 as has_visited"),
+                DB::raw("(SELECT COUNT(id) FROM ships WHERE `ships`.`sector_id` = `systems`.`id` AND `ships`.`id` = $user->ship_id) > 0 as is_current_sector"),
             ]);
     }
 
