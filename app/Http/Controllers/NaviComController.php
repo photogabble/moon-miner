@@ -26,12 +26,11 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use App\Models\User;
 use Inertia\Response;
 use App\Models\System;
-use Illuminate\Http\Request;
 use App\Models\Waypoints\Planet;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Resources\SystemResource;
 use App\Http\Resources\WaypointResource;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,28 +47,25 @@ class NaviComController extends Controller
      * but have visited a system that links INTO this one then return the link back if it exists (some
      * systems can have one way warp gates, where the other side is offline, or non-existent.)
      *
-     * @param Request $request
      * @param int|null $system
-     * @return void
+     * @return Response
      */
-    public function system(Request $request, ?int $system = null): Response
+    public function system(?int $system = null): Response
     {
-        /** @var User $user */
-        $user = $request->user();
-        $user->load(['ship', 'ship.system' => function (BelongsTo $relationship) use ($user) {
+        $this->user->load(['ship', 'ship.system' => function (BelongsTo $relationship) {
             $relationship->addSelect('systems.*');
-            $relationship->addSelect(DB::raw("(SELECT COUNT(id) FROM movement_logs WHERE `movement_logs`.`system_id` = `systems`.`id` AND `movement_logs`.`user_id` = $user->id) > 0 as has_visited"));
-            $relationship->addSelect(DB::raw("(SELECT COUNT(id) FROM ships WHERE `ships`.`system_id` = `systems`.`id` AND `ships`.`id` = $user->ship_id) > 0 as is_current_sector"));
+            $relationship->addSelect(DB::raw("(SELECT COUNT(id) FROM movement_logs WHERE `movement_logs`.`system_id` = `systems`.`id` AND `movement_logs`.`user_id` = {$this->user->id}) > 0 as has_visited"));
+            $relationship->addSelect(DB::raw("(SELECT COUNT(id) FROM ships WHERE `ships`.`system_id` = `systems`.`id` AND `ships`.`id` = {$this->user->ship_id}) > 0 as is_current_sector"));
         }, 'ship.system.waypoints', 'currentEncounter']);
 
         if (!is_null($system)) {
-            $system = System::queryForUser($user)
+            $system = System::queryForUser($this->user)
                 ->with(['waypoints'])
                 ->find($system);
         }
 
         $props = [
-            'system' => new SystemResource($system ?? $user->ship->system),
+            'system' => new SystemResource($system ?? $this->user->ship->system),
         ];
 
         // If player is following an autopilot route then waypoints will be set containing the
