@@ -90,6 +90,10 @@ class CreatePlanets extends Step implements InstallStep
                 $planet->primary_id = $star->id;
                 $planet->distance = $orbit;
                 $planet->angle = $angleRange->rand();
+
+                $planet->eccentricity = 0.0;
+                $planet->inclination = 0.0;
+
                 $planet->type = WaypointType::Planet;
 
                 $planet->properties->generate($star, $planet->distance);
