@@ -50,6 +50,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $id
  * @property string $name
  *
+ * @property int $zone_id
  * @property float $angle
  * @property float $distance
  *

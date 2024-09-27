@@ -43,7 +43,7 @@ return new class extends Migration
             $table->decimal('angle');
             $table->decimal('distance');
 
-            $table->unsignedBigInteger('zone_id')->nullable()->default(null);
+            $table->unsignedBigInteger('zone_id');
             $table->unsignedBigInteger('sector_id');
 
             // TODO: Move ports to being waypoint with a port trait
