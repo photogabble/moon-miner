@@ -206,6 +206,15 @@ class User extends Authenticatable
         return __('global_includes.l_insignia_l_insignia_19');
     }
 
+    public function lastActive(): string
+    {
+        if (is_null($this->last_login)) return 'never';
+        if ($this->last_login->isToday()) return 'today';
+        if ($this->last_login->isYesterday()) return 'yesterday';
+
+        return $this->last_login->ago();
+    }
+
     /**
      * Calculate players efficiency if not done so via query.
      * @param float|int|null $attribute
