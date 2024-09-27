@@ -109,13 +109,16 @@ class NaviComController extends Controller
      * Player hasn't visited the system and are not in one connected to it. Navigation Computer to
      * display "no known details".
      *
-     *
-     * @param Request $request
      * @param Planet $planet
-     * @return void
+     * @return Response|RedirectResponse
      */
-    public function planet(Request $request, Planet $planet): Response
+    public function planet(Planet $planet): Response|RedirectResponse
     {
+        // If the player is landed on a planet, then redirect to the planet dashboard
+        if ($this->user->ship->onPlanet() && $this->user->ship->planet_id === $planet->id) {
+            return redirect()->route('planet.dashboard');
+        }
+
         return Inertia::render('NaviCom/Planet', [
             'planet' => new WaypointResource($planet),
         ]);
