@@ -66,7 +66,7 @@ class CreatePlanets extends Step implements InstallStep
         // Insert all planets within one transaction
         DB::beginTransaction();
 
-        $angleRange = new Range((12 * pi()) / 6, 2 * pi());
+        $angleRange = new Range(0, 365);
 
         while ($added < $config->unownedPlanets) {
             /** @var System $sector */
@@ -84,12 +84,15 @@ class CreatePlanets extends Step implements InstallStep
             $star = $sector->waypointsOfType(WaypointType::Star)->first();
             $orbits = $star->properties->generateOrbits($adding);
 
+            // Multiply degrees by this number to convert to radians, all angles are stored as radians...
+            $degreeToRadian = (pi() / 180);
+
             foreach ($orbits as $orbit) {
                 $planet = new Planet();
                 $planet->system_id = $star->system_id;
                 $planet->primary_id = $star->id;
                 $planet->distance = $orbit;
-                $planet->angle = $angleRange->rand();
+                $planet->angle = $angleRange->rand() * $degreeToRadian;
 
                 $planet->eccentricity = 0.0;
                 $planet->inclination = 0.0;
