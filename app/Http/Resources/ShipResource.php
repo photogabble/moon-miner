@@ -68,7 +68,7 @@ class ShipResource extends JsonResource
         return [
             'name' => $this->name,
             'system_id' => $this->system_id,
-            // TODO, $this->whenLoaded(System)
+            'system' => new SystemResource($this->whenLoaded('system')),
             'level' => $shipLv,
 
             'in_space' => $this->inSpace(),
