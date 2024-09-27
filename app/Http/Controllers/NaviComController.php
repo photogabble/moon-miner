@@ -39,6 +39,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class NaviComController extends Controller
 {
     /**
+     * GET: /navicom
+     * GET: /navicom/system/{system:id}
+     *
      * Display System details, if none passed return the players current system. If a player hasn't
      * visited a requested system provide limited to no details. E.g if they have never visited
      * and not visited any systems that link INTO this one return nothing. If they have never visited
@@ -77,6 +80,8 @@ class NaviComController extends Controller
     }
 
     /**
+     * GET: /navicom/planet/{planet:id}
+     *
      * Display planet details, if the players ship is currently in orbit around or landed on the planet
      * in question then redirect them to the planet dashboard page. Provide details matching the
      * following criteria:
