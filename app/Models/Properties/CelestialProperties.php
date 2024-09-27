@@ -110,6 +110,12 @@ final class CelestialProperties extends ModelProperties
         // $this->orbitPeriod = ...
 
         // eccentricity for inner system planets should be kept to 0.0x to 0.00x, can be larger for far out planets
+        // From https://youtu.be/VGyk3ftyr_c?si=dOFAkHuldzAIPpJf&t=257 eccentricity is calculated
+        // as 0.584 * $numberOfPlanets^-1.2
+
+        // For Gas Giants use Sudarsky Classification System to identify cloud type based upon
+        // surface temperature. See https://youtu.be/VGyk3ftyr_c?si=xlyA_BCEprHi5IV_&t=404
+
         // inclination for inner system planets should be kept < 15, can be larger for far out planets
 
         // Gas giants form near but not on the frost line. 1 - 1.2AU away is a good approximation
@@ -117,6 +123,10 @@ final class CelestialProperties extends ModelProperties
 
     private function generateAsMoon(Planet $primary, float $distance): void
     {
+        // Calculate Hill Sphere, the space around a Planet where its gravity will keep something in orbit
+        // Inner: 2.44 x Planet Radius x ( PlanetDensity / MoonDensity)^0.33
+        // Outer: DistanceFromStar x ( ( PlanetMass / SolarMass)^0.33 ) x 235
+        // The unit of measure of the above is radius relative to the planet.
         // TODO
     }
 }
