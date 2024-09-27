@@ -27,7 +27,7 @@ namespace App\Casts;
 
 use App\Models\Properties\StarProperties as StarPropertiesModel;
 
-class StarProperties extends Properties
+final class StarProperties extends Properties
 {
     protected string $castsTo = StarPropertiesModel::class;
 }
