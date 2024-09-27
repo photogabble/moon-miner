@@ -25,6 +25,8 @@
 
 namespace App\Installer;
 
+use Exception;
+use App\Models\Zone;
 use App\Models\System;
 use App\Models\Sector;
 use App\Generators\Galaxy;
@@ -46,7 +48,7 @@ class CreateSystems extends Step implements InstallStep
 {
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute(OutputStyle $output, InstallConfig $config): int
     {
@@ -58,7 +60,7 @@ class CreateSystems extends Step implements InstallStep
         }
 
         /** @var []Sector $sectorMap */
-        $sectorMap = Sector::all()->reduce(function(array $map, Sector $sector) {
+        $sectorMap = Sector::all()->reduce(function (array $map, Sector $sector) {
             $map[$sector->hash] = $sector;
             return $map;
         }, []);
@@ -76,8 +78,8 @@ class CreateSystems extends Step implements InstallStep
                 ->scale(setting('game.map_size') / 2)
                 ->toSectorHash();
 
-            if (!isset($sectorMap[$sectorHash])){
-                $output->writeLn('<error>[!]</error> Unable to find sector for (' . $star->toCartesian()->x. ',' . $star->toCartesian()->y .') with hash ['.$sectorHash.']');
+            if (!isset($sectorMap[$sectorHash])) {
+                $output->writeLn('<error>[!]</error> Unable to find sector for (' . $star->toCartesian()->x . ',' . $star->toCartesian()->y . ') with hash [' . $sectorHash . ']');
                 continue;
             }
 
