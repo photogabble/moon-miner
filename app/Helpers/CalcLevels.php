@@ -1,59 +1,50 @@
-<?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: classes/CalcLevels.php
+<?php declare(strict_types=1);
+/**
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
+ *
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-namespace Bnt;
+namespace App\Helpers;
 
 class CalcLevels
 {
-    public static function armor($level_armor, $level_factor)
+    /**
+     * Used for calculating max levels for things such as energy, armor, holds, etc.
+     * In the classic BNT game code the multiplier was 100 for everything but energy
+     * which has a multiplier of 500. Certain ship hulls might provide a bonus to the
+     * multiplier such as granting more energy storage per level.
+     *
+     * @param int $level
+     * @param int $multiplier
+     * @return float
+     */
+    public static function maxLevels(int $level, int $multiplier = 100): float
     {
-        return round(pow($level_factor, $level_armor) * 100);
+        return round(pow(config('game.level_factor'), $level) * $multiplier);
     }
 
-    public static function holds($level_hull, $level_factor)
+    public static function energy(int $level): float
     {
-        return round(pow($level_factor, $level_hull) * 100);
-    }
-
-    public static function shields($level_shields, $level_factor)
-    {
-        return round(pow($level_factor, $level_shields) * 100);
-    }
-
-    public static function torpedoes($level_torp_launchers, $level_factor)
-    {
-        return round(pow($level_factor, $level_torp_launchers) * 100);
-    }
-
-    public static function beams($level_beams, $level_factor)
-    {
-        return round(pow($level_factor, $level_beams) * 100);
-    }
-
-    public static function fighters($level_computer, $level_factor)
-    {
-        return round(pow($level_factor, $level_computer) * 100);
-    }
-
-    public static function energy($level_power, $level_factor)
-    {
-        return round(pow($level_factor, $level_power) * 500);
+        return round(pow(config('game.level_factor'), $level) * 500);
     }
 
     public static function planetBeams($db, $ownerinfo, $base_defense, $planetinfo)
@@ -170,4 +161,3 @@ class CalcLevels
         return $shipavg;
     }
 }
-?>
