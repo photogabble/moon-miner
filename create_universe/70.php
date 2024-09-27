@@ -1,324 +1,119 @@
-<?php
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team.
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-//
-// File: create_universe/70.php
+<?php declare(strict_types=1);
+/**
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
+ *
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-if (strpos($_SERVER['PHP_SELF'], '/70.php')) // Prevent direct access to this file
+
+namespace App\Installer;
+
+use App\Models\System;
+use App\Helpers\Range;
+use App\Types\WaypointType;
+use App\Types\InstallConfig;
+use App\Models\Waypoints\Star;
+use App\Models\Waypoints\Planet;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Console\OutputStyle;
+use Illuminate\Database\Eloquent\Collection;
+
+// 70.php
+
+class CreatePlanets extends Step implements InstallStep
 {
-    die('Blacknova Traders error: You cannot access this file directly.');
-}
-
-// Determine current step, next step, and number of steps
-$create_universe_info = Bnt\BigBang::findStep(__FILE__);
-
-// Set variables
-$variables['templateset']            = $bntreg->default_template;
-$variables['body_class']             = 'create_universe';
-$variables['steps']                  = $create_universe_info['steps'];
-$variables['current_step']           = $create_universe_info['current_step'];
-$variables['next_step']              = $create_universe_info['next_step'];
-$variables['sector_max']             = (int) filter_input(INPUT_POST, 'sektors', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
-$variables['spp']                    = filter_input(INPUT_POST, 'spp', FILTER_SANITIZE_NUMBER_INT);
-$variables['oep']                    = filter_input(INPUT_POST, 'oep', FILTER_SANITIZE_NUMBER_INT);
-$variables['ogp']                    = filter_input(INPUT_POST, 'ogp', FILTER_SANITIZE_NUMBER_INT);
-$variables['gop']                    = filter_input(INPUT_POST, 'gop', FILTER_SANITIZE_NUMBER_INT);
-$variables['enp']                    = filter_input(INPUT_POST, 'enp', FILTER_SANITIZE_NUMBER_INT);
-$variables['nump']                   = filter_input(INPUT_POST, 'nump', FILTER_SANITIZE_NUMBER_INT);
-$variables['empty']                  = $variables['sector_max'] - $variables['spp'] - $variables['oep'] - $variables['ogp'] - $variables['gop'] - $variables['enp'];
-$variables['initscommod']            = filter_input(INPUT_POST, 'initscommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$variables['initbcommod']            = filter_input(INPUT_POST, 'initbcommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-$variables['fedsecs']                = filter_input(INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
-$variables['loops']                  = filter_input(INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
-$variables['swordfish']              = filter_input(INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
-$variables['autorun']                = filter_input(INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-$variables['newlang']                = filter_input(INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
-$lang = $_POST['newlang']; // Set the language to the language chosen during create universe
-
-// Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
-
-$p_skip = 0;
-$z = 0;
-
-$local_table_timer = new Bnt\Timer;
-$local_table_timer->start(); // Start benchmarking
-
-// Get the sector id for any sector that allows planets
-$sth = $pdo_db->prepare("SELECT {$pdo_db->prefix}universe.sector_id FROM {$pdo_db->prefix}universe, {$pdo_db->prefix}zones WHERE {$pdo_db->prefix}zones.zone_id={$pdo_db->prefix}universe.zone_id AND {$pdo_db->prefix}zones.allow_planet='Y'");
-$sth->execute();
-
-// Place those id's into an array.
-$open_sectors_result = $sth->fetchAll();
-$catch_results[$z] = Bnt\Db::logDbErrors($pdo_db, $open_sectors_result, __LINE__, __FILE__);
-$z++;
-
-$i = 0;
-foreach ($open_sectors_result as $element)
-{
-    $open_sectors_array[$i] = $element['sector_id']; // Lets trim that 2d array down to a single array
-    $i++;
-}
-unset($open_sectors_result); // Clear that 2d array
-
-shuffle($open_sectors_array); // Internally, shuffle uses rand() so it isn't ideally random, but good enough for now
-
-// Prep the beginning of the insert SQL call
-$p_add = 0;
-$planet_insert_sql = "INSERT INTO {$pdo_db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $bntreg->default_prod_ore, $bntreg->default_prod_organics, $bntreg->default_prod_goods, $bntreg->default_prod_energy, $bntreg->default_prod_fighters, $bntreg->default_prod_torp, $open_sectors_array[$p_add])";
-$p_add++;
-do
-{
-    if (($p_add > 1) && ($p_add < $variables['nump'])) // Skip the first one as we already did it during the prep of the insert call.
+    public function execute(OutputStyle $output, InstallConfig $config): int
     {
-        $add_more = Bnt\Rand::betterRand(1, $bntreg->max_planets_sector); // Add one to a random number of planets in each sector
-        if (($add_more + $p_add) > $variables['nump']) // Ensure that we don't add more than the total amount needed
-        {
-            $add_more = $variables['nump'] - $p_add; // Lower the number to add to the amount that is left
+        $this->timer->start();
+
+        // Get the sectors belonging to zones that allows planets
+        /** @var System[]|Collection<System> $sectors */
+        $sectors = System::query()
+            ->inRandomOrder()
+            ->join('zones', 'zone_id', '=', 'zones.id')
+            ->where('zones.allow_planet', true)
+            ->select('systems.*')
+            ->get();
+
+        $output->writeln($sectors->count() . ' sectors');
+
+        $added = 0;
+        $populatedSectors = 0;
+        $default_prod_ore = config('game.default_prod_ore');
+        $default_prod_organics = config('game.default_prod_organics');
+        $default_prod_goods = config('game.default_prod_goods');
+        $default_prod_energy = config('game.default_prod_energy');
+        $default_prod_fighters = config('game.default_prod_fighters');
+        $default_prod_torp = config('game.default_prod_torp');
+
+        // Insert all planets within one transaction
+        DB::beginTransaction();
+
+        $angleRange = new Range((12 * pi()) / 6, 2 * pi());
+
+        while ($added < $config->unownedPlanets) {
+            /** @var System $sector */
+            if (!$sector = $sectors->pop()) break; // Run out of sectors... this shouldn't happen but this break stops the infinite loop
+
+            $adding = random_int(1, config('game.max_planets_sector'));
+
+            // Ensure we don't add more than the total amount needed, if we are on the last loop, add enough
+            // to complete the list.
+            if ($adding + $added > $config->unownedPlanets) $adding = $config->unownedPlanets - $added;
+
+            // Systems are generated with a single Waypoint: their Star.
+            // Binary systems may be generated in the future, in which case this will need to be a loop.
+            /** @var Star $star */
+            $star = $sector->waypointsOfType(WaypointType::Star)->first();
+            $orbits = $star->properties->generateOrbits($adding);
+
+            foreach ($orbits as $orbit) {
+                $planet = new Planet();
+                $planet->primary_id = $star->id;
+                $planet->distance = $orbit;
+                $planet->angle = $angleRange->rand();
+                $planet->type = WaypointType::Planet;
+
+                $planet->properties->generate($star, $planet->distance);
+
+                // TODO (#2): rework planet mechanic so that production is based upon available resources and player constructed buildings
+                $planet->prod_ore = $default_prod_ore;
+                $planet->prod_organics = $default_prod_organics;
+                $planet->prod_goods = $default_prod_goods;
+                $planet->prod_energy = $default_prod_energy;
+                $planet->prod_fighters = $default_prod_fighters;
+                $planet->prod_torp = $default_prod_torp;
+
+                $planet->save();
+
+                $added++;
+            }
+
+            $populatedSectors++;
         }
 
-        for ($q=1; $q<=$add_more; $q++)
-        {
-            // Add a line of values for every iteration
-            $planet_insert_sql .= ", (2, 0, 0, $bntreg->default_prod_ore, $bntreg->default_prod_organics, $bntreg->default_prod_goods, $bntreg->default_prod_energy, $bntreg->default_prod_fighters, $bntreg->default_prod_torp, $open_sectors_array[$p_add])";
-            $p_add++;
-        }
-    }
-    else
-    {
-        if ($p_add < $variables['nump'])
-        {
-            // Add a line of values for every iteration - but only one, not random amounts
-            $planet_insert_sql .= ", (2, 0, 0, $bntreg->default_prod_ore, $bntreg->default_prod_organics, $bntreg->default_prod_goods, $bntreg->default_prod_energy, $bntreg->default_prod_fighters, $bntreg->default_prod_torp, $open_sectors_array[$p_add])";
-            $p_add++;
-        }
+        DB::commit();
+
+        $this->logger->info(__('create_universe.l_cu_setup_unowned_planets', ['elapsed' => $this->timer->sample(), 'nump' => $populatedSectors]));
+
+        return 0;
     }
 }
-while ($p_add < $variables['nump']); // Only add as many planets as requested
-
-// Insert all of the planets in one mega sql shot
-$insert = $pdo_db->exec($planet_insert_sql);
-$variables['setup_unowned_results']['result'] = Bnt\Db::logDbErrors($pdo_db, $insert, __LINE__, __FILE__);
-$catch_results[$z] = $variables['setup_unowned_results']['result'];
-$z++;
-
-$local_table_timer->stop();
-$variables['setup_unowned_results']['elapsed'] = $local_table_timer->elapsed();
-$variables['setup_unowned_results']['nump'] = $variables['nump'];
-
-// Adds Sector Size * 2 amount of links to the links table
-// Warning: Do no alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
-
-$loopsize = 500;
-$loops = round($bntreg->sector_max / $loopsize);
-if ($loops <= 0)
-{
-    $loops = 1;
-}
-
-$variables['insert_link_loops'] = $loops;
-
-$finish = $loopsize;
-if ($finish > $bntreg->sector_max)
-{
-    $finish = ($bntreg->sector_max);
-}
-
-$start = 1;
-
-for ($i = 1; $i <= $loops; $i++)
-{
-    $local_table_timer->start(); // Start benchmarking
-    $update = "INSERT INTO {$pdo_db->prefix}links (link_start,link_dest) VALUES ";
-    for ($j = $start; $j <= $finish; $j++)
-    {
-        $k = $j + 1;
-        $update .= "($j,$k), ($k,$j)";
-        if ($j <= ($finish - 1))
-        {
-            $update .= ", ";
-        }
-        else
-        {
-            $update .= ";";
-        }
-    }
-
-    $resx = $pdo_db->exec($update);
-    $variables['insert_loop_sectors_results'][$i]['result'] = Bnt\Db::logDbErrors($pdo_db, $resx, __LINE__, __FILE__);
-    $catch_results[$z] = $variables['insert_loop_sectors_results'][$i]['result'];
-    $z++;
-
-    $local_table_timer->stop();
-    $variables['insert_loop_sectors_result'][$i]['elapsed'] = $local_table_timer->elapsed();
-    $variables['insert_loop_sectors_result'][$i]['loop'] = $i;
-    $variables['insert_loop_sectors_result'][$i]['loops'] = $loops;
-    $variables['insert_loop_sectors_result'][$i]['start'] = $start;
-    $variables['insert_loop_sectors_result'][$i]['finish'] = $finish;
-
-    $start = $finish + 1;
-    $finish += $loopsize;
-    if ($finish > $bntreg->sector_max)
-    {
-        $finish = $bntreg->sector_max;
-    }
-}
-
-// Adds Sector Size amount of links to the links table
-// Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
-
-$loopsize = 500;
-$loops = round($bntreg->sector_max / $loopsize);
-if ($loops <= 0)
-{
-    $loops = 1;
-}
-
-$variables['insert_oneway_loops'] = $loops;
-$finish = $loopsize;
-if ($finish > $bntreg->sector_max)
-{
-    $finish = ($bntreg->sector_max);
-}
-
-$start = 1;
-
-for ($i = 1; $i <= $loops; $i++)
-{
-    $local_table_timer->start(); // Start benchmarking
-    $insert = "INSERT INTO {$pdo_db->prefix}links (link_start,link_dest) VALUES ";
-    for ($j = $start; $j <= $finish; $j++)
-    {
-        $link1 = intval(Bnt\Rand::betterRand(1, $bntreg->sector_max - 1));
-        $link2 = intval(Bnt\Rand::betterRand(1, $bntreg->sector_max - 1));
-        $insert .= "($link1, $link2)";
-        if ($j <= ($finish - 1))
-        {
-            $insert .= ", ";
-        }
-        else
-        {
-            $insert .= ";";
-        }
-    }
-
-    $resx = $pdo_db->exec($insert);
-    $variables['insert_random_oneway_results'][$i]['result'] = Bnt\Db::logDbErrors($pdo_db, $resx, __LINE__, __FILE__);
-    $catch_results[$z] = $variables['insert_random_oneway_results'][$i]['result'];
-    $z++;
-
-    $local_table_timer->stop();
-
-    $variables['insert_random_oneway_result'][$i]['elapsed'] = $local_table_timer->elapsed();
-    $variables['insert_random_oneway_result'][$i]['loop'] = $i;
-    $variables['insert_random_oneway_result'][$i]['loops'] = $loops;
-    $variables['insert_random_oneway_result'][$i]['start'] = $start;
-    $variables['insert_random_oneway_result'][$i]['finish'] = $finish;
-
-    $start = $finish + 1;
-    $finish += $loopsize;
-    if ($finish > $bntreg->sector_max)
-    {
-        $finish = ($bntreg->sector_max);
-    }
-}
-
-// Adds (sector size * 2) amount of links to the links table ##
-// Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
-
-$loopsize = 500;
-$loops = round($bntreg->sector_max / $loopsize);
-if ($loops <= 0)
-{
-    $loops = 1;
-}
-
-$variables['insert_twoway_loops'] = $loops;
-$finish = $loopsize;
-if ($finish > $bntreg->sector_max)
-{
-    $finish = ($bntreg->sector_max);
-}
-
-$start = 1;
-
-for ($i = 1; $i <= $loops; $i++)
-{
-    $local_table_timer->start(); // Start benchmarking
-    $insert = "INSERT INTO {$pdo_db->prefix}links (link_start,link_dest) VALUES ";
-    for ($j = $start; $j <= $finish; $j++)
-    {
-        $link1 = intval(Bnt\Rand::betterRand(1, $bntreg->sector_max - 1));
-        $link2 = intval(Bnt\Rand::betterRand(1, $bntreg->sector_max - 1));
-        $insert .= "($link1, $link2), ($link2, $link1)";
-        if ($j <= ($finish - 1))
-        {
-            $insert .= ", ";
-        }
-        else
-        {
-            $insert .= ";";
-        }
-    }
-
-    $resx = $pdo_db->exec($insert);
-    $variables['insert_random_twoway_results'][$i]['result'] = Bnt\Db::logDbErrors($pdo_db, $resx, __LINE__, __FILE__);
-    $catch_results[$z] = $variables['insert_random_twoway_results'][$i]['result'];
-    $z++;
-
-    $local_table_timer->stop();
-    $variables['insert_random_twoway_result'][$i]['elapsed'] = $local_table_timer->elapsed();
-    $variables['insert_random_twoway_result'][$i]['loop'] = $i;
-    $variables['insert_random_twoway_result'][$i]['loops'] = $loops;
-    $variables['insert_random_twoway_result'][$i]['start'] = $start;
-    $variables['insert_random_twoway_result'][$i]['finish'] = $finish;
-
-    $start = $finish + 1;
-    $finish += $loopsize;
-    if ($finish > $bntreg->sector_max)
-    {
-        $finish = ($bntreg->sector_max);
-    }
-}
-
-$local_table_timer->start(); // Start benchmarking
-$sql = "DELETE FROM {$pdo_db->prefix}links WHERE link_start = :linkstart OR link_dest = :linkdest";
-$stmt = $pdo_db->prepare($sql);
-$stmt->bindParam(':linkstart', $bntreg->sector_max);
-$stmt->bindParam(':linkdest', $bntreg->sector_max);
-$resx = $stmt->execute();
-
-$variables['remove_links_results']['result'] = Bnt\Db::logDbErrors($pdo_db, $resx, __LINE__, __FILE__);
-$catch_results[$z] = $variables['remove_links_results']['result'];
-$z++;
-
-$local_table_timer->stop();
-$variables['remove_links_results']['elapsed'] = $local_table_timer->elapsed();
-
-for ($t = 0; $t < $z; $t++)
-{
-    if ($catch_results[$t] !== true)
-    {
-        $variables['autorun'] = false; // We disable autorun if any errors occur in processing
-    }
-}
-
-$template->addVariables('langvars', $langvars);
-
-// Pull in footer variables from footer_t.php
-include './footer_t.php';
-$template->addVariables('variables', $variables);
-$template->display('templates/classic/create_universe/70.tpl');
-?>
