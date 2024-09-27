@@ -23,7 +23,11 @@
  *
  */
 
+use App\Models\Link;
 use App\Models\Sector;
+use App\Models\System;
+use App\Models\Encounter;
+use Illuminate\Http\Request;
 use App\Models\Waypoints\Star;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -69,7 +73,7 @@ Route::get('/map', function () {
      */
     $rSector = Sector::query()->inRandomOrder()->where('system_count', '>', '4')->first();
 
-    /** @var \App\Models\System $startingSystem */
+    /** @var System $startingSystem */
     $startingSystem = $rSector->systems()->inRandomOrder()->first();
 
     $linkQueue = [];
@@ -136,9 +140,9 @@ Route::get('/map', function () {
 
     /**
      * Draw WarpGates
-     * @var \App\Models\Link[] $links
+     * @var Link[] $links
      */
-    $links = \App\Models\Link::with(['leftSystem', 'rightSystem'])->get();
+    $links = Link::with(['leftSystem', 'rightSystem'])->get();
 
     foreach ($links as $link) {
         $start = $link->leftSystem->toCartesian();
@@ -168,8 +172,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::post('debug/spawn-encounter', function(\Illuminate\Http\Request $request) {
-    $encounter = new \App\Models\Encounters\Dialogue([
+Route::post('debug/spawn-encounter', function(Request $request) {
+    $encounter = new Dialogue([
         'state' => [
             'title' => 'New Spawn ' . App\Models\Encounter::count(),
             'messages' => ['Hello world', 'This is <white>another</white> paragraph...'],
@@ -197,7 +201,7 @@ Route::post('debug/randomise-system', function(Request $request) {
     return redirect()->back();
 })->name('debug.randomise-system');
 
-Route::post('encounter/{encounter}/{action}', function (\App\Models\Encounter $encounter, string $action){
+Route::post('encounter/{encounter}/{action}', function (Encounter $encounter, string $action){
     $encounter->do($action);
     return redirect()->back();
 })->name('encounter.execute');
