@@ -86,6 +86,7 @@ class CreatePlanets extends Step implements InstallStep
 
             foreach ($orbits as $orbit) {
                 $planet = new Planet();
+                $planet->system_id = $star->system_id;
                 $planet->primary_id = $star->id;
                 $planet->distance = $orbit;
                 $planet->angle = $angleRange->rand();
