@@ -85,7 +85,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $dev_minedeflector
  *
  * @property int $owner_id
- * @property-read System $sector
+ * @property-read System $system
  * @property-read User|null $owner
  */
 class Ship extends Model
@@ -130,6 +130,11 @@ class Ship extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function system(): BelongsTo
+    {
+        return $this->belongsTo(System::class, 'system_id');
     }
 
     /**

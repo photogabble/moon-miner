@@ -64,4 +64,9 @@ abstract class ModelProperties implements JsonSerializable
 
         return $json;
     }
+
+    public function toArray(): array
+    {
+        return get_object_vars($this);
+    }
 }
