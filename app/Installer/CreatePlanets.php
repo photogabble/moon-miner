@@ -53,8 +53,6 @@ class CreatePlanets extends Step implements InstallStep
             ->select('systems.*')
             ->get();
 
-        $output->writeln($sectors->count() . ' sectors');
-
         $added = 0;
         $populatedSectors = 0;
         $default_prod_ore = config('game.default_prod_ore');
