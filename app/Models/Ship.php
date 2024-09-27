@@ -25,6 +25,8 @@
 
 namespace App\Models;
 
+use App\Types\Value;
+use App\Helpers\CalcLevels;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -101,4 +103,65 @@ class Ship extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    /**
+     * Refactored from CalcLevels::avgTech
+     * @return float
+     */
+    public function avgTechLevel(): float {
+        $values = array_map(function(string $key){
+            return $this->{$key};
+        }, ['hull', 'engines', 'computer', 'armor', 'shields', 'beams', 'torp_launchers']);
+
+        return array_sum($values) / count($values);
+    }
+
+    /**
+     * Returns the ships integer level based upon its avg tech level.
+     * Refactored from main.php.
+     * @return int
+     */
+    public function level(): int {
+        $avg = $this->avgTechLevel();
+
+        if ($avg < 8) return 0;
+        if ($avg < 12) return 1;
+        if ($avg < 16) return 2;
+        if ($avg < 20) return 3;
+
+        return 4;
+    }
+
+    public function armor(): Value
+    {
+        return new Value($this->armor_pts, CalcLevels::maxLevels($this->armor));
+    }
+
+    public function fighters(): Value
+    {
+        return new Value($this->ship_fighters, CalcLevels::maxLevels($this->computer));
+    }
+
+    public function torpedoes(): Value
+    {
+        return new Value($this->torps, CalcLevels::maxLevels($this->torp_launchers));
+    }
+
+    public function energy(): Value
+    {
+        return new Value($this->ship_energy, CalcLevels::maxLevels($this->power));
+    }
+
+    /**
+     * In the classic game of BNT the ships inventory was managed via various cargo hold
+     * values stored within the ships table. I have chosen to refactor this into a
+     * volumetric inventory system where each commodity has a fixed volume.
+     *
+     * @return void
+     */
+    public function inventory()
+    {
+
+        // TODO
+
+    }
 }
