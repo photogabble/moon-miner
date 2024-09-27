@@ -99,12 +99,12 @@ class CreatePlanets extends Step implements InstallStep
                 $planet->properties->generate($star, $planet->distance);
 
                 // TODO (#2): rework planet mechanic so that production is based upon available resources and player constructed buildings
-                $planet->prod_ore = $default_prod_ore;
-                $planet->prod_organics = $default_prod_organics;
-                $planet->prod_goods = $default_prod_goods;
-                $planet->prod_energy = $default_prod_energy;
-                $planet->prod_fighters = $default_prod_fighters;
-                $planet->prod_torp = $default_prod_torp;
+//                $planet->prod_ore = $default_prod_ore;
+//                $planet->prod_organics = $default_prod_organics;
+//                $planet->prod_goods = $default_prod_goods;
+//                $planet->prod_energy = $default_prod_energy;
+//                $planet->prod_fighters = $default_prod_fighters;
+//                $planet->prod_torp = $default_prod_torp;
 
                 $planet->save();
 
