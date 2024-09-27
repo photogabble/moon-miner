@@ -38,9 +38,9 @@ class CreateZones extends Step implements InstallStep
 
         // Default permission is Allow, only need to set the denies
 
-        // Insert Unchartered Zone
+        // Insert Uncharted Zone
         $zone = new Zone();
-        $zone->name = 'Unchartered space';
+        $zone->name = 'Uncharted space';
         $zone->save();
 
         $this->logger->info(__('create_universe.l_cu_setup_unchartered', ['elapsed' => $this->timer->sample()]));
