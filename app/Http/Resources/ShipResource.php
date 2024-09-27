@@ -71,6 +71,10 @@ class ShipResource extends JsonResource
             // TODO, $this->whenLoaded(System)
             'level' => $shipLv,
 
+            'in_space' => $this->inSpace(),
+            'in_orbit' => $this->inOrbit(),
+            'on_planet' => $this->onPlanet(),
+
             'armor' => [
                 'current' => $this->armor_pts,
                 'max' => CalcLevels::maxLevels($this->armor),

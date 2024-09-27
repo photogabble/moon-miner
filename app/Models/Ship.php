@@ -90,6 +90,35 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Ship extends Model
 {
+
+    /**
+     * Is this ship in space or docked at port, landed on planet, etc.
+     * @return bool
+     */
+    public function inSpace(): bool
+    {
+        return is_null($this->planet_id);
+    }
+
+    public function onPlanet(): bool
+    {
+        return !is_null($this->planet_id) && $this->on_planet === true;
+    }
+
+    public function inOrbit(): bool
+    {
+        return !is_null($this->planet_id) && $this->on_planet === false;
+    }
+
+    /**
+     * @todo future mechanic where players can dock with stations to explore and/or run missions
+     * @return bool
+     */
+    public function isDocked(): bool
+    {
+        return false;
+    }
+
     /**
      * The legacy game code only allowed for players to operate
      * a single ship however, games that BNT where based upon do

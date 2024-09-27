@@ -23,30 +23,33 @@
  *
  */
 
+namespace App\Http\Middleware;
 
-use App\Http\Middleware\IsInSpace;
-use App\Http\Middleware\IsOnPlanet;
-use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Foundation\Configuration\Middleware;
+use Closure;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-return Application::configure(basePath: dirname(__DIR__))
-    ->withRouting(
-        web: __DIR__ . '/../routes/web.php',
-        commands: __DIR__ . '/../routes/console.php',
-        health: '/up',
-    )
-    ->withMiddleware(function (Middleware $middleware) {
-        $middleware->web(append: [
-            \App\Http\Middleware\HandleInertiaRequests::class,
-            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
-        ]);
+class IsOnPlanet
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        /** @var User $user */
+        $user = $request->user();
 
-        $middleware->alias([
-            'is-on-planet' => IsOnPlanet::class,
-            'is-in-space' => IsInSpace::class,
-        ]);
-    })
-    ->withExceptions(function (Exceptions $exceptions) {
-        //
-    })->create();
+        if ($user->ship->onPlanet()) return $next($request);
+        if ($user->ship->inSpace()) redirect()->route('dashboard');
+        if ($user->ship->isDocked()) {
+            // TODO redirect to dock dashboard
+        }
+
+        // TODO, does this need to redirect to an error page?
+        // "You can't do that while not on planet..."
+        return redirect()->back();
+    }
+}
