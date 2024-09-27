@@ -25,11 +25,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class Controller
 {
-    // TODO: maybe only use these in controllers that actually make use of their methods?
     use AuthorizesRequests, ValidatesRequests;
+
+    protected User|null $user = null;
+
+    public function __construct(Request $request) {
+        $this->user = $request->user();
+    }
 }
