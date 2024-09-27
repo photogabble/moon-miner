@@ -25,6 +25,8 @@
 
 namespace App\Listeners;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Types\LogType;
 use App\Models\PlayerLog;
 use Illuminate\Auth\Events\Login;
@@ -36,6 +38,11 @@ class PlayerLogin
      */
     public function handle(Login $event): void
     {
+        /** @var User $user */
+        $user = $event->user;
+        $user->last_login = Carbon::now();
+        $user->save();
+
         PlayerLog::writeLog($event->user->getAuthIdentifier(), LogType::LOG_LOGIN);
     }
 }
