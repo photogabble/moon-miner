@@ -182,6 +182,21 @@ Route::post('debug/spawn-encounter', function(\Illuminate\Http\Request $request)
     return redirect()->back();
 })->name('debug.spawn-encounter');
 
+Route::post('debug/randomise-system', function(Request $request) {
+    /** @var \App\Models\User $user */
+    $user = $request->user();
+
+    $waypoint = \App\Models\Waypoint::query()
+        ->inRandomOrder()
+        ->where('type', '!=', Star::class)
+        ->first();
+
+    $user->ship->system_id = $waypoint->system_id;
+    $user->ship->save();
+
+    return redirect()->back();
+})->name('debug.randomise-system');
+
 Route::post('encounter/{encounter}/{action}', function (\App\Models\Encounter $encounter, string $action){
     $encounter->do($action);
     return redirect()->back();
