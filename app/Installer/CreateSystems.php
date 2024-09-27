@@ -53,6 +53,9 @@ class CreateSystems extends Step implements InstallStep
         $this->timer->start();
 
         $galaxy = app(Galaxy::class);
+        if (!$primeZone = Zone::query()->where('name', 'Uncharted space')->first()) {
+            throw new Exception('Prime Zone not found');
+        }
 
         /** @var []Sector $sectorMap */
         $sectorMap = Sector::all()->reduce(function(array $map, Sector $sector) {
@@ -82,6 +85,7 @@ class CreateSystems extends Step implements InstallStep
             $sector = $sectorMap[$sectorHash];
 
             $system = new System();
+            $system->zone_id = $primeZone->id;
             $system->name = polar_to_name($star->angle, $star->radius) . '-' . strtoupper(dechex($starOrdinal));
             $system->angle = $star->angle;
             $system->distance = $star->radius;
