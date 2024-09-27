@@ -30,6 +30,7 @@ use App\Models\System;
 use App\Helpers\Range;
 use App\Types\WaypointType;
 use App\Types\InstallConfig;
+use App\Types\ZonePermission;
 use App\Models\Waypoints\Star;
 use App\Models\Waypoints\Planet;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,7 @@ class CreatePlanets extends Step implements InstallStep
         $sectors = System::query()
             ->inRandomOrder()
             ->join('zones', 'zone_id', '=', 'zones.id')
-            ->where('zones.allow_planet', true)
+            ->where('zones.allow_planet', ZonePermission::Allow)
             ->select('systems.*')
             ->get();
 
