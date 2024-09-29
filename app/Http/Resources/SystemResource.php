@@ -40,6 +40,7 @@ class SystemResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'sector_id' => $this->sector_id,
 
             // TODO: implement a method of waypoint discovery, player should be able to see
             //       all public waypoints for the system they are currently in but must scan

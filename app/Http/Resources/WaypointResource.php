@@ -43,6 +43,11 @@ class WaypointResource extends JsonResource
             'primary_id' => $this->primary_id,
             'properties' => $this->properties->toArray(),
 
+            // Waypoints can orbit other waypoints, this will normally only be loaded when
+            // viewing a waypoint in detail, for example when viewing a planet.
+            'waypoints' => WaypointResource::collection($this->whenLoaded('orbitals')),
+            'system' => new SystemResource($this->whenLoaded('system')),
+
             // A Waypoints orbit is within context of it's primary. At time of writing all
             // systems will have a single star with a null primary_id, around which planets
             // will orbit, each planet will then have a chance of spawning a station and

@@ -120,6 +120,8 @@ class NaviComController extends Controller
             return redirect()->route('planet.dashboard');
         }
 
+        $planet->load(['orbitals', 'system']);
+
         return Inertia::render('NaviCom/Planet', [
             'planet' => new WaypointResource($planet),
         ]);
