@@ -51,7 +51,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $id
  * @property string $name
- *
+ * @property int $sector_id
  * @property int $zone_id
  * @property float $angle
  * @property float $distance
@@ -106,6 +106,12 @@ class System extends Model implements ToCartesian, Insertable
      */
     public function waypointsOfType(WaypointType $type): Collection
     {
+        if ($this->relationLoaded('waypoints')) {
+            return $this->waypoints->filter(function(Waypoint $waypoint) use ($type) {
+                return $waypoint->type === $type;
+            });
+        }
+
         return $this->waypoints()
             ->where('type', $type)
             ->get();
