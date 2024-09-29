@@ -35,6 +35,7 @@ use App\Installer\CreateSectors;
 use App\Installer\CreateSystems;
 use App\Installer\CreatePlanets;
 use Illuminate\Support\Facades\Log;
+use App\Installer\CreateSystemLinks;
 
 class BigBang extends Command
 {
@@ -57,6 +58,7 @@ class BigBang extends Command
         CreateSectors::class,
         CreateSystems::class, // 65, came from first half of 60.php
         CreatePlanets::class, // 70
+        CreateSystemLinks::class, // 75
     ];
 
     public function __construct(private InstallConfig $installConfig)

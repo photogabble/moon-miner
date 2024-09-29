@@ -40,6 +40,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('left_system_id');
             $table->unsignedBigInteger('right_system_id');
+            $table->string('link_hash')
+                ->unique()
+                ->index();
 
             $table->decimal('distance');
 
