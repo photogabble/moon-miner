@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
+ * @property string $link_hash
  * @property int $left_system_id
  * @property int $right_system_id
  * @property float $distance
@@ -63,11 +64,13 @@ class Link extends Model
         $left->left_system_id = $startId;
         $left->right_system_id = $endId;
         $left->distance = $distance;
+        $left->link_hash = "$startId-$endId";
 
         $right = new Link();
         $right->left_system_id = $endId;
         $right->right_system_id = $startId;
         $right->distance = $distance;
+        $right->link_hash = "$endId-$startId";
 
         return $left->save() && $right->save();
     }
