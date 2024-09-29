@@ -122,4 +122,14 @@ final class Point
     {
         return $this->x === $other->x && $this->y === $other->y;
     }
+
+    /**
+     * Returns the angle between this point and the other.
+     * @param Point $other
+     * @return float
+     */
+    public function angleBetween(Point $other): float
+    {
+        return atan2($this->y - $other->y, $this->x - $other->x);
+    }
 }
