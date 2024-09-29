@@ -24,8 +24,10 @@
  */
 
 use App\Models\Link;
+use App\Models\User;
 use App\Models\Sector;
 use App\Models\System;
+use App\Models\Waypoint;
 use App\Models\Encounter;
 use Illuminate\Http\Request;
 use App\Models\Waypoints\Star;
@@ -33,8 +35,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\NaviComController;
 
-Route::get('/', function () {
+Route::middleware('guest')->get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -187,10 +190,10 @@ Route::post('debug/spawn-encounter', function(Request $request) {
 })->name('debug.spawn-encounter');
 
 Route::post('debug/randomise-system', function(Request $request) {
-    /** @var \App\Models\User $user */
+    /** @var User $user */
     $user = $request->user();
 
-    $waypoint = \App\Models\Waypoint::query()
+    $waypoint = Waypoint::query()
         ->inRandomOrder()
         ->where('type', '!=', Star::class)
         ->first();

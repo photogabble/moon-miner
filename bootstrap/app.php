@@ -42,6 +42,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
+        // Configures guest middleware to redirect those logged in to the navicom
+        // which will, if they are landed on a planet, redirect to the planet page
+        $middleware->redirectUsersTo('/navicom');
+
         $middleware->alias([
             'is-on-planet' => IsOnPlanet::class,
             'is-in-space' => IsInSpace::class,
