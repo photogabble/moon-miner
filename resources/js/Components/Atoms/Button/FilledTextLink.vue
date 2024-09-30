@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<{
 });
 
 const classList = computed(() => {
-    let classes = 'uppercase p-0.5 text-ui-grey-900 disabled:opacity-50';
+    let classes = 'text-xs uppercase p-0.5 text-ui-grey-900 disabled:opacity-50';
 
     if (props.active) {
         return `${classes} bg-ui-orange-500 hover:bg-ui-yellow`;
