@@ -25,13 +25,15 @@
 
 namespace App\Casts;
 
-use App\Models\Properties\StarProperties as StarPropertiesModel;
+use App\Models\Properties\ModelProperties;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
 
 class Properties implements CastsAttributes
 {
     protected string $castsTo;
+
+    protected string $columnName = 'properties';
 
     /**
      * Cast the given value.
@@ -40,16 +42,17 @@ class Properties implements CastsAttributes
      * @param string $key
      * @param mixed $value
      * @param array $attributes
-     * @return StarPropertiesModel
+     * @return ModelProperties
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        $properties = isset($attributes['properties'])
-            ? json_decode($attributes['properties'], true)
+
+        $data = json_decode($value, true);
+        $properties = (json_last_error() === JSON_ERROR_NONE)
+            ? $data
             : [];
 
-        $class = new $this->castsTo($properties);
-        return $class;
+        return new $this->castsTo($properties);
     }
 
     /**
@@ -57,7 +60,7 @@ class Properties implements CastsAttributes
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      * @param string $key
-     * @param StarPropertiesModel $value
+     * @param ModelProperties $value
      * @param array $attributes
      * @return string
      * @throws \JsonException
