@@ -5,6 +5,7 @@ import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { Localisation } from '@/Plugins/localisation';
+import VueSafeTeleport from 'vue-safe-teleport';
 import { ZiggyVue } from 'ziggy-js';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -16,6 +17,7 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(Localisation, Translations)
+            .use(VueSafeTeleport)
             .use(ZiggyVue)
             .mount(el);
     },
