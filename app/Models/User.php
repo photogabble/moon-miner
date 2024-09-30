@@ -27,7 +27,9 @@ namespace App\Models;
 
 use App\Types\UserType;
 use App\Types\WalletType;
+use App\Casts\UserSettings;
 use App\Observers\UserObserver;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -60,13 +62,14 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
  * @property-read Collection<Bounty> $bounties
  * @property-read Collection<Encounter> $encounters
  * @property-read Collection<Wallet>|HasMany $wallets
+ * @property-read Properties\UserSettings $settings
  *
  * @property-read float $efficiency
  */
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, Bannable;
 
     /**
@@ -102,6 +105,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'last_login' => 'datetime',
             'type' => UserType::class,
+            'settings' => UserSettings::class,
         ];
     }
 
