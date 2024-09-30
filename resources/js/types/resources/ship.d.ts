@@ -57,7 +57,7 @@ export interface ShipResource
         torpedoes: CurrentMax,
     };
 
-    sector_id: number;
+    system_id: number;
     system?: SectorResource;
     devices: ShipDevices;
     cargo_holds: ShipCargo;

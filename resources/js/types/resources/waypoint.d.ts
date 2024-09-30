@@ -51,6 +51,7 @@ export type TrackPropertiesOf<T extends WaypointType> =
 
 export interface WaypointResource<T extends WaypointType> {
     id: number
+    system_id: number
     name: string
     type: T
     owner?: Owner
