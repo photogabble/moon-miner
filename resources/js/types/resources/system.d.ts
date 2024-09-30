@@ -3,6 +3,7 @@ import {WaypointResource} from "@/types/resources/waypoint";
 
 export interface SystemResource {
     id: number
+    sector_id: number
     name: string
     waypoints?: Array<WaypointResource>
     zone?: ZoneResource
