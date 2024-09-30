@@ -35,19 +35,16 @@ export type TeamRankingParams = RouteParams & {
     sort_teams_direction?: string;
 }
 
+export type Ranking<T> = {
+    sorts: Array<string>;
+    sorting_by: string;
+    sorting_direction: 'ASC' | 'DESC';
+    ranking: T
+}
+
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-    player: {
-        sorts: Array<string>;
-        sorting_by: string;
-        sorting_direction: 'ASC' | 'DESC';
-        ranking: PaginatedResource<PlayerRankingResource>;
-    },
-    team: {
-        sorts: Array<string>;
-        sorting_by: string;
-        sorting_direction: 'ASC' | 'DESC';
-        ranking: PaginatedResource<TeamRankingResource>;
-    }
+    player: Ranking<PaginatedResource<PlayerRankingResource>>,
+    team: Ranking<PaginatedResource<TeamRankingResource>>
 }
 
 export interface RankingPageProps extends InertiaPageProps, PageProps {
