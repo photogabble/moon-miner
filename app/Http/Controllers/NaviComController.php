@@ -28,6 +28,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\System;
+use Illuminate\Http\Request;
 use App\Models\Waypoints\Planet;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
@@ -66,6 +67,7 @@ class NaviComController extends Controller
 
         $props = [
             'system' => new SystemResource($system ?? $this->user->ship->system),
+            'navicom_view_mode' => $this->user->settings->naviComViewMode,
         ];
 
         // If player is following an autopilot route then waypoints will be set containing the
@@ -73,6 +75,26 @@ class NaviComController extends Controller
         // TODO ^^^ from TKI
 
         return Inertia::render('Dashboard', $props);
+    }
+
+    /**
+     * PATCH: /navicom/set-view-mode
+     *
+     * This sets the players naviComViewMode value and redirects back.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function setViewMode(Request $request): RedirectResponse
+    {
+        $this->validate($request, [
+            'mode' => 'required|in:map,details',
+        ]);
+
+        $this->user->settings->naviComViewMode = $request->input('mode');
+        $this->user->save();
+
+        return redirect()->back();
     }
 
     /**
