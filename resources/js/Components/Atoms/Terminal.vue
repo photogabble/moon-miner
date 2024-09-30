@@ -1,45 +1,53 @@
-const template = document.createElement('template');
-template.innerHTML = `
-    <style>
-        div {
-        font-family: monospace;
-        text-shadow: 0 0.2rem 1rem #58412a;
-      }
+<script setup>
+import {ref, onMounted, onUnmounted} from "vue";
 
-      .carat {
-        animation: crt-carat 1000ms infinite;
-        display: inline-block;
-        height: 3px;
-        width: 10px;
-        margin: 0 4px -2px;
-        background-color: #fb8337;
-      }
+let totalLines = 0;
+let maxLines = 25;
+let lineCount = 0;
+let domElement = ref(null);
+let timeOut;
+let idx = 0;
 
-      @keyframes crt-carat {
-        50% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-    </style>
-    <div id="domElement" aria-hidden="true"/>
-`;
+const addLine = (line) => {
+    totalLines++;
+
+    if (lineCount === maxLines){
+        document.getElementById(`line-${totalLines - maxLines}`).remove();
+    } else {
+        lineCount++;
+    }
+
+    const node = document.createElement("p");
+    node.id = `line-${totalLines}`;
+    node.innerHTML = line;
+    domElement.value.appendChild(node);
+
+    return 'line-' + lineCount;
+}
+
+const clearScreen = () => {
+    domElement.innerHtml = '';
+    lineCount = 0;
+};
 
 let dotsCallback = (endingText) => {
-    return (config, terminal) => {
-        let lineID = terminal.addLine(config.msg);
+    return (config) => {
+        let lineID = addLine(config.msg);
         let dots = ".";
 
         let incrementor = window.setInterval(() => {
-            terminal._shadowRoot.getElementById(lineID).innerHTML = `${config.msg} ${dots}`;
-            if (dots.length >= 3) {
+            const el = document.getElementById(lineID);
+            if (!el) {
+                clearScreen(incrementor);
+                return;
+            }
+
+            el.innerHTML = `${config.msg} ${dots}`;
+            if (dots.length >= 3){
                 clearInterval(incrementor);
-                const el = terminal._shadowRoot.getElementById(lineID);
                 el.innerHTML = `${config.msg} ${dots} ${endingText}`;
                 el.querySelector('strong').innerText = '[OK]';
-                terminal.next();
+                next();
             }
             dots += ".";
         }, 200);
@@ -52,7 +60,7 @@ const sequence = [
         "delay": 500,
     },
     {
-        "msg": "BIOS Date 01/01/2086 16:13:29 Ver: 114.00.09",
+        "msg": "BIOS Date 01/01/2086 16:13:29 Ver: 11.00.09",
         "delay": 0,
     },
     {
@@ -62,17 +70,23 @@ const sequence = [
     {
         "msg": "<strong class=\"selected\">Memory Test:</strong>",
         "delay": 250,
-        "callback": (config, terminal) => {
-            let lineID = terminal.addLine(config.msg);
+        "callback": (config) => {
+            let lineID = addLine(config.msg);
             let counter = 0;
             let incrementor = window.setInterval(() => {
-                terminal._shadowRoot.getElementById(lineID).innerHTML = `${config.msg} ${counter} K`;
+                const el = document.getElementById(lineID);
+                if (!el) {
+                    clearInterval(incrementor);
+                    return;
+                }
+
+                el.innerHTML = `${config.msg} ${counter} K`;
 
                 counter++;
                 if (counter === 640) {
                     clearInterval(incrementor)
-                    terminal._shadowRoot.getElementById(lineID).innerHTML = `${config.msg} ${counter} K OK`;
-                    terminal.next();
+                    el.innerHTML = `${config.msg} ${counter} K OK`;
+                    next();
                 }
             }, 10);
         }
@@ -87,12 +101,12 @@ const sequence = [
         "msg": "Starting ColonyOS v1.03",
     },
     {
-        "delay": (200 * 3),
+        "delay": (200*3),
         "msg": "<strong>[...]</strong> Waiting for /dev to be fully populated",
         "callback": dotsCallback("done")
     },
     {
-        "delay": (200 * 3),
+        "delay": (200*3),
         "msg": "<strong>[...]</strong> Detecting Network",
         "callback": dotsCallback("found")
     },
@@ -109,7 +123,7 @@ const sequence = [
         "msg": "<strong class=\"selected\">[OK]</strong> Identifying Lama Farmers"
     },
     {
-        delay: (200 * 3),
+        delay: (200*3),
         msg: "<strong>[...]</strong> Finding GOATs:",
         "callback": dotsCallback("found")
     },
@@ -176,7 +190,7 @@ const sequence = [
         "delay": 250,
     },
     {
-        "msg": "- REDIS&nbsp;&nbsp;: Proprietary Storage Automation",
+        "msg": "- REDIS&nbsp;&nbsp;: Storage Automation",
         "delay": 250,
     },
     {},
@@ -188,72 +202,66 @@ const sequence = [
 const defaultSequence = {
     "msg": "&nbsp;",
     "delay": 1000,
-    "callback": (config, terminal) => {
-        terminal.addLine(config.msg);
-        terminal.next();
+    "callback": (config) => {
+        addLine(config.msg);
+        next();
     },
 };
 
-export class Terminal extends HTMLElement {
+const run = () => {
+    const current = sequence[idx];
+    if (!current) return;
 
-    constructor() {
-        super();
+    let config = {
+        "msg": current.msg || defaultSequence.msg,
+        "delay": current.delay || defaultSequence.delay,
+        "callback": current.callback || defaultSequence.callback,
+    };
 
-        this._shadowRoot = this.attachShadow({'mode': 'open'});
-        this._shadowRoot.appendChild(template.content.cloneNode(true));
-
-        this.totalLines = 0;
-        this.maxLines = 25;
-        this.lineCount = 0;
-
-        this.timeOut = undefined;
-        this.idx = 0;
+    try {
+        timeOut = window.setTimeout(config.callback, config.delay, config);
+    } catch (e) {
+        return false;
     }
+};
 
-    connectedCallback() {
-        this.run();
+const next = () => {
+    idx++;
+    run();
+}
+
+onMounted(() => {
+    domElement.value.innerHTML = '';
+    run();
+});
+
+onUnmounted(() => window.clearTimeout(timeOut))
+</script>
+
+<template>
+    <div class="font-mono" ref="domElement" aria-hidden="true"/>
+</template>
+
+<style lang="postcss" scoped>
+div {
+    text-shadow: 0 0.2rem 1rem #58412a;
+}
+
+.carat {
+    animation: crt-carat 1000ms infinite;
+    display: inline-block;
+    height: 3px;
+    width: 10px;
+    margin: 0 4px -2px;
+    background-color: #fb8337;
+}
+
+@keyframes crt-carat {
+    50% {
+        opacity: 0;
     }
-
-    disconnectedCallback() {
-        if (this.timeOut) clearTimeout(this.timeOut);
-    }
-
-    run() {
-        const current = sequence[this.idx];
-        if (!current) return;
-
-        let config = {
-            "msg": current.msg || defaultSequence.msg,
-            "delay": current.delay || defaultSequence.delay,
-            "callback": current.callback || defaultSequence.callback,
-        };
-
-        try {
-            this.timeOut = window.setTimeout(config.callback, config.delay, config, this);
-        } catch (e) {
-            //
-        }
-    }
-
-    next() {
-        this.idx++;
-        this.run();
-    }
-
-    addLine(line) {
-        this.totalLines++;
-
-        if (this.lineCount === this.maxLines) {
-            this._shadowRoot.getElementById(`line-${this.totalLines - this.maxLines}`).remove();
-        } else {
-            this.lineCount++;
-        }
-
-        const node = document.createElement("p");
-        node.id = `line-${this.totalLines}`;
-        node.innerHTML = line;
-        this._shadowRoot.appendChild(node);
-
-        return 'line-' + this.lineCount;
+    100% {
+        opacity: 1;
     }
 }
+</style>
