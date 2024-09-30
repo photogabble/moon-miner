@@ -53,7 +53,7 @@ final class CelestialProperties extends ModelProperties
     public string $pressure; // Very low, low, medium, high, very high ???
     public int $radius; // km
     public float $surfaceGravity; // m/s²
-    public float $temperature; // K
+    public float $temperatureK; // K
 
     public function fill(array $attributes = []): void
     {
@@ -67,7 +67,7 @@ final class CelestialProperties extends ModelProperties
         $this->pressure = $attributes['pressure'] ?? 'Unknown';
         $this->radius = $attributes['radius'] ?? 0;
         $this->surfaceGravity = $attributes['surfaceGravity'] ?? 0.0;
-        $this->temperature = $attributes['temperature'] ?? 0.0;
+        $this->temperatureK = $attributes['temperatureK'] ?? 0.0;
     }
 
     /**
