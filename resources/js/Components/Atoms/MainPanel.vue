@@ -26,7 +26,7 @@
 import {computed, useSlots} from "vue";
 
 withDefaults(defineProps<{
-    centered: boolean
+    centered?: boolean
 }>(), {
     centered: false,
 });

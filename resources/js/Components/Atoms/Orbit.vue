@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import type {WaypointResource} from "@/types/resources/waypoint";
+import type {WaypointResource, WaypointType} from "@/types/resources/waypoint";
 
 const props = withDefaults(defineProps<{
-    waypoint: WaypointResource
+    waypoint: WaypointResource<WaypointType>
     name: string,
     planetRadius: number,
     radius: number,
     angle: number,
-    selected: boolean,
+    selected?: boolean,
 }>(), {
     selected: false,
 });

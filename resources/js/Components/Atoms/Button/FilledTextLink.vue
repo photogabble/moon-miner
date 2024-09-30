@@ -27,10 +27,10 @@ import {Link as InertiaLink} from "@inertiajs/vue3";
 import {computed} from "vue";
 
 const props = withDefaults(defineProps<{
-    disabled: boolean,
-    active: boolean,
+    disabled?: boolean,
+    active?: boolean,
     href: string,
-    method: 'get' | 'post' | 'put' | 'patch' | 'delete',
+    method?: 'get' | 'post' | 'put' | 'patch' | 'delete',
     data?: object,
 }>(), {
     method: 'get',
