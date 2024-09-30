@@ -195,7 +195,7 @@ Route::post('debug/randomise-system', function(Request $request) {
 
     $waypoint = Waypoint::query()
         ->inRandomOrder()
-        ->where('type', '!=', Star::class)
+        ->whereNotIn('type', [Star::class, WarpGate::class])
         ->first();
 
     $user->ship->system_id = $waypoint->system_id;
