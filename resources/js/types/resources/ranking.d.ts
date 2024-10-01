@@ -4,13 +4,13 @@ import type {RouteParams} from "ziggy-js";
 
 export interface PlayerRankingResource {
     name: string;
+    is_player: boolean;
+    is_admin: boolean;
+    rank: number;
     insignia: string;
     turns_used: number;
     score: number;
-    last_login: {
-        nice: string,
-        unix: number,
-    };
+    last_active: string;
     rating: number;
     efficiency: number;
     team: any; // todo TeamResource
