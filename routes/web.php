@@ -209,4 +209,6 @@ Route::post('encounter/{encounter}/{action}', function (Encounter $encounter, st
     return redirect()->back();
 })->name('encounter.execute');
 
+Route::get('ranking', [\App\Http\Controllers\RankingController::class, 'index'])->name('ranking');
+
 require __DIR__.'/auth.php';
