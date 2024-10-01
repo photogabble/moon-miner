@@ -23,32 +23,34 @@
  *
  */
 
-namespace App\View\Components;
+namespace App\Http\Requests;
 
-use App\Models\User;
 use App\Models\Team;
-use App\Types\Sorting;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Illuminate\View\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\In;
+use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Resources\TeamRankingResource;
 
-class TeamRanking extends Component
+class TeamRankingRequest extends FormRequest
 {
-    public function __construct(private readonly Request $request) {
-        //
+
+    private array $availableTeamSorts = ['score', 'members', 'login', 'good', 'evil', 'efficiency'];
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'sort_team_by' => ['sometimes', new In($this->availableTeamSorts)],
+            'sort_team_direction' => ['sometimes', new In(['asc', 'desc'])],
+        ];
     }
 
-    public function render(): View
+    public function fetch(): array
     {
-        $availableTeamSorts = ['score', 'members', 'login', 'good', 'evil', 'efficiency'];
-
-        $this->request->validate([
-            'sort_team_by' => ['sometimes', new In($availableTeamSorts)],
-            'sort_team_direction' => ['sometimes', new In(['asc', 'desc'])],
-        ]);
-
         $efficiencyPartial = DB::connection()->getDriverName() === 'sqlite'
             ? DB::raw('IIF (SUM(users.turns_used) < 150, 0, ROUND(SUM(users.score)/SUM(users.turns_used))) as efficiency')
             : DB::raw('IF (SUM(users.turns_used) < 150, 0, ROUND(SUM(users.score)/SUM(users.turns_used))) as efficiency');
@@ -65,9 +67,9 @@ class TeamRanking extends Component
                 $efficiencyPartial
             );
 
-        $sortTeamDirection = strtoupper($this->request->get('sort_teams_direction', 'DESC'));
+        $sortTeamDirection = strtoupper($this->get('sort_teams_direction', 'DESC'));
 
-        switch($this->request->get('sort_teams_by')) {
+        switch($this->get('sort_teams_by')) {
             case 'turns':
                 $teamRankingQuery
                     ->orderBy('turns_used_sum', $sortTeamDirection)
@@ -98,10 +100,11 @@ class TeamRanking extends Component
                     ->orderBy('name', 'ASC');
         }
 
-        return view('components.ranking.team', [
-            'sortingBy' => $this->request->get('sort_teams_by', 'score'),
-            'direction' => Sorting::from($this->request->get('sort_teams_direction', 'desc')),
-            'teams' => $teamRankingQuery->paginate(25, ['*'], 'team_page')->withQueryString(),
-        ]);
+        return [
+            'sorts' => $this->availableTeamSorts,
+            'sorting_by' => $this->get('sort_teams_by', 'score'),
+            'sorting_direction' => $sortTeamDirection, //Sorting::from($this->request->get('sort_teams_direction', 'desc')),
+            'ranking' => TeamRankingResource::collection($teamRankingQuery->paginate(25, ['*'], 'team_page')->withQueryString())
+        ];
     }
 }

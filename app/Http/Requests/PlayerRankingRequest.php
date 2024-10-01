@@ -23,31 +23,36 @@
  *
  */
 
-namespace App\View\Components;
+namespace App\Http\Requests;
 
 use App\Models\User;
-use App\Types\Sorting;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Illuminate\View\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\In;
+use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Resources\PlayerRankingResource;
 
-class PlayerRanking extends Component
+class PlayerRankingRequest extends FormRequest
 {
-    public function __construct(private readonly Request $request) {
-        //
+
+    private array $availablePlayerSorts = ['score', 'turns', 'login', 'good', 'evil', 'efficiency'];
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            [
+                'sort_players_by' => ['sometimes', new In($this->availablePlayerSorts)],
+                'sort_players_direction' => ['sometimes', new In(['asc', 'desc'])],
+            ]
+        ];
     }
 
-    public function render(): View
+    public function fetch(): array
     {
-        $availablePlayerSorts = ['score', 'turns', 'login', 'good', 'evil', 'efficiency'];
-
-        $this->request->validate([
-            'sort_players_by' => ['sometimes', new In($availablePlayerSorts)],
-            'sort_players_direction' => ['sometimes', new In(['asc', 'desc'])],
-        ]);
-
         $efficiencyPartial = DB::connection()->getDriverName() === 'sqlite'
             ? DB::raw('IIF (turns_used < 150, 0, ROUND(users.score/turns_used)) as efficiency')
             : DB::raw('IF (turns_used < 150, 0, ROUND(users.score/turns_used)) as efficiency');
@@ -55,6 +60,7 @@ class PlayerRanking extends Component
         $playerRankingQuery = User::query()
             //->where('turns_used', '>', 0)
             ->select([
+                'id',
                 'name',
                 'type',
                 'turns_used',
@@ -65,9 +71,9 @@ class PlayerRanking extends Component
                 $efficiencyPartial
             ]);
 
-        $sortPlayerDirection = strtoupper($this->request->get('sort_players_direction', 'DESC'));
+        $sortPlayerDirection = strtoupper($this->get('sort_players_direction', 'DESC'));
 
-        switch($this->request->get('sort_players_by')) {
+        switch($this->get('sort_players_by')) {
             case 'turns':
                 $playerRankingQuery
                     ->orderBy('turns_used', $sortPlayerDirection)
@@ -98,10 +104,11 @@ class PlayerRanking extends Component
                     ->orderBy('name', 'ASC');
         }
 
-        return view('components.ranking.player', [
-            'sortingBy' => $this->request->get('sort_players_by', 'score'),
-            'direction' => Sorting::from($this->request->get('sort_players_direction', 'desc')),
-            'players' => $playerRankingQuery->paginate(25, ['*'], 'player_page')->withQueryString(),
-        ]);
+        return [
+            'sorts' => $this->availablePlayerSorts,
+            'sorting_by' => $this->get('sort_players_by', 'score'),
+            'sorting_direction' => $sortPlayerDirection, //Sorting::from($this->request->get('sort_players_direction', 'desc')),
+            'ranking' => PlayerRankingResource::collection($playerRankingQuery->paginate(25, ['*'], 'player_page')->withQueryString()),
+        ];
     }
 }
