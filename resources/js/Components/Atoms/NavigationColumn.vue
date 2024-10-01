@@ -43,7 +43,7 @@ const {openModal: openProfilePanel} = useModal('profile');
 const {openModal: openHelpPanel} = useModal('help');
 
 withDefaults(defineProps<{
-    isLoggedIn: boolean;
+    isLoggedIn?: boolean;
 }>(), {
     isLoggedIn: false,
 });
