@@ -1,33 +1,56 @@
-<?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: sched_turns.php
+<?php declare(strict_types=1);
+/**
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
+ *
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-if (strpos($_SERVER['PHP_SELF'], 'sched_turns.php')) // Prevent direct access to this file
+namespace App\Jobs;
+
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
+final class TurnsScheduler extends ScheduledTask
 {
-    die('Blacknova Traders error: You cannot access this file directly.');
-}
+    public function periodMinutes(): int
+    {
+        return 2;
+    }
 
-echo "<strong>TURNS</strong><br><br>";
-echo "Adding turns...";
-$resa = $db->Execute("UPDATE {$db->prefix}ships SET turns = LEAST (turns + ($bntreg->turns_per_tick * $multiplier), $bntreg->max_turns) WHERE turns < $bntreg->max_turns");
-//$resa = $db->Execute("UPDATE {$db->prefix}ships SET turns = LEAST (turns + (? * ?), ?) WHERE turns < ?", array($bntreg->turns_per_tick, $multiplier, $bntreg->max_turns, $bntreg->max_turns));
-$debug = Bnt\Db::logDbErrors($db, $resa, __LINE__, __FILE__);
-is_query_ok($db, $debug);
-echo "<br>";
-$multiplier = 0;
-?>
+    public function maxCatchup(): int
+    {
+        return 1;
+    }
+
+    protected function run(): void
+    {
+        Log::info(__('scheduler.l_sched_turns_title'));
+
+        User::query()
+            ->where('turns', '<', config('game.max_turns'))
+            ->update([
+                'turns' => DB::connection()->getDriverName() === 'sqlite'
+                    ? DB::raw('MIN(turns + '. config('game.turns_per_tick') .', '.config('game.max_turns').')')
+                    : DB::raw('LEAST(turns + '. config('game.turns_per_tick') .', '.config('game.max_turns').')')
+            ]);
+    }
+}
