@@ -49,9 +49,9 @@ abstract class ScheduledTask implements ShouldQueue
         );
 
         if ($this->schedule->wasRecentlyCreated === false) {
-            $diff = Carbon::now()->floatDiffInSeconds($this->schedule->next_run_after);
+            $diff = Carbon::now()->diffInSeconds($this->schedule->next_run_afterm, true);
 
-            if ($this->schedule->next_run_after->isPast()) {
+            if (isset($this->schedule->next_run_after) && $this->schedule->next_run_after->isPast()) {
                 // If running very late, alert.
                 if ($diff > $this->periodSeconds() * 2) $this->alert();
 
