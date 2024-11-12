@@ -25,7 +25,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\System;
 use App\Models\Waypoint;
+use App\Types\WaypointType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -36,12 +38,18 @@ class WaypointResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $properties = $this->properties->toArray();
+
+        if ($this->type === WaypointType::WarpGate && isset($this->properties->destination_system_id) && $dest = System::find($this->properties->destination_system_id)) {
+            $properties['destination_system_name'] = $dest->name;
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'type' => basename(str_replace('\\', '/', $this->type->value)),
             'primary_id' => $this->primary_id,
-            'properties' => $this->properties->toArray(),
+            'properties' => $properties,
 
             // Waypoints can orbit other waypoints, this will normally only be loaded when
             // viewing a waypoint in detail, for example when viewing a planet.
