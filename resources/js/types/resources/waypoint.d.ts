@@ -3,7 +3,9 @@ import {SystemResource} from "@/types/resources/system";
 
 export enum WaypointType {
     Star = 'Star',
-    Planet = 'Planet'
+    Planet = 'Planet',
+    Port = 'Port',
+    WarpGate = 'WarpGate'
 }
 export enum SpectralType {
     O = 'O',
