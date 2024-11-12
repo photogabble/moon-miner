@@ -60,7 +60,7 @@ abstract class ScheduledTask implements ShouldQueue
             }
         }
 
-        $runs = ($this->maxCatchup() >= 0)
+        $runs = ($this->multiplier > 1 && $this->maxCatchup() >= 0)
             ? $this->maxCatchup()
             : floor($this->multiplier);
 
