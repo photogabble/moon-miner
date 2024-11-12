@@ -38,10 +38,15 @@ class EncounterResource extends JsonResource
     {
         $options = $this->options();
 
+        $state = $this->state;
+        if (!isset($state['title']) && $title = $this->getTitle()) {
+            $state['title'] = $title;
+        }
+
         return [
             'id' => $this->id,
             'type' => basename(str_replace('\\', '/', $this->type->value)),
-            ...$this->state,
+            ...$state,
             'options' => array_reduce(array_keys($options), function($carry, $key) use ($options) {
                 $option = $options[$key];
                 $carry[$key] = [

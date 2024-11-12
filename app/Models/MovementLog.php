@@ -36,8 +36,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int|null $previous_id
  * @property Carbon $created_at
- * @property int $sector_id
- * @property string $mode
+ * @property int $system_id
+ * @property MovementMode $mode
  * @property-read System $sector
  * @property-read MovementLog $previous
  * @property-read Encounter|null $encounter
@@ -45,7 +45,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MovementLog extends Model
 {
     protected $fillable = [
-        'previous_id', 'user_id', 'sector_id', 'turns_used', 'energy_scooped', 'mode'
+        'previous_id', 'user_id', 'system_id', 'turns_used', 'energy_scooped', 'mode'
     ];
 
     protected $casts = [
@@ -67,12 +67,12 @@ class MovementLog extends Model
         return $this->belongsTo(MovementLog::class, 'previous_id');
     }
 
-    public static function writeLog(int $user_id, int $sector_id, MovementMode $mode = MovementMode::RealSpace, int $turnsUsed = 0, int $energyScooped = 0): MovementLog
+    public static function writeLog(int $userId, int $systemId, MovementMode $mode = MovementMode::RealSpace, int $turnsUsed = 0, int $energyScooped = 0): MovementLog
     {
         /** @var MovementLog|null $previous */
         $previous = static::query()
             ->select('id')
-            ->where('user_id', $user_id)
+            ->where('user_id', $userId)
             ->orderBy('id', 'DESC')
             ->first();
 
@@ -81,15 +81,15 @@ class MovementLog extends Model
         $movement = static::query()
             ->create([
                 'previous_id' => $previous,
-                'user_id' => $user_id,
-                'sector_id' => $sector_id,
+                'user_id' => $userId,
+                'system_id' => $systemId,
                 'mode' => $mode,
                 'turns_used' => $turnsUsed,
                 'energy_scooped' => $energyScooped,
             ]);
 
         // Clear Response cache for map pages
-        Cache::tags('galaxy-' . $user_id)->flush();
+        if (Cache::supportsTags()) Cache::tags('galaxy-' . $userId)->flush();
 
         return $movement;
     }

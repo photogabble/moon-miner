@@ -28,6 +28,7 @@ namespace App\Models\Encounters;
 use App\Models\Encounter;
 use Parental\HasParent;
 use Illuminate\View\View;
+use App\Types\MovementMode;
 use App\Actions\Encounters\Complete;
 
 final class Navigation extends Encounter
@@ -42,6 +43,23 @@ final class Navigation extends Encounter
                 'text' => 'OK',
             ]
         ];
+    }
+
+    public function getTitle(): ?string
+    {
+        if ($this->movement->mode === MovementMode::Warp){
+            return 'Warp Jump Successful';
+        }
+
+        if ($this->movement->mode === MovementMode::RealSpace){
+            return 'Real Space Move Complete';
+        }
+
+        if ($this->movement->mode === MovementMode::Towed){
+            return 'You were towed out of system';
+        }
+
+        return 'Navigation Report';
     }
 
     public function render(): ?View

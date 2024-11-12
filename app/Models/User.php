@@ -63,6 +63,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
  * @property-read Collection<Encounter> $encounters
  * @property-read Collection<Wallet>|HasMany $wallets
  * @property-read Properties\UserSettings $settings
+ * @property-read Encounter|null $currentEncounter
  *
  * @property-read float $efficiency
  */
@@ -218,6 +219,19 @@ class User extends Authenticatable
         if ($this->last_login->isYesterday()) return 'yesterday';
 
         return $this->last_login->ago();
+    }
+
+    /**
+     * Consume turns
+     *
+     * @param int $amount
+     * @return void
+     */
+    public function spendTurns(int $amount): void
+    {
+        $amount = $this->turns >= $amount ? $amount : $this->turns;
+        $this->decrement('turns', $amount);
+        $this->increment('turns_used', $amount);
     }
 
     /**

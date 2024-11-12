@@ -25,8 +25,12 @@
 
 namespace App\Models;
 
+use Exception;
 use App\Types\Value;
 use App\Helpers\CalcLevels;
+use App\Types\MovementMode;
+use App\Models\MovementLog;
+use App\Types\EncounterType;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -197,5 +201,67 @@ class Ship extends Model
 
         // TODO
 
+    }
+
+    /**
+     * Moving the ship, does just that, with no checks to see if the ship can
+     * travel there under its own power. To be used for spawning and towing.
+     *
+     * @param int $systemId
+     * @param MovementMode $mode
+     * @return MovementLog
+     */
+    public function moveTo(int $systemId, MovementMode $mode): MovementLog
+    {
+        return MovementLog::writeLog($this->owner_id, $systemId, $mode);
+    }
+
+    /**
+     * This function handles moving the player between sectors, it returns a movement log which
+     * can contain events that have happened during travel.
+     *
+     * @param int $systemId
+     * @param MovementMode $mode
+     * @param int $turnsUsed
+     * @param int $energyScooped
+     * @return MovementLog
+     * @throws Exception
+     */
+    public function travelTo(int $systemId, MovementMode $mode, int $turnsUsed, int $energyScooped = 0): MovementLog
+    {
+        $this->owner->spendTurns($turnsUsed);
+
+        // TODO: travelling should cost some energy
+        if ($energyScooped > 0) $this->increment('ship_energy', $energyScooped);
+
+        $movement = MovementLog::writeLog($this->owner_id, $systemId, $mode, $turnsUsed, $energyScooped);
+        $this->system_id = $systemId;
+        $this->save();
+
+        // TODO fighters encounter (check_fighters.php)
+        // TODO mines encounter (check_mines.php)
+        // TODO random encounters
+
+        $movement->encounter()->save(new Encounter([
+            'system_id' => $systemId,
+            'user_id' => $this->owner_id,
+            'type' => EncounterType::Navigation,
+            'state' => [
+                'energy_scooped' => $energyScooped,
+                'turns_used' => $turnsUsed,
+            ],
+        ]));
+
+        return $movement;
+    }
+
+    /**
+     * Added so that different ship classes can cost different amount of turns for travel.
+     * @todo make warp travel cost differently depending upon ship class
+     * @return int
+     */
+    public function warpTravelTurnCost(): int
+    {
+        return 1;
     }
 }
