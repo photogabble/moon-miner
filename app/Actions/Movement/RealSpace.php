@@ -66,7 +66,7 @@ else
         // <input type='submit' value='Compute'>
         // </form>
 
-        echo "<form accept-charset='utf-8' action='rsmove.php' method='post'>\n";
+        echo "<form accept-charset='utf-8' action='RealSpace.php' method='post'>\n";
         $langvars['l_rs_insector'] = str_replace("[sector]", $playerinfo['sector'], $langvars['l_rs_insector']);
         $langvars['l_rs_insector'] = str_replace("[sector_max]", $bntreg->sector_max - 1, $langvars['l_rs_insector']);
         echo $langvars['l_rs_insector'] . "<br><br>\n";
