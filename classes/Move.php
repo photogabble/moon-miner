@@ -29,42 +29,35 @@ use App\Helpers\CalcLevels;
 
 class Move
 {
-    public static function calcFuelScooped($playerinfo, $distance, $triptime, $bntreg)
+    public static function calcFuelScooped(\App\Models\Ship $ship, $distance, int $triptime) : int
     {
         // Check if we have a fuel scoop
-        if ($playerinfo['dev_fuelscoop'] == 'Y')
-        {
+        if ($ship->dev_fuelscoop) {
             // We have a fuel scoop, now calculate the amount of energy scooped.
-            $energyscooped = $distance * 100;
-        }
-        else
-        {
+            $energyScooped = $distance * 100;
+        } else {
             // Nope, the FuelScoop won't be installed until next Tuesday (Star Trek quote) :P
-            $energyscooped = 0;
+            $energyScooped = 0;
         }
 
         // Seems this will never happen ?
-        if ($playerinfo['dev_fuelscoop'] == 'Y' && $energyscooped == 0 && $triptime == 1)
-        {
-            $energyscooped = 100;
+        if ($ship->dev_fuelscoop && $energyScooped == 0 && $triptime == 1) {
+            $energyScooped = 100;
         }
 
         // Calculate the free power for the ship.
-        $free_power = CalcLevels::energy($playerinfo['power'], $bntreg->level_factor) - $playerinfo['ship_energy'];
-        if ($free_power < $energyscooped)
-        {
+        $freePower = CalcLevels::energy($ship->power) - $ship->ship_energy;
+        if ($freePower < $energyScooped) {
             // Limit the energy scooped to the maximum free power available.
-            $energyscooped = $free_power;
+            $energyScooped = $freePower;
         }
 
         // Not too sure what this line is doing, may need to add debugging code.
         // Could be checking for a negitive scoop value.
-        if ($energyscooped < 1)
-        {
-            $energyscooped = 0;
+        if ($energyScooped < 1) {
+            $energyScooped = 0;
         }
 
-        return $energyscooped;
+        return (int) $energyScooped;
     }
 }
-?>
