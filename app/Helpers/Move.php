@@ -23,13 +23,13 @@
  *
  */
 
-namespace Bnt;
+namespace App\Helpers;
 
-use App\Helpers\CalcLevels;
+use App\Models\Ship;
 
 class Move
 {
-    public static function calcFuelScooped(\App\Models\Ship $ship, $distance, int $triptime) : int
+    public static function calcFuelScooped(Ship $ship, $distance, int $tripTime) : int
     {
         // Check if we have a fuel scoop
         if ($ship->dev_fuelscoop) {
@@ -41,7 +41,7 @@ class Move
         }
 
         // Seems this will never happen ?
-        if ($ship->dev_fuelscoop && $energyScooped == 0 && $triptime == 1) {
+        if ($ship->dev_fuelscoop && $energyScooped == 0 && $tripTime == 1) {
             $energyScooped = 100;
         }
 
