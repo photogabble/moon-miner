@@ -169,47 +169,6 @@ class System extends Model implements ToCartesian, Insertable
     }
 
     /**
-     * This functionality was refactored from rsmove.php, which was also
-     * similar or the same as classes/Realspace.php.
-     * @param Ship $ship
-     * @param \Tki\Models\System $destination
-     * @return array
-     */
-    public function calculateRealSpaceMove(Ship $ship, System $destination): array
-    {
-        if ($destination->id === $ship->sector_id) {
-            return [
-                'turns' => 0,
-                'energyScooped' => 0,
-            ];
-        }
-
-        // Calculate the distance.
-        $deg = pi() / 180;
-        $sa1 = $this->angle1 * $deg;
-        $sa2 = $this->angle2 * $deg;
-        $fa1 = $destination->angle1 * $deg;
-        $fa2 = $destination->angle2 * $deg;
-
-        $xx = ($this->distance * sin($sa1) * cos($sa2)) - ($destination->distance * sin($fa1) * cos($fa2));
-        $yy = ($this->distance * sin($sa1) * sin($sa2)) - ($destination->distance * sin($fa1) * sin($fa2));
-        $zz = ($this->distance * cos($sa1)) - ($destination->distance * cos($fa1));
-
-        $distance = (int)round(sqrt(pow($xx, 2) + pow($yy, 2) + pow($zz, 2)));
-
-        // Calculate the speed of the ship.
-        $shipSpeed = pow(config('game.level_factor'), $ship->engines);
-
-        // Calculate the trip time.
-        $turns = (int)round($distance / $shipSpeed);
-
-        return [
-            'turns' => $turns,
-            'energyScooped' => \App\Actions\Move::calcFuelScooped($ship, $distance, $turns),
-        ];
-    }
-
-    /**
      * Helper function for getting a sector (or sectors) from the point of view of the
      * player. If this begins getting more complex, maybe turn into a macro.
      *
