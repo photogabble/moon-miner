@@ -11,6 +11,7 @@ export interface User {
     email_verified_at: string;
     lang: string;
 
+    ship_id: number|null; // Will be null if player is not occupying a ship
     ship?: ShipResource;
     movement_log?: Array<MovementLogResource>;
     current_encounter?: EncounterResource;
