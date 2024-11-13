@@ -242,16 +242,6 @@ class Ship extends Model
         // TODO mines encounter (check_mines.php)
         // TODO random encounters
 
-        $movement->encounter()->save(new Encounter([
-            'system_id' => $systemId,
-            'user_id' => $this->owner_id,
-            'type' => EncounterType::Navigation,
-            'state' => [
-                'energy_scooped' => $energyScooped,
-                'turns_used' => $turnsUsed,
-            ],
-        ]));
-
         return $movement;
     }
 
