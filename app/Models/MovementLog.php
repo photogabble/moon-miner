@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon $created_at
  * @property int $system_id
  * @property MovementMode $mode
- * @property-read System $sector
+ * @property-read System $system
  * @property-read MovementLog $previous
  * @property-read Encounter|null $encounter
  */
@@ -57,9 +57,9 @@ class MovementLog extends Model
         return $this->hasOne(Encounter::class, 'movement_id');
     }
 
-    public function sector(): BelongsTo
+    public function system(): BelongsTo
     {
-        return $this->belongsTo(System::class, 'sector_id');
+        return $this->belongsTo(System::class, 'system_id');
     }
 
     public function previous(): BelongsTo
