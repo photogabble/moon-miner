@@ -247,11 +247,11 @@ class Ship extends Model
 
     /**
      * Added so that different ship classes can cost different amount of turns for travel.
-     * @todo make warp travel cost differently depending upon ship class
      * @return int
      */
     public function warpTravelTurnCost(): int
     {
+        // TODO: make warp travel cost differently depending upon ship class
         return 1;
     }
 }
