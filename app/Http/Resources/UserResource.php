@@ -49,6 +49,7 @@ class UserResource extends JsonResource
             'credits' => $this->wallet()->balance,
             'score' => $this->score,
 
+            'ship_id' => $this->ship_id, // Will be null if player isn't occupying a ship
             'ship' => new ShipResource($this->whenLoaded('ship')),
             'current_encounter' => new EncounterResource($this->whenLoaded('currentEncounter')),
             // 'presets' => UserPresetResource::collection($this->whenLoaded('presets')),
