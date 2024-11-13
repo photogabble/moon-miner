@@ -36,6 +36,7 @@ namespace App\Actions\Movement;
 
 use Exception;
 use App\Models\Ship;
+use App\Helpers\Move;
 use App\Models\System;
 use App\Models\MovementLog;
 use App\Types\MovementMode;
@@ -53,14 +54,15 @@ class RealSpace
             ->distanceTo($system->toCartesian());
 
         $shipSpeed = pow(config('game.level_factor'), $this->ship->engines);
+        $turns = max(1, (int)round($distance / $shipSpeed));
 
         // Used by frontend to output:
         // With your engines, it will take X turns to complete the journey.
         // You would gather Y units of energy.
         return [
-            'turns' => max(1, (int)round($distance / $shipSpeed)),
+            'turns' => $turns,
             'distance' => $distance,
-            'energyScooped' => 0, // TODO: calcFuelScooped fn
+            'energyScooped' => Move::calcFuelScooped($this->ship, $distance, $turns),
         ];
     }
 
