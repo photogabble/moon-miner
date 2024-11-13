@@ -175,7 +175,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::post('waypoint/{waypoint}/jump', [WaypointController::class, 'jump'])->name('waypoint.jump');
+    Route::group(['prefix' => '/ship/{ship}'], function () {
+        Route::get('/', [ShipController::class, 'view'])->name('ship.view');
+        Route::post('/jump-through/{gate}', [ShipController::class, 'travelThrough'])->name('ship.travel-through.gate');
+        Route::post('/travel-to/{system}', [ShipController::class, 'travelTo'])->name('ship.travel-to');
+        Route::post('/travel-to/{system}/plan', [ShipController::class, 'planTravelTo'])->name('ship.travel-to.plan');
+        Route::post('/land-on/{planet}', [ShipController::class, 'landOn'])->name('ship.land-on.planet');
+        Route::post('/dock-with/{port}', [ShipController::class, 'dockWith'])->name('ship.dock-with.port');
+    });
 });
 
 Route::post('debug/spawn-encounter', function(Request $request) {
