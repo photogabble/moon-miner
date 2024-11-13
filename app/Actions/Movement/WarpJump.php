@@ -23,7 +23,7 @@
  *
  */
 
-namespace App\Actions;
+namespace App\Actions\Movement;
 
 use Exception;
 use App\Models\Ship;
