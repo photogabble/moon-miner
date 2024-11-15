@@ -28,7 +28,10 @@ namespace App\Models;
 use App\Types\UserType;
 use App\Types\WalletType;
 use App\Casts\UserSettings;
+use App\Types\WaypointType;
 use App\Observers\UserObserver;
+use Illuminate\Support\Facades\DB;
+use App\Models\Waypoints\WarpGate;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
@@ -232,6 +235,56 @@ class User extends Authenticatable
         $amount = $this->turns >= $amount ? $amount : $this->turns;
         $this->decrement('turns', $amount);
         $this->increment('turns_used', $amount);
+    }
+
+    /**
+     * Systems the player has visited; this is used by the NavCom to determine
+     * system visibility.
+     * @return array{system_id: number, count: number}
+     */
+    public function visitedSystems(): array
+    {
+        // TODO: think about adding caching to this, or rather how would you
+        //       add to the visit log without needing to run a whole query?
+        return MovementLog::query()
+            ->where('user_id', $this->id)
+            ->groupBy('system_id')
+            ->select(['system_id', DB::raw('count(id) as visits')])
+            ->get()
+            ->reduce(function (array $carry, Model $log) {
+                $carry[$log['system_id']] = $log['visits'];
+                return $carry;
+            }, []);
+    }
+
+    /**
+     * Systems the player is aware of; this includes all systems they have
+     * visited and any that are linked via active warp gates from those
+     * systems. This is use by the NavCom to determine system knowledge
+     * a player can be aware of a system but have not visited it and so the
+     * NavCom should present less detail.
+     *
+     * In a future expansion I would like to add sector maps that can be
+     * sold in ports, or made available by merchant encounters. This would
+     * unlock being able to RealSpace move to a previously unvisited system
+     * and also allow the player to see more detail on their NavCom.
+     *
+     * @return array
+     */
+    public function knownSystems(): array
+    {
+        $visitedSystems = array_keys($this->visitedSystems());
+
+        return Waypoint::query()
+            ->whereIn('system_id', $visitedSystems)
+            ->where('type', WaypointType::WarpGate)
+            ->get()
+            ->reduce(function (array $carry, WarpGate $waypoint) {
+                if ($waypoint->properties->destination_system_id) {
+                    $carry[] = $waypoint->properties->destination_system_id;
+                }
+                return $carry;
+            }, [...$visitedSystems]);
     }
 
     /**

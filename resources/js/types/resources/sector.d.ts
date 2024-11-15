@@ -2,6 +2,7 @@ import type {ZoneResource} from "@/types/resources/zone";
 import type {LinkResource} from "@/types/resources/link";
 import type {SectorDefenseResource} from "@/types/resources/sector-defense";
 import type {PlanetResource} from "@/types/resources/planet";
+import type {SystemResource} from "@/types/resources/system";
 
 export type SectorType = 'unknown' | 'none' | 'port-goods' | 'port-energy' | 'port-ore' | 'port-special';
 
@@ -26,4 +27,18 @@ export interface SectorResourceWithPlayerMeta extends SectorResource
     is_current_sector: boolean
     has_visited: boolean;
     has_danger: boolean;
+}
+
+export interface SectorMapLinkResource
+{
+    from: { x: number, y: number },
+    to: { x: number, y: number },
+    is_internal: boolean,
+    has_visited: boolean, // Has the player visited either end of this link
+}
+
+export interface SectorMapSystemResource extends SystemResource
+{
+    coords: { x: number, y: number },
+    is_internal: boolean,
 }

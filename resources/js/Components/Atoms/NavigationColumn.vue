@@ -55,8 +55,8 @@ const isHelpPage = false; // TODO: computed<Boolean>(() => route.path.includes('
     <div class="bg-slate-700/10 w-16 p-2 border-partway-y flex flex-col" style="--border-part-b-height: 12px; --border-part-t-height: 12px;">
         <div class="flex flex-col space-y-2 mb-2 flex-grow">
             <div class="space-y-1 text-2xl">
-                <navigation-link :href="isLoggedIn ? route('navicom') : '/'" :active="route().current('navicom')" title="Overview"><dashboard-icon/></navigation-link> <!-- Overview -->
-                <navigation-link :href="route('explore')" :active="route().current('explore')" title="Explore universe" :disabled="!isLoggedIn"><explore-icon/></navigation-link> <!-- Explore Universe -->
+                <navigation-link :href="isLoggedIn ? route('navicom') : '/'" :active="route().current('navicom') || route().current('navicom.*')" title="Overview"><dashboard-icon/></navigation-link> <!-- Overview -->
+                <navigation-link :href="route('sector-map')" :active="route().current('sector-map')" title="Explore universe" :disabled="!isLoggedIn"><explore-icon/></navigation-link> <!-- Explore Universe -->
                 <navigation-link href="/research" title="Research and Development" :disabled="!isLoggedIn"><research-icon/></navigation-link> <!-- Research -->
                 <navigation-link href="/harvesting" title="Manage Resource Harvesting" :disabled="!isLoggedIn"><harvesting-icon/></navigation-link> <!-- Resource Harvesting -->
                 <navigation-link href="/manufacturing" title="Manage Manufacturing" :disabled="!isLoggedIn"><manufacturing-icon/></navigation-link> <!-- Manufacturing -->

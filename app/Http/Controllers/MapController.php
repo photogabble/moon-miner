@@ -1,120 +1,157 @@
-<?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: galaxy.php
+<?php declare(strict_types=1);
+/**
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
+ *
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-require_once './common.php';
+namespace App\Http\Controllers;
 
-Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
+use Inertia\Inertia;
+use Inertia\Response;
+use App\Models\System;
+use App\Models\Sector;
+use App\Types\WaypointType;
+use App\Models\Waypoints\WarpGate;
+use Illuminate\Support\Collection;
 
-// Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array('main', 'port', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'));
-$title = $langvars['l_map_title'];
-Bnt\Header::display($pdo_db, $lang, $template, $title);
-
-echo "<h1>" . $title . "</h1>\n";
-
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
-Bnt\Db::logDbErrors($db, $res, __LINE__, __FILE__);
-$playerinfo = $res->fields;
-$result3 = $db->Execute("SELECT distinct {$db->prefix}movement_log.sector_id, port_type, beacon FROM {$db->prefix}movement_log,{$db->prefix}universe WHERE ship_id = ? AND {$db->prefix}movement_log.sector_id={$db->prefix}universe.sector_id order by sector_id ASC", array($playerinfo['ship_id']));
-Bnt\Db::logDbErrors($db, $result3, __LINE__, __FILE__);
-$row = $result3->fields;
-
-$tile['special'] = "port-special.png";
-$tile['ore'] = "port-ore.png";
-$tile['organics'] = "port-organics.png";
-$tile['energy'] = "port-energy.png";
-$tile['goods'] = "port-goods.png";
-$tile['none'] = "space.png";
-$tile['unknown'] = "uspace.png";
-
-$cur_sector= 0; // Clear this before iterating through the sectors
-
-// Display sectors as imgs, and each class in css in header.php; then match the width and height here
-$div_w = 20; // Only this width to match the included images
-$div_h = 20; // Only this height to match the included images
-$div_border = 2; // CSS border is 1 so this should be 2
-$div_xmax = 50; // Where to wrap to next line
-$div_ymax = $bntreg->sector_max / $div_xmax;
-$map_width = ($div_w + $div_border) * $div_xmax;  // Define the containing div to be the right width to wrap at $div_xmax
-
-// Setup containing div to hold the width of the images
-echo "\n<div id='map' style='position:relative;background-color:#0000ff;width:".$map_width."px'>\n";
-for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
+class MapController extends Controller
 {
-    for ($c = 0; $c < $div_xmax; $c++) // Loop the columns
+    /**
+     * GET: /sector-map/{?sector:id}
+     *
+     * When no sector id is provided this returns a grid of sectors, with information varying
+     * on how much the player has explored: sectors are unlocked by visiting systems within
+     * them.
+     *
+     * When a sector is provided, if the player hasn't visited a system within it then this
+     * will return a 404. Otherwise, it will return details of the systems to be found
+     * within the given sector.
+     *
+     * An idea could be to use sectors as "zoom levels", the game map could be split into four
+     * and then each division subdivided to a max level akin to a quad tree.
+     *
+     * @param int|null $sector
+     * @return Response
+     */
+    public function sector(?int $sector = null): Response
     {
-        if (isset($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false)
-        {
-            $p = $row['port_type'];
-            // Build the alt text for each image
-            $alt  = $langvars['l_sector'] . ": {$row['sector_id']} Port: {$row['port_type']} ";
+        $id = $sector ?? $this->user->ship->system->sector_id;
 
-            if (!is_null($row['beacon']))
-            {
-                $alt .= "{$row['beacon']}";
-            }
+        $visitedSystems = $this->user->visitedSystems();
+        $knownSystems = $this->user->knownSystems();
 
-            echo "\n<a href=\"rsmove.php?engage=1&amp;destination=" . $row['sector_id'] . "\">";
-            echo "<img class='map ".$row['port_type']."' src='" . $template->getVariables('template_dir') . "/images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
+        $visited = count($visitedSystems);
+        $known = count($knownSystems);
+        $discoveredPercentage = round($known / System::count() * 100, 2);
 
-            // Move to next explored sector in database results
-            $result3->Movenext();
-            $row = $result3->fields;
-            $cur_sector = $cur_sector + 1;
-        }
-        else
-        {
-            if (($c + ($div_xmax * $r)) == 0) // We skip sector 0 because nothing is there.
-            {
-            }
-            else
-            {
-                $p = 'unknown';
-                // Build the alt text for each image
-                $alt  = ($c + ($div_xmax * $r)) . " - " . $langvars['l_unknown'] . " ";
+        /** @var Sector $sector */
+        if (!$sector = Sector::find($id)) abort(404);
 
-                // I have not figured out why this formula works, but $row[sector_id] doesn't, so I'm not switching it.
-                echo "<!-- current sector is " . ($c + ($div_xmax * $r)) . " -->";
-                echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c + ($div_xmax * $r)) ."\">";
-                echo "<img class='map un' src='" . $template->getVariables('template_dir') . "/images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
-            }
-            $cur_sector = $cur_sector + 1;
-        }
+        $sector->load('systems', 'systems.waypoints');
+
+        $systemsInSector = $sector->systems->reduce(function ($systems, System $system) {
+            $systems[] = $system->id;
+            return $systems;
+        }, []);
+
+        // Sector Position is used to get system and path (x,y) coordinates relative to the top left
+        // of the sector square plane, as opposed to the galactic square plane.
+        $sectorPosition = $sector->position();
+
+        // Find Links that go outside this sector
+        // Knowing the $systemsInSector we can create a list of external systems that systems within this
+        // sector link to. They will then be displayed as links to their sector.
+        $externalSystems = System::query()
+            ->whereIn('id',
+                $sector->systems->reduce(function ($links, System $system) use ($systemsInSector, $sectorPosition) {
+                    /** @var WarpGate $waypoint */
+                    foreach ($system->waypointsOfType(WaypointType::WarpGate) as $waypoint) {
+                        if (!$waypoint->properties->destination_system_id) continue;
+                        if (!in_array($waypoint->properties->destination_system_id, $systemsInSector)) {
+                            $links[] = $waypoint->properties->destination_system_id;
+                        }
+                    }
+                    return $links;
+                }, [])
+            )->get();
+
+        $systemsPlayerIsAwareOf = [...array_keys($visitedSystems), ...$knownSystems];
+
+        return Inertia::render('NaviCom/SectorMap', [
+            'stats' => [
+                'visited' => $visited,
+                'known' => $known,
+                'discovery_percentage' => $discoveredPercentage,
+            ],
+            'sector' => $sector,
+            'systems' => $externalSystems
+                ->merge($sector->systems)
+                ->map(function (System $system) use ($sectorPosition, $systemsInSector, $visitedSystems, $knownSystems) {
+                    return [
+                        'id' => $system->id,
+                        'name' => $system->name,
+                        'sector_id' => $system->sector_id,
+                        'coords' => $system->position()->subtract($sectorPosition),
+                        'is_internal' => in_array($system->id, $systemsInSector),
+
+                        'is_current_system' => $system->id === $this->user->ship->system_id,
+                        'has_visited' => isset($visitedSystems[$system->id]),
+                        'has_knowledge' => in_array($system->id, $knownSystems),
+                    ];
+                }),
+            // TODO usable_links to be a list of warpgates player can use from their current system
+            //      this will then allow the front end to use warpgate when destination is clicked
+            'usable_links' => [],
+
+            'links' => $sector->systems
+                ->filter(function (System $system) use ($systemsPlayerIsAwareOf) {
+                    // Only provide links for systems the player is aware of
+                    return in_array($system->id, $systemsPlayerIsAwareOf);
+                })
+                ->reduce(function (Collection $links, System $system) use ($systemsInSector, $sectorPosition, $visitedSystems) {
+                    /** @var WarpGate $waypoint */
+                    foreach ($system->waypointsOfType(WaypointType::WarpGate) as $waypoint) {
+                        if (!$waypoint->properties->destination_system_id) continue;
+
+                        $hash = [$system->id, $waypoint->properties->destination_system_id];
+                        sort($hash);
+                        $hash = implode('-', $hash);
+
+                        if (isset($links[$hash])) continue;
+
+                        // TODO preload linked systems
+
+                        $destination = System::find($waypoint->properties->destination_system_id);
+
+                        $links[$hash] = [
+                            'from' => $system->position()->subtract($sectorPosition),
+                            'to' => $destination->position()->subtract($sectorPosition),
+                            'is_internal' => in_array($waypoint->properties->destination_system_id, $systemsInSector),
+                            'has_visited' => isset($visitedSystems[$system->id]) || isset($visitedSystems[$destination->id]),
+                        ];
+                    }
+
+                    return $links;
+                }, new Collection())->values(),
+        ]);
     }
 }
-
-// This is the row numbers on the side of the map
-for ($a = 1; $a < ($bntreg->sector_max/50 +1); $a++)
-{
-    echo "\n<div style='position:absolute;left:" . ($map_width + 10)."px;top:".(($a - 1) * ($div_h + $div_border))."px;'>".(($a * 50) - 1)."</div>";
-}
-
-echo "</div><div style='clear:both'></div><br>";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_special_port'] . "' src='" . $template->getVariables('template_dir') . "/images/{$tile['special']}'> &lt;- " . $langvars['l_special_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_ore_port'] . "' src='" . $template->getVariables('template_dir') . "/images/{$tile['ore']}'> &lt;- " . $langvars['l_ore_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_organics_port'] . "' src='" . $template->getVariables('template_dir') . "/images/{$tile['organics']}'> &lt;- " . $langvars['l_organics_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_energy_port'] . "' src='" . $template->getVariables('template_dir') . "/images/{$tile['energy']}'> &lt;- " . $langvars['l_energy_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_goods_port'] . "' src='" . $template->getVariables('template_dir') . "/images/{$tile['goods']}'> &lt;- " . $langvars['l_goods_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_no_port'] . "' src='" . $template->getVariables('template_dir') . "/images/{$tile['none']}'> &lt;- " . $langvars['l_no_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_unexplored'] . "' src='" . $template->getVariables('template_dir') . "/images/{$tile['unknown']}'> &lt;- " . $langvars['l_unexplored'] . "</div>\n";
-
-echo "<br><br>";
-Bnt\Text::gotoMain($db, $lang, $langvars);
-Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
-?>

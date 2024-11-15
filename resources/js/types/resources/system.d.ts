@@ -8,7 +8,8 @@ export interface SystemResource {
     waypoints?: Array<WaypointResource>
     zone?: ZoneResource
 
-    is_current_sector: boolean
-    has_visited: boolean
+    is_current_system: boolean
+    has_visited: boolean // Has the player entered this system at least once
+    has_knowledge: boolean // Has the player entered a system that links to this one
     has_danger: boolean
 }

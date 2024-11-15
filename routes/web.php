@@ -175,6 +175,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('sector-map/{sector?}', [MapController::class, 'sector'])
+        ->name('sector-map');
+
     Route::group(['prefix' => '/ship/{ship}'], function () {
         Route::get('/', [ShipController::class, 'view'])->name('ship.view');
         Route::post('/jump-through/{gate}', [ShipController::class, 'travelThrough'])->name('ship.travel-through.gate');

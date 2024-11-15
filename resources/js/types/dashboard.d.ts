@@ -1,9 +1,8 @@
 import {PageProps as InertiaPageProps} from "@inertiajs/core";
-import {WarpRouteResource} from "@/types/resources/link";
-import {EncounterResource} from "@/types/resources/encounter";
 import {SystemResource} from "@/types/resources/system";
+import type {PageProps} from "@/types/index";
 
-export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+export interface DashboardPageProps extends InertiaPageProps, PageProps {
     // navigation: boolean;
     // route: null|WarpRouteResource;
     // encounters: Array<EncounterResource>;
@@ -11,5 +10,3 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
 
     navicom_view_mode: 'map' | 'details'
 }
-
-export interface DashboardPageProps extends InertiaPageProps, PageProps {}
