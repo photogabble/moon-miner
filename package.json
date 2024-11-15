@@ -22,8 +22,6 @@
         "vue-tsc": "^2.0.24"
     },
     "dependencies": {
-        "three": "^0.162.0",
-        "three.meshline": "^1.4.0",
         "vue-safe-teleport": "^0.1.2"
     }
 }
