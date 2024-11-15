@@ -42,6 +42,7 @@ class WaypointResource extends JsonResource
 
         if ($this->type === WaypointType::WarpGate && isset($this->properties->destination_system_id) && $dest = System::find($this->properties->destination_system_id)) {
             $properties['destination_system_name'] = $dest->name;
+            $properties['destination_system_sector_id'] = $dest->sector_id;
         }
 
         return [
