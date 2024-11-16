@@ -131,6 +131,12 @@ class MapController extends Controller
                                 'gate' => $navigableSystems[$system->id],
                             ]),
                         ];
+                    } else if ($system->id !== $this->user->ship->system_id) {
+                        $actions[] = [
+                            'title' => 'Plot Course',
+                            'method' => 'post',
+                            'href' => '#',
+                        ];
                     }
 
                     return [

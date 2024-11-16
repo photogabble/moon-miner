@@ -19,9 +19,6 @@ defineProps<{
                     :preserve-state="false"
                 >{{ action.title }}</inertia-link>
             </li>
-            <li v-if="!system.is_next_door && !system.is_current_system">
-                <inertia-link class="w-full block hover:text-ui-yellow" href="#">Plot Course</inertia-link>
-            </li>
         </ul>
     </div>
 </template>
