@@ -35,6 +35,7 @@ import type {SectorMapSystemResource} from "@/types/resources/sector";
 
 const dragging = ref(false);
 const hovering = ref<SectorMapSystemResource|undefined>(undefined);
+const activeSystem = ref<SectorMapSystemResource|undefined>(undefined);
 const map = ref<HTMLCanvasElement>();
 const {stats, sector, systems, links} = usePage<SectorMapPageProps>().props;
 
@@ -152,7 +153,9 @@ onMounted(() => {
 
     canvas.addEventListener('mouseup', (e) => {
         if (hovering.value !== undefined) {
-            console.log('=== CLICK', hovering.value);
+            activeSystem.value = hovering.value; // Display action menu for this system
+        } else if (activeSystem.value !== undefined) {
+            activeSystem.value = undefined; // Click off to cancel action menu
         }
 
         dragging.value = false;
@@ -181,7 +184,7 @@ onMounted(() => {
 
         let intersecting = undefined;
         systemList.forEach(system => {
-            system.hover = system.intersects(miXY.x, miXY.y);
+            system.hover = system.resource.has_knowledge && system.intersects(miXY.x, miXY.y);
             if (system.hover) intersecting = system.resource;
         });
         hovering.value = intersecting;
@@ -220,6 +223,8 @@ onMounted(() => {
                 {{ stats.known }} ({{ stats.discovery_percentage }}%)
                 <span class="text-white"></span>
             </template>
+
+            <div v-if="activeSystem" class="absolute top-10 left-10 border h-10"><pre>{{activeSystem.name}}</pre></div>
 
             <canvas ref="map" :class="[
                 {
