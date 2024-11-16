@@ -29,6 +29,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\System;
 use App\Models\Sector;
+use App\Models\Waypoint;
 use App\Types\WaypointType;
 use App\Models\Waypoints\WarpGate;
 use Illuminate\Support\Collection;
@@ -96,6 +97,14 @@ class MapController extends Controller
 
         $systemsPlayerIsAwareOf = [...array_keys($visitedSystems), ...$knownSystems];
 
+        // Systems that can be reached via WarpGates in the system the player resides.
+        $navigableSystems = $this->user->ship->system
+            ->waypointsOfType(WaypointType::WarpGate)
+            ->reduce(function (array $carry, WarpGate $waypoint) {
+                $carry[$waypoint->properties->destination_system_id] = $waypoint;
+                return $carry;
+            }, []);
+
         return Inertia::render('NaviCom/SectorMap', [
             'stats' => [
                 'visited' => $visited,
@@ -105,7 +114,25 @@ class MapController extends Controller
             'sector' => $sector,
             'systems' => $externalSystems
                 ->merge($sector->systems)
-                ->map(function (System $system) use ($sectorPosition, $systemsInSector, $visitedSystems, $knownSystems) {
+                ->map(function (System $system) use ($sectorPosition, $systemsInSector, $visitedSystems, $knownSystems, $navigableSystems) {
+                    $actions = [
+                        [
+                            'title' => 'Info',
+                            'method' => 'get',
+                            'href' => route('navicom.system', $system->id),
+                        ]
+                    ];
+                    if (isset($navigableSystems[$system->id])) {
+                        $actions[] = [
+                            'title' => 'Jump',
+                            'method' => 'post',
+                            'href' => route('ship.travel-through.gate', [
+                                'ship' => $this->user->ship,
+                                'gate' => $navigableSystems[$system->id],
+                            ]),
+                        ];
+                    }
+
                     return [
                         'id' => $system->id,
                         'name' => $system->name,
@@ -113,15 +140,14 @@ class MapController extends Controller
                         'coords' => $system->position()->subtract($sectorPosition),
                         'is_internal' => in_array($system->id, $systemsInSector),
 
+                        'is_next_door' => isset($navigableSystems[$system->id]),
                         'is_current_system' => $system->id === $this->user->ship->system_id,
                         'has_visited' => isset($visitedSystems[$system->id]),
                         'has_knowledge' => in_array($system->id, $knownSystems),
+
+                        'actions' => $actions,
                     ];
                 }),
-            // TODO usable_links to be a list of warpgates player can use from their current system
-            //      this will then allow the front end to use warpgate when destination is clicked
-            'usable_links' => [],
-
             'links' => $sector->systems
                 ->filter(function (System $system) use ($systemsPlayerIsAwareOf) {
                     // Only provide links for systems the player is aware of

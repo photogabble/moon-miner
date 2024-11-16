@@ -32,12 +32,13 @@ import WarpLink from "@/SectorMap/WarpLink";
 import System from "@/SectorMap/System";
 import type {SectorMapPageProps} from "@/types/sector-map";
 import type {SectorMapSystemResource} from "@/types/resources/sector";
+import SectorMapActionList from "@/Components/Organisms/SectorMapActionList.vue";
 
 const dragging = ref(false);
 const hovering = ref<SectorMapSystemResource|undefined>(undefined);
 const activeSystem = ref<SectorMapSystemResource|undefined>(undefined);
 const map = ref<HTMLCanvasElement>();
-const {stats, sector, systems, links} = usePage<SectorMapPageProps>().props;
+const {stats, sector, systems, links, usable_links} = usePage<SectorMapPageProps>().props;
 
 const mouseMode = computed(() => {
     if (hovering.value !== undefined) return 'hovering';
@@ -151,7 +152,7 @@ onMounted(() => {
         }
     });
 
-    canvas.addEventListener('mouseup', (e) => {
+    canvas.addEventListener('mouseup', () => {
         if (hovering.value !== undefined) {
             activeSystem.value = hovering.value; // Display action menu for this system
         } else if (activeSystem.value !== undefined) {
@@ -224,7 +225,11 @@ onMounted(() => {
                 <span class="text-white"></span>
             </template>
 
-            <div v-if="activeSystem" class="absolute top-10 left-10 border h-10"><pre>{{activeSystem.name}}</pre></div>
+            <sector-map-action-list
+                v-if="activeSystem"
+                :usableLinks="usable_links"
+                :system="activeSystem"
+            />
 
             <canvas ref="map" :class="[
                 {

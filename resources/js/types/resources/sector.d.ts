@@ -41,4 +41,10 @@ export interface SectorMapSystemResource extends SystemResource
 {
     coords: { x: number, y: number },
     is_internal: boolean,
+    is_next_door: boolean,
+    actions: Array<{
+        title: string,
+        method?: 'get' | 'post' | 'patch' | 'put' | 'delete',
+        href: string,
+    }>,
 }
