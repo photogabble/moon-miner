@@ -30,15 +30,16 @@ import {computed, onMounted, ref} from "vue";
 import Camera from "@/Helpers/camera";
 import WarpLink from "@/SectorMap/WarpLink";
 import System from "@/SectorMap/System";
-import {SectorMapPageProps} from "@/types/sector-map";
+import type {SectorMapPageProps} from "@/types/sector-map";
+import type {SectorMapSystemResource} from "@/types/resources/sector";
 
 const dragging = ref(false);
-const hovering = ref(false);
+const hovering = ref<SectorMapSystemResource|undefined>(undefined);
 const map = ref<HTMLCanvasElement>();
 const {stats, sector, systems, links} = usePage<SectorMapPageProps>().props;
 
 const mouseMode = computed(() => {
-    if (hovering.value === true) return 'hovering';
+    if (hovering.value !== undefined) return 'hovering';
     if (dragging.value === true) return 'dragging';
     return 'default';
 });
@@ -150,6 +151,10 @@ onMounted(() => {
     });
 
     canvas.addEventListener('mouseup', (e) => {
+        if (hovering.value !== undefined) {
+            console.log('=== CLICK', hovering.value);
+        }
+
         dragging.value = false;
     });
 
@@ -174,12 +179,12 @@ onMounted(() => {
             miXY
         );
 
-        let intersects = false;
+        let intersecting = undefined;
         systemList.forEach(system => {
             system.hover = system.intersects(miXY.x, miXY.y);
-            if (system.hover) intersects = true;
+            if (system.hover) intersecting = system.resource;
         });
-        hovering.value = intersects;
+        hovering.value = intersecting;
     });
 
     // Main Animation Loop
