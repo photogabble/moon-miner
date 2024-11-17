@@ -27,16 +27,18 @@ namespace App\Actions\Movement;
 
 use App\Models\Ship;
 use App\Models\System;
+use App\Types\WaypointType;
 use Illuminate\Support\Facades\DB;
+use App\Models\Waypoints\WarpGate;
 use Illuminate\Support\Facades\Cache;
 
 class WarpRoute
 {
     /**
-     * List of System ids
+     * Ordered list of System ids.
      * @var array<int>
      */
-    public array $waypoints = [];
+    public array $systemIds = [];
 
     /**
      * List of WarpGate hashes, this is used by the MapController for identifying links that are on route and
@@ -44,9 +46,17 @@ class WarpRoute
      *
      * A WarpGate hash is the warp gates system id and its destination id sorted by numeric order, this means that a
      * warp gate from 1234 to 4321 will have the same hash as the warp gate from 4321 to 1234.
+     *
      * @var array<string>
      */
-    public array $gateways = [];
+    public array $linkHashes = [];
+
+    /**
+     * Ordered list of WarpGate ids, this is used when auto-piloting the route as we can
+     * loop through this list against the WarpJump action.
+     * @var array<int>
+     */
+    public array $warpGateIds = [];
 
     public int $startSystemId;
 
@@ -148,19 +158,45 @@ class WarpRoute
                     $ord = explode('_', $key)[1];
                     $path[$ord] = $value;
                 }
-                $this->waypoints = [$this->ship->system_id, ...array_values($path)];
 
-                // Identify gateways so that MapController
-                for ($n = 0; $n < count($this->waypoints); $n++) {
-                    $left = $this->waypoints[$n];
-                    $right = $this->waypoints[$n + 1] ?? null;
+                $this->systemIds = [$this->ship->system_id, ...array_values($path)];
+
+
+                /**
+                 * Reduce gateways down to a nested map that can be quickly looked up to
+                 * find the warp gate id for a path between systems.
+                 * @var array<array<int>> $gateways [system_id => [system_id => warpgate_id]]
+                 */
+                $gateways = System::with('waypoints')
+                    ->whereIn('id', $this->systemIds)
+                    ->get()
+                    ->reduce(function(array $carry, System $system) {
+                        $carry[$system->id] = $system
+                            ->waypointsOfType(WaypointType::WarpGate)
+                            ->reduce(function(array $carry, WarpGate $warpGate) {
+                                $carry[$warpGate->properties->destination_system_id] = $warpGate->id;
+                                return $carry;
+                            }, []);
+
+                        return $carry;
+                    }, []);
+
+                // Identify links so that MapController can mark links as part of a route,
+                // this is done via sorting the two system id's of a link and combining into
+                // a string "hash" that's unique per link; a link will have two WayPoints but
+                // always the same hash value.
+                for ($n = 0; $n < count($this->systemIds); $n++) {
+                    $left = $this->systemIds[$n];
+                    $right = $this->systemIds[$n + 1] ?? null;
                     if (is_null($right)) break;
 
                     $hash = [$left, $right];
                     sort($hash);
 
-                    $this->gateways[] = implode('-', $hash);
+                    $this->linkHashes[] = implode('-', $hash);
+                    $this->warpGateIds[$n] = $gateways[$left][$right] ?? null;
                 }
+
                 return true;
             }
         }
@@ -175,8 +211,10 @@ class WarpRoute
     {
         if ($found = Cache::get($this->cacheKey())) {
             $this->startSystemId = $found['start_system_id'];
-            $this->waypoints = $found['waypoints'];
-            $this->gateways = $found['gateways'];
+            $this->systemIds = $found['system_ids'];
+            $this->linkHashes = $found['link_hashes'];
+            $this->warpGateIds = $found['warp_gate_ids'];
+
             return true;
         }
 
@@ -191,8 +229,9 @@ class WarpRoute
     {
         Cache::forever($this->cacheKey(), [
             'start_system_id' => $this->startSystemId,
-            'waypoints' => $this->waypoints,
-            'gateways' => $this->gateways,
+            'system_ids' => $this->systemIds,
+            'link_hashes' => $this->linkHashes,
+            'warp_gate_ids' => $this->warpGateIds,
         ]);
     }
 
@@ -215,7 +254,7 @@ class WarpRoute
         if (is_null($system)) $system = $this->ship->system_id;
         else if ($system instanceof System) $system = $system->id;
 
-        return in_array($system, $this->waypoints);
+        return in_array($system, $this->systemIds);
     }
 
     /**
@@ -228,10 +267,10 @@ class WarpRoute
         if (is_null($system)) $system = $this->ship->system_id;
         else if ($system instanceof System) $system = $system->id;
 
-        $key = array_search($system, $this->waypoints);
+        $key = array_search($system, $this->systemIds);
         if ($key === false) return 0;
 
-        return count($this->waypoints) - ($key + 1);
+        return count($this->systemIds) - ($key + 1);
     }
 
     /**
@@ -244,12 +283,11 @@ class WarpRoute
         if (is_null($system)) $system = $this->ship->system_id;
         else if ($system instanceof System) $system = $system->id;
 
-        $key = array_search($system, $this->waypoints);
+        $key = array_search($system, $this->systemIds);
         if ($key === false) return null;
 
-        return $this->waypoints[$key+1] ?? null;
+        return $this->systemIds[$key+1] ?? null;
     }
-
 
     /**
      * Key for storing warp route in cache.

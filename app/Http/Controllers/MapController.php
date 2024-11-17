@@ -113,7 +113,7 @@ class MapController extends Controller
         if ($route->load()) {
 
             $systems = System::query()
-                ->whereIn('id', $route->waypoints)
+                ->whereIn('id', $route->systemIds)
                 ->get()
                 ->reduce(function(array $carry, System $system) {
                     $carry[$system->id] = $system;
@@ -121,9 +121,9 @@ class MapController extends Controller
                 }, []);
 
             $path = [];
-            for ($i = 0; $i < count($route->waypoints); $i++) {
+            for ($i = 0; $i < count($route->systemIds); $i++) {
                 /** @var System $system */
-                $system = $systems[$route->waypoints[$i]];
+                $system = $systems[$route->systemIds[$i]];
 
                 if ($system->id === $this->user->ship->system_id) {
                     $label = "[$system->name]";
@@ -131,7 +131,7 @@ class MapController extends Controller
                     $label = $system->name;
                 }
 
-                if ($previous = $route->waypoints[$i - 1] ?? null) {
+                if ($previous = $route->systemIds[$i - 1] ?? null) {
                     $previous = $systems[$previous];
                     if ($system->sector_id !== $previous->sector_id) {
                         $label .= " ($system->sector_id)";
@@ -228,7 +228,7 @@ class MapController extends Controller
                             'from' => $system->position()->subtract($sectorPosition),
                             'to' => $destination->position()->subtract($sectorPosition),
                             'is_internal' => in_array($waypoint->properties->destination_system_id, $systemsInSector),
-                            'is_route' => in_array($hash, $route->gateways),
+                            'is_route' => in_array($hash, $route->linkHashes),
                             'has_visited' => isset($visitedSystems[$system->id]) || isset($visitedSystems[$destination->id]),
                         ];
                     }
@@ -271,8 +271,11 @@ class MapController extends Controller
         $router = new WarpRoute($this->user->ship);
         if (!$router->load()) return redirect()->back(); // TODO with warning
 
-        dd($router->next());
+        // Obtain systems from WarpRoute and identify the gates needed
 
+        dd($router);
+
+        // Store navigation report and redirect back
         return redirect()->back();
     }
 }
