@@ -34,6 +34,7 @@ export interface SectorMapLinkResource
     from: { x: number, y: number },
     to: { x: number, y: number },
     is_internal: boolean,
+    is_route: boolean, // Is this link part of a plotted route
     has_visited: boolean, // Has the player visited either end of this link
 }
 

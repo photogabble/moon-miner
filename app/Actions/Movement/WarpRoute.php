@@ -1,178 +1,262 @@
-<?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
-// Copyright (C) 2001-2014 Ron Harwood and the BNT development team
-//
-//  This program is free software: you can redistribute it and/or modify
-//  it under the terms of the GNU Affero General Public License as
-//  published by the Free Software Foundation, either version 3 of the
-//  License, or (at your option) any later version.
-//
-//  This program is distributed in the hope that it will be useful,
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU Affero General Public License for more details.
-//
-//  You should have received a copy of the GNU Affero General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//
-// File: navcomp.php
+<?php declare(strict_types=1);
+/**
+ * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
+ * and based upon Black Nova Traders.
+ *
+ * @copyright 2024 Simon Dann
+ * @copyright 2001-2014 Ron Harwood and the BNT development team
+ *
+ * @license GNU AGPL version 3.0 or (at your option) any later version.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-require_once './common.php';
+namespace App\Actions\Movement;
 
-Bnt\Login::checkLogin($pdo_db, $lang, $langvars, $bntreg, $template);
+use App\Models\Ship;
+use App\Models\System;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
-// Database driven language entries
-$langvars = Bnt\Translate::load($pdo_db, $lang, array('navcomp', 'common', 'global_includes', 'global_funcs', 'footer'));
-$title = $langvars['l_nav_title'];
-Bnt\Header::display($pdo_db, $lang, $template, $title);
-
-echo "<h1>" . $title . "</h1>\n";
-
-if (!$bntreg->allow_navcomp)
+class WarpRoute
 {
-    echo $langvars['l_nav_nocomp'] . '<br><br>';
-    Bnt\Text::gotoMain($db, $lang, $langvars);
-    Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
-    die ();
-}
+    /**
+     * List of System ids
+     * @var array<int>
+     */
+    public array $waypoints = [];
 
-// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
-$state = null;
-$state = (int) filter_input(INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
-if (mb_strlen(trim($state)) === 0)
-{
-    $state = false;
-}
+    /**
+     * List of WarpGate hashes, this is used by the MapController for identifying links that are on route and
+     * for applying the warp route using the WarpJump action.
+     *
+     * A WarpGate hash is the warp gates system id and its destination id sorted by numeric order, this means that a
+     * warp gate from 1234 to 4321 will have the same hash as the warp gate from 4321 to 1234.
+     * @var array<string>
+     */
+    public array $gateways = [];
 
-// Detect if this variable exists, and filter it. Returns false if anything wasn't right.
-$stop_sector = null;
-$stop_sector = (int) filter_input(INPUT_POST, 'stop_sector', FILTER_SANITIZE_NUMBER_INT);
-if (mb_strlen(trim($stop_sector)) === 0)
-{
-    $stop_sector = false;
-}
+    public int $startSystemId;
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
-Bnt\Db::logDbErrors($db, $result, __LINE__, __FILE__);
-$playerinfo = $result->fields;
+    private int $maxSearchDepth;
 
-$current_sector = $playerinfo['sector'];
-$computer_tech  = $playerinfo['computer'];
-
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array($current_sector));
-Bnt\Db::logDbErrors($db, $result2, __LINE__, __FILE__);
-$sectorinfo = $result2->fields;
-
-if ($state == 0)
-{
-    echo " method=post>";
-    echo $langvars['l_nav_query'] . " <input name=\"stop_sector\">&nbsp;<input type=submit value=" . $langvars['l_submit'] . "><br>\n";
-    echo "<input name=\"state\" value=1 TYPE=HIDDEN>";
-    echo "</form>\n";
-}
-elseif ($state == 1)
-{
-    if ($computer_tech < 5)
+    public function __construct(private readonly Ship $ship)
     {
-        $max_search_depth = 2;
-    }
-    elseif ($computer_tech < 10)
-    {
-        $max_search_depth = 3;
-    }
-    elseif ($computer_tech < 15)
-    {
-        $max_search_depth = 4;
-    }
-    elseif ($computer_tech < 20)
-    {
-        $max_search_depth = 5;
-    }
-    else
-    {
-        $max_search_depth = 6;
+        // TODO: work out how to balance this with $this->ship->computer
+        // This acts as a max query limit, because each search layer is an additional query.
+        $this->maxSearchDepth = 6;
     }
 
-    for ($search_depth=1; $search_depth<=$max_search_depth; $search_depth++)
+    /**
+     * Refactored query code from BNT:
+     * This builds and runs a series of queries that search for a route between `a1.left_system_id` and `a{n}.right_system_id`
+     * with `n` being the max depth for each query. These are run in a loop until a solution is found or n becomes equal to
+     * max search depth.
+     *
+     * ```
+     * select distinct
+     *  "a1"."left_system_id" as "start",
+     *  "a1"."right_system_id" as "dest_1",
+     *  "a2"."right_system_id" as "dest_2",
+     *  "a3"."right_system_id" as "dest_3"
+     * from
+     *  links as a1,
+     *  links as a2,
+     *  links as a3
+     * where
+     *  "a1"."left_system_id" = ? and
+     *  "a1"."right_system_id" = a2.left_system_id and
+     *  "a2"."right_system_id" = a3.left_system_id and
+     *  "a3"."right_system_id" = ? and
+     *  "a1"."right_system_id" != a1.left_system_id and
+     *  "a2"."right_system_id" not in (a1.right_system_id, a1.left_system_id) and
+     *  "a3"."right_system_id" not in (a1.right_system_id, a1.left_system_id, a2.right_system_id)
+     * order by
+     *  "a1"."left_system_id" desc,
+     *  "a1"."right_system_id" desc,
+     *  "a2"."right_system_id" desc,
+     *  "a3"."right_system_id" desc
+     * limit 1
+     * ```
+     *
+     * @param System $system
+     * @return void
+     */
+    public function calculateTo(System $system): bool
     {
-        $search_query = "SELECT distinct a1.link_start, a1.link_dest ";
-        for ($i=2; $i<=$search_depth; $i++)
-        {
-            $search_query = $search_query . " ,a". $i . ".link_dest ";
-        }
+        for ($searchDepth = 2; $searchDepth <= $this->maxSearchDepth; $searchDepth++) {
+            $select = ['a1.left_system_id as start', 'a1.right_system_id as dest_1'];
+            $from = ['links as a1'];
 
-        $search_query = $search_query . "FROM     {$db->prefix}links AS a1 ";
-
-        for ($i=2; $i<=$search_depth; $i++)
-        {
-            $search_query = $search_query . "    ,{$db->prefix}links AS a". $i . " ";
-        }
-
-        $search_query = $search_query . "WHERE         a1.link_start = $current_sector ";
-
-        for ($i=2; $i<=$search_depth; $i++)
-        {
-            $k = $i-1;
-            $search_query = $search_query . "    AND a" . $k . ".link_dest = a" . $i . ".link_start ";
-        }
-
-        $search_query = $search_query . "    AND a" . $search_depth . ".link_dest = $stop_sector ";
-        $search_query = $search_query . "    AND a1.link_dest != a1.link_start ";
-
-        for ($i=2; $i<=$search_depth; $i++)
-        {
-            $search_query = $search_query . "    AND a" . $i . ".link_dest not in (a1.link_dest, a1.link_start ";
-
-            for ($j=2; $j<$i; $j++)
-            {
-                $search_query = $search_query . ",a".$j.".link_dest ";
+            for ($i = 2; $i <= $searchDepth; $i++) {
+                $select[] = "a$i.right_system_id as dest_$i";
+                $from[] = "links as a$i";
             }
-            $search_query = $search_query . ")";
+
+            $query = DB::table(DB::raw(implode(',', $from)))
+                ->select($select)
+                ->where('a1.left_system_id', $this->ship->system_id);
+
+            for ($i = 2; $i <= $searchDepth; $i++) {
+                $t = $i - 1;
+                $query->where("a$t.right_system_id", '=', DB::raw("a$i.left_system_id"));
+            }
+
+            $query->where("a$searchDepth.right_system_id", '=', $system->id);
+            $query->where("a1.right_system_id", '!=', DB::raw('a1.left_system_id'));
+
+            for ($i = 2; $i <= $searchDepth; $i++) {
+                $notIn = [DB::raw('a1.right_system_id'), DB::raw('a1.left_system_id')];
+
+                for ($temp2 = 2; $temp2 < $i; $temp2++) {
+                    $notIn[] = DB::raw("a$temp2.right_system_id");
+                }
+
+                $query->whereNotIn("a$i.right_system_id", $notIn);
+            }
+
+            $query->orderBy('a1.left_system_id', 'desc');
+            $query->orderBy('a1.right_system_id', 'desc');
+
+            for ($i = 2; $i <= $searchDepth; $i++) {
+                $query->orderBy("a$i.right_system_id", 'desc');
+            }
+
+            $result = $query
+                ->distinct()
+                ->limit(1)
+                ->first();
+
+            if ($result) {
+                $this->startSystemId = $this->ship->system_id;
+                $path = [];
+                $result = get_object_vars($result);
+                foreach ($result as $key => $value) {
+                    if ($key === 'start') continue;
+                    $ord = explode('_', $key)[1];
+                    $path[$ord] = $value;
+                }
+                $this->waypoints = [$this->ship->system_id, ...array_values($path)];
+
+                // Identify gateways so that MapController
+                for ($n = 0; $n < count($this->waypoints); $n++) {
+                    $left = $this->waypoints[$n];
+                    $right = $this->waypoints[$n + 1] ?? null;
+                    if (is_null($right)) break;
+
+                    $hash = [$left, $right];
+                    sort($hash);
+
+                    $this->gateways[] = implode('-', $hash);
+                }
+                return true;
+            }
         }
-
-        $search_query = $search_query . "ORDER BY a1.link_start, a1.link_dest ";
-        for ($i=2; $i<=$search_depth; $i++)
-        {
-            $search_query = $search_query . ", a" . $i . ".link_dest";
-        }
-
-        $search_query = $search_query . " LIMIT 1";
-        //echo "$search_query\n\n";
-
-        $db->SetFetchMode(ADODB_FETCH_NUM);
-
-        $search_result = $db->Execute($search_query) or die("Invalid Query");
-        Bnt\Db::logDbErrors($db, $search_result, __LINE__, __FILE__);
-        $found = $search_result->RecordCount();
-        if ($found > 0)
-        {
-            break;
-        }
+        return false;
     }
 
-    if ($found > 0)
+    /**
+     * Load route from cache, returns false if no route was loaded.
+     * @return bool
+     */
+    public function load(): bool
     {
-        echo "<h3>" . $langvars['l_nav_pathfnd'] . "</h3>\n";
-        $links = $search_result->fields;
-        echo $links[0];
-        for ($i=1; $i<$search_depth + 1; $i++)
-        {
-            echo " >> " . $links[$i];
+        if ($found = Cache::get($this->cacheKey())) {
+            $this->startSystemId = $found['start_system_id'];
+            $this->waypoints = $found['waypoints'];
+            $this->gateways = $found['gateways'];
+            return true;
         }
 
-        $db->SetFetchMode(ADODB_FETCH_ASSOC);
-
-        echo "<br><br>";
-        echo $langvars['l_nav_answ1'] . " " . $search_depth . " " . $langvars['l_nav_answ2'] . "<br><br>";
+        return false;
     }
-    else
+
+    /**
+     * Persist route to cache
+     * @return void
+     */
+    public function save(): void
     {
-        echo $langvars['l_nav_proper'] . "<br><br>";
+        Cache::forever($this->cacheKey(), [
+            'start_system_id' => $this->startSystemId,
+            'waypoints' => $this->waypoints,
+            'gateways' => $this->gateways,
+        ]);
+    }
+
+    /**
+     * Clear cached route
+     * @return void
+     */
+    public function clear(): void
+    {
+        Cache::forget($this->cacheKey());
+    }
+
+    /**
+     * Returns true if the input System is within this warp route.
+     * @param int|System|null $system
+     * @return bool
+     */
+    public function contains (int|System|null $system = null): bool
+    {
+        if (is_null($system)) $system = $this->ship->system_id;
+        else if ($system instanceof System) $system = $system->id;
+
+        return in_array($system, $this->waypoints);
+    }
+
+    /**
+     * Returns count of remaining jumps from the current system to the destination.
+     * @param int|System|null $system
+     * @return int
+     */
+    public function remaining(int|System|null $system = null): int
+    {
+        if (is_null($system)) $system = $this->ship->system_id;
+        else if ($system instanceof System) $system = $system->id;
+
+        $key = array_search($system, $this->waypoints);
+        if ($key === false) return 0;
+
+        return count($this->waypoints) - ($key + 1);
+    }
+
+    /**
+     * Returns id of the next system in the route.
+     * @param int|System|null $system
+     * @return int|null
+     */
+    public function next(int|System|null $system = null): ?int
+    {
+        if (is_null($system)) $system = $this->ship->system_id;
+        else if ($system instanceof System) $system = $system->id;
+
+        $key = array_search($system, $this->waypoints);
+        if ($key === false) return null;
+
+        return $this->waypoints[$key+1] ?? null;
+    }
+
+
+    /**
+     * Key for storing warp route in cache.
+     * @return string
+     */
+    private function cacheKey(): string
+    {
+        return $this->ship->id . '_navicom_warp_route';
     }
 }
-
-$db->SetFetchMode(ADODB_FETCH_ASSOC);
-
-Bnt\Text::gotoMain($db, $lang, $langvars);
-Bnt\Footer::display($pdo_db, $lang, $bntreg, $template);
-?>

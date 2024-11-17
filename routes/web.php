@@ -171,9 +171,33 @@ Route::get('/map', function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::group(['prefix' => 'navicom'], function () {
+        Route::get('/', [NaviComController::class, 'system'])
+            ->middleware(['is-in-space'])
+            ->name('navicom');
+
+        Route::patch('set-view-mode', [NaviComController::class, 'setViewMode'])
+            ->name('navicom.set-view-mode');
+
+        Route::get('system/{system}', [NaviComController::class, 'system'])
+            ->name('navicom.system');
+
+        Route::get('planet/{planet}', [NaviComController::class, 'planet'])
+            ->name('navicom.planet');
+    });
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('sector-map/plan-route/{system}', [MapController::class, 'planRoute'])
+        ->name('navicom.plan-route');
+
+    Route::get('sector-map/clear-planned-route', [MapController::class, 'clearRoute'])
+        ->name('navicom.clear-planned-route');
+
+    Route::get('sector-map/autopilot-planned-route', [MapController::class, 'runRoute'])
+        ->name('navicom.autopilot-planned-route');
 
     Route::get('sector-map/{sector?}', [MapController::class, 'sector'])
         ->name('sector-map');

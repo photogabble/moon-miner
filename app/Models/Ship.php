@@ -29,8 +29,6 @@ use Exception;
 use App\Types\Value;
 use App\Helpers\CalcLevels;
 use App\Types\MovementMode;
-use App\Models\MovementLog;
-use App\Types\EncounterType;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,7 +36,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * This User class has been refactored from the legacy
  * classes/Ship.php file.
- *
+ * @property int $id
  * @property bool $trade_colonists
  * @property bool $trade_fighters
  * @property bool $trade_torps

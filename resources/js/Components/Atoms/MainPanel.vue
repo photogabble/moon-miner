@@ -47,6 +47,9 @@ const hasIslands = computed(() => {
         <div v-if="slots['top-right']" class="p-2 text-sm top-0 right-0 absolute z-20">
             <slot name="top-right"/>
         </div>
+        <div v-if="slots['bottom-left']" class="p-2 text-sm bottom-0 left-0 absolute z-20">
+            <slot name="bottom-left"/>
+        </div>
         <slot/>
     </div>
 </template>

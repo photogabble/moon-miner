@@ -33,12 +33,13 @@ import System from "@/SectorMap/System";
 import type {SectorMapPageProps} from "@/types/sector-map";
 import type {SectorMapSystemResource} from "@/types/resources/sector";
 import SectorMapActionList from "@/Components/Organisms/SectorMapActionList.vue";
+import FilledTextLink from "@/Components/Atoms/Button/FilledTextLink.vue";
 
 const dragging = ref(false);
 const hovering = ref<SectorMapSystemResource|undefined>(undefined);
 const activeSystem = ref<SectorMapSystemResource|undefined>(undefined);
 const map = ref<HTMLCanvasElement>();
-const {stats, sector, systems, links, usable_links} = usePage<SectorMapPageProps>().props;
+const {stats, sector, systems, links, autopilot} = usePage<SectorMapPageProps>().props;
 
 const mouseMode = computed(() => {
     if (hovering.value !== undefined) return 'hovering';
@@ -224,10 +225,21 @@ onMounted(() => {
                 {{ stats.known }} ({{ stats.discovery_percentage }}%)
                 <span class="text-white"></span>
             </template>
+            <template v-if="autopilot" #bottom-left class="text-sm">
+                <nav class="space-x-1 mb-1">
+                    <filled-text-link :href="route('navicom.autopilot-planned-route')" :disabled="!autopilot.on_route">[Jump]</filled-text-link>
+                    <filled-text-link :href="route('navicom.clear-planned-route')" active>[Clear]</filled-text-link>
+                </nav>
+                <span class="text-white">Route: </span>
+                <ul class="inline-flex">
+                    <li v-for="(item, idx) of autopilot.path">
+                        {{ item }}<span v-if="idx !== autopilot.path.length - 1" class="mx-2">→</span>
+                    </li>
+                </ul>
+            </template>
 
             <sector-map-action-list
                 v-if="activeSystem"
-                :usableLinks="usable_links"
                 :system="activeSystem"
             />
 

@@ -23,7 +23,10 @@ export default class WarpLink implements DrawableObj {
 
         ctx.lineWidth = 2;
 
-        if (this.resource.is_internal && this.resource.has_visited) {
+        if (this.resource.is_route) {
+            ctx.setLineDash([]);
+            ctx.strokeStyle = '#ffcd4b';
+        } else if (this.resource.is_internal && this.resource.has_visited) {
             ctx.setLineDash([]);
             ctx.strokeStyle = '#fc8437';
         } else if (this.resource.is_internal) {

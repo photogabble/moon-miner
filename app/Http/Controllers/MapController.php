@@ -29,10 +29,13 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\System;
 use App\Models\Sector;
-use App\Models\Waypoint;
 use App\Types\WaypointType;
+use Illuminate\Http\Request;
 use App\Models\Waypoints\WarpGate;
 use Illuminate\Support\Collection;
+use App\Actions\Movement\WarpJump;
+use App\Actions\Movement\WarpRoute;
+use Illuminate\Http\RedirectResponse;
 
 class MapController extends Controller
 {
@@ -105,12 +108,54 @@ class MapController extends Controller
                 return $carry;
             }, []);
 
+        $autopilot = null;
+        $route = new WarpRoute($this->user->ship);
+        if ($route->load()) {
+
+            $systems = System::query()
+                ->whereIn('id', $route->waypoints)
+                ->get()
+                ->reduce(function(array $carry, System $system) {
+                    $carry[$system->id] = $system;
+                    return $carry;
+                }, []);
+
+            $path = [];
+            for ($i = 0; $i < count($route->waypoints); $i++) {
+                /** @var System $system */
+                $system = $systems[$route->waypoints[$i]];
+
+                if ($system->id === $this->user->ship->system_id) {
+                    $label = "[$system->name]";
+                } else {
+                    $label = $system->name;
+                }
+
+                if ($previous = $route->waypoints[$i - 1] ?? null) {
+                    $previous = $systems[$previous];
+                    if ($system->sector_id !== $previous->sector_id) {
+                        $label .= " ($system->sector_id)";
+                    }
+                }
+
+                $path[] = $label;
+            }
+
+            $autopilot = [
+                'on_route' => $route->contains(),
+                'remaining_systems' => $route->remaining(),
+                'next_system_id' => $route->next(),
+                'path' => $path,
+            ];
+        }
+
         return Inertia::render('NaviCom/SectorMap', [
             'stats' => [
                 'visited' => $visited,
                 'known' => $known,
                 'discovery_percentage' => $discoveredPercentage,
             ],
+            'autopilot' => $autopilot,
             'sector' => $sector,
             'systems' => $externalSystems
                 ->merge($sector->systems)
@@ -118,8 +163,7 @@ class MapController extends Controller
                     $actions = [
                         [
                             'title' => 'Info',
-                            'method' => 'get',
-                            'href' => route('navicom.system', $system->id),
+                            'href' => route('navicom.system', $system),
                         ]
                     ];
                     if (isset($navigableSystems[$system->id])) {
@@ -134,8 +178,14 @@ class MapController extends Controller
                     } else if ($system->id !== $this->user->ship->system_id) {
                         $actions[] = [
                             'title' => 'Plot Course',
-                            'method' => 'post',
-                            'href' => '#',
+                            'href' => route('navicom.plan-route', $system),
+                        ];
+                    }
+
+                    if ($system->sector_id !== $this->user->ship->system->sector_id) {
+                        $actions[] = [
+                            'title' => 'View Sector',
+                            'href' => route('sector-map', $system->sector_id),
                         ];
                     }
 
@@ -159,7 +209,7 @@ class MapController extends Controller
                     // Only provide links for systems the player is aware of
                     return in_array($system->id, $systemsPlayerIsAwareOf);
                 })
-                ->reduce(function (Collection $links, System $system) use ($systemsInSector, $sectorPosition, $visitedSystems) {
+                ->reduce(function (Collection $links, System $system) use ($systemsInSector, $sectorPosition, $visitedSystems, $route) {
                     /** @var WarpGate $waypoint */
                     foreach ($system->waypointsOfType(WaypointType::WarpGate) as $waypoint) {
                         if (!$waypoint->properties->destination_system_id) continue;
@@ -178,6 +228,7 @@ class MapController extends Controller
                             'from' => $system->position()->subtract($sectorPosition),
                             'to' => $destination->position()->subtract($sectorPosition),
                             'is_internal' => in_array($waypoint->properties->destination_system_id, $systemsInSector),
+                            'is_route' => in_array($hash, $route->gateways),
                             'has_visited' => isset($visitedSystems[$system->id]) || isset($visitedSystems[$destination->id]),
                         ];
                     }
@@ -185,5 +236,43 @@ class MapController extends Controller
                     return $links;
                 }, new Collection())->values(),
         ]);
+    }
+
+    /**
+     * GET: /sector-map/plot-course/{system:id}
+     *
+     * This is a refactoring of navcomp.php from BNT, it plots a course between the players current system and
+     * destination. The length of route that can be planned depends upon ship computer level, in a future
+     * expansion this will be defined by the kind of navigation computer installed into the players ship; or
+     * potentially their personal cartography level if I go down the route of EVE Online type skills system.
+     *
+     * @param System $system
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function planRoute(System $system, Request $request): RedirectResponse
+    {
+        $router = new WarpRoute($this->user->ship);
+        if ($router->calculateTo($system)) $router->save();
+
+        return redirect()->back();
+    }
+
+    public function clearRoute(): RedirectResponse
+    {
+        $router = new WarpRoute($this->user->ship);
+        $router->clear();
+
+        return redirect()->back();
+    }
+
+    public function runRoute(): RedirectResponse
+    {
+        $router = new WarpRoute($this->user->ship);
+        if (!$router->load()) return redirect()->back(); // TODO with warning
+
+        dd($router->next());
+
+        return redirect()->back();
     }
 }
