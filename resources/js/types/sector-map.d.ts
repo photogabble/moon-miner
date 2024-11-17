@@ -5,8 +5,10 @@ import type {SectorMapLinkResource, SectorMapSystemResource} from "@/types/resou
 
 export interface AutoPilotResource {
     on_route: boolean,
+    is_complete: boolean, // Will be true if the player is at the destination already
     remaining_systems: number,
     next_system_id: number|null,
+    destination_system_id: number,
     system_ids: Array<number>,
     path: Array<string>,
 }

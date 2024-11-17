@@ -25,9 +25,11 @@
 
 namespace App\Actions\Movement;
 
+use Exception;
 use App\Models\Ship;
 use App\Models\System;
 use App\Types\WaypointType;
+use App\Models\MovementLog;
 use Illuminate\Support\Facades\DB;
 use App\Models\Waypoints\WarpGate;
 use Illuminate\Support\Facades\Cache;
@@ -59,6 +61,8 @@ class WarpRoute
     public array $warpGateIds = [];
 
     public int $startSystemId;
+
+    public int $destinationSystemId;
 
     private int $maxSearchDepth;
 
@@ -151,6 +155,7 @@ class WarpRoute
 
             if ($result) {
                 $this->startSystemId = $this->ship->system_id;
+                $this->destinationSystemId = $system->id;
                 $path = [];
                 $result = get_object_vars($result);
                 foreach ($result as $key => $value) {
@@ -160,7 +165,6 @@ class WarpRoute
                 }
 
                 $this->systemIds = [$this->ship->system_id, ...array_values($path)];
-
 
                 /**
                  * Reduce gateways down to a nested map that can be quickly looked up to
@@ -211,6 +215,7 @@ class WarpRoute
     {
         if ($found = Cache::get($this->cacheKey())) {
             $this->startSystemId = $found['start_system_id'];
+            $this->destinationSystemId = $found['destination_system_id'];
             $this->systemIds = $found['system_ids'];
             $this->linkHashes = $found['link_hashes'];
             $this->warpGateIds = $found['warp_gate_ids'];
@@ -229,6 +234,7 @@ class WarpRoute
     {
         Cache::forever($this->cacheKey(), [
             'start_system_id' => $this->startSystemId,
+            'destination_system_id' => $this->destinationSystemId,
             'system_ids' => $this->systemIds,
             'link_hashes' => $this->linkHashes,
             'warp_gate_ids' => $this->warpGateIds,
@@ -287,6 +293,52 @@ class WarpRoute
         if ($key === false) return null;
 
         return $this->systemIds[$key+1] ?? null;
+    }
+
+    /**
+     * Apply the planned route, if all goes well the player will end up at their destination. This makes use of the WarpJump
+     * action and will allow any navigation exceptions to pass through e.g mines hit or fighters encountered.
+     *
+     * @return array<MovementLog>
+     * @throws Exception
+     */
+    public function apply(): array
+    {
+        if (!$this->contains()) throw new Exception('Unable to apply planned route, you are not in a system on route.');
+
+        if ($this->ship->system_id == $this->systemIds[count($this->systemIds) - 1]) {
+            // Can't apply a route if already at destination. Clear and return.
+            $this->clear();
+            return [];
+        }
+
+        // What is the system we are going to jump to next?
+        $startSystem = $this->next();
+
+        $warpGates = WarpGate::query()
+            ->whereIn('id', $this->warpGateIds)
+            ->get()
+            ->reduce(function(array $carry, WarpGate $warpGate) {
+                $carry[$warpGate->id] = $warpGate;
+                return $carry;
+            }, []);
+
+        // The player could have manually jumped through some of the route, we need just the WarpGate ids for what
+        // is remaining to be jumped through.
+        $idx = array_search($startSystem, $this->systemIds) - 1;
+        $log = [];
+        for ($i = $idx; $i < count($this->warpGateIds); $i++) {
+            $action = new WarpJump($this->ship);
+            // TODO: catch navigation exception from jump and pass back to front end as a report showing systems
+            //       successfully navigated through up untl that point and the reason for failure.
+            $log[] = $action->jump($warpGates[$this->warpGateIds[$i]]);
+            $this->ship->refresh();
+        }
+
+        // If WarpJump::jump hasn't thrown a navigation exception the route is complete and can be cleared
+        $this->clear();
+
+        return $log;
     }
 
     /**

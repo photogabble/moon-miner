@@ -32,7 +32,7 @@ use App\Types\MovementMode;
 use App\Models\Waypoints\WarpGate;
 
 class WarpJump {
-    public function __construct(private Ship $ship) {}
+    public function __construct(private readonly Ship $ship) {}
 
     public function jump(WarpGate $gate): MovementLog
     {

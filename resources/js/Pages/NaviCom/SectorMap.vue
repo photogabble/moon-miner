@@ -227,7 +227,7 @@ onMounted(() => {
             </template>
             <template v-if="autopilot" #bottom-left class="text-sm">
                 <nav class="space-x-1 mb-1">
-                    <filled-text-link :href="route('navicom.autopilot-planned-route')" :disabled="!autopilot.on_route">[Jump]</filled-text-link>
+                    <filled-text-link :href="route('navicom.autopilot-planned-route')" :disabled="!autopilot.on_route || autopilot.is_complete">[Jump]</filled-text-link>
                     <filled-text-link :href="route('navicom.clear-planned-route')" active>[Clear]</filled-text-link>
                 </nav>
                 <span class="text-white">Route: </span>

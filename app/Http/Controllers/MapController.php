@@ -145,6 +145,8 @@ class MapController extends Controller
                 'on_route' => $route->contains(),
                 'remaining_systems' => $route->remaining(),
                 'next_system_id' => $route->next(),
+                'destination_system_id' => $route->destinationSystemId,
+                'is_complete' => $route->destinationSystemId === $this->user->ship->system_id,
                 'path' => $path,
             ];
         }
@@ -271,9 +273,7 @@ class MapController extends Controller
         $router = new WarpRoute($this->user->ship);
         if (!$router->load()) return redirect()->back(); // TODO with warning
 
-        // Obtain systems from WarpRoute and identify the gates needed
-
-        dd($router);
+        $router->apply();
 
         // Store navigation report and redirect back
         return redirect()->back();
