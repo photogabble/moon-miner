@@ -211,6 +211,9 @@ class Ship extends Model
      */
     public function moveTo(int $systemId, MovementMode $mode): MovementLog
     {
+        $this->system_id = $systemId;
+        $this->save();
+
         return MovementLog::writeLog($this->owner_id, $systemId, $mode);
     }
 

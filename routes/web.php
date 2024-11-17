@@ -235,8 +235,7 @@ Route::post('debug/randomise-system', function(Request $request) {
         ->whereNotIn('type', [Star::class, WarpGate::class])
         ->first();
 
-    $user->ship->system_id = $waypoint->system_id;
-    $user->ship->save();
+    $user->ship->moveTo($waypoint->system_id, \App\Types\MovementMode::Spawn);
 
     return redirect()->back();
 })->name('debug.randomise-system');
