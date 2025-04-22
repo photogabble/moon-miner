@@ -47,15 +47,6 @@ Route::middleware('guest')->get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function (\Illuminate\Http\Request $request) {
-    /** @var \App\Models\User $user */
-    $user = $request->user();
-    $user->load(['ship', 'currentEncounter']);
-
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-
 Route::get('/explore', function () {
     return Inertia::render('Explore');
 })->name('explore');
