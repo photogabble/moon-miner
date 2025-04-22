@@ -25,14 +25,26 @@
 
 namespace App\View\Components;
 
+use App\Models\User;
 use Illuminate\View\Component;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class AppLayout extends Component
 {
     public function render(): View
     {
-        // TODO: load turns available, turns used, credits, score, etc if logged in
-        return view('layouts.app');
+        /** @var User $user */
+        if ($user = Auth::user()) {
+            $data = [
+                'turnsAvailable' => $user->turns,
+                'turnsUsed' => $user->turns_used,
+                'score' => $user->score,
+                'credits' => $user->wallet()->balance,
+                'encounter' => $user->currentEncounter()->first(),
+            ];
+        }
+
+        return view('layouts.app', $data ?? []);
     }
 }
