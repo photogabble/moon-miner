@@ -27,7 +27,7 @@
             </th>
             <th class="p-1 text-left text-white">
                 <x-table.column-sort-link :href="route('ranking', ['sort_players_by' => 'login', 'sort_players_direction' => $sortingBy === 'login' ? $direction->opposite() : $direction])" :is-sorting="$sortingBy === 'login'" :direction="$direction" >
-                    Last Login
+                    Last Active
                 </x-table.column-sort-link>
             </th>
             <th class="p-1 text-left text-white">
@@ -50,7 +50,7 @@
                        {{ $player->type !== \App\Types\UserType::NPC ? $player->insignia() : '' }} {{ $player->name }} <x-user-ban-status :user="$player" />
                    </td>
                    <td class="p-1">{{ $player->turns_used }}</td>
-                   <td class="p-1">{{ $player->last_login ?? 'never' }}</td>
+                   <td class="p-1">{{ $player->lastActive() }}</td>
                    <td class="p-1 {{ $player->rating < 0 ? 'text-red-600' : 'text-green-600' }}">{{ $player->rating }}</td>
                    <td class="p-1">{{ $player->efficiency }}</td>
                </tr>
