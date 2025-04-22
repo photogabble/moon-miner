@@ -212,7 +212,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::post('debug/spawn-encounter', function(Request $request) {
+Route::post('debug/spawn-encounter', function (Request $request) {
     $encounter = new Dialogue([
         'state' => [
             'title' => 'New Spawn ' . App\Models\Encounter::count(),
@@ -240,11 +240,11 @@ Route::post('debug/randomise-system', function(Request $request) {
     return redirect()->back();
 })->name('debug.randomise-system');
 
-Route::post('encounter/{encounter}/{action}', function (Encounter $encounter, string $action){
+Route::post('encounter/{encounter}/{action}', function (Encounter $encounter, string $action) {
     $encounter->do($action);
     return redirect()->back();
 })->name('encounter.execute');
 
 Route::get('ranking', [\App\Http\Controllers\RankingController::class, 'index'])->name('ranking');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
