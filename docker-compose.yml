@@ -1,0 +1,58 @@
+services:
+    web:
+        image: bnt-php
+        container_name: bnt-www
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/var/www/html
+        networks:
+            - app-network
+        environment:
+            APP_ENV: local
+            CONTAINER_ROLE: app
+    node:
+        image: bnt-node
+        container_name: bnt-inertia-ssr
+        build:
+            context: .
+            dockerfile: Dockerfile-node
+        ports:
+            - "5173:5173"
+        volumes:
+            - .:/var/www/html
+        networks:
+            - app-network
+        environment:
+            APP_ENV: local
+            CONTAINER_ROLE: ssr
+    scheduler:
+        image: bnt-php
+        container_name: bnt-scheduler
+        depends_on:
+            - web
+        volumes:
+            - .:/var/www/html
+        networks:
+            - app-network
+        environment:
+            APP_ENV: local
+            CONTAINER_ROLE: scheduler
+    queue:
+        image: bnt-php
+        container_name: bnt-queue
+        depends_on:
+            - web
+        volumes:
+            - .:/var/www/html
+        networks:
+            - app-network
+        environment:
+            APP_ENV: local
+            CONTAINER_ROLE: queue
+networks:
+    app-network:
+        driver: bridge
