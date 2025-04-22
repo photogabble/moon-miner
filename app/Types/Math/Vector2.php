@@ -23,28 +23,17 @@
  *
  */
 
-namespace App\View\Components;
+namespace App\Types\Math;
 
-use App\Models\User;
-use Illuminate\View\Component;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Auth;
+class Vector2 {
+    public function __construct(public int|float $x, public int|float $y) {}
 
-class AppLayout extends Component
-{
-    public function render(): View
+    /**
+     * Length/magnitude of vector
+     * @return float
+     */
+    public function length(): float
     {
-        /** @var User $user */
-        if ($user = Auth::user()) {
-            $data = [
-                'turnsAvailable' => $user->turns,
-                'turnsUsed' => $user->turns_used,
-                'score' => $user->score,
-                'credits' => $user->wallet()->balance,
-                'encounter' => $user->currentEncounter()->first(),
-            ];
-        }
-
-        return view('layouts.app', $data ?? []);
+        return sqrt(pow($this->x, 2) + pow($this->y, 2));
     }
 }

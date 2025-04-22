@@ -23,20 +23,8 @@
  *
  */
 
-namespace App\Providers;
+namespace App\Types\Math;
 
-use Illuminate\Support\Facades\Broadcast;
-use Illuminate\Support\ServiceProvider;
-
-class BroadcastServiceProvider extends ServiceProvider
-{
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        Broadcast::routes();
-
-        require base_path('routes/channels.php');
-    }
+class Vector4 {
+    public function __construct(public int|float $x, public int|float $y, public int|float $z, public int|float $w) {}
 }

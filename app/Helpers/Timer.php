@@ -33,17 +33,19 @@ class Timer
     public function start(): void
     {
         $this->startTime = microtime(true);
-        if (!$this->initTime) $this->initTime = microtime(true);
+        if (is_null($this->initTime)) $this->initTime = microtime(true);
     }
 
     public function sample(): float
     {
-        return round(microtime(true) - $this->startTime, 4);
+        $value = round(microtime(true) - $this->startTime, 4);
+        $this->startTime = microtime(true);
+        return $value;
     }
 
     public function stop(): float
     {
-        $elapsedSeconds = microtime(true) - $this->initTime;
+        $elapsedSeconds = round(microtime(true) - $this->initTime, 4);
         $this->initTime = null;
 
         return $elapsedSeconds;

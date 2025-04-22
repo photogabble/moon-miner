@@ -226,7 +226,85 @@ Route::post('debug/spawn-encounter', function (Request $request) {
     return redirect()->back();
 })->name('debug.spawn-encounter');
 
-Route::post('debug/randomise-system', function(Request $request) {
+Route::get('debug/p', function () {
+    $size = 512;
+    $hSize = $size / 2;
+
+    $im = new Imagick();
+    $im->newImage($size, $size, 'black');
+
+    $pixel = new Vector3(0,0,0);
+    $buffer = array_fill(0, $size * $size * 3, 0);
+
+    $i = 0;
+    for ($x = 0; $x < $size; $x++) {
+        for($y = 0; $y < $size; $y++) {
+            $xx = ($x - $hSize) / $hSize;
+            $yy = ($y - $hSize) / $hSize;
+
+            drawSphere($xx, $yy, 2, $pixel);
+
+            $buffer[$i++] = $pixel->x;
+            $buffer[$i++] = $pixel->y;
+            $buffer[$i++] = $pixel->z;
+
+//            imagesetpixel($image, $x, $y, imagecolorallocate($image, $pixel->x, $pixel->y, $pixel->z));
+        }
+    }
+
+    $im->importImagePixels(0, 0, $size, $size, "RGB", Imagick::PIXEL_INTEGER, $buffer);
+
+//    $radius = 100;
+//    $atmosphereAmount = $radius * 0.05;
+//    $atmosphereRadius = $radius + $atmosphereAmount;
+//
+//    for ($y = -500; $y < 500; $y++) {
+//        for ($x = -500; $x < 500; $x++) {
+//
+//            $pixelCoords = new Vector2($x, $y);
+//            $d = $pixelCoords->length() - $radius;
+//            if ($d <= 0.0) {
+//                // Inside circle
+//                imagesetpixel($image, 250 + $pixelCoords->x, 250+ $pixelCoords->y, $white);
+//            }
+//
+//            if ($d < $atmosphereAmount + 24.0 && $d >= -1.0) {
+//                $normal = new Vector2($pixelCoords->x / $atmosphereRadius, $pixelCoords->y / $atmosphereRadius);
+//                imagesetpixel($image, 250 + $normal->x, 250 + $normal->y, $red);
+//            }
+//        }
+//    }
+
+    // Draw a single line (vertex?) in the middle of the canvas, for each position shade the pixel
+    // using a "shader"
+//    $vertex = new Vector2(50, 250);
+//    $color = new Vector3(255,0,0);
+//
+//    for ($x = 0; $x < 400; $x++) {
+//        $colorShift = cos($x / 100);
+//
+//        // vec4(clamp(color - colorShift, 0.0, 1.0), 1.0);
+//
+//        $color->x = clamp($color->x - $colorShift, 0, 255);
+//        $color->y = clamp($color->y - $colorShift, 0, 255);
+//        $color->z = clamp($color->z - $colorShift, 0, 255);
+//
+//        imagesetpixel($image, $vertex->x, $vertex->y, imagecolorallocate($image, $color->x, $color->y, $color->z));
+//        $vertex->x++;
+//    }
+
+    ob_start();
+
+    $im->setImageFormat('jpg');
+    echo $im;
+
+    $buffer = ob_get_contents();
+    ob_end_clean();
+
+    return response($buffer, 200)->header('Content-type', 'image/png');
+});
+
+Route::post('debug/randomise-system', function (Request $request) {
     /** @var User $user */
     $user = $request->user();
 

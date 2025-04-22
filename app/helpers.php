@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 /**
  * Moon Miner, a Free & Opensource (FOSS), web-based 4X space/strategy game forked
  * and based upon Black Nova Traders.
@@ -140,4 +141,29 @@ function polar_to_name(float $angle, float $distance): string
     }
 
     return $ident;
+}
+
+
+function inverseLerp(float $v, float $minValue, float $maxValue): float
+{
+    return ($v - $minValue) / ($maxValue - $minValue);
+}
+
+function lerp(float $min, float $max, float $t): float
+{
+    return $min + $t * ($max - $min);
+}
+
+function clamp(float|int $t, float|int $min, float|int $max): float {
+    return max($min, min($max, $t));
+}
+
+function remap(float $v, float $inMin, float $inMax, float $outMin, float $outMax): float {
+    $t = inverseLerp($v, $inMin, $inMax);
+    return lerp($outMin, $outMax, $t);
+}
+
+function smoothStep(float $edge0, float $edge1, float $x): float {
+    $t = clamp(($x - $edge0) / ($edge1 - $edge0), 0.0, 1.0);
+	return $t * $t * (3.0 - 2.0 * $t);
 }
