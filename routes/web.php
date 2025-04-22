@@ -29,8 +29,16 @@ use App\Models\Sector;
 use App\Models\System;
 use App\Models\Waypoint;
 use App\Models\Encounter;
+use App\Types\Math\Vector2;
+use App\Types\Math\Vector3;
+use App\Types\Math\Vector4;
 use Illuminate\Http\Request;
 use App\Models\Waypoints\Star;
+use App\Models\Waypoints\WarpGate;
+use App\Models\Encounters\Dialogue;
+use App\Http\Controllers\MapController;
+use App\Http\Controllers\ShipController;
+use App\Http\Controllers\PlanetController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -88,7 +96,7 @@ Route::get('/map', function () {
 
         $travelledLinkIds[] = $current['id'];
 
-        if ($current['jumps'] - 1 <=0) continue;
+        if ($current['jumps'] - 1 <= 0) continue;
 
         foreach ($current['system']->links as $link) {
             $linkQueue[] = [
@@ -113,8 +121,8 @@ Route::get('/map', function () {
     }
 
     // Draw (x,y) mid-point
-    imageline($image, 0, $size/2, $size, $size/2, $red);
-    imageline($image, $size/2, 0, $size/2, $size, $red);
+    imageline($image, 0, $size / 2, $size, $size / 2, $red);
+    imageline($image, $size / 2, 0, $size / 2, $size, $red);
 
     $origin = setting('game.map_size') / 2;
 
@@ -201,6 +209,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/land-on/{planet}', [ShipController::class, 'landOn'])->name('ship.land-on.planet');
         Route::post('/dock-with/{port}', [ShipController::class, 'dockWith'])->name('ship.dock-with.port');
     });
+
+    Route::get('planet', [PlanetController::class, 'dashboard'])
+        ->middleware(['is-on-planet'])
+        ->name('planet.dashboard');
+
+    Route::get('planet/{planet}', [PlanetController::class, 'show'])
+        ->name('planet.show');
 });
 
 Route::post('debug/spawn-encounter', function (Request $request) {
