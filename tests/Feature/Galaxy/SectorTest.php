@@ -2,17 +2,12 @@
 
 namespace Tests\Feature\Galaxy;
 
-use App\Models\System;
+use Tests\TestCase;
 use App\Models\Sector;
-use App\Types\WaypointType;
 use App\Types\Geometry\Point;
-use App\Models\Waypoints\Star;
-use App\Types\SpectralType;
-use App\Models\Waypoints\WarpGate;
-use Database\Seeders\SectorSeeder;
+use App\Installer\SectorSeeder;
 use App\Types\Geometry\PolarPoint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class SectorTest extends TestCase
 {
