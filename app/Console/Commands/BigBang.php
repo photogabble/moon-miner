@@ -96,7 +96,6 @@ class BigBang extends Command
                 $this->components->task($stage, fn() => (new $stage(new Timer, $logger))->execute($this->output, $this->installConfig));
             } catch (Throwable $exception) {
                 $this->error($exception->getMessage());
-                $this->call('migrate:reset');
                 return 1;
             }
         }
