@@ -46,6 +46,7 @@ class Properties implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
+        if (is_null($value)) return new $this->castsTo();
 
         $data = json_decode($value, true);
         $properties = (json_last_error() === JSON_ERROR_NONE)
