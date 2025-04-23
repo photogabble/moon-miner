@@ -27,7 +27,7 @@ namespace App\Casts;
 
 use App\Models\Properties\PortProperties as PortPropertiesModel;
 
-class PortProperties extends Properties
+final class PortProperties extends Properties
 {
     protected string $castsTo = PortPropertiesModel::class;
 }

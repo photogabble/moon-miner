@@ -27,7 +27,7 @@ namespace App\Casts;
 
 use App\Models\Properties\WarpGateProperties as WarpGatePropertiesModel;
 
-class WarpGateProperties extends Properties
+final class WarpGateProperties extends Properties
 {
     protected string $castsTo = WarpGatePropertiesModel::class;
 }

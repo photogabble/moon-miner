@@ -27,7 +27,7 @@ namespace App\Casts;
 
 use App\Models\Properties\CelestialProperties as CelestialPropertiesModel;
 
-class CelestialProperties extends Properties
+final class CelestialProperties extends Properties
 {
     protected string $castsTo = CelestialPropertiesModel::class;
 }

@@ -29,7 +29,7 @@ use App\Models\Properties\ModelProperties;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use InvalidArgumentException;
 
-class Properties implements CastsAttributes
+abstract class Properties implements CastsAttributes
 {
     protected string $castsTo;
 

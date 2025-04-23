@@ -27,7 +27,7 @@ namespace App\Casts;
 
 use App\Models\Properties\UserSettings as UserSettingsModel;
 
-class UserSettings extends Properties
+final class UserSettings extends Properties
 {
     protected string $castsTo = UserSettingsModel::class;
 }
